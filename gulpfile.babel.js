@@ -40,13 +40,13 @@ const paths = {
     },
     server: {
         scripts: [
-          `${serverPath}/**/!(*.spec|*.integration).js`,
-          `!${serverPath}/config/local.env.sample.js`
+            `${serverPath}/**/!(*.spec|*.integration).js`,
+            `!${serverPath}/config/local.env.sample.js`
         ],
         json: [`${serverPath}/**/*.json`],
         test: {
-          integration: [`${serverPath}/**/*.integration.js`, 'mocha.global.js'],
-          unit: [`${serverPath}/**/*.spec.js`, 'mocha.global.js']
+            integration: [`${serverPath}/**/*.integration.js`, 'mocha.global.js'],
+            unit: [`${serverPath}/**/*.spec.js`, 'mocha.global.js']
         }
     },
     karma: 'karma.conf.js',
@@ -78,14 +78,14 @@ function checkAppReady(cb) {
 function whenServerReady(cb) {
     var serverReady = false;
     var appReadyInterval = setInterval(() =>
-        checkAppReady((ready) => {
-            if (!ready || serverReady) {
-                return;
-            }
-            clearInterval(appReadyInterval);
-            serverReady = true;
-            cb();
-        }),
+            checkAppReady((ready) => {
+                if (!ready || serverReady) {
+                    return;
+                }
+                clearInterval(appReadyInterval);
+                serverReady = true;
+                cb();
+            }),
         100);
 }
 
@@ -167,7 +167,7 @@ let istanbul = lazypipe()
             }
         },
         coverageDirectory: './coverage',
-        rootDirectory : ''
+        rootDirectory: ''
     });
 
 /********************
@@ -293,9 +293,9 @@ gulp.task('lint:scripts:serverTest', () => {
 });
 
 gulp.task('jscs', () => {
-  return gulp.src(_.union(paths.client.scripts, paths.server.scripts))
-      .pipe(plugins.jscs())
-      .pipe(plugins.jscs.reporter());
+    return gulp.src(_.union(paths.client.scripts, paths.server.scripts))
+        .pipe(plugins.jscs())
+        .pipe(plugins.jscs.reporter());
 });
 
 gulp.task('clean:tmp', () => del(['.tmp/**/*'], {dot: true}));
@@ -328,7 +328,7 @@ gulp.task('start:inspector', () => {
 
 gulp.task('start:server:debug', () => {
     process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-        config = require(`./${serverPath}/config/environment`);
+    config = require(`./${serverPath}/config/environment`);
     nodemon(`-w ${serverPath} --debug-brk ${serverPath}`)
         .on('log', onServerLog);
 });
@@ -422,8 +422,8 @@ gulp.task('mocha:integration', () => {
 
 gulp.task('test:client', ['wiredep:test', 'constant'], (done) => {
     new KarmaServer({
-      configFile: `${__dirname}/${paths.karma}`,
-      singleRun: true
+        configFile: `${__dirname}/${paths.karma}`,
+        singleRun: true
     }, done).start();
 });
 
@@ -501,52 +501,52 @@ gulp.task('build:client', ['styles', 'html', 'constant', 'build:images'], () => 
 
     return gulp.src(paths.client.mainView)
         .pipe(plugins.useref())
-            .pipe(appFilter)
-                .pipe(plugins.addSrc.append('.tmp/templates.js'))
-                .pipe(plugins.concat('app/app.js'))
-            .pipe(appFilter.restore)
-            .pipe(jsFilter)
-                .pipe(plugins.ngAnnotate())
-                .pipe(plugins.uglify())
-            .pipe(jsFilter.restore)
-            .pipe(cssFilter)
-                .pipe(plugins.cleanCss({
-                    processImportFrom: ['!fonts.googleapis.com']
-                }))
-            .pipe(cssFilter.restore)
-            .pipe(htmlBlock)
-                .pipe(plugins.rev())
-            .pipe(htmlBlock.restore)
+        .pipe(appFilter)
+        .pipe(plugins.addSrc.append('.tmp/templates.js'))
+        .pipe(plugins.concat('app/app.js'))
+        .pipe(appFilter.restore)
+        .pipe(jsFilter)
+        .pipe(plugins.ngAnnotate())
+        .pipe(plugins.uglify())
+        .pipe(jsFilter.restore)
+        .pipe(cssFilter)
+        .pipe(plugins.cleanCss({
+            processImportFrom: ['!fonts.googleapis.com']
+        }))
+        .pipe(cssFilter.restore)
+        .pipe(htmlBlock)
+        .pipe(plugins.rev())
+        .pipe(htmlBlock.restore)
         .pipe(plugins.revReplace({manifest}))
         .pipe(gulp.dest(`${paths.dist}/${clientPath}`));
 });
 
-gulp.task('html', function() {
+gulp.task('html', function () {
     return gulp.src(`.tmp/{app,components}/**/*.html`)
         .pipe(plugins.angularTemplatecache({
             module: 'metallistTicketsApp'
         }))
         .pipe(gulp.dest('.tmp'));
 });
-gulp.task('jade', function() {
-  gulp.src(paths.client.views)
-    .pipe(plugins.jade())
-    .pipe(gulp.dest('.tmp'));
+gulp.task('jade', function () {
+    gulp.src(paths.client.views)
+        .pipe(plugins.jade())
+        .pipe(gulp.dest('.tmp'));
 });
 
-gulp.task('constant', function() {
-  let sharedConfig = require(`./${serverPath}/config/environment/shared`);
-  return plugins.ngConstant({
-    name: 'metallistTicketsApp.constants',
-    deps: [],
-    wrap: true,
-    stream: true,
-    constants: { appConfig: sharedConfig }
-  })
-    .pipe(plugins.rename({
-      basename: 'app.constant'
-    }))
-    .pipe(gulp.dest(`${clientPath}/app/`))
+gulp.task('constant', function () {
+    let sharedConfig = require(`./${serverPath}/config/environment/shared`);
+    return plugins.ngConstant({
+        name: 'metallistTicketsApp.constants',
+        deps: [],
+        wrap: true,
+        stream: true,
+        constants: {appConfig: sharedConfig}
+    })
+        .pipe(plugins.rename({
+            basename: 'app.constant'
+        }))
+        .pipe(gulp.dest(`${clientPath}/app/`))
 });
 
 gulp.task('build:images', () => {
@@ -570,12 +570,12 @@ gulp.task('copy:extras', () => {
         `${clientPath}/favicon.ico`,
         `${clientPath}/robots.txt`,
         `${clientPath}/.htaccess`
-    ], { dot: true })
+    ], {dot: true})
         .pipe(gulp.dest(`${paths.dist}/${clientPath}`));
 });
 
 gulp.task('copy:fonts', () => {
-    return gulp.src(`${clientPath}/bower_components/{bootstrap,font-awesome}/fonts/**/*`, { dot: true })
+    return gulp.src(`${clientPath}/bower_components/{bootstrap,font-awesome}/fonts/**/*`, {dot: true})
         .pipe(gulp.dest(`${paths.dist}/${clientPath}/bower_components`));
 });
 
@@ -594,37 +594,37 @@ gulp.task('copy:server', () => {
 });
 
 gulp.task('coverage:pre', () => {
-  return gulp.src(paths.server.scripts)
+    return gulp.src(paths.server.scripts)
     // Covering files
-    .pipe(plugins.istanbul({
-        instrumenter: Instrumenter, // Use the isparta instrumenter (code coverage for ES6)
-        includeUntested: true
-    }))
-    // Force `require` to return covered files
-    .pipe(plugins.istanbul.hookRequire());
+        .pipe(plugins.istanbul({
+            instrumenter: Instrumenter, // Use the isparta instrumenter (code coverage for ES6)
+            includeUntested: true
+        }))
+        // Force `require` to return covered files
+        .pipe(plugins.istanbul.hookRequire());
 });
 
 gulp.task('coverage:unit', () => {
     return gulp.src(paths.server.test.unit)
         .pipe(mocha())
         .pipe(istanbul())
-        // Creating the reports after tests ran
+    // Creating the reports after tests ran
 });
 
 gulp.task('coverage:integration', () => {
     return gulp.src(paths.server.test.integration)
         .pipe(mocha())
         .pipe(istanbul())
-        // Creating the reports after tests ran
+    // Creating the reports after tests ran
 });
 
 gulp.task('mocha:coverage', cb => {
-  runSequence('coverage:pre',
-              'env:all',
-              'env:test',
-              'coverage:unit',
-              'coverage:integration',
-              cb);
+    runSequence('coverage:pre',
+        'env:all',
+        'env:test',
+        'coverage:unit',
+        'coverage:integration',
+        cb);
 });
 
 // Downloads the selenium webdriver
@@ -635,10 +635,10 @@ gulp.task('test:e2e', ['env:all', 'env:test', 'start:server', 'webdriver_update'
         .pipe(protractor({
             configFile: 'protractor.conf.js',
         })).on('error', err => {
-            console.log(err)
-        }).on('end', () => {
-            process.exit();
-        });
+        console.log(err)
+    }).on('end', () => {
+        process.exit();
+    });
 });
 
 /********************
@@ -671,17 +671,21 @@ grunt.initConfig({
 
 grunt.loadNpmTasks('grunt-build-control');
 
-gulp.task('buildcontrol:heroku', function(done) {
+gulp.task('buildcontrol:heroku', function (done) {
     grunt.tasks(
         ['buildcontrol:heroku'],    //you can add more grunt tasks in this array
         {gruntfile: false}, //don't look for a Gruntfile - there is none. :-)
-        function() {done();}
+        function () {
+            done();
+        }
     );
 });
-gulp.task('buildcontrol:openshift', function(done) {
+gulp.task('buildcontrol:openshift', function (done) {
     grunt.tasks(
         ['buildcontrol:openshift'],    //you can add more grunt tasks in this array
         {gruntfile: false}, //don't look for a Gruntfile - there is none. :-)
-        function() {done();}
+        function () {
+            done();
+        }
     );
 });
