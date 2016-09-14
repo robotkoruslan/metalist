@@ -1,0 +1,17 @@
+.container
+    .row
+        .col-sm-12
+            h1 Buy tickets
+        .col-sm-12
+            h3 Available Seats
+            .col-sm-8.seats
+                .seat.col-sm-12(ng-repeat='seat in buy.seats')
+                    .col-sm-6
+                        | {{ seat.text }}
+                    .col-sm-2
+                        label(class="label label-{{ seat.available ? 'success' : 'danger' }}")
+                            | {{ seat.available ? 'Yes' : 'No' }}
+                    .col-sm-4
+                        button.btn.btn-primary(ng-disabled = '!seat.available')
+                            | Buy ticket
+
