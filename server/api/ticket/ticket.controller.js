@@ -53,7 +53,7 @@ export function buy(req, res) {
             return ticket.save()
                 .then((updated) => {
                     return updated;
-                })
+                });
 
         })
         .then(respondWithResult(res))
@@ -92,4 +92,23 @@ export function print(req, res, next) {
         })
         .catch(handleError(res));
 }
+
+export function use(req, res, next) {
+    return Ticket.findOne({code: req.params.code}).exec()
+        .then(handleEntityNotFound(res))
+        .then((ticket) => {
+            if(ticket) {
+                ticket.used = true;
+                return ticket.save()
+                    .then((updated) => {
+                        return res
+                            .status(200)
+                            .json(ticket)
+                        ;
+                    });
+            }
+        })
+        .catch(handleError(res));
+}
+
 
