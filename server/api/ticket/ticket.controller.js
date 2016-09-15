@@ -1,6 +1,7 @@
 'use strict';
 
 import Ticket from './ticket.model';
+import * as mailer from '../../mailer/mailer.js';
 
 function respondWithResult(res, statusCode) {
     statusCode = statusCode || 200;
@@ -39,6 +40,9 @@ export function buy(req, res) {
         .then(handleEntityNotFound(res))
         .then(ticket => {
             ticket.available = false;
+
+            var emailContent = 'Ticket is sold!';
+            mailer.sendMail('ruslan.polutsygan@gmail.com', 'Test subject', emailContent);
 
             return ticket.save()
                 .then((updated) => {
