@@ -67,18 +67,23 @@ Ticket.find({}).remove()
         Ticket.create({
             text: 'Seat #1',
             available: true,
+            code: null
         }, {
-            text: 'Seat #1',
+            text: 'Seat #2',
             available: false,
+            code: 'random_code_2'
         }, {
             text: 'Seat #3',
             available: false,
+            code: 'random_code_3'
         }, {
             text: 'Seat #4',
             available: true,
+            code: null
         }, {
             text: 'Seat #5',
             available: true,
+            code: null
         })
             .then(() => {
                 console.log('finished populating tickets');

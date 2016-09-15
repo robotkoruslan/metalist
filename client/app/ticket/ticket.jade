@@ -13,11 +13,14 @@
                         label(class="label label-{{ ticket.available ? 'success' : 'danger' }}")
                             | {{ ticket.available ? 'Yes' : 'No' }}
                     .col-sm-2
-                        button.btn.btn-primary(ng-disabled='!ticket.available', ng-click='controller.buyTicket(ticket)')
+                        a.btn.btn-primary(ng-click='controller.buyTicket(ticket)', ng-hide='!ticket.available')
                             | Buy ticket
+                        a.btn.btn-info(href='/api/tickets/{{ ticket.code }}/print', target="_blank", ng-hide='ticket.available')
+                                | Print Ticket
                     .col-sm-4
-                        p(class='has-{{ controller.statuses[ticket._id].type }}')
+                        div(class='has-{{ controller.statuses[ticket._id].type }}')
                             span.help-block
                                 | {{ controller.statuses[ticket._id].message }}
+
 
 
