@@ -35,8 +35,6 @@ export function index(req, res) {
 }
 
 export function buy(req, res) {
-    console.log(req.params);
-
     return Ticket.findById(req.params.id).exec()
         .then(handleEntityNotFound(res))
         .then(ticket => {

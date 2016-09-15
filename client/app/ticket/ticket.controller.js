@@ -16,7 +16,7 @@
         buyTicket(ticket) {
 
             this.$http.post('/api/tickets/' + ticket._id + '/buy')
-                .then(response => {
+                .then(() => {
 
                     this.statuses[ticket._id] = {
                         type: 'success',
@@ -26,7 +26,7 @@
                     this.$timeout(() => {
 
                         this.statuses[ticket._id] = {};
-                    }, 2000)
+                    }, 2000);
 
                 });
         }
