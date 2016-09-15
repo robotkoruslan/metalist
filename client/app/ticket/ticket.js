@@ -6,7 +6,7 @@ angular.module('metallistTicketsApp')
             url: '/tickets',
             templateUrl: 'app/ticket/ticket.html',
             controller: 'TicketController',
-            controllerAs: 'ticket',
+            controllerAs: 'controller',
             authenticate: true
         });
     });

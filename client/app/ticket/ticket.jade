@@ -4,14 +4,20 @@
             h1 Buy tickets
         .col-sm-12
             h3 Available Ticket
-            .col-sm-8.tickets
-                .ticket.col-sm-12(ng-repeat='ticket in ticket.tickets')
-                    .col-sm-6
+            p {{ controller.message }}
+            .col-sm-8.col-sm-offset-1.tickets
+                .ticket.col-sm-12(ng-repeat='ticket in controller.tickets')
+                    .col-sm-2
                         | {{ ticket.text }}
                     .col-sm-2
                         label(class="label label-{{ ticket.available ? 'success' : 'danger' }}")
                             | {{ ticket.available ? 'Yes' : 'No' }}
-                    .col-sm-4
-                        button.btn.btn-primary(ng-disabled = '!ticket.available')
+                    .col-sm-2
+                        button.btn.btn-primary(ng-disabled='!ticket.available', ng-click='controller.buyTicket(ticket)')
                             | Buy ticket
+                    .col-sm-4
+                        p(class='has-{{ controller.statuses[ticket._id].type }}')
+                            span.help-block
+                                | {{ controller.statuses[ticket._id].message }}
+
 

@@ -18,8 +18,36 @@ function handleError(res, statusCode) {
     };
 }
 
+function handleEntityNotFound(res) {
+    return function (entity) {
+        if (!entity) {
+            res.status(404).end();
+            return null;
+        }
+        return entity;
+    };
+}
+
 export function index(req, res) {
     return Ticket.find().exec()
+        .then(respondWithResult(res))
+        .catch(handleError(res));
+}
+
+export function buy(req, res) {
+    console.log(req.params);
+
+    return Ticket.findById(req.params.id).exec()
+        .then(handleEntityNotFound(res))
+        .then(ticket => {
+            ticket.available = false;
+
+            return ticket.save()
+                .then((updated) => {
+                    return updated;
+                })
+
+        })
         .then(respondWithResult(res))
         .catch(handleError(res));
 }
