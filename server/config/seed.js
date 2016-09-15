@@ -6,6 +6,7 @@
 'use strict';
 import Thing from '../api/thing/thing.model';
 import User from '../api/user/user.model';
+import Ticket from '../api/ticket/ticket.model';
 
 Thing.find({}).remove()
     .then(() => {
@@ -36,7 +37,10 @@ Thing.find({}).remove()
             name: 'Deployment Ready',
             info: 'Easily deploy your app to Heroku or Openshift with the heroku ' +
             'and openshift subgenerators'
-        });
+        })
+            .then(() => {
+                console.log('finished populating things');
+            });
     });
 
 User.find({}).remove()
@@ -55,5 +59,28 @@ User.find({}).remove()
         })
             .then(() => {
                 console.log('finished populating users');
+            });
+    });
+
+Ticket.find({}).remove()
+    .then(() => {
+        Ticket.create({
+            text: 'Seat #1',
+            available: true,
+        }, {
+            text: 'Seat #1',
+            available: false,
+        }, {
+            text: 'Seat #3',
+            available: false,
+        }, {
+            text: 'Seat #4',
+            available: true,
+        }, {
+            text: 'Seat #5',
+            available: true,
+        })
+            .then(() => {
+                console.log('finished populating tickets');
             });
     });
