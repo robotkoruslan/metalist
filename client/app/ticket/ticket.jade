@@ -11,7 +11,7 @@
                         | {{ ticket.text }}
                     .col-sm-2
                         label(class="label label-{{ ticket.available ? 'success' : 'danger' }}")
-                            | {{ ticket.available ? 'Yes' : 'No' }}
+                            | {{ ticket.available ? 'Available' : 'Sold' }}
                     .col-sm-2
                         a.btn.btn-primary(ng-click='controller.buyTicket(ticket)', ng-hide='!ticket.available')
                             | Buy ticket
