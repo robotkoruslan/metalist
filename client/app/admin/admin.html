@@ -1,0 +1,30 @@
+<div class="container">
+  <uib-tabset active="active" justified="true">
+    <uib-tab index="0" heading="Users">
+      <div ng-if="active === 0">
+        <admin-users></admin-users>
+      </div>
+    </uib-tab>
+    <uib-tab index="1" heading="Matches">
+      <div ng-if="active === 1">
+        <match-editor></match-editor>
+      </div>
+    </uib-tab>
+    <uib-tab index="2" heading="Статистика">
+      <div ng-if="active === 2">
+        <tickets-statistic></tickets-statistic>
+      </div>
+    </uib-tab>
+    <uib-tab index="3" heading="Season tickets">
+      <div ng-if="active === 3">
+        <season-ticket></season-ticket>
+      </div>
+    </uib-tab>
+    <uib-tab index="4" heading="Price Schema">
+      <div ng-if="active === 4">
+        <price-schema></price-schema>
+      </div>
+    </uib-tab>
+  </uib-tabset>
+
+</div>

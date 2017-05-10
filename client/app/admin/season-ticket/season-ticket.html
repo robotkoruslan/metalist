@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-md-12">
+    <uib-tabset active="activeAbonemets" justified="true">
+      <hr>
+      <uib-tab index="0" heading="Abonemets">
+        <season-ticket-form on-change="$ctrl.createSeasonTicket($event)"
+                            error-message="$ctrl.errorMessageSeat">
+        </season-ticket-form>
+        <div class="col-md-12">
+          <hr>
+          <div>
+            <season-ticket-list season-tickets="$ctrl.seasonTickets"
+                                on-delete="$ctrl.deleteSeasonTicket($event)">
+            </season-ticket-list>
+          </div>
+        </div>
+
+
+      </uib-tab>
+      <uib-tab index="1" heading="Block rows">
+        <block-row-form error-message="$ctrl.errorMessageBlockRow"
+                        on-add="$ctrl.addBlockRow($event)"></block-row-form>
+        <div class="col-md-12">
+          <hr>
+          <div>
+            <block-row-list block-row-seats="$ctrl.blockRowSeats"
+                            on-delete="$ctrl.deleteBlockRow($event)">
+            </block-row-list>
+          </div>
+        </div>
+      </uib-tab>
+    </uib-tabset>
+  </div>
+</div>

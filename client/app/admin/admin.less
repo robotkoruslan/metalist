@@ -1,0 +1,30 @@
+ a {
+  cursor: pointer;
+}
+
+ .search {
+   margin: 10px 0 5px 0;
+   width: 30%;
+ }
+
+.user-list {
+    li {
+        display: flex;
+        border: none;
+        border-bottom: 1px lightgray solid;
+        margin-bottom: 0;
+        &:last-child {
+            border-bottom: none;
+        }
+
+        .user-info {
+            flex-grow: 1;
+        }
+
+        .role {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+    }
+}

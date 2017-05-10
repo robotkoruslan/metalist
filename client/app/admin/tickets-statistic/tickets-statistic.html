@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-md-12">
+        <uib-tabset active="activeStatistics" justified="true">
+            <hr>
+            <uib-tab index="0" heading="По событию">
+                <events-summary events-statistics="$ctrl.eventsStatistics"></events-summary>
+            </uib-tab>
+            <uib-tab index="1" heading="Дневная">
+                <days-summary days-statistics="$ctrl.daysStatistics"></days-summary>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+node_modules
+.tmp
+.idea
+client/bower_components
+client/app/app.constant.js
+dist/client
+dist/server
+dist/package.json
+dist/OpenSans-Bold.ttf
+dist/ticket.png
+server/config/local.env.js
+coverage
+npm-debug.log
+production.yml
+all.log

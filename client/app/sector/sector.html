@@ -1,0 +1,90 @@
+<div class="container">
+  <navpanel></navpanel>
+  <div class="row">
+    <match-details match="vm.match"></match-details>
+  </div>
+  <div class="gradientSeats"></div>
+  <div class="row">
+    <div class="col-xs-12">
+      <p style="text-align: center; font-size: large">Выбор места ({{vm.sector.name}} Сектор) - {{vm.sectorPrice}}
+        грн.</p>
+    </div>
+    <div class="col-xs-12" ng-show="vm.message">
+      <span>{{vm.message}}</span>
+    </div>
+    <div class="row rowPadding">
+      <div class="col-lg-12 col12Padding">
+        <div class="col-xs-1 rowNames">
+          <ul class="liststyle">
+            <li ng-repeat="row in vm.sector.rows | orderBy:'-'"
+                ng-class="{'rowdivider': vm.firstUpperRow == row.name}">  <!-- @TODO remove ng-repeat duplication  -->
+              <div class="txt">{{vm.rowRow}} {{row.name}}</div>
+            </li>
+          </ul>
+        </div>
+        <div class="col-xs-11 seatsMargin">
+          <ul class="liststyle">
+            <li ng-repeat="row in vm.sector.rows | orderBy:'-'"
+                ng-class="{'rowdivider': vm.firstUpperRow == row.name}">  <!-- @TODO remove ng-repeat duplication  -->
+              <div id="s{{vm.sector.name}}{{row.name}}{{1+$index}}"
+                   ng-class="vm.addClassByCheckSoldSeat('s'+vm.sector.name+'r'+row.name+'st'+(1+$index))"
+                   ng-repeat="seat in vm.makeArrayFromNumber(row.seats)"
+                   ng-click="vm.addSeatToCart(vm.sector.name, row.name, seat)"
+                   uib-popover-html="'<p>Трибуна: <b>{{vm.tribuneName}} {{vm.sector.name}}</b><br />Ряд: <b>{{row.name}}</b><br />Место: <b>{{seat}}</b></p>'"
+                   popover-trigger="mouseenter"></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="gradientSeats"></div>
+    </div>
+  </div>
+  <div class="cardBlock container text-center">
+    <div class="row row-centered">
+      <div class="hideBlock col-xs-4 col-centered col-fixed">
+      </div>
+      <div class="col-xs-4 col-centered col-fixed">
+        <div class="item">
+          <div class="content">
+            <cart on-delete="vm.updateReservedTickets($event)"></cart>
+          </div>
+        </div>
+      </div>
+      <div class="colPadding col-xs-4 col-centered col-fixed">
+        <div class="item">
+          <div class="content">
+            <div ng-show="vm.cartService.getMyCartSize()">
+              <a ui-sref="main.checkout" class="btn btn-info">Оформить заказ</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <blockquote ng-show="vm.isFreeSeats()">
+      <p>Посадка на секторах Севера и Востока свободная, без привязки к ряду и месту</p>
+    </blockquote>
+    <blockquote ng-show="vm.isSkybox()">
+      <strong>Корпоративные ложи Skybox.</strong><br><br>
+      <p>Лучшие места для просмотра матчей команды «Металлист 1925»!</p>
+
+      <p>Корпоративные ложи Skybox-современные и комфортабельные ложи для VIP-персон, вместимостью от 11 до 20 мест, расположенные на 4 уровне Западной трибуны стадиона «Металлист».</p>
+      <p>Стоимость аренды одного места на одном матче - <strong>800 грн.</strong></p>
+      <p></p>К вашим услугам :</p>
+      <ul>
+        <li>комфортабельные современные помещения с отдельным VIP входом и индивидуальной террасой,</li>
+        <li>бесшумный лифт на этаж вместимостью до 12 человек (Schindler),</li>
+        <li>специально разработанные мягкие кресла для удобного просмотра матча,</li>
+        <li>центральное расположение на комфортной для просмотра высоте,</li>
+        <li>панорамный вид на поле,</li>
+        <li>программка к матчу,</li>
+        <li>персональный официант непосредственно в ложе,</li>
+        <li>фуршетное меню (алкогольные напитки не включены) премиум-класса за час до начала матча и в перерыве между таймами,</li>
+        <li>место на VIP парковке Р-1.</li>
+      </ul>
+    </blockquote>
+  </div>
+</div>

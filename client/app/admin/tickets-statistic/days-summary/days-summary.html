@@ -1,0 +1,25 @@
+<hr>
+<table class="table table-condensed">
+    <thead>
+    <tr>
+        <th>Дата</th>
+        <th>Количество</th>
+        <th>Сумма</th>
+        <th>Детали (по ценам)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="stat in $ctrl.statistics">
+        <td ng-bind="stat.date">
+        </td>
+        <td ng-bind="stat.count">
+        </td>
+        <td ng-bind="stat.sum"></td>
+       <td>
+         <ul>
+           <li ng-repeat="detail in stat.details | orderBy:'price'">{{detail.price}} - {{detail.count}} шт.</li>
+         </ul>
+      </td>
+    </tr>
+    </tbody>
+</table>
