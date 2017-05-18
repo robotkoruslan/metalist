@@ -1,3 +1,5 @@
+"use strict";
+
 import angular from 'angular';
 import datePicker from './../../node_modules/angular-datepicker/index';
 import ngCookies from 'angular-cookies';
@@ -10,7 +12,7 @@ import uiBootstrap from 'angular-ui-bootstrap';
 import './angular-locale_ru-ru';
 
 import MatchDetailsComponent from './match-details/match-details.component';
-import CartComponent from './cart/cart.component';
+import CartDetailsComponent from './cart/details/cart-details.component';
 import CartSummaryComponent from './cart/summary/cart-summary.component';
 import NavpanelComponent from './navpanel/navpanel.component';
 import StadiumComponent from './stadium/stadium.component';
@@ -64,7 +66,7 @@ angular.module('metalistTicketsApp', [
   datePicker
 ])
   .component('matchDetails', MatchDetailsComponent)
-  .component('cart', CartComponent)
+  .component('cartDetails', CartDetailsComponent)
   .component('cartSummary', CartSummaryComponent)
   .component('navpanel', NavpanelComponent)
   .component('stadium', StadiumComponent)
@@ -95,8 +97,7 @@ angular.module('metalistTicketsApp', [
   })
   .run(function ($rootScope, $window) {
     'ngInject';
-    $rootScope.$on('$stateChangeStart', function (event, next, nextParams,  prev, prevParams) {
-
+    $rootScope.$on('$stateChangeStart', function (event, next, nextParams, prev, prevParams) {
       if (next.name === 'login' && prev && prev.name && !prev.authenticate) {
         next.referrer = prev.name;
         next.params = prevParams;
@@ -105,7 +106,7 @@ angular.module('metalistTicketsApp', [
       if (next.name === 'signup') {
         $window.sessionStorage.href = $window.location.href;
       }
-      if ($window.location.hash && $window.location.hash == '#_=_') {
+      if ($window.location.hash && ( $window.location.hash == '#_=_' || $window.location.hash == '#-=-' )) {
         event.preventDefault();
         $window.location.href = $window.sessionStorage.href;
       }

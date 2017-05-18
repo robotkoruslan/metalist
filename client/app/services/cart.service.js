@@ -49,16 +49,20 @@ export default class CartService {
       }, error => this.createCart());
   }
 
-  addSeatToCart(slug) {
-    return this.$http.post('/api/carts/addSeat', {slug: slug})
+  addSeatToCart(slug, matchId) {
+    return this.$http.post('/api/carts/addSeat', {slug: slug, matchId: matchId})
       .then(response => this.data.cart = response.data);
   }
 
-  removeSeatFromCart(slug) {
-    return this.$http.delete('/api/carts/seat/' + slug)
+  removeSeatFromCart(slug, matchId) {
+    return this.$http.delete('/api/carts/match/' + matchId + '/seat/' + slug)
       .then(response => {
         this.data.cart = response.data;
       });
+  }
+
+  getOrderByPrivateId(privateId) {
+    return this.$http.get('/api/orders/order/' + privateId);
   }
 
   checkout() {

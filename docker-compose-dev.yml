@@ -1,0 +1,30 @@
+web:
+  build: .
+  restart: always
+  ports:
+    - "80:8080"
+    - "465:465"
+  links:
+    - mongo
+  volumes:
+    - ./dist:/app
+  environment:
+    NODE_ENV: development
+    DOMAIN: 'http://localhost:9000'
+    SESSION_SECRET: 'metalisttickets-secret'
+    FACEBOOK_ID: 'app-id'
+    FACEBOOK_SECRET: 'secret'
+    GOOGLE_ID: 'app-id'
+    GOOGLE_SECRET: 'secret'
+    DEBUG: ''
+    MAILER_AUTH_USER: 'fans4ton@gmail.com'
+    MAILER_AUTH_PASS: '840816www'
+    LIQPAY_PUBLIC_KEY: 'i76561545952'
+    LIQPAY_PRIVATE_KEY: 'dHXYYc1OIvKYtgdykiA3PidP1SA8cJ2ka2KVcdVi'
+    LIQPAY_SANDBOX_MODE: 1
+  command: bash -c "ls && npm install  && nodemon --watch server"
+
+mongo:
+  image: mongo
+  ports:
+    - "27018:27017"

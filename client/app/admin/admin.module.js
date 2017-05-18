@@ -8,6 +8,7 @@ import MatchEditorComponent from './match-editor/match-editor.component';
 import EventsSummaryComponent from './tickets-statistic/events-summary/events-summary.component';
 import DaysSummaryComponent from './tickets-statistic/days-summary/days-summary.component';
 import PriceSchemaComponent from './price-schema/price-schema.component';
+import OrderDetailsComponent from './order-details/order-details.component';
 import SeasonTicketComponent from './season-ticket/season-ticket.component';
 import SeasonTicketListComponent from './season-ticket/season-ticket-list/season-ticket-list.component';
 import SeasonTicketFormComponent from './season-ticket/season-ticket-form/season-ticket-form.component';
@@ -30,6 +31,7 @@ let adminModule = angular.module('metalistTicketsApp.admin', [])
   .component('eventsSummary', EventsSummaryComponent)
   .component('daysSummary', DaysSummaryComponent)
   .component('priceSchema', PriceSchemaComponent)
+  .component('orderDetails', OrderDetailsComponent)
   .component('seasonTicket', SeasonTicketComponent)
   .component('seasonTicketList', SeasonTicketListComponent)
   .component('seasonTicketForm', SeasonTicketFormComponent)

@@ -19,11 +19,10 @@ describe('Order API:', function () {
   });
   // Clear all after testing
   after(function () {
-    Order.remove({});
-    PriceSchema.remove({});
-    Match.remove({});
-    Seat.remove({});
-    return true;
+    return Order.remove({})
+      .then(() => PriceSchema.remove({}))
+      .then(() => Match.remove({}))
+      .then(() => Seat.remove({}));
   });
 
   describe('POST /checkout', function () {
@@ -80,7 +79,8 @@ describe('Order API:', function () {
       request(app)
         .post('/api/carts/addSeat')
         .send({
-          slug: 's9r19st8'
+          slug: 's9r19st8',
+          matchId: matchId
         })
         .set('Cookie', 'cart=' + publicId)
         .expect(200)
@@ -132,7 +132,7 @@ describe('Order API:', function () {
         sector: '9',
         row: '19',
         seat: 8,
-        matchId: matchId,
+        match: matchId,
         reservedUntil: new Date()
       });
       return seat.save();

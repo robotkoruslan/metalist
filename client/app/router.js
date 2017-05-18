@@ -1,3 +1,5 @@
+"use strict";
+
 import adminTemplate from './admin/admin.html';
 import checkoutTemplate from './checkout/checkout.html';
 import homeTemplate from './home/home.html';

@@ -30,12 +30,12 @@ export default class TicketsStatisticController {
 
     return uniqueEventsDate.map(date => {
       let itemsPrices = this.getItemPricesByDate(date, statistic),
-        itemSectors = this.getItemSectorsByDate(date, statistic);
+        itemSectors  = this.getItemSectorsByDate(date, statistic);
 
-      return {
-        date: date,
+      return  {
+        date: new Date(date),
         headline: this.getHeadLineByDate(date, statistic),
-        count: this.getItemPricesByDate(date, statistic).length,
+        count: itemsPrices.length,
         sum: this.getSumOfArray(itemsPrices),
         details: this.getDetailsSectorsByEvent(itemSectors)
       };
@@ -48,10 +48,10 @@ export default class TicketsStatisticController {
     return uniqueDates.map(date => {
       let itemPrices = this.getItemPricesByDate(date, statistic);
 
-      return {
-        date: date,
+      return  {
+        date: new Date(date),
         sum: this.getSumOfArray(itemPrices),
-        count: this.getItemPricesByDate(date, statistic).length,
+        count: itemPrices.length,
         details: this.getDetailsPricesByDate(itemPrices)
       };
     });

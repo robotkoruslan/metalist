@@ -6,8 +6,14 @@ import * as log4js from 'log4js';
 
 let logger = log4js.getLogger('Match');
 
-export function getMatches(req, res) {
-  return matchService.getMatches()
+export function getNextMatches(req, res) {
+  return matchService.getNextMatches()
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+
+export function getPrevMatches(req, res) {
+  return matchService.getPrevMatches()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
@@ -21,11 +27,11 @@ export function getMatchById(req, res) {
 
 export function createMatch(req, res) {
   let newMatch = req.body,
-      matchDate = newMatch.date;
+    matchDate = newMatch.date;
 
   return matchService.createMatch(newMatch)
     .then(match => {
-      seatService.createSeatsForMatch(match.id)
+      seatService.createSeatsForMatch(match)
         .then(() => {
           match.date = matchDate;
 
@@ -39,8 +45,19 @@ export function createMatch(req, res) {
 
 
 export function deleteMatch(req, res) {
-  return matchService.removeById(req.params.id)
-    .then(function () {
+  let matchId = req.params.id;
+
+  return Promise.all([
+    matchService.removeById(matchId),
+    seatService.getByMatchId(matchId)
+  ])
+    .then(([match, seats]) => {
+      if (seats.length) {
+        seatService.deletePrevMatchSeats(seats, matchId);
+      }
+      return match;
+    })
+    .then(() => {
       res.status(204).end();
     })
     .catch(handleError(res));
@@ -58,7 +75,7 @@ export function updateMatch(req, res) {
     })
     .then(respondWithResult(res))
     .catch(handleError(res))
-  ;
+    ;
 }
 
 //private functions

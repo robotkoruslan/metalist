@@ -1,7 +1,7 @@
 'use strict';
 
 let express = require('express'),
-    controller = require('./ticket.controller');
+  controller = require('./ticket.controller');
 import * as auth from '../../auth/auth.service.js';
 
 let router = express.Router();

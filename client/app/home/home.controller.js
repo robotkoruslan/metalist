@@ -12,9 +12,9 @@ export default class HomeController {
   }
 
   loadMatches() {
-    return this.matchEditorService.loadMatches()
-      .then(mathces => {
-        this.matches = mathces;
+    return this.matchEditorService.loadNextMatches()
+      .then( matches => {
+        this.matches = matches;
         this.matches.forEach(match => {
           if (match.date) {
             match.formattedDate = moment(match.date).locale('ru').tz('Europe/Kiev').format('DD MMMM YYYY');
@@ -23,5 +23,4 @@ export default class HomeController {
         });
       });
   }
-
 }

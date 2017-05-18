@@ -13,7 +13,7 @@ function requiredProcessEnv(name) {
 
 // All configurations will extend these options
 // ============================================
-var all = {
+let all = {
     env: process.env.NODE_ENV,
     domain: process.env.DOMAIN,
 

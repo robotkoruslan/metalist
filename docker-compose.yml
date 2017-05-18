@@ -8,6 +8,7 @@ web:
     - mongo
   environment:
     NODE_ENV: production
+  command: bash -c "npm install --production && node server"
 
 mongo:
   image: mongo

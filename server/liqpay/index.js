@@ -1,7 +1,6 @@
-var crypto = require('crypto');
-import * as config from "../config/environment"
-
-
+let crypto = require('crypto');
+import config from "../config/environment"
+console.log('publicKey', config.liqpay.publicKey, config);
 const publicKey = config.liqpay.publicKey;
 const privateKey = config.liqpay.privateKey;
 const apiEndpoint = 'https://www.liqpay.com/api/3/checkout';
@@ -10,7 +9,7 @@ const apiVersion = '3';
 export function generatePaymentLink(params) {
   params.public_key = publicKey;
   params.version = apiVersion;
-
+  console.log('publicKey1', params.public_key, config);
   let data = paramsToDataString(params);
   let signature = signString(data);
 

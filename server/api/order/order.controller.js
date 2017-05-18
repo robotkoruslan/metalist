@@ -2,7 +2,7 @@
 
 import * as orderService from '../order/order.service';
 import * as seatService from '../seat/seat.service';
-import * as config from "../../config/environment";
+import config from "../../config/environment";
 import * as log4js from 'log4js';
 
 const logger = log4js.getLogger('Order');
@@ -17,6 +17,13 @@ export function getPaymentStatus(req, res) {
         return {status: false};
       }
     })
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+
+export function getOrderByPrivateId(req, res) {
+  return orderService.getByPrivateId(req.params.privateId)
+    .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
@@ -38,6 +45,7 @@ export function checkout(req, res) {
     })
     .then(order => {
       logger.info('checkout order: ' + order);
+
       return {'paymentLink': orderService.createPaymentLink(order)};
     })
     .then(respondWithResult(res))

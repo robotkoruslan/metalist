@@ -50,7 +50,7 @@ export default class CheckoutController {
       this.cart.seats.sort((a, b) => b.reservedUntil - a.reservedUntil);
     }
     this.reserveDate = this.cart.seats[0].reservedUntil;
-  };
+  }
 
   stopHandling() {
     this.$interval.cancel(this.stopTime);
@@ -58,6 +58,7 @@ export default class CheckoutController {
 
   updateCart() {
     this.reserveDate = '';
+    this.match = {};
     this.stopHandling();
     this.checkReservedSeatForTimerOn();
   }
@@ -70,13 +71,17 @@ export default class CheckoutController {
 
     if (form.$valid) {
       this.Auth.generateGuestPassword(email)
-        .then((response) => {
+        .then(response => {
           this.confirm = true;
           this.message = response.message;
         })
         .catch(err => {
           this.confirm = false;
-          this.message = err.message;
+          if (err.status === 409) {
+            this.message = 'Вы уже зарегистрированы.';
+          } else {
+            this.message = err.message;
+          }
         });
     }
   }
@@ -92,7 +97,7 @@ export default class CheckoutController {
         password: user.password
       })
         .catch(err => {
-          this.errors.other = err.message;
+          this.message = err.message;
         });
     }
   }

@@ -8,7 +8,7 @@ module.exports = {
   entry : './client/app/app',
   output : {
     filename : 'bundle.[hash].js',
-    path: `${ROOT_PATH}/public`
+    path: `${ROOT_PATH}/dist/client`
   },
   module : {
     rules : [
@@ -36,7 +36,7 @@ module.exports = {
             loader: 'url-loader',
             options: {
               limit: 10000,
-              name: "assets/fonts/[name].[hash].[ext]"
+              name: "assets/fonts/[name].[ext]"
             }
           }
         ]

@@ -5,6 +5,7 @@ import User from '../user/user.model';
 import moment from 'moment-timezone';
 import * as barcode from 'bwip-js';
 import * as ticketService from '../ticket/ticket.service';
+import * as matchService from '../match/match.service';
 import * as pdfGenerator from '../../pdfGenerator';
 import * as log4js from 'log4js';
 
@@ -50,7 +51,7 @@ export function getEventsStatistics(req, res) {
         return {
           headline: ticket.match.headline,
           sector: ticket.seat.sector,
-          date: ticket.match.date,
+          date: moment(ticket.match.date).tz('Europe/Kiev').format('YYYY-MM-DD HH:mm'),
           amount: ticket.amount
         }
       })
@@ -75,7 +76,7 @@ export function getDaysStatistics(req, res) {
       console.log('--------ddd-', statistics);
       return statistics.map(stat => {
         return {
-          date: moment(stat.reserveDate).tz('Europe/Kiev').format('DD-MM-YYYY'),
+          date: moment(stat.reserveDate).tz('Europe/Kiev').format('YYYY-MM-DD'),
           amount: stat.amount
         }
       });
@@ -123,14 +124,13 @@ export function use(req, res, next) {
 }
 
 export function getTicketsForCheckMobile(req, res) {
-  let dateNow = new Date();
 
-  return Ticket.find({status: 'paid'})
-    .exec()
+  return getNextMatchTickets()
     .then(tickets => {
       let result = tickets.map(ticket => {
         return {
           'status': ticket.status,
+          'code': ticket.accessCode,
           'tribune': ticket.seat.tribune,
           'sector': ticket.seat.sector,
           'row': ticket.seat.row,
@@ -193,7 +193,7 @@ function getTicketByCode(code) {
 function getCountTicketsByTribune(tribune) {
   let dateNow = new Date();
 
-  return Ticket.find({status: 'paid'})
+  return getNextMatchTickets()
   /*.where({$and: [
    {'valid.from': { $lte: dateNow }},
    {'valid.to': { $gt: dateNow }}
@@ -266,4 +266,14 @@ function handleEntityNotFound(res) {
     }
     return entity;
   };
+}
+
+function getNextMatchTickets() {
+  return Promise.all([
+    matchService.getNextMatch(),
+    Ticket.find({status: 'paid'})
+  ])
+    .then(([match, tickets]) => {
+      return tickets.filter(ticket => ticket.match.id === match.id);
+    });
 }

@@ -43,18 +43,16 @@
   </div>
   <div class="cardBlock container text-center">
     <div class="row row-centered">
-      <div class="hideBlock col-xs-4 col-centered col-fixed">
-      </div>
-      <div class="col-xs-4 col-centered col-fixed">
-        <div class="item">
-          <div class="content">
-            <cart on-delete="vm.updateReservedTickets($event)"></cart>
+      <div class="col-xs-9 col-centered col-fixed">
+        <div>
+          <div>
+            <cart-details on-delete="vm.updateReservedTickets($event)"></cart-details>
           </div>
         </div>
       </div>
-      <div class="colPadding col-xs-4 col-centered col-fixed">
-        <div class="item">
-          <div class="content">
+      <div class="colPadding col-xs-3 col-centered col-fixed">
+        <div>
+          <div>
             <div ng-show="vm.cartService.getMyCartSize()">
               <a ui-sref="main.checkout" class="btn btn-info">Оформить заказ</a>
             </div>

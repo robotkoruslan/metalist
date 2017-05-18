@@ -11,18 +11,18 @@ import * as passwordGenerator from "../../passwordGenerator"
 let logger = log4js.getLogger('User');
 
 function validationError(res, statusCode) {
-    statusCode = statusCode || 422;
-    return function (err) {
-        res.status(statusCode).json(err);
-    }
+  statusCode = statusCode || 422;
+  return function (err) {
+    res.status(statusCode).json(err);
+  }
 }
 
 function handleError(res, statusCode) {
-    statusCode = statusCode || 500;
-    return function (err) {
-      logger.error('handleError '+err);
-        res.status(statusCode).send(err);
-    };
+  statusCode = statusCode || 500;
+  return function (err) {
+    logger.error('handleError '+err);
+    res.status(statusCode).send(err);
+  };
 }
 
 /**
@@ -31,28 +31,28 @@ function handleError(res, statusCode) {
  */
 export function index(req, res) {
   logger.debug("order index");
-    return User.find({}, '-salt -password').sort({role: 1}).exec()
-        .then(users => {
-            return res.status(200).json(users);
-        })
-        .catch(handleError(res));
+  return User.find({}, '-salt -password').sort({role: 1}).exec()
+    .then(users => {
+      return res.status(200).json(users);
+    })
+    .catch(handleError(res));
 }
 
 /**
  * Creates a new user
  */
 export function create(req, res, next) {
-    let newUser = new User(req.body);
-    newUser.provider = 'local';
-    newUser.role = 'user';
-    newUser.save()
-        .then(function (user) {
-            let token = jwt.sign({_id: user._id}, config.secrets.session, {
-                expiresIn: 60 * 60 * 5
-            });
-            res.json({token});
-        })
-        .catch(validationError(res));
+  let newUser = new User(req.body);
+  newUser.provider = 'local';
+  newUser.role = 'user';
+  newUser.save()
+    .then(function (user) {
+      let token = jwt.sign({_id: user._id}, config.secrets.session, {
+        expiresIn: 60 * 60 * 5
+      });
+      res.json({token});
+    })
+    .catch(validationError(res));
 }
 
 /**
@@ -61,14 +61,14 @@ export function create(req, res, next) {
 export function show(req, res, next) {
   let userId = req.params.id;
 
-    return User.findById(userId).exec()
-        .then(user => {
-            if (!user) {
-                return res.status(404).end();
-            }
-            res.json(user.profile);
-        })
-        .catch(err => next(err));
+  return User.findById(userId).exec()
+    .then(user => {
+      if (!user) {
+        return res.status(404).end();
+      }
+      res.json(user.profile);
+    })
+    .catch(err => next(err));
 }
 
 /**
@@ -76,11 +76,11 @@ export function show(req, res, next) {
  * restriction: 'admin'
  */
 export function destroy(req, res) {
-    return User.findByIdAndRemove(req.params.id).exec()
-        .then(function () {
-            res.status(204).end();
-        })
-        .catch(handleError(res));
+  return User.findByIdAndRemove(req.params.id).exec()
+    .then(function () {
+      res.status(204).end();
+    })
+    .catch(handleError(res));
 }
 
 /**
@@ -107,23 +107,23 @@ export function setRole(req, res) {
  * Change a users password
  */
 export function changePassword(req, res, next) {
-    let userId = req.user._id,
-        oldPass = String(req.body.oldPassword),
-        newPass = String(req.body.newPassword);
+  let userId = req.user._id,
+    oldPass = String(req.body.oldPassword),
+    newPass = String(req.body.newPassword);
 
-    return User.findById(userId).exec()
-        .then(user => {
-            if (user.authenticate(oldPass)) {
-                user.password = newPass;
-                return user.save()
-                    .then(() => {
-                        res.status(204).end();
-                    })
-                    .catch(validationError(res));
-            } else {
-                return res.status(403).end();
-            }
-        });
+  return User.findById(userId).exec()
+    .then(user => {
+      if (user.authenticate(oldPass)) {
+        user.password = newPass;
+        return user.save()
+          .then(() => {
+            res.status(204).end();
+          })
+          .catch(validationError(res));
+      } else {
+        return res.status(403).end();
+      }
+    });
 }
 
 /**
@@ -132,14 +132,14 @@ export function changePassword(req, res, next) {
 export function me(req, res, next) {
   let userId = req.user._id;
 
-    return User.findOne({_id: userId}, '-salt -password').exec()
-        .then(user => { // don't ever give out the password or salt
-            if (!user) {
-                return res.status(401).end();
-            }
-            return res.json(user);
-        })
-        .catch(err => next(err));
+  return User.findOne({_id: userId}, '-salt -password').exec()
+    .then(user => { // don't ever give out the password or salt
+      if (!user) {
+        return res.status(401).end();
+      }
+      return res.json(user);
+    })
+    .catch(err => next(err));
 }
 
 /**
@@ -147,13 +147,13 @@ export function me(req, res, next) {
  */
 export function generatePassword(req, res, next) {
   let email = String(req.body.email),
-      password = passwordGenerator.generatePassByMail(),
-      newUser = {};
+    password = passwordGenerator.generatePassByMail(),
+    newUser = {};
 
   return User.findOne({email: email}).exec()
     .then(user => {
       if (user && user.name) {
-        return res.status(200).json({message: 'Вы уже зарегистрированы.'});
+        return res.status(409).end();
       }
       if (user && !user.name) {
         newUser = user;
@@ -166,13 +166,13 @@ export function generatePassword(req, res, next) {
         newUser.provider = 'local';
       }
 
-        newUser.save().
-          then((newUser) => {
-            Mailer.sendMailTemporaryPassword(newUser.email, password);
+      newUser.save().
+      then((newUser) => {
+          Mailer.sendMailTemporaryPassword(newUser.email, password);
 
-            return res.status(200).json({message: 'На ваш email был выслан временный пароль.'});
-          }
-        )
+          return res.status(200).json({message: 'На ваш email был выслан временный пароль.'});
+        }
+      )
         .catch(() => {
           return res.status(500).json({message: 'Что-то пошло не так... Попробуйте еще раз.'});
         });
@@ -185,7 +185,7 @@ export function generatePassword(req, res, next) {
  */
 export function recoveryPassword(req, res, next) {
   let email = String(req.body.email),
-      password = passwordGenerator.generatePassByMail();
+    password = passwordGenerator.generatePassByMail();
 
   return User.findOne({email: email}).exec()
     .then(user => {
@@ -199,12 +199,12 @@ export function recoveryPassword(req, res, next) {
 
       user.save()
         .then((user) => {
-          console.log('recovery');
-          Mailer.sendMailTemporaryPassword(user.email, password);
+            console.log('recovery');
+            Mailer.sendMailTemporaryPassword(user.email, password);
 
-          return res.status(200).json({message: 'На ваш email был выслан временный пароль.'});
-        }
-      )
+            return res.status(200).json({message: 'На ваш email был выслан временный пароль.'});
+          }
+        )
         .catch(() => {
           return res.status(500).json({message: 'Что-то пошло не так... Попробуйте еще раз.'});
         });
@@ -216,5 +216,5 @@ export function recoveryPassword(req, res, next) {
  * Authentication callback
  */
 export function authCallback(req, res, next) {
-    res.redirect('/');
+  res.redirect('/');
 }

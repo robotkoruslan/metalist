@@ -6,8 +6,13 @@ export default class MatchEditorService {
 
   }
 
-  loadMatches() {
-    return this.$http.get('/api/matches/')
+  loadNextMatches() {
+    return this.$http.get('/api/matches/next/')
+      .then(response => response.data);
+  }
+
+  loadPrevMatches() {
+    return this.$http.get('/api/matches/prev/')
       .then(response => response.data);
   }
 
@@ -36,6 +41,5 @@ export default class MatchEditorService {
       headers: {'Accept': 'application/json'}
     });
   }
-
 }
 
