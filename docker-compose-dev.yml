@@ -7,7 +7,7 @@ web:
   links:
     - mongo
   volumes:
-    - ./dist:/app
+    - ./dist:/app/dist
   environment:
     NODE_ENV: development
     DOMAIN: 'http://localhost:9000'
@@ -22,7 +22,7 @@ web:
     LIQPAY_PUBLIC_KEY: 'i76561545952'
     LIQPAY_PRIVATE_KEY: 'dHXYYc1OIvKYtgdykiA3PidP1SA8cJ2ka2KVcdVi'
     LIQPAY_SANDBOX_MODE: 1
-  command: bash -c "ls && npm install  && nodemon --watch server"
+  command: bash -c "ls && npm run nodemon"
 
 mongo:
   image: mongo

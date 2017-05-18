@@ -6,7 +6,8 @@
   "scripts": {
     "client:build": "NODE_ENV=development webpack",
     "server:build": "babel server --out-dir dist/server",
-    "postserver:build": "npm run lint",
+    "postserver:build": "npm run copy",
+    "copy": "cp package.json dist/",
     "build": "npm run client:build && npm run server:build",
     "client:watch": "NODE_ENV=development webpack --watch",
     "server:watch": "babel server --watch --out-dir dist/server ",
@@ -15,7 +16,7 @@
     "start": "node dist/server",
     "serve": "node dist/server & npm run client:watch",
     "move": "mv server/pdfGenerator/OpenSans-Bold.ttf dist/server/pdfGenerator",
-    "prenodemon": "npm run clean && npm run build",
+    "pnodemon": "npm run clean && npm run build",
     "prod": "npm run clean && npm run build && NODE_ENV=production node dist/server",
     "docker:prod": "NODE_ENV=production node server",
     "docker:dev": "NODE_ENV=development nodemon --watch server",
@@ -24,10 +25,10 @@
     "test": "npm run server:build & NODE_ENV=test mocha dist/**/*.{spec,integration}.js --require mocha.conf.js",
     "predev1": "npm run clean -s && npm run build -s",
     "dev": "npm start",
-    "nodemon": "nodemon --ignore client/ --exec  npm run dev",
+    "nodemon": "nodemon --watch dist/server",
     "live-reload": "live-reload --port 9001 dist/server",
     "dev1": "npm run live-reload -s & npm start -s &npm run watch -s",
-    "docker:build:dev": "sudo docker-compose -f docker-compose-dev.yml build"
+    "docker:build:dev": "npm run clean && npm run build && sudo docker-compose -f docker-compose-dev.yml -f docker-compose-dev.yml build"
   },
   "repository": {
     "type": "git",
@@ -80,7 +81,8 @@
     "pdfkit": "^0.8.0",
     "serve-favicon": "^2.3.0",
     "strict-password-generator": "^1.1.0",
-    "supertest": "^1.1.0"
+    "supertest": "^1.1.0",
+    "nodemon": "^1.3.7"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
