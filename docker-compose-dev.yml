@@ -6,11 +6,10 @@ web:
     - "465:465"
   links:
     - mongo
-  volumes:
-    - ./dist:/app/dist
-  environment:
   env_file:
     - env.txt
+  volumes:
+    - ./dist:/app/dist
   command: bash -c "ls && npm run nodemon"
 
 mongo:
