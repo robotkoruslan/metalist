@@ -22,7 +22,7 @@
     "lint": "jshint client/**/*.js server/**/*.js server/*.js",
     "test": "npm run server:build & NODE_ENV=test mocha dist/**/*.{spec,integration}.js --require mocha.conf.js",
     "docker:build:dev": "npm run clean && npm run build && sudo docker-compose -f docker-compose.yml -f docker-compose-dev.yml build",
-    "docker:dev:serve": "npm run docker:build:dev && sudo docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d",
+    "docker:serve": "npm run docker:build:dev && sudo docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d",
     "docker:build:prod": "npm run clean && npm run build:prod && sudo docker-compose -f docker-compose.yml build",
     "docker:prod": "npm run docker:build:prod && sudo docker-compose -f docker-compose.yml up -d"
   },
@@ -113,7 +113,7 @@
   },
   "engines": {
     "node": "^6.10.0",
-    "npm": "2.x || 3.x || 4.x"
+    "npm": "3.x || 4.x"
   },
   "babel": {
     "presets": [

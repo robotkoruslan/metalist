@@ -8,11 +8,6 @@ web:
     - mongo
   environment:
     NODE_ENV: production
-    MAILER_AUTH_USER: 'fans4ton@gmail.com'
-    MAILER_AUTH_PASS: '840816www'
-    LIQPAY_PUBLIC_KEY: 'i76561545952'
-    LIQPAY_PRIVATE_KEY: 'dHXYYc1OIvKYtgdykiA3PidP1SA8cJ2ka2KVcdVi'
-    LIQPAY_SANDBOX_MODE: 1
   command: bash -c "node server"
 
 mongo:

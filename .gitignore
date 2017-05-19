@@ -13,3 +13,4 @@ coverage
 npm-debug.log
 production.yml
 all.log
+env.txt
