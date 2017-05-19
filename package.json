@@ -19,7 +19,8 @@
     "serve": "node dist/server & npm run client:watch",
     "nodemon": "nodemon --watch dist/server",
     "lint": "jshint client/**/*.js server/**/*.js server/*.js",
-    "test": "npm run server:build & NODE_ENV=test mocha dist/**/*.{spec,integration}.js --require mocha.conf.js",
+    "pretest": "npm run server:build",
+    "test": "NODE_ENV=test mocha dist/server/**/*.{spec,integration}.js --require mocha.conf.js",
     "docker:build:dev": "npm run clean && npm run build:dev && sudo docker-compose -f docker-compose-dev.yml build",
     "docker:build:prod": "npm run clean && npm run build:prod && sudo docker-compose -f docker-compose.yml build",
     "docker:serve": "npm run docker:build:dev && sudo docker-compose -f docker-compose-dev.yml up -d"

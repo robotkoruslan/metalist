@@ -111,9 +111,9 @@ describe('Match API:', function () {
         });
     });
 
-    it('GET /api/matches/: should respond with a status 200 and empty array', function (done) {
+    it('GET /api/matches/next: should respond with a status 200 and empty array', function (done) {
       request(app)
-        .get('/api/matches')
+        .get('/api/matches/next')
         .expect(200)
         .end((err, res) => {
           if (err) {
@@ -133,9 +133,9 @@ describe('Match API:', function () {
       return createMatches();
     });
 
-    it('GET /api/matches/: should respond with a status 200 and empty array', function (done) {
+    it('GET /api/matches/next: should respond with a status 200 and next matches', function (done) {
       request(app)
-        .get('/api/matches')
+        .get('/api/matches/next')
         .expect(200)
         .end((err, res) => {
           if (err) {

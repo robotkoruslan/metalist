@@ -95,6 +95,7 @@ export function use(req, res, next) {
     getCountTicketsByTribune(tribune)
   ])
     .then(([ticket, count]) => {
+    console.log('ticket', ticket, count);
       if (!ticket) {
         return res.status(200).json({count: count, message: 'Билет не действительный.'});
       }
@@ -152,58 +153,6 @@ export function getCountValidTicketsByTribune(req, res, next) {
       return res.status(200).json(count);
     })
     .catch(handleError(res));
-}
-
-
-
-
-function generatePdfTicket(ticket, res) {
-  return new Promise((resolve, reject) => {
-    pdfGenerator.generateTicket(ticket, res, function (err, res) {
-      if (err) {
-        return reject(err);
-      }
-      return resolve(res);
-    });
-  });
-}
-
-function getFormattedTicket(ticket) {
-  return {
-    'tribune': ticket.seat.tribune,
-    'sector': ticket.seat.sector,
-    'row': ticket.seat.row,
-    'seat': ticket.seat.seat,
-    'headLine': ticket.match.headline
-  };
-}
-
-function getTicketByCode(code) {
-  let dateNow = new Date();
-
-  return Ticket.findOne({accessCode: code, status: 'paid'});
-  // .where({
-  //   $and: [
-  //     {'valid.from': {$lte: dateNow}},
-  //     {'valid.to': {$gt: dateNow}}
-  //   ]
-  // });
-}
-
-function getCountTicketsByTribune(tribune) {
-  let dateNow = new Date();
-
-  return getNextMatchTickets()
-  /*.where({$and: [
-   {'valid.from': { $lte: dateNow }},
-   {'valid.to': { $gt: dateNow }}
-   ]})*/
-    .then(tickets => {
-      if (tribune === 'vip') {
-        return tickets.filter(ticket => sectorsInVip.includes(ticket.seat.sector)).length;
-      }
-      return tickets.filter(ticket => ( ticket.seat.tribune === tribune && !sectorsInVip.includes(ticket.seat.sector) )).length;
-    });
 }
 
 export function print(req, res, next) {
@@ -275,5 +224,54 @@ function getNextMatchTickets() {
   ])
     .then(([match, tickets]) => {
       return tickets.filter(ticket => ticket.match.id === match.id);
+    });
+}
+
+function generatePdfTicket(ticket, res) {
+  return new Promise((resolve, reject) => {
+    pdfGenerator.generateTicket(ticket, res, function (err, res) {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(res);
+    });
+  });
+}
+
+function getFormattedTicket(ticket) {
+  return {
+    'tribune': ticket.seat.tribune,
+    'sector': ticket.seat.sector,
+    'row': ticket.seat.row,
+    'seat': ticket.seat.seat,
+    'headLine': ticket.match.headline
+  };
+}
+
+function getTicketByCode(code) {
+  let dateNow = new Date();
+
+  return Ticket.findOne({accessCode: code, status: 'paid'});
+  // .where({
+  //   $and: [
+  //     {'valid.from': {$lte: dateNow}},
+  //     {'valid.to': {$gt: dateNow}}
+  //   ]
+  // });
+}
+
+function getCountTicketsByTribune(tribune) {
+  let dateNow = new Date();
+
+  return getNextMatchTickets()
+  /*.where({$and: [
+   {'valid.from': { $lte: dateNow }},
+   {'valid.to': { $gt: dateNow }}
+   ]})*/
+    .then(tickets => {
+      if (tribune === 'vip') {
+        return tickets.filter(ticket => sectorsInVip.includes(ticket.seat.sector)).length;
+      }
+      return tickets.filter(ticket => ( ticket.seat.tribune === tribune && !sectorsInVip.includes(ticket.seat.sector) )).length;
     });
 }
