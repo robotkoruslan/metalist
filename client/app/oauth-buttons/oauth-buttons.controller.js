@@ -1,8 +1,16 @@
- const OauthButtonsController = ($window) => {
-  'ngInject';
-  let loginOauth = (provider) => {
-    $window.location.href = '/auth/' + provider;
+ class OauthButtonsController {
+
+  constructor($window) {
+     'ngInject';
+    this.$window = $window;
+    console.log('provider2');
+   }
+
+
+  loginOauth(provider) {
+    console.log('provider', provider);
+    this.$window.location.href = '/auth/' + provider;
   };
-};
+}
 
  export default OauthButtonsController;

@@ -148,9 +148,30 @@ describe('Ticket API:', function () {
         });
     });
 
+    it('GET /api/tickets/tribune/:tribune/code/:code : should respond with message "Другая трибуна"', function (done) {
+      request(app)
+        .get('/api/tickets/tribune/' + 'east' + '/code/' + 's91910')
+        .set('authorization', 'Bearer ' + token)
+        .expect(200)
+        .end((err, res) => {
+          if(err) {
+            done(err);
+          } else {
+            res.body.ticket.headLine.toString().should.equal('Металлист 1925 - Dynamo');
+            res.body.ticket.tribune.toString().should.equal('north');
+            res.body.ticket.row.toString().should.equal('19');
+            res.body.ticket.sector.toString().should.equal('10');
+            res.body.ticket.seat.toString().should.equal('10');
+            res.body.count.toString().should.equal('1');
+            res.body.message.toString().should.equal('Другая трибуна');
+            done();
+          }
+        });
+    });
+
     it('GET /api/tickets/tribune/:tribune/code/:code : should respond with status 200', function (done) {
       request(app)
-        .get('/api/tickets/tribune/' + 'west' + '/code/' + 's91910')
+        .get('/api/tickets/tribune/west/code/s91910')
         .set('authorization', 'Bearer ' + token)
         .expect(200)
         .end((err, res) => {
@@ -170,44 +191,7 @@ describe('Ticket API:', function () {
 
     it('GET /api/tickets/tribune/:tribune/code/:code : should respond with message "Билет не действительный."', function (done) {
       request(app)
-        .get('/api/tickets/tribune/' + 'west' + '/code/' + 's91910')
-        .set('authorization', 'Bearer ' + token)
-        .expect(200)
-        .end((err, res) => {
-          if(err) {
-            done(err);
-          } else {
-            res.body.count.toString().should.equal('0');
-            res.body.message.toString().should.equal('Билет не действительный.');
-            done();
-          }
-        });
-    });
-
-    it('GET /api/tickets/tribune/:tribune/code/:code : should respond with message "Другая трибуна"', function (done) {
-      request(app)
-        .get('/api/tickets/tribune/' + 'east' + '/code/' + 's101910')
-        .set('authorization', 'Bearer ' + token)
-        .expect(200)
-        .end((err, res) => {
-          if(err) {
-            done(err);
-          } else {
-            res.body.ticket.headLine.toString().should.equal('Металлист 1925 - Dynamo');
-            res.body.ticket.tribune.toString().should.equal('north');
-            res.body.ticket.row.toString().should.equal('19');
-            res.body.ticket.sector.toString().should.equal('10');
-            res.body.ticket.seat.toString().should.equal('10');
-            res.body.count.toString().should.equal('1');
-            res.body.message.toString().should.equal('Другая трибуна');
-            done();
-          }
-        });
-    });
-
-    it('GET /api/tickets/tribune/:tribune/code/:code : should respond with message "Билет не действительный."', function (done) {
-      request(app)
-        .get('/api/tickets/tribune/' + 'west' + '/code/' + 's9193410')
+        .get('/api/tickets/tribune/west/code/s91910')
         .set('authorization', 'Bearer ' + token)
         .expect(200)
         .end((err, res) => {

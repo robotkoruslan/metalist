@@ -41,7 +41,6 @@ import LogoutController from './account/logout/logout.controller';
 import MatchController from './match/match.controller';
 import NotFoundController from './404/404.controller';
 import NavbarController from './navbar/navbar.controller';
-import OauthButtonsController from './oauth-buttons/oauth-buttons.controller';
 import RecoveryController from './account/recovery/recovery.controller';
 import SectorController from './sector/sector.controller';
 import SettingsController from './account/settings/settings.controller';
@@ -83,7 +82,6 @@ angular.module('metalistTicketsApp', [
   .controller('LogoutController', LogoutController)
   .controller('MatchController', MatchController)
   .controller('NavbarController', NavbarController)
-  .controller('OauthButtonsController', OauthButtonsController)
   .controller('RecoveryController', RecoveryController)
   .controller('SectorController', SectorController)
   .controller('SettingsController', SettingsController)
