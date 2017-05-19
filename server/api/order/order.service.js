@@ -73,7 +73,7 @@ export function createPaymentLink(order) {
     'server_url': config.liqpay.callbackUrl,
     'result_url': config.liqpay.redirectUrl
   };
-  console.log('publicKey3', config.liqpay, config);
+
   return LiqPay.generatePaymentLink(paymentParams);
 }
 
