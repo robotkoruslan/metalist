@@ -14,6 +14,8 @@
 
 2. Run `mongod` in a separate shell to keep an instance of the MongoDB Daemon running
 
+3. Run commands `mkdir mongo_data` && `chown -R mongodb:mongodb mongo_data` for mongodb volumes.
+
 4. Run `npm run docker:serve` to start the docker container in development mode.
 
 5. Run `npm run watch`. It should automatically restart node server in docker container.
