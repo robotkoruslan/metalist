@@ -16,9 +16,11 @@
 
 3. Run commands `mkdir mongo_data` && `chown -R mongodb:mongodb mongo_data` for mongodb volumes.
 
-4. Run `npm run docker:serve` to start the docker container in development mode.
+4. Rename .env.sample to .env.
 
-5. Run `npm run watch`. It should automatically restart node server in docker container.
+5. Run `npm run docker:serve` to start the docker container with app in development mode.
+
+6. Run `npm run watch`. It must automatically restart node server when the files are changed.
 
 ## Testing
 

@@ -158,9 +158,9 @@ describe('Ticket API:', function () {
             done(err);
           } else {
             res.body.ticket.headLine.toString().should.equal('Металлист 1925 - Dynamo');
-            res.body.ticket.tribune.toString().should.equal('north');
+            res.body.ticket.tribune.toString().should.equal('west');
             res.body.ticket.row.toString().should.equal('19');
-            res.body.ticket.sector.toString().should.equal('10');
+            res.body.ticket.sector.toString().should.equal('9');
             res.body.ticket.seat.toString().should.equal('10');
             res.body.count.toString().should.equal('1');
             res.body.message.toString().should.equal('Другая трибуна');
