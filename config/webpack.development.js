@@ -9,6 +9,7 @@ module.exports = webpackMerge(commonConfig, {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './../client/index.html'),
+      hash: true,
       filename: 'index.html',
       mobile: true,
       inject: true

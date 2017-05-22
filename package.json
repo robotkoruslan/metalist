@@ -17,7 +17,7 @@
     "watch": "npm run client:watch & npm run server:watch",
     "start": "node dist/server",
     "serve": "node dist/server & npm run client:watch",
-    "nodemon": "nodemon --watch dist/server",
+    "nodemon": "nodemon dist/server --watch dist/server",
     "lint": "jshint client/**/*.js server/**/*.js server/*.js",
     "pretest": "npm run server:build",
     "test": "NODE_ENV=test mocha dist/server/**/*.{spec,integration}.js --require mocha.conf.js",
@@ -77,14 +77,14 @@
     "serve-favicon": "^2.3.0",
     "strict-password-generator": "^1.1.0",
     "supertest": "^1.1.0",
-    "nodemon": "^1.3.7"
-  },
-  "devDependencies": {
+    "nodemon": "^1.3.7",
     "babel-cli": "^6.24.1",
     "babel-core": "6.3.26",
     "babel-loader": "6.1.0",
     "babel-polyfill": "6.3.14",
-    "babel-preset-es2015": "6.1.18",
+    "babel-preset-es2015": "6.1.18"
+  },
+  "devDependencies": {
     "chai": "^3.2.0",
     "chai-as-promised": "^5.1.0",
     "chai-things": "^0.2.0",
