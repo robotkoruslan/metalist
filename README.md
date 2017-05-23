@@ -1,5 +1,4 @@
-# metalist-tickets v.2
-
+# metalist-tickets v.2 [![Build Status](https://travis-ci.org/Sash730/metalist1925.svg?branch=master)](https://travis-ci.org/Sash730/metalist1925)
 ## Getting Started
 
 ### Prerequisites
