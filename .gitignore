@@ -13,3 +13,4 @@ npm-debug.log
 production.yml
 all.log
 .env
+mongo_data
