@@ -1,4 +1,4 @@
-# metalist-tickets v.2 [![Build Status](https://travis-ci.org/Sash730/metalist1925.svg?branch=master)](https://travis-ci.org/Sash730/metalist1925)
+# metalist-tickets v.2 [![CircleCI](https://circleci.com/gh/Sash730/metalist1925/tree/master.svg?style=svg)](https://circleci.com/gh/Sash730/metalist1925/tree/master)
 ## Getting Started
 
 ### Prerequisites
