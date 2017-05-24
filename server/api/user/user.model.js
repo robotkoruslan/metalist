@@ -37,6 +37,10 @@ let UserSchema = new Schema({
   provider: String,
   tickets: [{type: Schema.Types.ObjectId, ref: 'Ticket'}],
   salt: String,
+  isOfferNotification: {
+      type: Boolean,
+      default: true
+  },
   facebook: {},
   google: {},
   github: {}
