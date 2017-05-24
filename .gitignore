@@ -2,15 +2,9 @@ node_modules
 .tmp
 .idea
 client/bower_components
-dist/client
-dist/server
-dist/package.json
-dist/OpenSans-Bold.ttf
-dist/ticket.png
+dist
 server/config/local.env.js
-coverage
 npm-debug.log
-production.yml
 all.log
 .env
 mongo_data

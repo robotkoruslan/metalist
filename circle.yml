@@ -1,8 +1,9 @@
-machine:
-  node:
-    version: 6.10.0
 deployment:
-  dockerhub:
-    branch: master
-    commands:
-      - $TRIGGER_DOCKER_HUB_BUILD
+ production:
+  branch: master
+   commands:
+    - ./deploy_prod.sh
+
+test:
+ override:
+  - echo 'No tests, only deploy'
