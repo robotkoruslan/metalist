@@ -1,4 +1,4 @@
-# metalist-tickets v.2 [![CircleCI](https://circleci.com/gh/Sash730/metalist1925/tree/master.svg?style=svg)](https://circleci.com/gh/Sash730/metalist1925/tree/master)
+# metalist-tickets v.2
 ## Getting Started
 
 ### Prerequisites
