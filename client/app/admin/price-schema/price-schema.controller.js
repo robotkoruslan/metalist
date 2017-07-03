@@ -1,9 +1,11 @@
 export default class PriceSchemaController {
 
-  constructor(PriceSchemaService, Stadium) {
+  constructor(PriceSchemaService, StadiumMetalist, StadiumDinamo) {
     'ngInject';
-    this.stadium = Stadium;
+    this.stadium = StadiumMetalist;
     this.priceSchemaService = PriceSchemaService;
+
+    this.stadiumName = '';
 
     this.priceSchemas = [];
     this.currentPriceSchema = {};

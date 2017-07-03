@@ -14,6 +14,7 @@ export default class PriceSchemaService {
   }
 
   loadPrices() {
+    //remake post
     return this.$http.get('/api/priceSchema');
   }
 

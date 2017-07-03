@@ -1,4 +1,11 @@
 <form name="myForm"><br>
+    <label for="stadiumName">Выберете стадион :</label>
+    <select class="form-control" name="currentPriceSchema.stadiumName" id="currentPriceSchema.stadiumName" ng-change="$ctrl.currentPriceSchema.stadiumName" ng-model="$ctrl.currentPriceSchema.stadiumName">
+        <option value="metalist">metalist</option>
+        <option value="dinamo">dinamo</option>
+        <option value="solar">solar</option>
+    </select>
+
     <label for="priceSchema"> Выберите прайс схему: </label>
     <select class="form-control" name="priceSchema" id="priceSchema" ng-change="$ctrl.setCurrentPriceSchema($ctrl.schemaName)" ng-model="$ctrl.schemaName">
         <option value="---New Schema---">---New Schema---</option>
@@ -15,6 +22,11 @@
             <label for="schemaName">Schema Name :</label>
             <input class="form-control" type="text" name="schemaName" id="schemaName" ng-model="$ctrl.currentPriceSchema.name" required >
             <div class="help-block" ng-show="priceForm.schemaName.$error.required && priceForm.schemaName.$dirty">Schema Name is required</div>
+
+            <label for="stadiumName">stadiumName dinamo or metalist:</label>
+            <input class="form-control" type="text" name="stadiumName" id="stadiumName" ng-model="$ctrl.currentPriceSchema.stadiumName" required >
+
+
            </div>
             <h4>Цена на трибуну:</h4>
            <table class="table">

@@ -8,6 +8,7 @@ let stadiumComponent = {
   controller: StadiumController,
   bindings: {
     priceSchema: '<',
+    //onSectorSelect: '&',
     onSectorSelect: '&'
   }
 };
