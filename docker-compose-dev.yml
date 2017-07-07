@@ -1,19 +1,11 @@
 web:
-  build: .
-  restart: always
   ports:
     - "9000:9000"
     - "465:465"
-  links:
-    - mongo
-  env_file: .env
   volumes:
     - ./dist:/app/dist
   command: bash -c "npm run nodemon"
 
 mongo:
-  image: mongo
   ports:
     - "27018:27017"
-  volumes:
-    - ./mongo_data:/data/db

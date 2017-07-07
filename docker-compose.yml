@@ -6,13 +6,10 @@ web:
     - "465:465"
   links:
     - mongo
-  environment:
-    NODE_ENV: production
+  env_file: .env
   command: bash -c "node server"
 
 mongo:
   image: mongo
-  ports:
-    - "27018:27017"
   volumes:
     - ./mongo_data:/data/db
