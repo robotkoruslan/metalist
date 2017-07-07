@@ -29,12 +29,12 @@ export function getNextMatch() {
 }
 
 export function createMatch(newMatch) {
-
   let match = new Match({
     rival: newMatch.rival,
     info: newMatch.info,
     poster: newMatch.poster,
-    priceSchema: newMatch.priceSchema.id
+    priceSchema: newMatch.priceSchema.id,
+    stadiumName: newMatch.priceSchema.priceSchema.stadiumName
   });
   return match.save();
 }

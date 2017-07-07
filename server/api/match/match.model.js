@@ -15,6 +15,7 @@ const MatchSchema = new Schema({
   },
   priceSchema: {type: Schema.ObjectId, ref: 'PriceSchema'},
   info: String,
+  stadiumName: String,
   poster: String,
 }, {
   toObject: {virtuals: true},

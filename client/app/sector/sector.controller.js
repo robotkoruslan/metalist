@@ -1,12 +1,21 @@
 export default class SectorController {
 
-    constructor(match, sector, TicketsService, $stateParams, CartService, PriceSchemaService) {
+    constructor(match, sector, TicketsService, $stateParams, CartService, PriceSchemaService, StadiumMetalist, StadiumDinamo, StadiumSolar) {
       'ngInject';
       this.cartService = CartService;
       this.priceSchemaService = PriceSchemaService;
       this.ticketsService = TicketsService;
       this.match = match;
-      this.sector = sector;
+
+      if (match.priceSchema.priceSchema.stadiumName == 'dinamo') {
+        this.sector = StadiumDinamo['tribune_' + sector.tribune]['sector_' + sector.sector];
+      } else {
+        if (match.priceSchema.priceSchema.stadiumName == 'solar') {
+          this.sector = StadiumSolar['tribune_' + sector.tribune]['sector_' + sector.sector];
+        } else {
+        this.sector = StadiumMetalist['tribune_' + sector.tribune]['sector_' + sector.sector];
+        }
+      }
 
       this.reservedSeats = [];
       this.selectedSeats = [];

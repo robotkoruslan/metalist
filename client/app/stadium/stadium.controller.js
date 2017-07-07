@@ -13,6 +13,7 @@ export default class StadiumController {
   }
 
   $onInit() {
+    this.stadiumName = this.priceSchema.stadiumName;
   }
 
   onSectorClick($event, tribuneName, sectorNumber) {

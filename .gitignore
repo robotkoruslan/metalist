@@ -7,3 +7,4 @@ npm-debug.log
 all.log
 .env
 mongo_data
+server/config/local.env.js

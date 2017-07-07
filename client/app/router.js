@@ -87,10 +87,21 @@ export function routerConfig($cookiesProvider, $stateProvider, $urlRouterProvide
     controller: 'SectorController',
     controllerAs: 'vm',
     resolve: {
-      sector: (Stadium, $stateParams) => {
-        'ngInject';
-        return Stadium['tribune_' + $stateParams.tribune]['sector_' + $stateParams.sector];
-      },
+      //sector:  $stateParams,
+
+      sector: ($stateParams) => {
+'ngInject';
+return $stateParams;
+},
+
+      //sector: (Stadium, $stateParams) => {
+      //
+      //console.log('$stateParams', $stateParams);
+      //
+      //
+      //  'ngInject';
+      //  return Stadium['tribune_' + $stateParams.tribune]['sector_' + $stateParams.sector];
+      //},
       match: (MatchService, $stateParams, $state) => {
         'ngInject';
         return MatchService

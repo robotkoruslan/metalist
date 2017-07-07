@@ -2,7 +2,9 @@
 
 import {RESERVE, PAID} from '../seat/seat.constants';
 import Promise from 'bluebird';
-import {Stadium} from '../../stadium';
+import {StadiumMetalist} from '../../stadium/metalist';
+import {StadiumDinamo} from '../../stadium/dinamo';
+import {StadiumSolar} from '../../stadium/solar';
 import Seat from '../seat/seat.model';
 import * as matchService from '../match/match.service';
 import * as priceSchemaService from '../priceSchema/priceSchema.service';
@@ -98,16 +100,55 @@ export function deletePrevMatchSeats(seats, matchId) {
 }
 // private function
 function createStadiumSeatsForMatch(match) {
+  console.log("createStadiumSeatsForMatch(match)  ", match);
   let parameters = [];
-  for (let tribune in Stadium) {
-    for (let sector in Stadium[tribune]) {
-      if (Stadium[tribune][sector].rows) {
-        Stadium[tribune][sector].rows.forEach(row => {
-          parameters.push({tribune: Stadium[tribune].name, sector: Stadium[tribune][sector].name, row: row, match: match});
+
+  if (match.stadiumName == 'metalist') {
+    let Stadium = StadiumMetalist;
+    for (let tribune in Stadium) {
+      for (let sector in Stadium[tribune]) {
+        if (Stadium[tribune][sector].rows) {
+          Stadium[tribune][sector].rows.forEach(row => {
+            parameters.push({tribune: Stadium[tribune].name, sector: Stadium[tribune][sector].name, row: row, match: match});
         })
       }
     }
+   }
+  } else {
+      if (match.stadiumName == 'solar') {
+        let Stadium = StadiumSolar;
+        for (let tribune in Stadium) {
+          for (let sector in Stadium[tribune]) {
+            if (Stadium[tribune][sector].rows) {
+              Stadium[tribune][sector].rows.forEach(row => {
+                parameters.push({tribune: Stadium[tribune].name, sector: Stadium[tribune][sector].name, row: row, match: match});
+            })
+          }
+        }
+      }
+    } else {
+          let Stadium = StadiumDinamo;
+          for (let tribune in Stadium) {
+            for (let sector in Stadium[tribune]) {
+              if (Stadium[tribune][sector].rows) {
+                Stadium[tribune][sector].rows.forEach(row => {
+                  parameters.push({tribune: Stadium[tribune].name, sector: Stadium[tribune][sector].name, row: row, match: match});
+              })
+            }
+          }
+        }
+      }
   }
+
+  //for (let tribune in Stadium) {
+  //  for (let sector in Stadium[tribune]) {
+  //    if (Stadium[tribune][sector].rows) {
+  //      Stadium[tribune][sector].rows.forEach(row => {
+  //        parameters.push({tribune: Stadium[tribune].name, sector: Stadium[tribune][sector].name, row: row, match: match});
+  //      })
+  //    }
+  //  }
+  //}
   return Promise.map(parameters, function({tribune, sector, row, match}) {
     return createRowSeats(tribune, sector, row, match);
   }, {concurrency: 1}).then(function() {

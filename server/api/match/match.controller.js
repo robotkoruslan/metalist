@@ -26,6 +26,7 @@ export function getMatchById(req, res) {
 }
 
 export function createMatch(req, res) {
+  console.log('createMatch req.body', req.body);
   let newMatch = req.body,
     matchDate = newMatch.date;
 
