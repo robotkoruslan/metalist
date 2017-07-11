@@ -52,8 +52,8 @@ let generatePdfPage = (res, ticket, png) => {
 
     .text('Трибуна: ', 350, 45)
     .text('Сектор: ', 350, 65)
-    // .text('Ряд: ', 350, 85)
-    // .text('Место: ', 350, 105)
+    .text('Ряд: ', 350, 85)
+    .text('Место: ', 350, 105)
 
   doc.fontSize(14)
     .text( moment(ticket.match.date).tz("Europe/Kiev").format('DD.MM.YYYY HH:mm'), 8, 15, {align: 'center'});
@@ -61,10 +61,9 @@ let generatePdfPage = (res, ticket, png) => {
   doc.fontSize(13)
     .text( ticket.match.headline, 20, 140, {align: 'center'})
     .text( translate(ticket.seat.tribune), 400, 42)
-    .text( '1-6', 400, 63)
-    // .text( ticket.seat.sector, 400, 63)
-    // .text( ticket.seat.row, 400, 81)
-    // .text( ticket.seat.seat, 400, 102);
+    .text( ticket.seat.sector, 400, 63)
+    .text( ticket.seat.row, 400, 81)
+    .text( ticket.seat.seat, 400, 102);
 
   doc.fontSize(9)
     // .text('ОСК "Металлист"\n г. Харьков\n ул. Плехановская, 65\n \n Цена:  ' + ticket.amount + ' грн.', -245, 53, {align: 'center'});
