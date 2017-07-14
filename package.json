@@ -11,7 +11,7 @@
     "client:build:prod": "NODE_ENV=production webpack",
     "server:build": "babel server --out-dir dist/server",
     "postserver:build": "npm run copy",
-    "copy": "cp server/ticket.png dist/server & cp server/OpenSans-Bold.ttf dist/server",
+    "copy": "cp server/ticket.png dist/server & cp server/Lato-Bold.ttf dist/server",
     "client:watch": "NODE_ENV=development webpack --watch",
     "server:watch": "babel server --watch --out-dir dist/server ",
     "watch": "npm run client:watch & npm run server:watch",
@@ -107,7 +107,7 @@
     "sinon-chai": "^2.8.0",
     "style-loader": "~0.13.0",
     "url-loader": "~0.5.6",
-    "webpack": "~2.5.0",
+    "webpack": "^2.5.1",
     "webpack-md5-hash": "^0.0.5",
     "webpack-merge": "^0.14.0"
   },

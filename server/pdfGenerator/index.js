@@ -46,7 +46,8 @@ let generatePdfPage = (res, ticket, png) => {
   let doc = new PDFDocument();
   doc.pipe(res);
   doc.image('./server/ticket.png', 10, 0, {width: 500});
-  doc.font('./server/OpenSans-Bold.ttf');
+  doc.font('./server/Lato-Bold.ttf');
+
   doc.fontSize(10)
 
 
@@ -73,8 +74,8 @@ let generatePdfPage = (res, ticket, png) => {
     .image(png, 25, -90, {width: 140});
 
   doc
-    .fontSize(9)
-    .text('ЧЕМПИОНАТ УКРАИНЫ ПО ФУТБОЛУ\n СРЕДИ АМАТОРСКИХ\n КОМАНД 2016-2017', -350, -510 ,{align: 'center'});
+    .fontSize(11)
+    .text('ЧЕМПИОНАТ УКРАИНЫ\n СРЕДИ КОМАНД\n ВТОРОЙ ЛИГИ', -350, -510 ,{align: 'center'});
 
   doc.end();
 }
