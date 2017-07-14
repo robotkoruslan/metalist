@@ -5,7 +5,6 @@
 
 - [Git](https://git-scm.com/)
 - [Node.js and npm](nodejs.org) Node ^6.10.0, npm ^3.14.7
-- [MongoDB](https://www.mongodb.org/) - Keep a running daemon with `mongod`
 
 ### Developing
 
