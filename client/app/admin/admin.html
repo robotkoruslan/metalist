@@ -1,8 +1,8 @@
 <div class="container">
   <uib-tabset active="active" justified="true">
-    <uib-tab index="0" heading="Пользователи">
+    <uib-tab index="0" heading="Статистика">
       <div ng-if="active === 0">
-        <admin-users></admin-users>
+        <tickets-statistic></tickets-statistic>
       </div>
     </uib-tab>
     <uib-tab index="1" heading="Матчи">
@@ -10,9 +10,9 @@
         <match-editor></match-editor>
       </div>
     </uib-tab>
-    <uib-tab index="2" heading="Статистика">
+    <uib-tab index="2" heading="Пользователи">
       <div ng-if="active === 2">
-        <tickets-statistic></tickets-statistic>
+        <admin-users></admin-users>
       </div>
     </uib-tab>
     <uib-tab index="3" heading="Сезонные билеты">
