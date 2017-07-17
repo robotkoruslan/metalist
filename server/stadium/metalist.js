@@ -1111,6 +1111,45 @@ export const StadiumMetalist =  {
         }
       ]
     },
+    sector_SB_2: {
+      name: 'SB_1',
+      rows: [
+        {
+          name: '1',
+          seats: '7'
+        },
+        {
+          name: '2',
+          seats: '7'
+        }
+      ]
+    },
+    sector_SB_3_5: {
+      name: 'SB_1',
+      rows: [
+        {
+          name: '1',
+          seats: '7'
+        },
+        {
+          name: '2',
+          seats: '7'
+        }
+      ]
+    },
+    sector_SB_6: {
+      name: 'SB_1',
+      rows: [
+        {
+          name: '1',
+          seats: '7'
+        },
+        {
+          name: '2',
+          seats: '7'
+        }
+      ]
+    },
     sector_SB_7: {
       name: 'SB_7',
       rows: [
@@ -1121,6 +1160,58 @@ export const StadiumMetalist =  {
         {
           name: '2',
           seats: '5'
+        }
+      ]
+    },
+    sector_SB_8: {
+      name: 'SB_1',
+      rows: [
+        {
+          name: '1',
+          seats: '7'
+        },
+        {
+          name: '2',
+          seats: '7'
+        }
+      ]
+    },
+    sector_SB_9: {
+      name: 'SB_1',
+      rows: [
+        {
+          name: '1',
+          seats: '7'
+        },
+        {
+          name: '2',
+          seats: '7'
+        }
+      ]
+    },
+    sector_SB_10: {
+      name: 'SB_1',
+      rows: [
+        {
+          name: '1',
+          seats: '7'
+        },
+        {
+          name: '2',
+          seats: '7'
+        }
+      ]
+    },
+    sector_SB_11: {
+      name: 'SB_1',
+      rows: [
+        {
+          name: '1',
+          seats: '7'
+        },
+        {
+          name: '2',
+          seats: '7'
         }
       ]
     }
