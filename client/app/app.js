@@ -30,6 +30,7 @@ import { routerConfig } from './router';
 import routerDecorator from './auth/router.decorator';
 
 import adminModule from './admin/admin.module';
+import cashboxModule from './cashbox/cashbox.module';
 import authModule from './auth/auth.module';
 import constantsModule from './app.constant';
 import filtersModule from './filters/filters';
