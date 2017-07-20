@@ -54,6 +54,7 @@ import './../../node_modules/angular-datepicker/dist/index.min.css';
 
 angular.module('metalistTicketsApp', [
   adminModule,
+  cashboxModule,
   authModule,
   filtersModule,
   constantsModule,

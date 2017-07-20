@@ -6,7 +6,7 @@ export default class NavbarController {
     'ngInject';
     this.isLoggedIn = Auth.isLoggedIn;
     this.isAdmin = Auth.isAdmin;
-    this.isCashier = Auth.isAdmin;
+    this.isCashier = Auth.isCashier || Auth.isAdmin;
     this.getCurrentUser = Auth.getCurrentUser;
     this.isCollapsed = true;
   }

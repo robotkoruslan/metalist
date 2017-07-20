@@ -6,7 +6,7 @@ import * as auth from '../../auth/auth.service.js';
 
 let router = express.Router();
 
-router.get('/season-tickets', auth.hasRole('admin'), controller.getSeasonTickets);
+router.get('/season-tickets', auth.hasRole('admin')||auth.hasRole('cashier'), controller.getSeasonTickets);
 router.get('/block-row', auth.hasRole('admin'), controller.getBlocks);
 
 router.post('/:slug', auth.hasRole('admin'), controller.createSeasonTicket);

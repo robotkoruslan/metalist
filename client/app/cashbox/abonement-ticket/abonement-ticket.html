@@ -1,5 +1,40 @@
-<div class="row">
-  2
+<label>Список абонементов</label>
+<form class="form">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Seat id</th>
+      <th>Сектор</th>
+      <th>Ряд</th>
+      <th>Место</th>
+      <th>Действителен</th>
+      <th>Удалить</th>
+    </tr>
+    </thead>
 
-</div>
-
+    <tbody>
+    <tr ng-repeat="ticket in $ctrl.seasonTickets ">
+      <td>
+        {{ticket.slug}}
+      </td>
+      <td>
+        {{ticket.sector}}
+      </td>
+      <td>
+        {{ticket.row}}
+      </td>
+      <td>
+        {{ticket.seat}}
+      </td>
+      <td>
+        {{ticket.reservedUntil | date}}
+      </td>
+      <td>
+        <a ng-click="$ctrl.deleteTicket(ticket)">
+          <span class="glyphicon glyphicon-trash pull-left text-danger"></span>
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</form>
