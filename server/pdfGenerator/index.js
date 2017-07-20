@@ -46,7 +46,7 @@ let generatePdfPage = (res, ticket, png) => {
   let doc = new PDFDocument();
   doc.pipe(res);
   doc.image('./server/ticket.png', 10, 0, {width: 500});
-  doc.font('./server/Lato-Bold.ttf');
+  doc.font('./server/OpenSans-Bold.ttf');
 
   doc.fontSize(10)
 
