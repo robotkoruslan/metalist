@@ -1,6 +1,6 @@
 import template from './abonement-ticket.html';
 import AbonementTicketController from './abonement-ticket.controller';
-let abonementTicketComponent = {
+const abonementTicketComponent = {
   templateUrl: template,
   controller: AbonementTicketController
 };

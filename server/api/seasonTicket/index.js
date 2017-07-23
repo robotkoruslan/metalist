@@ -4,7 +4,7 @@ let express = require('express');
 let controller = require('./seasonTicket.controller.js');
 import * as auth from '../../auth/auth.service.js';
 
-let router = express.Router();
+const router = express.Router();
 
 router.get('/season-tickets', auth.hasRole('admin')||auth.hasRole('cashier'), controller.getSeasonTickets);
 router.get('/block-row', auth.hasRole('admin'), controller.getBlocks);
