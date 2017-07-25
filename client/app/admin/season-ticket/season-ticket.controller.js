@@ -1,10 +1,12 @@
 export default class SeasonTicketController {
 
-  constructor(SeasonTicketService) {
+  constructor(SeasonTicketService, TicketsService) {
     'ngInject';
     this.seasonTicketService = SeasonTicketService;
+    this.ticketsService = TicketsService;
 
     this.seasonTickets = [];
+    this.preSaleAbonementTickets = [];
     this.blockRowSeats = [];
     this.errorMessageSeat = '';
     this.errorMessageBlockRow = '';
@@ -17,6 +19,11 @@ export default class SeasonTicketController {
 
   loadSeasonTickets() {
     this.seasonTicketService.loadSeasonTickets().then(response => this.seasonTickets = response.data);
+    this.errorMessageSeat = '';
+  }
+
+  loadPreSaleAbonementTickets() {
+    this.ticketsService.fetchReservedSeats().then(response => this.preSaleAbonementTickets = response.data);
     this.errorMessageSeat = '';
   }
 
