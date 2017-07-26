@@ -33,6 +33,7 @@
             <thead>
             <tr >
                 <th>Name</th>
+                <th>Color</th>
                 <th>Price</th>
             </tr>
             </thead>
@@ -40,6 +41,12 @@
             <tr>
                 <td>
                     {{$ctrl.currentTribune.name}}
+                </td>
+                <td>
+                    <span class=" fa fa-2x fa-square" style="color: {{$ctrl.currentTribune.color}}"></span>
+                    <select class="form-control" name="color" id="color" ng-change="$ctrl.currentTribune.color" ng-model="$ctrl.currentTribune.color">
+                        <option ng-repeat="color in $ctrl.colors" value="{{color.color}}">{{color.colorName}}</option>
+                    </select>
                 </td>
                 <td>
                     <div class="form-group"  ng-class="{'has-error': priceForm.tribunePrice.$invalid && priceForm.tribunePrice.$dirty}">
@@ -56,6 +63,7 @@
             <thead>
             <tr>
                 <th>Name</th>
+                <th>Color</th>
                 <th>Price</th>
             </tr>
             </thead>
@@ -63,6 +71,12 @@
             <tr>
                 <td>
                     <span>{{$ctrl.currentSector.name}}</span>
+                </td>
+                <td>
+                    <span class=" fa fa-2x fa-square" style="color: {{$ctrl.currentSector.color}}"></span>
+                    <select class="form-control" name="color" id="color" ng-change="$ctrl.currentSector.color" ng-model="$ctrl.currentSector.color">
+                        <option ng-repeat="color in $ctrl.colors" value="{{color.color}}">{{color.colorName}}</option>
+                    </select>
                 </td>
                 <td>
                     <div class="form-group"  ng-class="{'has-error': priceForm.sectorPrice.$invalid && priceForm.sectorPrice.$dirty}">

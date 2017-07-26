@@ -10,9 +10,19 @@ export default class PriceSchemaController {
     this.priceSchemas = [];
     this.currentPriceSchema = {};
     this.currentTribune = {};
+    this.currentTribune.color = '#808080';
     this.currentSector = {};
+    this.currentSector.color = '#808080';
     this.message = '';
     this.priceSchemaId = '';
+    this.colors = [
+      {color: '#8b54aa', colorName: 'violet'},
+      {color: '#ffcc00', colorName: 'yellow'},
+      {color: '#6f89c0', colorName: 'blue'},
+      {color: '#54aa6a', colorName: 'green'},
+      {color: '#ff972f', colorName: 'orange'}
+    ];
+
   }
 
   $onInit() {

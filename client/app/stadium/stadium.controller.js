@@ -38,24 +38,7 @@ export default class StadiumController {
   }
 
   getColor(tribuneName, sectorNumber) {
-    let defaultColor = '#808080',
-      price = this.getPriceBySector(tribuneName, sectorNumber, this.priceSchema);
-
-    if (!price) {
-      return defaultColor;
-    } else {
-      if (!this.prices.includes(price)) {
-        this.prices.push(price);
-      }
-
-      return this.getColorByPrice(price);
-    }
-  }
-
-  getColorByPrice(price) {
-    return this.colors
-      .filter(color => color.price == price)
-      .map(color => color.color)[0];
+        return this.getPriceBySector(tribuneName, sectorNumber, this.priceSchema);
   }
 
   inPrices(price) {
@@ -66,16 +49,20 @@ export default class StadiumController {
   getPriceBySector(tribuneName, sectorNumber, priceSchema) {
 
     if (!priceSchema['tribune_' + tribuneName]) {
-      return undefined;
+      return '#808080';
     }
 
     if (!priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber]) {
-      return priceSchema['tribune_' + tribuneName].price;
-    } else {
-      if (!priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber].price) {
-        return priceSchema['tribune_' + tribuneName].price;
+      if (!priceSchema['tribune_' + tribuneName].color) {
+        return '#808080';
+      } else {
+        return priceSchema['tribune_' + tribuneName].color;
       }
-      return priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber].price;
+    } else {
+      if (!priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber].color) {
+        return priceSchema['tribune_' + tribuneName].color;
+      }
+      return priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber].color;
     }
   }
 }

@@ -9,7 +9,6 @@
       <th>Ряд</th>
       <th>Место</th>
       <th>Действителен</th>
-      <th>Удалить</th>
     </tr>
     </thead>
 
@@ -32,11 +31,6 @@
       </td>
       <td>
         {{ticket.reservedUntil | date}}
-      </td>
-      <td>
-        <a ng-click="$ctrl.deleteTicket(ticket)">
-          <span class="glyphicon glyphicon-trash pull-left text-danger"></span>
-        </a>
       </td>
     </tr>
     </tbody>
