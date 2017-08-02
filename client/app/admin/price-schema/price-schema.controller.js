@@ -39,6 +39,17 @@ export default class PriceSchemaController {
       });
   }
 
+  edit(schema) {
+    console.log('edit', schema);
+    this.currentPriceSchema = schema;
+  }
+
+  selectTribune(tribune) {
+    console.log('selectTribune', tribune);
+    this.currentTribune.name = tribune;
+    this.currentSector.name = null;
+  }
+
   setCurrentPriceSchema(schemaName) {
     console.log('setCurrentPriceSchema', schemaName);
     this.currentTribune = {};
@@ -78,12 +89,13 @@ console.log('setCurrentColorSchema',color, price);
       tribuneName = $event.tribune,
       sectorNumber = $event.sector;
     this.message = '';
+    this.currentTribune.name = null;
 
     if (!priceSchema['tribune_' + tribuneName]) {
-      this.currentTribune = this.stadium['tribune_' + tribuneName];
+      //this.currentTribune = this.stadium['tribune_' + tribuneName];
       this.currentSector = this.stadium['tribune_' + tribuneName]['sector_' + sectorNumber];
     } else {
-      this.currentTribune = priceSchema['tribune_' + tribuneName];
+      //this.currentTribune = priceSchema['tribune_' + tribuneName];
 
       if (!priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber]) {
         this.currentSector = this.stadium['tribune_' + tribuneName]['sector_' + sectorNumber];
