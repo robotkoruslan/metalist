@@ -4,24 +4,35 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <label>Список схем</label>
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="schema in $ctrl.priceSchemas">
                 <span class="badge" ng-click="$ctrl.edit(schema.priceSchema)" style="cursor: pointer;">Edit</span>
-                {{schema.priceSchema.name}}
+                {{schema.priceSchema.name}} :
+                {{schema.priceSchema.stadiumName}}
             </li>
         </ul>
         <form class="form-inline">
             <button class="btn btn-default" ng-click="$ctrl.edit({})">New price schema</button>
         </form>
+---
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="colorSchema in $ctrl.currentPriceSchema.colorSchema">
+                <span class="fa fa-2x fa-square" style="color: {{colorSchema.color}}"></span>
+                Price:{{colorSchema.price}}
+                <span class="badge" ng-click="$ctrl.colorEdit(colorSchema)" style="cursor: pointer;">Edit</span>
+            </li>
+        </ul>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-9">
         <form name="myForm"><br>
+            {{$ctrl.currentPriceSchema}}
+
             <label for="stadiumName">Выберете стадион :</label>
             <select class="form-control" name="currentPriceSchema.stadiumName" id="currentPriceSchema.stadiumName"
                     ng-change="$ctrl.currentPriceSchema.stadiumName"
-                    ng-model="$ctrl.currentPriceSchema.stadiumName">
+                    ng-model="$ctrl.currentPriceSchema.stadiumName" >
                 <option value="metalist">metalist</option>
                 <option value="dinamo">dinamo</option>
                 <option value="solar">solar</option>
@@ -31,32 +42,60 @@
                     <p>Выбранная схема {{$ctrl.currentPriceSchema.name}}</p>
                 </div>
                 <div ng-show="!$ctrl.currentPriceSchema.name">
-                    <input type="text" class="form-control" ng-model="$ctrl.currentPriceSchema.newName">
+                    <input type="text" class="form-control" ng-model="$ctrl.currentPriceSchema.newName" placeholder="Название схемы">
                 </div>
-                <span class="input-group-addon"><button ng-click="$ctrl.selectTribune('east')" class="btn btn-default">Восточная трибуна</button></span>
-                <div class="input-group">
-            <span class="input-group-addon"><button ng-click="$ctrl.selectTribune('south')" class="btn btn-default">
-                <svg width="50" height="140" class="svg-text">
+
+                <div ng-show="$ctrl.currentPriceSchema.stadiumName == 'metalist' || $ctrl.currentPriceSchema.stadiumName == 'dinamo'">
+                    <span class="input-group-addon"><button ng-click="$ctrl.selectTribune('east')" class="btn btn-default">Восточная трибуна</button></span>
+                </div>
+
+                <div class="input-group" ng-show="$ctrl.currentPriceSchema.stadiumName == 'metalist' || $ctrl.currentPriceSchema.stadiumName == 'dinamo'">
+                <span class="input-group-addon"><button ng-click="$ctrl.selectTribune('south')" class="btn btn-default">
+                    <svg width="70" height="140" class="svg-text">
                     <text x="0" y="0" transform="rotate(90)">Южная трибуна</text>
-                </svg>
-            </button></span>
-                    <stadium price-schema="$ctrl.currentPriceSchema"
-                             on-sector-select="$ctrl.getSectorForSetPrice($event)"></stadium>
-            <span class="input-group-addon"><button ng-click="$ctrl.selectTribune('north')">
+                    </svg> .
+                </button></span>
+                <stadium price-schema="$ctrl.currentPriceSchema"
+                on-sector-select="$ctrl.getSectorForSetPrice($event)"></stadium>
+                <span class="input-group-addon"><button ng-click="$ctrl.selectTribune('north')" class="btn btn-default">
                 <svg width="70" height="140" class="svg-text">
                     <text x="0" y="0" transform="rotate(90)">Северная трибуна</text>
-                </svg>
-            </button></span>
+                </svg> .
+                </button></span>
                 </div>
+
+                <div class="input-group" ng-show="$ctrl.currentPriceSchema.stadiumName == 'solar'">
+
+                            <span class="input-group-addon"><button ng-click="$ctrl.selectTribune('east')" class="btn btn-default">
+                                <svg width="70" height="140" class="svg-text">
+                                    <text x="0" y="0" transform="rotate(90)">Восточная трибуна</text>
+                                </svg> .
+                            </button></span>
+
+                    <stadium price-schema="$ctrl.currentPriceSchema" on-sector-select="$ctrl.getSectorForSetPrice($event)"></stadium>
+
+                            <span class="input-group-addon"><button ng-click="$ctrl.selectTribune('west')" class="btn btn-default">
+                                <svg width="70" height="140" class="svg-text">
+                                    <text x="0" y="0" transform="rotate(90)">Западная трибуна</text>
+                                </svg> .
+                            </button></span>
+                </div>
+
+
+
+                <div ng-show="$ctrl.currentPriceSchema.stadiumName == 'metalist' || $ctrl.currentPriceSchema.stadiumName == 'dinamo'">
                 <span class="input-group-addon"><button ng-click="$ctrl.selectTribune('west')" class="btn btn-default">Западная трибуна</button></span>
+                </div>
             </div>
 
-            <div ng-show="$ctrl.currentTribune.name">
+            <!--<div ng-form="priceForm" ng-show="$ctrl.currentTribune.name">-->
+            <div ng-form="priceForm" ng-show="!$ctrl.currentSector.name">
                 <h4>Цена на трибуну:</h4>
                 <table class="table">
                     <thead>
                     <tr >
                         <th>Name</th>
+                        <th></th>
                         <th>Color</th>
                         <th>Price</th>
                     </tr>
@@ -64,21 +103,31 @@
                     <tbody>
                     <tr>
                         <td>
-                            {{$ctrl.currentTribune.name}}
+                            <span>{{$ctrl.currentTribune.name}}</span>
+                            <span>{{$ctrl.currentTribune}}</span>
+                            <span>{{$ctrl.currentTribuneColor}}</span>
                         </td>
                         <td>
-                            <div class="input-group">
-                              <span class="input-group-addon">
-                                <span class="input-group-addon fa fa-2x fa-square" style="color: {{$ctrl.currentTribune.color}}"></span>
-                              </span>
-                                <select class="form-control" name="color" id="color" ng-change="$ctrl.currentTribuneColor " ng-model="$ctrl.currentTribuneColor">
-                                    <option ng-repeat="color in $ctrl.colors" value="{{color.colorName}}">{{color.colorName}}</option>
+                            <span class="fa fa-2x fa-square" style="color: {{$ctrl.currentTribune.color}}"></span>
+                        </td>
+                        <td>
+
+                            <div class="form-group">
+                                <select name="color"
+                                        id="color"
+                                        ng-model="$ctrl.currentTribuneColor"
+                                        ng-options="color as color.colorName for color in $ctrl.colors"
+                                        class="form-control"
+                                        <!--ng-change="update()"-->
+                                        ng-change="$ctrl.currentTribune.color = color.color"
+                                        multiple
+                                        required>
                                 </select>
                             </div>
                         </td>
                         <td>
                             <div class="form-group"  ng-class="{'has-error': priceForm.tribunePrice.$invalid && priceForm.tribunePrice.$dirty}">
-                                <input class="form-control" type="number" name="tribunePrice" min="0" max="1500" ng-model="$ctrl.currentTribune.price" />
+                                <input class="form-control" type="number" name="tribunePrice" min="0" max="1500" ng-model="$ctrl.currentTribune.price" ng-change="$ctrl.currentTribune.price" />
                                 <div class="help-block" ng-show="priceForm.tribunePrice.$error.number && priceForm.tribunePrice.$dirty">Price not number</div>
                             </div>
                         </td>
@@ -87,12 +136,13 @@
                 </table>
             </div>
 
-            <div ng-show="$ctrl.currentSector.name">
+            <div ng-form="priceForm" ng-show="$ctrl.currentSector.name">
                 <h4>Цена на сектор:</h4>
                 <table class="table">
                     <thead>
                     <tr>
                         <th>Name</th>
+                        <th></th>
                         <th>Color</th>
                         <th>Price</th>
                     </tr>
@@ -101,20 +151,31 @@
                     <tr>
                         <td>
                             <span>{{$ctrl.currentSector.name}}</span>
+                            <span>{{$ctrl.currentSector}}</span>
                         </td>
                         <td>
-                            <div class="input-group">
-                              <span class="input-group-addon">
-                                <span class=" fa fa-2x fa-square" style="color: {{$ctrl.currentSector.color}}"></span>
-                              </span>
-                            <select class="form-control" name="color" id="color" ng-change="$ctrl.setCurrentColorSchema($ctrl.currentSectorColor, $ctrl.currentSector.price)" ng-model="$ctrl.currentSectorColor">
-                                <option ng-repeat="color in $ctrl.colors" value="{{color.colorName}}">{{color.colorName}}</option>
-                            </select>
+                            <span class=" fa fa-2x fa-square" style="color: {{$ctrl.currentSector.color}}"></span>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <select name="color"
+                                        id="color"
+                                        ng-model="$ctrl.currentSectorColor"
+                                        ng-options="color as color.colorName for color in $ctrl.colors"
+                                        class="form-control"
+                                <!--ng-change="update()"-->
+                                ng-change="$ctrl.currentSectorColor.color = color.color"
+                                multiple
+                                required>
+                                </select>
                             </div>
+                            <!--<select class="form-control" name="color" id="color" ng-change="$ctrl.setCurrentColorSchema($ctrl.currentSectorColor, $ctrl.currentSector.price)" ng-model="$ctrl.currentSectorColor">-->
+                                <!--<option ng-repeat="color in $ctrl.colors" value="{{color.colorName}}">{{color.colorName}}</option>-->
+                            <!--</select>-->
                         </td>
                         <td>
                             <div class="form-group"  ng-class="{'has-error': priceForm.sectorPrice.$invalid && priceForm.sectorPrice.$dirty}">
-                                <input class="form-control" type="number" name="sectorPrice" min="0" max="1500" ng-model="$ctrl.currentSector.price" />
+                                <input class="form-control" type="number" name="sectorPrice" min="0" max="1500" ng-model="$ctrl.currentSector.price" ng-change="$ctrl.currentSector.price" />
                                 <div class="help-block" ng-show="priceForm.sectorPrice.$error.number && priceForm.sectorPrice.$dirty">Price not number</div>
                             </div>
                         </td>
@@ -122,6 +183,12 @@
                     </tbody>
                 </table>
             </div>
+            <p>currentTribune {{$ctrl.currentTribune}}</p>
+            <p>currentSector {{$ctrl.currentSector}}</p>
+            <p>currentColorSchema {{$ctrl.currentColorSchema}}</p>
+            <p>currentTribuneColor {{$ctrl.currentTribuneColor}}</p>
+            <p>currentSectorColor {{$ctrl.currentSectorColor}}</p>
+            <!--<p>priceForm {{priceForm}}</p>-->
 
             <div ng-show="$ctrl.currentPriceSchema.stadiumName">
                 <button class="form-control"

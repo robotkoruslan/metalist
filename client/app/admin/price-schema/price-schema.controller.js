@@ -50,22 +50,22 @@ export default class PriceSchemaController {
     this.currentSector.name = null;
   }
 
-  setCurrentPriceSchema(schemaName) {
-    console.log('setCurrentPriceSchema', schemaName);
-    this.currentTribune = {};
-    this.currentSector = {};
-
-    if (schemaName === '---New Schema---') {
-      this.currentPriceSchema = {};
-    } else {
-      let currentPriceSchema = this.priceSchemas.filter(schema => schema.priceSchema.name === schemaName)[0];
-      this.priceSchemaId = currentPriceSchema.id;
-      this.currentPriceSchema = currentPriceSchema.priceSchema;
-      this.currentColorSchema = currentPriceSchema.priceSchema.colorSchema;
-      console.log('currentPriceSchema', currentPriceSchema);
-      console.log('this.currentColorSchema', this.currentColorSchema);
-    }
-  }
+  //setCurrentPriceSchema(schemaName) {
+  //  console.log('setCurrentPriceSchema', schemaName);
+  //  this.currentTribune = {};
+  //  this.currentSector = {};
+  //
+  //  if (schemaName === '---New Schema---') {
+  //    this.currentPriceSchema = {};
+  //  } else {
+  //    let currentPriceSchema = this.priceSchemas.filter(schema => schema.priceSchema.name === schemaName)[0];
+  //    this.priceSchemaId = currentPriceSchema.id;
+  //    this.currentPriceSchema = currentPriceSchema.priceSchema;
+  //    this.currentColorSchema = currentPriceSchema.priceSchema.colorSchema;
+  //    console.log('currentPriceSchema', currentPriceSchema);
+  //    console.log('this.currentColorSchema', this.currentColorSchema);
+  //  }
+  //}
 
   setCurrentColorSchema(color, price) {
 console.log('setCurrentColorSchema',color, price);
@@ -88,14 +88,17 @@ console.log('setCurrentColorSchema',color, price);
     let priceSchema = this.currentPriceSchema,
       tribuneName = $event.tribune,
       sectorNumber = $event.sector;
+    console.log('tribuneName', tribuneName);
+    console.log('sectorNumber', sectorNumber);
+
     this.message = '';
-    this.currentTribune.name = null;
+    // this.currentTribune.name = null;
 
     if (!priceSchema['tribune_' + tribuneName]) {
-      //this.currentTribune = this.stadium['tribune_' + tribuneName];
+      this.currentTribune = this.stadium['tribune_' + tribuneName];
       this.currentSector = this.stadium['tribune_' + tribuneName]['sector_' + sectorNumber];
     } else {
-      //this.currentTribune = priceSchema['tribune_' + tribuneName];
+      this.currentTribune = priceSchema['tribune_' + tribuneName];
 
       if (!priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber]) {
         this.currentSector = this.stadium['tribune_' + tribuneName]['sector_' + sectorNumber];
@@ -118,58 +121,70 @@ console.log('setCurrentColorSchema',color, price);
   }
 
   getPreparedPriceSchema(tribuneName, sectorNumber) {
+
     let priceSchema = this.currentPriceSchema,
       tribune = this.currentTribune,
       sector = this.currentSector,
       tribuneColor = this.currentTribuneColor,
       sectorColor = this.currentSectorColor;
 
+
+
+    console.log('sector', sector);
     if (!priceSchema.colorSchema) {priceSchema.colorSchema = []}
 
     delete sector.rows;
-    let colorPriceTribune = {price : tribune.price, color: tribuneColor},
-        colorPriceSector = {price : sector.price, color: sectorColor};
-
-    priceSchema.colorSchema.push(colorPriceTribune);
-    priceSchema.colorSchema.push(colorPriceSector);
+    if (tribune.price){
+      let colorPriceTribune = {price : tribune.price, color: tribuneColor.color, colorName: tribuneColor.colorName};
+      priceSchema.colorSchema.push(colorPriceTribune);
+    }
+    if (sector.price){
+      let colorPriceSector = {price : sector.price, color: sectorColor.color, colorName: sectorColor.colorName};
+      priceSchema.colorSchema.push(colorPriceSector);
+      sector.color = sectorColor.color;
+    }
 
     if (priceSchema['tribune_' + tribuneName] && priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber]) {
-
+        console.log('sector 1', sector);
       return priceSchema;
     }
 
     if (priceSchema['tribune_' + tribuneName] && !priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber]) {
-
+        console.log('sector 2', sector);
       priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber] = sector;
       return priceSchema;
     }
 
     if (!priceSchema['tribune_' + tribuneName]) {
+        console.log('sector 3', sector.name, ' - ' , sectorNumber);
       priceSchema['tribune_' + tribuneName] = {};
       priceSchema['tribune_' + tribuneName].name = tribune.name;
       priceSchema['tribune_' + tribuneName].price = tribune.price;
-      priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber] = sector;
+      priceSchema['tribune_' + tribuneName].color = tribuneColor.color;
+      if (sector.name){priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber] = sector; }
 
       return priceSchema;
     }
   }
 
   savePriceSchema(form, tribuneName, sectorNumber) {
-    console.log('form', form);
-    console.log('this.currentColorSchema', this.currentColorSchema);
-    console.log('tribuneName', tribuneName);
-    console.log('sectorNumber', sectorNumber);
-    console.log('$ctrl.currentTribune', this.currentTribune);
-    console.log('$ctrl.currentSector', this.currentSector);
-    console.log('currentTribuneColor', this.currentTribuneColor);
-    console.log('currentSectorColor', this.currentSectorColor);
     form.$setDirty();
-    form.schemaName.$setDirty();
-    form.tribunePrice.$setDirty();
-    form.sectorPrice.$setDirty();
+    //form.schemaName.$setDirty();
+    //form.tribunePrice.$setDirty();
+    //form.sectorPrice.$setDirty();
 
-    if (!tribuneName) {
-      this.message = 'Выберите сектор.';
+
+
+    if (!tribuneName && !sectorNumber) {
+      this.message = 'Выберите сектор или трибуну.';
+      return;
+    }
+    if (this.currentPriceSchema.newName ) {
+      this.currentPriceSchema.name = this.currentPriceSchema.newName;
+      this.currentPriceSchema.newName = undefined;
+    }
+    if (!this.currentPriceSchema.name) {
+      this.message = 'Укажите имя схемы.';
       return;
     }
 
