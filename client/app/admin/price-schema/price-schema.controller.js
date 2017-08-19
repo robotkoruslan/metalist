@@ -156,7 +156,7 @@ console.log('setCurrentColorSchema',color, price);
     }
 
     if (!priceSchema['tribune_' + tribuneName]) {
-        console.log('sector 3', sector.name, ' - ' , sectorNumber);
+        // console.log('sector 3', sector.name, ' - ' , sectorNumber);
       priceSchema['tribune_' + tribuneName] = {};
       priceSchema['tribune_' + tribuneName].name = tribune.name;
       priceSchema['tribune_' + tribuneName].price = tribune.price;
