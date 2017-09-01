@@ -5,10 +5,10 @@ export default class StadiumController {
     this.colors = [
       {color: '#8b54aa', colorName: 'violet', price: '10'},
       {color: '#8b54aa', colorName: 'violet', price: '20'},
-      {color: '#ffcc00', colorName: 'yellow', price: '30'},
+      {color: '#54aa6a', colorName: 'green', price: '30'},
       {color: '#6f89c0', colorName: 'blue', price: '35'},
       {color: '#6f89c0', colorName: 'blue', price: '40'},
-      {color: '#54aa6a', colorName: 'green', price: '50'},
+      {color: '#ffcc00', colorName: 'yellow', price: '50'},
       {color: '#54aa6a', colorName: 'green', price: '100'},
       {color: '#ff972f', colorName: 'yellow', price: '150'},
       {color: '#ff972f', colorName: 'orange', price: '200'},

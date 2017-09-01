@@ -137,8 +137,4 @@ export default class SectorController {
     return skyBoxes.includes(this.sector.name);
   }
 
-  isFreeSeats() {
-    let tribuneNames = ['east', 'north'];
-    return tribuneNames.includes(this.tribuneName);
-  }
 }
