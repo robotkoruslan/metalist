@@ -15,7 +15,8 @@ class SeasonTicketFormController {
   $onChanges(changes) {
     if ( changes.errorMessage ) {
       this.errorMessageBlockRow = this.errorMessage;
-    }
+    }    //this.onDelete({$event: { slug: ticket.slug }});
+
   }
 
   onInit() {
