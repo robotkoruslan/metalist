@@ -1,25 +1,20 @@
 export default class PriceSchemaController {
 
-  constructor(PriceSchemaService, StadiumMetalist, StadiumDinamo) {
+  constructor(PriceSchemaService, StadiumMetalist, DefaultPriceColor) {
     'ngInject';
     this.stadium = StadiumMetalist;
     this.priceSchemaService = PriceSchemaService;
+    this.defaultPriceColor = DefaultPriceColor;
 
     this.stadiumName = '';
-
+    this.applyShema = false;
     this.priceSchemas = [];
+    this.tempPriceSchema = {};
     this.currentPriceSchema = {};
     this.currentTribune = {};
     this.currentSector = {};
     this.message = '';
-    this.colors = [
-      {color: '#8b54aa', colorName: 'violet'},
-      {color: '#ffcc00', colorName: 'yellow'},
-      {color: '#6f89c0', colorName: 'blue'},
-      {color: '#54aa6a', colorName: 'green'},
-      {color: '#ff972f', colorName: 'orange'}
-    ];
-
+    this.colors = this.priceSchemaService.colors;
   }
 
   $onInit() {
@@ -33,46 +28,64 @@ export default class PriceSchemaController {
       });
   }
 
-  edit(schema) {
-    this.currentPriceSchema = schema;
+  changePrice() {
+    if (this.currentPriceSchema.newName ) {
+      this.currentPriceSchema.name = this.currentPriceSchema.newName;
+      this.currentPriceSchema.newName = undefined;
+    }
+    this.currentPriceSchema = this.getPreparedPriceSchema(this.currentTribune.name, this.currentSector.name);
+    this.buttonStatus(this.currentPriceSchema, this.tempPriceSchema, this.priceSchemas);
+
   }
 
-  selectTribune(tribune) {
-    this.currentTribune.name = tribune;
-    this.currentSector.name = null;
+  edit(schema) {
+    if (schema){
+      angular.copy(schema, this.tempPriceSchema);
+      angular.copy(this.tempPriceSchema, this.currentPriceSchema);
+      this.currentTribune = {};
+      this.currentSector = {};
+      this.applyShema = false;
+      this.applyPriceSchema = false;
+    }
+  }
+
+  selectTribune(tribuneName) {
+    if (this.tempPriceSchema.name) {
+      angular.copy(this.tempPriceSchema, this.currentPriceSchema);
+    }
+    if (!this.tempPriceSchema.name) {
+      angular.copy(this.currentPriceSchema, this.tempPriceSchema);
+    }
+    if (this.currentPriceSchema['tribune_' + tribuneName]){
+      this.currentTribune = angular.copy(this.currentPriceSchema['tribune_' + tribuneName]);
+    } else {
+      this.currentTribune.name = tribuneName;
+    }
+    this.currentSector = {};
   }
 
   getSectorForSetPrice($event) {
+    if (this.tempPriceSchema.name) {
+      angular.copy(this.tempPriceSchema, this.currentPriceSchema);
+    }
+    if (!this.tempPriceSchema.name) {
+      angular.copy(this.currentPriceSchema, this.tempPriceSchema);
+    }
     let priceSchema = this.currentPriceSchema,
       tribuneName = $event.tribune,
       sectorNumber = $event.sector;
 
-    this.message = '';
-    // this.currentTribune.name = null;
-
     if (!priceSchema['tribune_' + tribuneName]) {
-      this.currentTribune = this.stadium['tribune_' + tribuneName];
-      this.currentSector = this.stadium['tribune_' + tribuneName]['sector_' + sectorNumber];
+      this.currentTribune = Object.assign({}, this.stadium['tribune_' + tribuneName]);
+      this.currentSector = Object.assign({}, this.stadium['tribune_' + tribuneName]['sector_' + sectorNumber]);
     } else {
       this.currentTribune = priceSchema['tribune_' + tribuneName];
 
       if (!priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber]) {
-        this.currentSector = this.stadium['tribune_' + tribuneName]['sector_' + sectorNumber];
+        this.currentSector = Object.assign({}, this.stadium['tribune_' + tribuneName]['sector_' + sectorNumber]);
       } else {
         this.currentSector = priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber];
       }
-    }
-  }
-
-  getSectorsFill(tribuneName, sectorNumber) {
-    let defaultColor = '#808080',
-      priceSchema = this.currentPriceSchema,
-      price = this.priceSchemaService.getPriceBySector(tribuneName, sectorNumber, priceSchema);
-
-    if (!price) {
-      return defaultColor;
-    } else {
-      return this.priceSchemaService.getColorByPrice(price);
     }
   }
 
@@ -80,17 +93,22 @@ export default class PriceSchemaController {
 
     let priceSchema = this.currentPriceSchema,
       tribune = this.currentTribune,
-      sector = this.currentSector
+      sector = this.currentSector;
 
     if (!priceSchema.colorSchema) {priceSchema.colorSchema = []}
 
     delete sector.rows;
 
+    if (sector.price == null && sector.name) {
+      delete priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber];
+      return priceSchema;
+    }
+
     if (priceSchema['tribune_' + tribuneName] && priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber]) {
       return priceSchema;
     }
 
-    if (priceSchema['tribune_' + tribuneName] && !priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber]) {
+    if (priceSchema['tribune_' + tribuneName] && !priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber] && sectorNumber) {
       priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber] = sector;
       return priceSchema;
     }
@@ -98,23 +116,22 @@ export default class PriceSchemaController {
     if (!priceSchema['tribune_' + tribuneName]) {
       priceSchema['tribune_' + tribuneName] = {};
       priceSchema['tribune_' + tribuneName].name = tribune.name;
-      priceSchema['tribune_' + tribuneName].price = tribune.price;
-      if (sector.name){priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber] = sector; }
+    }
 
+    if (tribune.price) {
+      priceSchema['tribune_' + tribuneName].price = tribune.price;
       return priceSchema;
     }
+
+    if (priceSchema['tribune_' + tribuneName].price && !tribune.price) {
+      delete priceSchema['tribune_' + tribuneName].price;
+      return priceSchema;
+    } else {return priceSchema;}
   }
 
   savePriceSchema(form, tribuneName, sectorNumber) {
     form.$setDirty();
-    //form.schemaName.$setDirty();
-    //form.tribunePrice.$setDirty();
-    //form.sectorPrice.$setDirty();
 
-    if (!tribuneName && !sectorNumber) {
-      this.message = 'Выберите сектор или трибуну.';
-      return;
-    }
     if (this.currentPriceSchema.newName ) {
       this.currentPriceSchema.name = this.currentPriceSchema.newName;
       this.currentPriceSchema.newName = undefined;
@@ -126,14 +143,49 @@ export default class PriceSchemaController {
 
     if (form.$valid) {
       let priceSchema = this.getPreparedPriceSchema(tribuneName, sectorNumber);
+      this.priceSchemaService.updateColorSchema(priceSchema);
       this.priceSchemaService.savePriceSchema(priceSchema)
         .then(response => {
           this.currentPriceSchema = response.data.priceSchema;
+          this.edit(response.data.priceSchema);
           this.currentTribune = {};
           this.currentSector = {};
           this.loadPriceSchemas();
         });
     }
+    this.message = '';
+  }
+
+  saveSchema() {
+    this.currentPriceSchema = angular.copy(this.priceSchemaService.updateColorSchema(this.currentPriceSchema));
+    angular.copy(this.currentPriceSchema, this.tempPriceSchema);
+    this.buttonStatus(this.currentPriceSchema, this.tempPriceSchema, this.priceSchemas);
+    this.currentTribune = {};
+    this.currentSector = {};
+  }
+
+  changeColor($event) {
+    this.currentPriceSchema.colorSchema = $event.colorSchema;
+    angular.copy(this.currentPriceSchema, this.tempPriceSchema);
+    this.buttonStatus(this.currentPriceSchema, this.tempPriceSchema, this.priceSchemas);
+  }
+
+  buttonStatus(currentPriceSchema, tempPriceSchema, priceSchemas) {
+    if(!angular.equals(currentPriceSchema, tempPriceSchema)) {
+      this.applyShema = true;
+    } else {
+      this.applyShema = false;
+    }
+    for (let schema in priceSchemas) {
+      if (priceSchemas[schema].priceSchema.name == tempPriceSchema.name) {
+        if(!angular.equals(priceSchemas[schema].priceSchema, tempPriceSchema)) {
+          return this.applyPriceSchema = true;
+        } else {
+          return this.applyPriceSchema = false;
+        }
+      }
+    }
+    return this.applyPriceSchema = true;
   }
 
 }

@@ -4,17 +4,17 @@ export default class PriceSchemaService {
     'ngInject';
     this.$http = $http;
 
-    this.colors = [{color: '#ff972f', colorName: 'green', price: '30'},
-      {color: '#ffcc00', colorName: 'violet', price: '50'},
-      {color: '#54aa6a', colorName: 'yellow', price: '80'},
-      {color: '#6f89c0', colorName: 'blue', price: '100'},
-      {color: '#8b54aa', colorName: 'red', price: '150'}
+    this.colors = [
+      {color: '#8b54aa', colorName: 'violet'},
+      {color: '#ffcc00', colorName: 'yellow'},
+      {color: '#6f89c0', colorName: 'blue'},
+      {color: '#54aa6a', colorName: 'green'},
+      {color: '#ff972f', colorName: 'orange'}
     ];
 
   }
 
   loadPrices() {
-    //remake post
     return this.$http.get('/api/priceSchema');
   }
 
@@ -51,4 +51,50 @@ export default class PriceSchemaService {
       .map(color => color.color)[0];
   }
 
+  updateColorSchema(priceSchema){
+    let unicPrice = this.findUnicPrice(priceSchema);
+    for (let element in priceSchema.colorSchema) {
+      if (!unicPrice[priceSchema.colorSchema[element].price]) {
+        priceSchema.colorSchema.splice(element, 1);
+      } else {
+        delete unicPrice[priceSchema.colorSchema[element].price];
+      }
+    }
+    for (let i in unicPrice) {
+      priceSchema.colorSchema.push({price : i, color : "#ffcc00"}) ;
+    }
+    return priceSchema;
+  }
+
+  findUnicPrice(priceSchema) {
+    let obj = {};
+    let tribunes = [];
+    let str = /ribune/g;
+    this.findObjByName(priceSchema, str, tribunes);
+    for (let tribune in tribunes) {
+      if (priceSchema[tribunes[tribune]].price) {
+        let tribPrice = priceSchema[tribunes[tribune]].price;
+        obj[tribPrice] = true;
+      }
+      let sectors = [];
+      let str = /ector/g;
+      this.findObjByName(priceSchema[tribunes[tribune]], str, sectors);
+      for (let sector in sectors) {
+        if (priceSchema[tribunes[tribune]][sectors[sector]].price) {
+          let sectorPrice = priceSchema[tribunes[tribune]][sectors[sector]].price;
+          obj[sectorPrice] = true;
+        }
+      }
+    }
+    return obj;
+    }
+
+   findObjByName(objectElements, str, fineElement) {
+    for (let element in objectElements) {
+      let rezultFinds = element.match(str);
+      if (rezultFinds) {
+        fineElement.push(element);
+      }
+    }
+  }
 }

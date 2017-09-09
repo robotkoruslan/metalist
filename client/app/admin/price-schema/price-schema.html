@@ -12,14 +12,9 @@
             <button class="btn btn-default" ng-click="$ctrl.edit({})">New price schema</button>
         </form>
         <hr>
-        <panel current-price-schema="$ctrl.currentPriceSchema"></panel>
-        <!--<ul class="list-group">-->
-            <!--<li class="list-group-item" ng-repeat="colorSchema in $ctrl.currentPriceSchema.colorSchema">-->
-                <!--<span class="fa fa-2x fa-square" style="color: {{colorSchema.color}}"></span>-->
-                <!--Price:{{colorSchema.price}}-->
-                <!--<span class="badge" ng-click="$ctrl.colorEdit(colorSchema)" style="cursor: pointer;">Edit</span>-->
-            <!--</li>-->
-        <!--</ul>-->
+        <color-schema-editor current-color-schema="$ctrl.currentPriceSchema.colorSchema"
+                             colors="$ctrl.colors"
+                             on-edit="$ctrl.changeColor($event)"></color-schema-editor>
     </div>
     <div class="col-md-9">
         <form name="myForm"><br>
@@ -44,16 +39,16 @@
                 </div>
 
                 <div class="input-group" ng-show="$ctrl.currentPriceSchema.stadiumName == 'metalist' || $ctrl.currentPriceSchema.stadiumName == 'dinamo'">
-                <span class="input-group-addon"><button ng-click="$ctrl.selectTribune('south')" class="btn btn-default">
+                <span class="input-group-addon"><button ng-click="$ctrl.selectTribune('north')" class="btn btn-default">
                     <svg width="70" height="140" class="svg-text">
-                    <text x="0" y="0" transform="rotate(90)">Южная трибуна</text>
+                    <text x="0" y="0" transform="rotate(90)">Северная трибуна</text>
                     </svg> .
                 </button></span>
                 <stadium price-schema="$ctrl.currentPriceSchema"
                 on-sector-select="$ctrl.getSectorForSetPrice($event)"></stadium>
-                <span class="input-group-addon"><button ng-click="$ctrl.selectTribune('north')" class="btn btn-default">
+                <span class="input-group-addon"><button ng-click="$ctrl.selectTribune('south')" class="btn btn-default">
                 <svg width="70" height="140" class="svg-text">
-                    <text x="0" y="0" transform="rotate(90)">Северная трибуна</text>
+                    <text x="0" y="0" transform="rotate(90)">Южная трибуна</text>
                 </svg> .
                 </button></span>
                 </div>
@@ -80,59 +75,33 @@
                 </div>
             </div>
 
-            <div ng-form="priceForm" ng-show="!$ctrl.currentSector.name">
-                <h4>Цена на трибуну:</h4>
-                <table class="table">
-                    <thead>
-                    <tr >
-                        <th>Трибуна</th>
-                        <th>цена</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>
-                            <span>{{$ctrl.currentTribune.name}}</span>
-
-                        </td>
-                        <td>
-                            <div class="form-group"  ng-class="{'has-error': priceForm.tribunePrice.$invalid && priceForm.tribunePrice.$dirty}">
-                                <input class="form-control" type="number" name="tribunePrice" min="0" max="1500" ng-model="$ctrl.currentTribune.price" ng-change="$ctrl.currentTribune.price" />
-                                <div class="help-block" ng-show="priceForm.tribunePrice.$error.number && priceForm.tribunePrice.$dirty">Price not number</div>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div ng-form="priceForm" ng-show="$ctrl.currentTribune.name && !$ctrl.currentSector.name">
+                <h4>Цена на трибуну: {{$ctrl.currentTribune.name}}</h4>
+                <div class="form-group col-md-3"  ng-class="{'has-error': priceForm.tribunePrice.$invalid && priceForm.tribunePrice.$dirty}">
+                    <input class="form-control" type="number" name="tribunePrice" min="0" max="1500" ng-model="$ctrl.currentTribune.price" ng-change="$ctrl.changePrice()" />
+                    <div class="help-block" ng-show="priceForm.tribunePrice.$error.number && priceForm.tribunePrice.$dirty">Price not number</div>
+                </div>
+                <div ng-show="$ctrl.applyShema" class="col-md-3">
+                    <button class="btn btn-default" ng-click="$ctrl.saveSchema()">
+                        Apply Shema
+                    </button>
+                </div>
             </div>
 
             <div ng-form="priceForm" ng-show="$ctrl.currentSector.name">
-                <h4>Цена на сектор:</h4>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Номер сектора</th>
-                        <th>Цена</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>
-                            <span>{{$ctrl.currentSector.name}}</span>
-                        </td>
-                        <td>
-                            <div class="form-group"  ng-class="{'has-error': priceForm.sectorPrice.$invalid && priceForm.sectorPrice.$dirty}">
-                                <input class="form-control" type="number" name="sectorPrice" min="0" max="1500" ng-model="$ctrl.currentSector.price" ng-change="$ctrl.currentSector.price" />
-                                <div class="help-block" ng-show="priceForm.sectorPrice.$error.number && priceForm.sectorPrice.$dirty">Price not number</div>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <h4>Цена на сектор: № {{$ctrl.currentSector.name}}</h4>
+                <div class="form-group col-md-3"  ng-class="{'has-error': priceForm.sectorPrice.$invalid && priceForm.sectorPrice.$dirty}">
+                    <input class="form-control" type="number" name="sectorPrice" min="0" max="1500" ng-model="$ctrl.currentSector.price" ng-change="$ctrl.changePrice()" />
+                    <div class="help-block" ng-show="priceForm.sectorPrice.$error.number && priceForm.sectorPrice.$dirty">Price not number</div>
+                </div>
+                <div ng-show="$ctrl.applyShema" class="col-md-3">
+                    <button class="btn btn-default" ng-click="$ctrl.saveSchema()">
+                        Apply Shema
+                    </button>
+                </div>
             </div>
-
-            <div ng-show="$ctrl.currentPriceSchema.stadiumName">
-                <button class="form-control"
+            <div ng-show="$ctrl.applyPriceSchema || $ctrl.currentPriceSchema.newName">
+                <button class="btn btn-success btn-lg btn-block"
                         ng-click="$ctrl.savePriceSchema(priceForm, $ctrl.currentTribune.name, $ctrl.currentSector.name)"
                         ng-class="{'disabled': priceForm.$invalid && priceForm.$dirty}">
                     Save price

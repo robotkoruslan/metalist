@@ -1,22 +1,8 @@
 export default class StadiumController {
 
-  constructor() {
-
-    this.colors = [
-      {color: '#8b54aa', colorName: 'violet', price: '10'},
-      {color: '#8b54aa', colorName: 'violet', price: '20'},
-      {color: '#54aa6a', colorName: 'green', price: '30'},
-      {color: '#6f89c0', colorName: 'blue', price: '35'},
-      {color: '#6f89c0', colorName: 'blue', price: '40'},
-      {color: '#ffcc00', colorName: 'yellow', price: '50'},
-      {color: '#54aa6a', colorName: 'green', price: '100'},
-      {color: '#ff972f', colorName: 'yellow', price: '150'},
-      {color: '#ff972f', colorName: 'orange', price: '200'},
-      {color: '#ff972f', colorName: 'orange', price: '500'},
-      {color: '#54aa6a', colorName: 'green', price: '800'},
-      {color: '#6f89c0', colorName: 'blue', price: '1000'}
-    ];
-    this.prices = [];
+  constructor(DefaultPriceColor) {
+    this.defaultPriceColor = DefaultPriceColor;
+    this.prices =[];
   }
 
   $onInit() {
@@ -38,32 +24,43 @@ export default class StadiumController {
   }
 
   getColor(tribuneName, sectorNumber) {
-        return this.getPriceBySector(tribuneName, sectorNumber, this.priceSchema);
+    let price = this.getPriceBySector(tribuneName, sectorNumber, this.priceSchema);
+
+    if (!price) {
+      return this.defaultPriceColor.color;
+    }
+    else {
+      return this.getColorByPrice(price);
+    }
   }
 
-  inPrices(price) {
-    return this.prices.includes(parseInt(price));
-
+  getColorByPrice(price) {
+    return this.priceSchema.colorSchema
+        .filter(color => color.price == price)
+        .map(color => color.color)[0];
   }
 
   getPriceBySector(tribuneName, sectorNumber, priceSchema) {
-
-    if (!priceSchema['tribune_' + tribuneName]) {
-      return '#808080';
+    const currentTribune = priceSchema['tribune_' + tribuneName];
+    if (!currentTribune) {
+      return undefined;
     }
-
-    if (!priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber]) {
-      if (!priceSchema['tribune_' + tribuneName].color) {
-        return '#808080';
+    if (currentTribune) {
+      const currentSector = currentTribune['sector_' + sectorNumber];
+      if (!currentSector) {
+        if (!currentTribune.price) {
+          return undefined;
+        } else {
+          return currentTribune.price;
+        }
       } else {
-        return priceSchema['tribune_' + tribuneName].color;
+        if (!currentSector.price) {
+          return currentTribune.price;
+        }
+        return currentSector.price;
       }
-    } else {
-      if (!priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber].color) {
-        return priceSchema['tribune_' + tribuneName].color;
-      }
-      return priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber].color;
     }
+
   }
 }
 
