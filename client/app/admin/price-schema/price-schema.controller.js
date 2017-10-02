@@ -28,8 +28,10 @@ export default class PriceSchemaController {
       });
   }
 
-  changePrice() {
-    if (this.currentPriceSchema.newName ) {
+  changePrice($event) {
+    this.currentTribune = angular.copy($event.currentTribune);
+    this.currentSector = angular.copy($event.currentSector);
+    if (this.currentPriceSchema.newName) {
       this.currentPriceSchema.name = this.currentPriceSchema.newName;
       this.currentPriceSchema.newName = undefined;
     }
@@ -39,9 +41,9 @@ export default class PriceSchemaController {
   }
 
   edit(schema) {
-    if (schema){
-      angular.copy(schema, this.tempPriceSchema);
-      angular.copy(this.tempPriceSchema, this.currentPriceSchema);
+    if (schema) {
+      this.tempPriceSchema = angular.copy(schema.priceSchema);
+      this.currentPriceSchema = angular.copy(this.tempPriceSchema);
       this.currentTribune = {};
       this.currentSector = {};
       this.applyShema = false;
@@ -56,10 +58,11 @@ export default class PriceSchemaController {
     if (!this.tempPriceSchema.name) {
       angular.copy(this.currentPriceSchema, this.tempPriceSchema);
     }
-    if (this.currentPriceSchema['tribune_' + tribuneName]){
+    if (this.currentPriceSchema['tribune_' + tribuneName]) {
       this.currentTribune = angular.copy(this.currentPriceSchema['tribune_' + tribuneName]);
     } else {
       this.currentTribune.name = tribuneName;
+      this.currentTribune = angular.copy(this.currentTribune);
     }
     this.currentSector = {};
   }
@@ -95,7 +98,9 @@ export default class PriceSchemaController {
       tribune = this.currentTribune,
       sector = this.currentSector;
 
-    if (!priceSchema.colorSchema) {priceSchema.colorSchema = []}
+    if (!priceSchema.colorSchema) {
+      priceSchema.colorSchema = []
+    }
 
     delete sector.rows;
 
@@ -105,6 +110,7 @@ export default class PriceSchemaController {
     }
 
     if (priceSchema['tribune_' + tribuneName] && priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber]) {
+      priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber].price = sector.price;
       return priceSchema;
     }
 
@@ -126,13 +132,14 @@ export default class PriceSchemaController {
     if (priceSchema['tribune_' + tribuneName].price && !tribune.price) {
       delete priceSchema['tribune_' + tribuneName].price;
       return priceSchema;
-    } else {return priceSchema;}
+    } else {
+      return priceSchema;
+    }
   }
 
-  savePriceSchema(form, tribuneName, sectorNumber) {
-    form.$setDirty();
+  savePriceSchema(tribuneName, sectorNumber) {
 
-    if (this.currentPriceSchema.newName ) {
+    if (this.currentPriceSchema.newName) {
       this.currentPriceSchema.name = this.currentPriceSchema.newName;
       this.currentPriceSchema.newName = undefined;
     }
@@ -141,22 +148,20 @@ export default class PriceSchemaController {
       return;
     }
 
-    if (form.$valid) {
-      let priceSchema = this.getPreparedPriceSchema(tribuneName, sectorNumber);
-      this.priceSchemaService.updateColorSchema(priceSchema);
-      this.priceSchemaService.savePriceSchema(priceSchema)
-        .then(response => {
-          this.currentPriceSchema = response.data.priceSchema;
-          this.edit(response.data.priceSchema);
-          this.currentTribune = {};
-          this.currentSector = {};
-          this.loadPriceSchemas();
-        });
-    }
+    let priceSchema = this.getPreparedPriceSchema(tribuneName, sectorNumber);
+    this.priceSchemaService.updateColorSchema(priceSchema);
+    this.priceSchemaService.savePriceSchema(priceSchema)
+      .then(response => {
+        this.edit(response.data);
+        this.currentTribune = {};
+        this.currentSector = {};
+        this.loadPriceSchemas();
+      });
+
     this.message = '';
   }
 
-  saveSchema() {
+  clickApply() {
     this.currentPriceSchema = angular.copy(this.priceSchemaService.updateColorSchema(this.currentPriceSchema));
     angular.copy(this.currentPriceSchema, this.tempPriceSchema);
     this.buttonStatus(this.currentPriceSchema, this.tempPriceSchema, this.priceSchemas);
@@ -166,19 +171,26 @@ export default class PriceSchemaController {
 
   changeColor($event) {
     this.currentPriceSchema.colorSchema = $event.colorSchema;
-    angular.copy(this.currentPriceSchema, this.tempPriceSchema);
+    this.currentPriceSchema = angular.copy(this.currentPriceSchema);
+    this.tempPriceSchema = angular.copy(this.currentPriceSchema);
+    this.buttonStatus(this.currentPriceSchema, this.tempPriceSchema, this.priceSchemas);
+  }
+
+  changeSchema($event) {
+    this.currentPriceSchema = angular.copy($event.currentPriceSchema);
+    this.tempPriceSchema = angular.copy(this.currentPriceSchema);
     this.buttonStatus(this.currentPriceSchema, this.tempPriceSchema, this.priceSchemas);
   }
 
   buttonStatus(currentPriceSchema, tempPriceSchema, priceSchemas) {
-    if(!angular.equals(currentPriceSchema, tempPriceSchema)) {
+    if (!angular.equals(currentPriceSchema, tempPriceSchema)) {
       this.applyShema = true;
     } else {
       this.applyShema = false;
     }
     for (let schema in priceSchemas) {
       if (priceSchemas[schema].priceSchema.name == tempPriceSchema.name) {
-        if(!angular.equals(priceSchemas[schema].priceSchema, tempPriceSchema)) {
+        if (!angular.equals(priceSchemas[schema].priceSchema, tempPriceSchema)) {
           return this.applyPriceSchema = true;
         } else {
           return this.applyPriceSchema = false;

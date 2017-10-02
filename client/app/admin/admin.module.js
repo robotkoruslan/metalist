@@ -14,6 +14,9 @@ import SeasonTicketListComponent from './season-ticket/season-ticket-list/season
 import SeasonTicketFormComponent from './season-ticket/season-ticket-form/season-ticket-form.component';
 import TicketsStatisticComponent from './tickets-statistic/tickets-statistic.component';
 import ColorSchemaEditorComponent from './price-schema/color-schema-editor/color-schema-editor.component';
+import MenuPriceSchemaComponent from './price-schema/menu-price-schema/menu-price-schema.component';
+import StadiumWithTribunesComponent from './price-schema/stadium-with-tribunes/stadium-with-tribunes.component';
+import PriceEditorComponent from './price-schema/price-editor/price-editor.component';
 
 import MatchEditorService from './match-editor/match-editor.service';
 import PriceSchemaService from './price-schema/price-schema.service';
@@ -38,6 +41,9 @@ let adminModule = angular.module('metalistTicketsApp.admin', [])
   .component('seasonTicketForm', SeasonTicketFormComponent)
   .component('ticketsStatistic', TicketsStatisticComponent)
   .component('colorSchemaEditor', ColorSchemaEditorComponent)
+  .component('menuPriceSchema', MenuPriceSchemaComponent)
+  .component('stadiumWithTribunes', StadiumWithTribunesComponent)
+  .component('priceEditor', PriceEditorComponent)
   .name;
 
 export default adminModule;

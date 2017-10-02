@@ -52,29 +52,25 @@ export default class PriceSchemaService {
   }
 
   updateColorSchema(priceSchema){
-    let unicPrice = this.findUnicPrice(priceSchema);
-    for (let element in priceSchema.colorSchema) {
-      if (!unicPrice[priceSchema.colorSchema[element].price]) {
-        priceSchema.colorSchema.splice(element, 1);
-      } else {
-        delete unicPrice[priceSchema.colorSchema[element].price];
-      }
-    }
-    for (let i in unicPrice) {
-      priceSchema.colorSchema.push({price : i, color : "#ffcc00"}) ;
-    }
+    let uniquePrices = this.getUniquePrices(priceSchema);
+    let uniqueColors = priceSchema.colorSchema
+      .filter(color => uniquePrices.includes(parseInt(color.price)));
+    priceSchema.colorSchema = uniquePrices.map(price => {
+      let color = uniqueColors.filter(color => color.price == price)[0];
+      return color || {price : price, color : "#ffcc00"};
+    });
     return priceSchema;
   }
 
-  findUnicPrice(priceSchema) {
-    let obj = {};
+  getUniquePrices(priceSchema) {
+    let arr = [];
     let tribunes = [];
     let str = /ribune/g;
     this.findObjByName(priceSchema, str, tribunes);
     for (let tribune in tribunes) {
       if (priceSchema[tribunes[tribune]].price) {
         let tribPrice = priceSchema[tribunes[tribune]].price;
-        obj[tribPrice] = true;
+        arr.push(tribPrice);
       }
       let sectors = [];
       let str = /ector/g;
@@ -82,12 +78,13 @@ export default class PriceSchemaService {
       for (let sector in sectors) {
         if (priceSchema[tribunes[tribune]][sectors[sector]].price) {
           let sectorPrice = priceSchema[tribunes[tribune]][sectors[sector]].price;
-          obj[sectorPrice] = true;
+          arr.push(sectorPrice);
         }
       }
     }
-    return obj;
+    return [...new Set(arr)];
     }
+
 
    findObjByName(objectElements, str, fineElement) {
     for (let element in objectElements) {
