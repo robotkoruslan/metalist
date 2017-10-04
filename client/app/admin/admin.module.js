@@ -16,7 +16,7 @@ import TicketsStatisticComponent from './tickets-statistic/tickets-statistic.com
 import ColorSchemaEditorComponent from './price-schema/color-schema-editor/color-schema-editor.component';
 import MenuPriceSchemaComponent from './price-schema/menu-price-schema/menu-price-schema.component';
 import StadiumWithTribunesComponent from './price-schema/stadium-with-tribunes/stadium-with-tribunes.component';
-import PriceEditorComponent from './price-schema/price-editor/price-editor.component';
+import PriceEditorComponent from './price-schema/stadium-with-tribunes/price-editor/price-editor.component';
 
 import MatchEditorService from './match-editor/match-editor.service';
 import PriceSchemaService from './price-schema/price-schema.service';

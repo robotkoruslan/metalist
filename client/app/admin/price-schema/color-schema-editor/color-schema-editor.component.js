@@ -2,7 +2,7 @@ import template from './color-schema-editor.html';
 
 let colorSchemaEditorComponent = {
   bindings: {
-    currentColorSchema: '<',
+    sourceColorSchema: '<',
     colors: '<',
     onEdit: '&'
   },
@@ -13,16 +13,14 @@ let colorSchemaEditorComponent = {
     }
 
   $onChanges(changes) {
-    if ( changes.currentColorSchema ) {
-      this.tempColorSchema = angular.copy(this.currentColorSchema);
-      this.editColorSchema = angular.copy(this.tempColorSchema);
+    if ( changes.sourceColorSchema ) {
+      this.currentColorSchema = angular.copy(this.sourceColorSchema);
     }
   }
 
   $onInit() {
-    this.editColorSchema = [];
-    this.tempColorSchema = [];
-    this.applyColor = false;
+    this.sourceColorSchema = [];
+    this.currentColorSchema = [];
     this.colors = Object.assign({}, this.colors);
   }
 
@@ -32,21 +30,10 @@ let colorSchemaEditorComponent = {
         colorSchema: colorSchema
       }
     });
-    this.applyColor = false;
   }
 
-  colorChanges() {
-    if(!angular.equals(this.tempColorSchema, this.currentColorSchema)) {
-      this.tempColorSchema = angular.copy(this.currentColorSchema);
-    }
-
-    if (this.currentColorSchema) {
-      if(!angular.equals(this.currentColorSchema, this.editColorSchema)) {
-        return this.applyColor = true;
-      } else {
-        return this.applyColor = false;
-      }
-    }
+  isColorChanged() {
+    return !angular.equals(this.currentColorSchema, this.sourceColorSchema)
   }
 
   }

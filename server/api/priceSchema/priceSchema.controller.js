@@ -14,17 +14,16 @@ export function index(req, res) {
 
 export function savePriceSchema(req, res) {
   let priceSchema = req.body.schema;
-
-  PriceSchema.findOne({'priceSchema.name': priceSchema.name})
+  PriceSchema.findById(priceSchema.id)
     .then((price)  => {
       if (!price) {
         let newPrice = new PriceSchema({
           priceSchema: priceSchema
         });
+        newPrice.priceSchema.id = newPrice.id;
         return newPrice.save();
       }
       price.priceSchema = priceSchema;
-
       return price.save();
     })
     .then(respondWithResult(res))

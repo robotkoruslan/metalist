@@ -1,39 +1,45 @@
 <div class="row">
     <div class="col-md-3">
 
-        <menu-price-schema price-schemas ="$ctrl.priceSchemas"
-                           on-edit="$ctrl.edit($event)"> </menu-price-schema>
+        <menu-price-schema price-schemas="$ctrl.priceSchemas"
+                           on-edit="$ctrl.edit($event)"></menu-price-schema>
 
-        <color-schema-editor current-color-schema="$ctrl.currentPriceSchema.colorSchema"
+        <color-schema-editor source-color-schema="$ctrl.currentPriceSchema.colorSchema"
                              colors="$ctrl.colors"
                              on-edit="$ctrl.changeColor($event)"></color-schema-editor>
     </div>
     <div class="col-md-9">
         <form name="myForm"><br>
-            <stadium-with-tribunes current-price="$ctrl.currentPriceSchema"
-                                 on-change-schema="$ctrl.changeSchema($event)"
-                                 on-tribune-selected="$ctrl.selectTribune($event.tribuneName)"
-                                 on-sector-selected="$ctrl.getSectorForSetPrice($event.sectorShema)"></stadium-with-tribunes>
+            <label>Выберете стадион :</label>
+            <select class="form-control" name="currentPriceSchema.stadiumName"
+                    ng-change="$ctrl.changeSchema()"
+                    ng-model="$ctrl.currentPriceSchema.stadiumName">
+                <option value="metalist">metalist</option>
+                <option value="dinamo">dinamo</option>
+                <option value="solar">solar</option>
+            </select>
+            <div ng-form="priceForm" ng-show="$ctrl.currentPriceSchema.stadiumName">
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3">Выбранная схема</span>
+                    <input type="text" class="form-control" ng-model="$ctrl.currentPriceSchema.name" name="schemaName" required>
+                </div>
+                <div class="alert alert-danger" ng-show="priceForm.schemaName.$invalid">Укажите имя схемы.</div>
+                <stadium-with-tribunes current-price="$ctrl.currentPriceSchema"
+                                       stadium="$ctrl.stadium"
+                                       on-click-apply="$ctrl.clickApply($event)"></stadium-with-tribunes>
 
 
-            <price-editor current-tribune="$ctrl.currentTribune"
-                          current-sector="$ctrl.currentSector"
-                          apply-shema="$ctrl.applyShema"
-                          on-change="$ctrl.changePrice($event)"
-                          on-save="$ctrl.clickApply()"></price-editor>
+                <div>
+                    <button ng-show="$ctrl.isSchemaChanged()"
+                            class="btn btn-success btn-lg btn-block"
+                            ng-click="$ctrl.savePriceSchema(priceForm)"
+                            ng-disabled="priceForm.schemaName.$invalid">
+                        Save price
+                    </button>
 
-            <div ng-show="$ctrl.applyPriceSchema || $ctrl.currentPriceSchema.newName">
-                <button class="btn btn-success btn-lg btn-block"
-                        ng-click="$ctrl.savePriceSchema(priceForm, $ctrl.currentTribune.name, $ctrl.currentSector.name)"
-                        ng-class="{'disabled': priceForm.$invalid && priceForm.$dirty}">
-                    Save price
-                </button>
+                </div>
             </div>
         </form>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <p ng-show="$ctrl.message">{{$ctrl.message}}</p>
     </div>
 </div>

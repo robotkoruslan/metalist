@@ -1,12 +1,12 @@
 <label>Список схем</label>
 <ul class="list-group">
     <li class="list-group-item" ng-repeat="schema in $ctrl.priceSchemas">
-        <span class="badge" ng-click="$ctrl.edit(schema.priceSchema)" style="cursor: pointer;">Edit</span>
+        <span class="badge" ng-click="$ctrl.edit(schema)" style="cursor: pointer;">Edit</span>
         {{schema.priceSchema.name}} :
         {{schema.priceSchema.stadiumName}}
     </li>
 </ul>
 <form class="form-inline">
-    <button class="btn btn-default" ng-click="$ctrl.edit({})">New price schema</button>
+    <!--//@TODO remove id assigning after priceSchema refactoring-->
+    <button class="btn btn-default" ng-click="$ctrl.edit({id : undefined, priceSchema:{}})">New price schema</button>
 </form>
-<hr>

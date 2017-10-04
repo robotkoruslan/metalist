@@ -11,22 +11,24 @@ let menuPriceSchemaComponent = {
       'ngInject';
     }
 
-  $onChanges(changes) {
-    if ( changes.priceSchemas ) {
-      this.priceSchemas = angular.copy(this.priceSchemas);
-    }
-  }
-
-  $onInit() {
-  }
-
-  edit(priceSchema) {
-    this.onEdit({
-      $event: {
-          priceSchema: priceSchema
+    $onChanges(changes) {
+      if (changes.priceSchemas) {
+        this.priceSchemas = angular.copy(this.priceSchemas);
       }
-    });
-  }
+    }
+
+    edit(priceSchemas) {
+      //@TODO remove id assigning after priceSchema refactoring
+      this.priceSchema = priceSchemas.priceSchema;
+      if (!priceSchemas.priceSchema.id) {
+        this.priceSchema.id = priceSchemas.id;
+      }
+      this.onEdit({
+        $event: {
+          priceSchema: this.priceSchema
+        }
+      });
+    }
 
   }
 };

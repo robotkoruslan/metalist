@@ -21,7 +21,7 @@ export default class PriceSchemaService {
   savePriceSchema(schema) {
     return this.$http({
       method: 'PUT',
-      url: '/api/priceSchema/' + schema.name,
+      url: '/api/priceSchema/' + schema.id,
       data: {
         schema: schema
       },
@@ -52,6 +52,9 @@ export default class PriceSchemaService {
   }
 
   updateColorSchema(priceSchema){
+        if (!priceSchema.colorSchema) {
+          priceSchema.colorSchema = []
+        }
     let uniquePrices = this.getUniquePrices(priceSchema);
     let uniqueColors = priceSchema.colorSchema
       .filter(color => uniquePrices.includes(parseInt(color.price)));

@@ -1,18 +1,17 @@
-<div ng-if="$ctrl.editColorSchema">
+<div ng-if="$ctrl.currentColorSchema">
   <ul class="list-group" >
-    <li class="list-group-item" ng-repeat="colorPrice in $ctrl.editColorSchema">
+    <li class="list-group-item" ng-repeat="colorPrice in $ctrl.currentColorSchema">
       <span class="fa fa-2x fa-square" style="color: {{colorPrice.color}}"></span>
       <span>
         <select name="color" id="color"  ng-model="colorPrice.color"
                 ng-options="color.color as color.colorName for color in $ctrl.colors"
-                ng-click="$ctrl.colorChanges()"
                 required> </select>
       </span>
       <span>= {{colorPrice.price}}</span>
     </li>
   </ul>
-    <div ng-show="$ctrl.applyColor">
-        <button class="form-control" ng-click="$ctrl.edit($ctrl.editColorSchema)">
+    <div ng-show="$ctrl.isColorChanged()">
+        <button class="form-control" ng-click="$ctrl.edit($ctrl.currentColorSchema)">
             Apply Color
         </button>
     </div>
