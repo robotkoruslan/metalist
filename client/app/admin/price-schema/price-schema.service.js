@@ -4,24 +4,24 @@ export default class PriceSchemaService {
     'ngInject';
     this.$http = $http;
 
-    this.colors = [{color: '#ff972f', colorName: 'green', price: '30'},
-      {color: '#ffcc00', colorName: 'violet', price: '50'},
-      {color: '#54aa6a', colorName: 'yellow', price: '80'},
-      {color: '#6f89c0', colorName: 'blue', price: '100'},
-      {color: '#8b54aa', colorName: 'red', price: '150'}
+    this.colors = [
+      {color: '#8b54aa', colorName: 'violet'},
+      {color: '#ffcc00', colorName: 'yellow'},
+      {color: '#6f89c0', colorName: 'blue'},
+      {color: '#54aa6a', colorName: 'green'},
+      {color: '#ff972f', colorName: 'orange'}
     ];
 
   }
 
   loadPrices() {
-    //remake post
     return this.$http.get('/api/priceSchema');
   }
 
   savePriceSchema(schema) {
     return this.$http({
       method: 'PUT',
-      url: '/api/priceSchema/' + schema.name,
+      url: '/api/priceSchema/' + schema.id,
       data: {
         schema: schema
       },
@@ -51,4 +51,50 @@ export default class PriceSchemaService {
       .map(color => color.color)[0];
   }
 
+  updateColorSchema(priceSchema){
+        if (!priceSchema.colorSchema) {
+          priceSchema.colorSchema = []
+        }
+    let uniquePrices = this.getUniquePrices(priceSchema);
+    let uniqueColors = priceSchema.colorSchema
+      .filter(color => uniquePrices.includes(parseInt(color.price)));
+    priceSchema.colorSchema = uniquePrices.map(price => {
+      let color = uniqueColors.filter(color => color.price == price)[0];
+      return color || {price : price, color : "#ffcc00"};
+    });
+    return priceSchema;
+  }
+
+  getUniquePrices(priceSchema) {
+    let arr = [];
+    let tribunes = [];
+    let str = /ribune/g;
+    this.findObjByName(priceSchema, str, tribunes);
+    for (let tribune in tribunes) {
+      if (priceSchema[tribunes[tribune]].price) {
+        let tribPrice = priceSchema[tribunes[tribune]].price;
+        arr.push(tribPrice);
+      }
+      let sectors = [];
+      let str = /ector/g;
+      this.findObjByName(priceSchema[tribunes[tribune]], str, sectors);
+      for (let sector in sectors) {
+        if (priceSchema[tribunes[tribune]][sectors[sector]].price) {
+          let sectorPrice = priceSchema[tribunes[tribune]][sectors[sector]].price;
+          arr.push(sectorPrice);
+        }
+      }
+    }
+    return [...new Set(arr)];
+    }
+
+
+   findObjByName(objectElements, str, fineElement) {
+    for (let element in objectElements) {
+      let rezultFinds = element.match(str);
+      if (rezultFinds) {
+        fineElement.push(element);
+      }
+    }
+  }
 }

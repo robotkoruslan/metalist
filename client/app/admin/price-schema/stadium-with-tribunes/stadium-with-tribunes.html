@@ -1,0 +1,45 @@
+<div ng-show="$ctrl.currentPriceSchema.stadiumName == 'metalist' || $ctrl.currentPriceSchema.stadiumName == 'dinamo'">
+    <span class="input-group-addon"><button ng-click="$ctrl.selectTribune('east')" class="btn btn-default">Восточная трибуна</button></span>
+</div>
+
+<div class="input-group"
+     ng-show="$ctrl.currentPriceSchema.stadiumName == 'metalist' || $ctrl.currentPriceSchema.stadiumName == 'dinamo'">
+                <span class="input-group-addon"><button ng-click="$ctrl.selectTribune('north')" class="btn btn-default">
+                    <svg width="70" height="140" class="svg-text">
+                    <text x="0" y="0" transform="rotate(90)">Северная трибуна</text>
+                    </svg> .
+                </button></span>
+    <stadium price-schema="$ctrl.currentPriceSchema"
+             on-sector-select="$ctrl.getSectorForSetPrice($event)"></stadium>
+    <span class="input-group-addon"><button ng-click="$ctrl.selectTribune('south')" class="btn btn-default">
+                <svg width="70" height="140" class="svg-text">
+                    <text x="0" y="0" transform="rotate(90)">Южная трибуна</text>
+                </svg> .
+                </button></span>
+</div>
+
+<div class="input-group" ng-show="$ctrl.currentPriceSchema.stadiumName == 'solar'">
+                            <span class="input-group-addon"><button ng-click="$ctrl.selectTribune('east')"
+                                                                    class="btn btn-default">
+                                <svg width="70" height="140" class="svg-text">
+                                    <text x="0" y="0" transform="rotate(90)">Восточная трибуна</text>
+                                </svg> .
+                            </button></span>
+
+    <stadium price-schema="$ctrl.currentPriceSchema" on-sector-select="$ctrl.getSectorForSetPrice($event)"></stadium>
+
+    <span class="input-group-addon"><button ng-click="$ctrl.selectTribune('west')" class="btn btn-default">
+                                <svg width="70" height="140" class="svg-text">
+                                    <text x="0" y="0" transform="rotate(90)">Западная трибуна</text>
+                                </svg> .
+                            </button></span>
+</div>
+
+<div ng-show="$ctrl.currentPriceSchema.stadiumName == 'metalist' || $ctrl.currentPriceSchema.stadiumName == 'dinamo'">
+    <span class="input-group-addon"><button ng-click="$ctrl.selectTribune('west')" class="btn btn-default">Западная трибуна</button></span>
+</div>
+
+<price-editor current-price="$ctrl.currentPriceSchema"
+              current-tribune="$ctrl.currentTribune"
+              current-sector="$ctrl.currentSector"
+              on-click-apply="$ctrl.clickApply($event)"></price-editor>

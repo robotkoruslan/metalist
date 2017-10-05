@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', controller.index);
 router.get('/:id', controller.view);
-router.put('/:name', controller.savePriceSchema);
+router.put('/:id', controller.savePriceSchema);
 router.delete('/:id', controller.deletePrice);
 
 

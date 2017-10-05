@@ -16,6 +16,7 @@ class SeasonTicketFormController {
     if ( changes.errorMessage ) {
       this.errorMessageBlockRow = this.errorMessage;
     }
+
   }
 
   onInit() {

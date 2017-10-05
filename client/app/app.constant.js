@@ -10,6 +10,7 @@ let constantsModule = angular.module("metalistTicketsApp.constants", [])
     ]
   })
 
+  .constant("DefaultPriceColor", {color : '#808080' })
   .constant("StadiumSolar", {
       tribune_west: {
         name: 'west',
