@@ -79,7 +79,7 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: `${ROOT_PATH}/client/robots.txt` },
       { from: `${ROOT_PATH}/client/.htaccess` },
-      { from: `${ROOT_PATH}/client/assets/teamLogo`, to: 'assets/teamLogo' }
+      { from: `${ROOT_PATH}/client/assets/teamLogos`, to: 'assets/teamLogos' }
     ])
   ]
 };

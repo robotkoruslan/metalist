@@ -8,7 +8,23 @@
       </div>
       <div class="form-group">
         <label>Герб</label>
-        <input type="text" class="form-control" ng-model="$ctrl.match.poster">
+
+        <span class="teamLogos"><img class="teamLogos" src="{{$ctrl.match.poster}}" alt="..."></span>
+
+        <select class="btn btn-default"
+                name="teamLogos"
+                id="teamLogos"
+                ng-model="$ctrl.match.poster"
+                ng-options="'assets/teamLogos/'+ teamLogos as teamLogos for teamLogos in $ctrl.allTeamLogos"
+                required>
+        </select>
+
+        <div class="btn-group">
+          <label class="btn btn-default">Добавить новый герб
+            <input type="file" id="file" name="file" onchange="angular.element(this).scope().$ctrl.upload(this)" style="display: none;">
+          </label>
+        </div>
+
       </div>
       <div class="form-group">
         <label>Описание</label>
@@ -26,6 +42,7 @@
       </div>
       <select class="form-control"
               ng-model="$ctrl.match.priceSchema"
-              ng-options="option.priceSchema.name for option in $ctrl.priceSchemas track by option._id"></select>
+              ng-options="option.priceSchema.name for option in $ctrl.priceSchemas track by option._id">
+      </select>
       <button type="submit" class="btn btn-default" ng-click="$ctrl.update()" ng-bind="$ctrl.match.id ? 'Coхранить': 'Добавить'"></button>
     </form>
