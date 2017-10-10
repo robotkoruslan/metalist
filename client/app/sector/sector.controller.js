@@ -1,11 +1,12 @@
 export default class SectorController {
 
-    constructor(match, sector, TicketsService, $stateParams, CartService, PriceSchemaService, StadiumMetalist, StadiumDinamo, StadiumSolar) {
+    constructor(match, sector, TicketsService, $stateParams, CartService, PriceSchemaService, StadiumMetalist, StadiumDinamo, StadiumSolar, Auth) {
       'ngInject';
       this.cartService = CartService;
       this.priceSchemaService = PriceSchemaService;
       this.ticketsService = TicketsService;
       this.match = match;
+      this.hasRoleCashier = Auth.hasRole('cashier');
 
       if (match.priceSchema.priceSchema.stadiumName == 'dinamo') {
         this.sector = StadiumDinamo['tribune_' + sector.tribune]['sector_' + sector.sector];
@@ -51,7 +52,7 @@ export default class SectorController {
       };
     });
   }
-
+//@TODO need verification
   updateReservedTickets() {
     this.getReservedSeats();
     this.getSelectedSeats();
@@ -75,6 +76,7 @@ export default class SectorController {
     let slug = 's' + sectorName + 'r' + rowName + 'st' + seat,
       [ checkSeat ] = this.selectedSeats.filter(seat => seat.slug === slug && seat.matchId === this.match.id);
     this.message = '';
+    this.isReserveSuccess = false;
 
     if ( checkSeat && this.reservedSeats.includes(slug) ) {
       this.cartService.removeSeatFromCart(slug, this.match.id)
@@ -135,6 +137,24 @@ export default class SectorController {
   isSkybox() {
     let skyBoxes = ['SB_1', 'SB_2', 'SB_3_5', 'SB_6', 'SB_7', 'SB_8', 'SB_9', 'SB_10', 'SB_11' ];
     return skyBoxes.includes(this.sector.name);
+  }
+
+  pay() {
+    this.cartService.pay()
+      .then((order) => {
+      console.log('order', order);
+        this.cartService.loadCart()
+          .then(() => {
+            this.updateReservedTickets();
+          });
+      })
+      .catch((err) => {
+        if (err.status === 406) {
+          this.isReserveSuccess = true;
+        } else {
+          this.message = 'err';
+        }
+      });
   }
 
 }

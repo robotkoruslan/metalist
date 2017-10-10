@@ -5,8 +5,7 @@ import * as seatService from '../seat/seat.service';
 import config from "../../config/environment";
 import * as log4js from 'log4js';
 
-const logger = log4js.getLogger('Order');
-
+const logger = log4js.getLogger('Order Controller');
 
 export function getPaymentStatus(req, res) {
   return orderService.getPendingPaymentByUser(req.user)
@@ -36,16 +35,15 @@ export function checkout(req, res) {
     .then(cart => {
       logger.info('checkout cart: ' + cart);
       return Promise.all([
-        seatService.extendReservationTime(cart.seats),
+        seatService.extendReservationTime(cart.seats, publicId),
         Promise.resolve(cart)
-      ]);
+      ])
     })
     .then(([seats, cart]) => {
       return orderService.createOrderFromCart(cart, req.user);
     })
     .then(order => {
       logger.info('checkout order: ' + order);
-
       return {'paymentLink': orderService.createPaymentLink(order)};
     })
     .then(respondWithResult(res))
@@ -75,6 +73,34 @@ export function liqpayCallback(req, res) {
     .catch(handleError(res));
 }
 
+export function payCashier(req, res) {
+  let publicId = req.cookies.cart;
+  return orderService.findCartByPublicId(publicId) // find currents order
+    .then(handleEntityNotFound(res))
+    .then(cart => {
+      return Promise.all([
+        seatService.reserveSeatsAsPaid(cart.seats, publicId), // long 30 min reserv
+        Promise.resolve(cart)
+      ])
+    })
+    .then(([seats, cart]) => {
+      return orderService.createOrderFromCartByCashier(cart, req.user); // new order pending
+    })
+    .then(order => {
+      return Promise.all([
+        orderService.createTicketsByOrder(order),
+        Promise.resolve(order)
+      ]);
+    })
+    .then(([tickets, order]) => {
+      order.tickets = tickets;
+      return order.save();
+
+    })
+    .then(respondWithResult(res))
+    .catch(handleError(res))
+    ;
+}
 
 // private functions ---------------------
 
@@ -100,7 +126,12 @@ function handleEntityNotFound(res) {
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
   return function (err) {
-    logger.error('Error: ' + err);
-    res.status(err.statusCode || statusCode).send(err);
+    logger.error('Error 1: ' + err);
+    if (err.message == 'notReservedSeat') {
+      res.status(406).send(err);
+    } else {
+      res.status(err.statusCode || statusCode).send(err);
+    }
+
   };
 }

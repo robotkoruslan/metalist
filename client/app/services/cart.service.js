@@ -7,8 +7,6 @@ export default class CartService {
     this.$cookies = $cookies;
     this.data = {};
     this.data.cart = {};
-
-    this.loadCart();
   }
 
   loadCart() {
@@ -66,7 +64,13 @@ export default class CartService {
   }
 
   checkout() {
-    return this.$http.post('/api/orders/checkout');
+    return this.$http.post('/api/orders/checkout')
+      .then(response => response.data);
+  }
+
+  pay() {
+    return this.$http.post('/api/orders/pay-cashier')
+      .then(response => response.data);
   }
 
 }

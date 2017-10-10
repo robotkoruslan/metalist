@@ -13,6 +13,7 @@
       <span>{{vm.message}}</span>
     </div>
     <div class="row rowPadding">
+      <!--//@TODO need compolent-->
       <div class="col-lg-12 col12Padding">
         <div class="col-xs-1 rowNames">
           <ul class="liststyle">
@@ -45,6 +46,9 @@
     <div class="row row-centered">
       <div class="col-xs-9 col-centered col-fixed">
         <div>
+          <p ng-show="vm.isReserveSuccess">
+            <strong>Время резерва окончилось и билет был кем-то выбран для покупки.</strong><br />
+          </p>
           <div>
             <cart-details on-delete="vm.updateReservedTickets($event)"></cart-details>
           </div>
@@ -53,8 +57,11 @@
       <div class="colPadding col-xs-3 col-centered col-fixed">
         <div>
           <div>
-            <div ng-show="vm.cartService.getMyCartSize()">
+            <div ng-show="!vm.hasRoleCashier && vm.cartService.getMyCartSize()">
               <a ui-sref="main.checkout" class="btn btn-info">Оформить заказ</a>
+            </div>
+            <div ng-show="vm.hasRoleCashier && !vm.isReserveSuccess">
+              <a class="btn btn-primary btn-block" ng-click="vm.pay()">Оплатить</a>
             </div>
           </div>
         </div>

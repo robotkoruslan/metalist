@@ -103,12 +103,12 @@ export default class CheckoutController {
   }
 
   checkout() {
-    this.handleCheckoutResponse(this.cartService.checkout());
-  }
-
-  handleCheckoutResponse(responsePromise) {
-    responsePromise.then(response => {
-      this.$window.location.href = response.data.paymentLink;
-    });
+    this.cartService.checkout()
+      .then(response => {
+        this.$window.location.href = response.paymentLink;
+      } )
+      .catch((err) => {
+        if (err.status === 406) { this.isReserveSuccess = true; }
+      });
   }
 }
