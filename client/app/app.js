@@ -8,6 +8,7 @@ import ngSanitize from 'angular-sanitize';
 import validationMatch from 'angular-validation-match';
 import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
+import ioBarcode from 'angular-io-barcode';
 
 import './angular-locale_ru-ru';
 
@@ -65,7 +66,8 @@ angular.module('metalistTicketsApp', [
   uiRouter,
   uiBootstrap,
   validationMatch,
-  datePicker
+  datePicker,
+  ioBarcode.name
 ])
   .component('matchDetails', MatchDetailsComponent)
   .component('cartDetails', CartDetailsComponent)
