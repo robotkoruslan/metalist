@@ -8,6 +8,7 @@ import ngSanitize from 'angular-sanitize';
 import validationMatch from 'angular-validation-match';
 import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
+import ioBarcode from 'angular-io-barcode';
 
 import './angular-locale_ru-ru';
 
@@ -16,10 +17,13 @@ import CartDetailsComponent from './cart/details/cart-details.component';
 import CartSummaryComponent from './cart/summary/cart-summary.component';
 import NavpanelComponent from './navpanel/navpanel.component';
 import StadiumComponent from './stadium/stadium.component';
+import CalendarComponent from './calendar/calendar.component';
+import RenderTicketComponent from './render-ticket/render-ticket.component';
 
 import CartService from './services/cart.service';
 import MatchService from './services/match.service';
 import TicketsService from './services/ticket.service';
+import PrintTicketService from './print-ticket/print-ticket.servise';
 import FileService from './services/file.service';
 
 import footerDirective from './footer/footer.directive';
@@ -65,13 +69,16 @@ angular.module('metalistTicketsApp', [
   uiRouter,
   uiBootstrap,
   validationMatch,
-  datePicker
+  datePicker,
+  ioBarcode.name
 ])
   .component('matchDetails', MatchDetailsComponent)
   .component('cartDetails', CartDetailsComponent)
   .component('cartSummary', CartSummaryComponent)
   .component('navpanel', NavpanelComponent)
   .component('stadium', StadiumComponent)
+  .component('calendar', CalendarComponent)
+  .component('renderTicket', RenderTicketComponent)
   .directive('footer', footerDirective)
   .directive('mongooseError', mongooseErrorDirective)
   .directive('navbar', navbarDirective)
@@ -79,6 +86,7 @@ angular.module('metalistTicketsApp', [
   .service('CartService', CartService)
   .service('MatchService', MatchService)
   .service('TicketsService', TicketsService)
+  .service('PrintTicketService', PrintTicketService)
   .service('FileService', FileService)
   .controller('HomeController', HomeController)
   .controller('CheckoutController', CheckoutController)

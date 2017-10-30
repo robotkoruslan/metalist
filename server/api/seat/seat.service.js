@@ -23,23 +23,30 @@ export function findForMatchBySlug(slug, matchId) {
     .populate('match');
 }
 
-export function extendReservationTime(seats) {
+export function extendReservationTime(seats, reservedByCart) {
   return Promise.all(seats.map(seat => {
     return findForMatchBySlug(seat.slug, seat.match.id)
       .then(seat => {
+        if (seat.reservedByCart !== reservedByCart && seat.reservationType !== 'PAID') {
+          throw new Error('notReservedSeat');
+        }
         seat.reservedUntil = moment().add(30, 'minutes');
         return seat.save();
       });
   }));
 }
 
-export function reserveSeatsAsPaid(seats) {
+//@TODO need (включить в запрос expired_date - Время до которого клиент может оплатить счет по UTC. Передается в формате 2016-04-24 00:00:00) также имеет смысл в  ограничении разового заказа на не более скажем 40 мест
+export function reserveSeatsAsPaid(seats, reservedByCart) {
   return Promise.all(seats.map(seat => {
     return Promise.all([
       findForMatchBySlug(seat.slug, seat.match),
       matchService.findById(seat.match)
     ])
       .then(([seat, match]) => {
+        if (seat.reservedByCart !== reservedByCart && seat.reservationType !== 'PAID') {
+          throw new Error('notReservedSeat');
+        }
         seat.reservedUntil = moment(match.date).add(1, 'days');
         seat.reservationType = PAID;
         return seat.save();
@@ -61,7 +68,7 @@ export function findByCartAndMatchId(publicId, slug, matchId) {
 export function reserveSeatAsReserve(seat, reserveDate, publicId) {
   return priceSchemaService.getSeatPrice(seat)
     .then(price => {
-      if ( !price ) {
+      if (!price) {
         throw new Error("price not found");
       }
       seat.reservedByCart = publicId;
@@ -98,6 +105,7 @@ export function deletePrevMatchSeats(seats, matchId) {
   });
 
 }
+
 // private function
 function createStadiumSeatsForMatch(match) {
   console.log("createStadiumSeatsForMatch(match)  ", match);
@@ -109,35 +117,50 @@ function createStadiumSeatsForMatch(match) {
       for (let sector in Stadium[tribune]) {
         if (Stadium[tribune][sector].rows) {
           Stadium[tribune][sector].rows.forEach(row => {
-            parameters.push({tribune: Stadium[tribune].name, sector: Stadium[tribune][sector].name, row: row, match: match});
-        })
+            parameters.push({
+              tribune: Stadium[tribune].name,
+              sector: Stadium[tribune][sector].name,
+              row: row,
+              match: match
+            });
+          })
+        }
       }
     }
-   }
   } else {
-      if (match.stadiumName == 'solar') {
-        let Stadium = StadiumSolar;
-        for (let tribune in Stadium) {
-          for (let sector in Stadium[tribune]) {
-            if (Stadium[tribune][sector].rows) {
-              Stadium[tribune][sector].rows.forEach(row => {
-                parameters.push({tribune: Stadium[tribune].name, sector: Stadium[tribune][sector].name, row: row, match: match});
+    if (match.stadiumName == 'solar') {
+      let Stadium = StadiumSolar;
+      for (let tribune in Stadium) {
+        for (let sector in Stadium[tribune]) {
+          if (Stadium[tribune][sector].rows) {
+            Stadium[tribune][sector].rows.forEach(row => {
+              parameters.push({
+                tribune: Stadium[tribune].name,
+                sector: Stadium[tribune][sector].name,
+                row: row,
+                match: match
+              });
             })
           }
         }
       }
     } else {
-          let Stadium = StadiumDinamo;
-          for (let tribune in Stadium) {
-            for (let sector in Stadium[tribune]) {
-              if (Stadium[tribune][sector].rows) {
-                Stadium[tribune][sector].rows.forEach(row => {
-                  parameters.push({tribune: Stadium[tribune].name, sector: Stadium[tribune][sector].name, row: row, match: match});
-              })
-            }
+      let Stadium = StadiumDinamo;
+      for (let tribune in Stadium) {
+        for (let sector in Stadium[tribune]) {
+          if (Stadium[tribune][sector].rows) {
+            Stadium[tribune][sector].rows.forEach(row => {
+              parameters.push({
+                tribune: Stadium[tribune].name,
+                sector: Stadium[tribune][sector].name,
+                row: row,
+                match: match
+              });
+            })
           }
         }
       }
+    }
   }
 
   //for (let tribune in Stadium) {

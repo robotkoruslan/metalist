@@ -13,14 +13,21 @@ import * as config from "../../config/environment";
 import * as Mailer from '../../mailer/mailer.js';
 import * as log4js from 'log4js';
 
-const logger = log4js.getLogger('Order');
+const logger = log4js.getLogger('Order Service');
 
+export function getStatistics(userId, date) {
+  let day = moment(new Date(date)).tz('Europe/Kiev');
+  return Order.find({"user.id": userId, created : {
+    $gte: day.startOf('day').format('YYYY-MM-DD HH:mm:ss'),
+    $lt: day.endOf('day').format('YYYY-MM-DD HH:mm:ss')
+  }}).populate('tickets');
+}
 
 export function findCartByPublicId(publicId) {
   return Order.findOne({publicId: publicId})
     .populate({
       path: 'seats',
-      match: { reservationType: { $nin: [ PAID ]}},
+      match: { reservationType: { $nin: [ PAID ]}, reservedUntil: {$gte: new Date()} },
       populate: { path: 'match' }
     });
 }
@@ -32,7 +39,6 @@ export function getByPrivateId(privateId) {
       populate: { path: 'match' }
     });
 }
-
 
 export function getPendingPaymentByUser(user) {
   return Order.findOne({"user.id": user.id, status: "pending", created: {$gte: moment().subtract(10, 'minutes')}})
@@ -118,12 +124,37 @@ export function getLiqPayParams(req) {
   })
 }
 
+
+export function createOrderFromCartByCashier(cart, user) {
+  return countPriceBySeats(cart.seats)
+    .then(price => {
+      let order = new Order({
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email
+        },
+        seats: cart.seats,
+        type: 'order',
+        status: 'paid',
+        publicId: crypto.randomBytes(20).toString('hex'),
+        privateId: ticketService.randomNumericString(8),
+        created: new Date(),
+        price: price
+      });
+
+      return order.save();
+    })
+}
+
+
 ////////private function
 function handleSuccessPayment(order) {
+
   return Promise.all([
     User.findOne({_id: order.user.id}),
     createTicketsByOrder(order),
-    seatService.reserveSeatsAsPaid(order.seats)
+    seatService.reserveSeatsAsPaid(order.seats, order.seats[0].reservedByCart)
   ])
     .then(([user, tickets]) => {
       user.tickets.push(...tickets);
@@ -149,7 +180,7 @@ function createDescription(order) {
   return `${order.privateId} | ${matchesDescription}`;
 }
 
-function createTicketsByOrder(order) {
+export function createTicketsByOrder(order) {
   return Promise.all(order.seats.map(seat => {
     return ticketService.createTicket(seat);
   }));
