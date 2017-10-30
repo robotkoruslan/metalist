@@ -1,15 +1,19 @@
-web:
-  build: .
-  restart: always
-  ports:
-    - "80:8080"
-    - "465:465"
-  links:
-    - mongo
-  env_file: .env
-  command: bash -c "node server"
+version: '2'
 
-mongo:
-  image: mongo
-  volumes:
-    - ./mongo_data:/data/db
+services:
+    web:
+        build: .
+        restart: always
+        ports:
+            - "80:8080"
+            - "465:465"
+        volumes:
+            - ./images/teamLogos:/app/dist/client/assets/teamLogos
+        links:
+            - mongo
+        env_file: .env
+        command: bash -c "node server"
+    mongo:
+        image: mongo
+        volumes:
+            - ./mongo_data:/data/db

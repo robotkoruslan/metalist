@@ -1,11 +1,16 @@
-web:
-  ports:
-    - "9000:9000"
-    - "465:465"
-  volumes:
-    - ./dist:/app/dist
-  command: bash -c "npm run nodemon"
+version: '2'
 
-mongo:
-  ports:
-    - "27018:27017"
+services:
+    web:
+        build: .
+        ports:
+            - "9000:9000"
+            - "465:465"
+        volumes:
+            - ./dist:/app/dist
+        command: bash -c "npm run nodemon"
+    mongo:
+        ports:
+            - "27018:27017"
+
+

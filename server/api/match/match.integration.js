@@ -21,7 +21,7 @@ describe('Match API:', function () {
     let usedMatch = {
       rival: 'Zarja',
       info: '12356',
-      poster: 'assets/teamLogo/6.png',
+      poster: 'assets/teamLogos/6.png',
       priceSchema: priceSchema,
       date: new Date('2017-04-10 14:56')
     };
@@ -32,7 +32,7 @@ describe('Match API:', function () {
         .send( {
           rival: 'Dynamo',
           info: '123',
-          poster: 'assets/teamLogo/3.png',
+          poster: 'assets/teamLogos/3.png',
           priceSchema: priceSchema,
           date: new Date('2019-04-25 14:56')
         })
@@ -78,7 +78,7 @@ describe('Match API:', function () {
         .send({
           rival: 'Dynamo',
           info: '456',
-          poster: 'assets/teamLogo/3.png',
+          poster: 'assets/teamLogos/3.png',
           priceSchema: priceSchema,
           date: new Date('2019-05-10 19:25')
         })
@@ -154,21 +154,21 @@ describe('Match API:', function () {
     {
       rival: 'Zarja',
       info: '12356',
-      poster: 'assets/teamLogo/6.png',
+      poster: 'assets/teamLogos/6.png',
       priceSchema: priceSchema,
       date: new Date('2017-04-10 14:56')
     },
     {
       rival: 'Dynamo',
       info: '123',
-      poster: 'assets/teamLogo/3.png',
+      poster: 'assets/teamLogos/3.png',
       priceSchema: priceSchema,
       date: new Date('2019-04-25 14:56')
     },
     {
       rival: 'Victoria',
       info: '258',
-      poster: 'assets/teamLogo/4.png',
+      poster: 'assets/teamLogos/4.png',
       priceSchema: priceSchema
     }
   ];

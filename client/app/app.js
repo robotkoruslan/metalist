@@ -20,6 +20,7 @@ import StadiumComponent from './stadium/stadium.component';
 import CartService from './services/cart.service';
 import MatchService from './services/match.service';
 import TicketsService from './services/ticket.service';
+import FileService from './services/file.service';
 
 import footerDirective from './footer/footer.directive';
 import mongooseErrorDirective from './mongoose-error/mongoose-error.directive';
@@ -78,6 +79,7 @@ angular.module('metalistTicketsApp', [
   .service('CartService', CartService)
   .service('MatchService', MatchService)
   .service('TicketsService', TicketsService)
+  .service('FileService', FileService)
   .controller('HomeController', HomeController)
   .controller('CheckoutController', CheckoutController)
   .controller('LoginController', LoginController)

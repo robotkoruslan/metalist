@@ -12,5 +12,4 @@ router.post('/', controller.createMatch);
 router.put('/:id', controller.updateMatch);
 router.delete('/:id', controller.deleteMatch);
 
-
 module.exports = router;

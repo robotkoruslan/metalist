@@ -273,7 +273,7 @@ describe('Ticket API:', function () {
     let newMatch = new Match({
       rival: 'Dynamo',
       info: '123',
-      poster: 'assets/teamLogo/3.png',
+      poster: 'assets/teamLogos/3.png',
       date: new Date('2019-05-20 14:56')
     });
     return newMatch.save()

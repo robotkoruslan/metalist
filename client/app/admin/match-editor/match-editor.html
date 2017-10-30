@@ -15,12 +15,15 @@
         </li>
       </ul>
       <form class="form-inline">
-        <button class="btn btn-default" ng-click="$ctrl.edit({})">new</button>
+        <button class="btn btn-default" ng-click="$ctrl.edit({})">Добавить новый матч</button>
       </form>
     </div>
     <div class="col-md-4">
-      <editor match-to-edit="$ctrl.matchToEdit" price-schemas="$ctrl.priceSchemas"
-              on-change="$ctrl.onMatchUpdate($event)"></editor>
+      <editor ng-if="$ctrl.isMatchExist()"
+              match-to-edit="$ctrl.matchToEdit"
+              price-schemas="$ctrl.priceSchemas"
+              all-team-logos="$ctrl.allTeamLogos"
+              on-change="$ctrl.onMatchUpdate($event)" on-upload="$ctrl.upload($event)"></editor>
     </div>
     <div class="col-md-4">
       <label>удалить матч</label>
