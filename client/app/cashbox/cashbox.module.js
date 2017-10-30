@@ -1,5 +1,5 @@
 import angular from 'angular';
-import uiRouter from 'angular-ui-router';
+import uiRouter from '@uirouter/angularjs';
 import CashboxService from './cashbox.service';
 import CashboxComponent from './cashbox.component';
 import AbonementTicketComponent from './abonement-ticket/abonement-ticket.component';

@@ -1,5 +1,3 @@
-import bwipjs from 'bwip-js';
-
 export default class SectorController {
     constructor(match, sector, TicketsService, $stateParams, CartService, PriceSchemaService, StadiumMetalist, StadiumDinamo, StadiumSolar, Auth, PrintTicketService) {
       'ngInject';

@@ -6,7 +6,7 @@ import ngCookies from 'angular-cookies';
 import ngResource from 'angular-resource';
 import ngSanitize from 'angular-sanitize';
 import validationMatch from 'angular-validation-match';
-import uiRouter from 'angular-ui-router';
+import uiRouter from '@uirouter/angularjs';
 import uiBootstrap from 'angular-ui-bootstrap';
 import ioBarcode from 'angular-io-barcode';
 
