@@ -5,7 +5,7 @@
   "main": "server/app.js",
   "scripts": {
     "clean": "rimraf dist/*",
-    "build:dev": "npm run client:build:dev && npm run server:build",
+    "build:dev":  "npm run client:build:dev && npm run server:build",
     "build:prod": "npm run client:build:prod && npm run server:build",
     "client:build:dev": "NODE_ENV=development webpack",
     "client:build:prod": "NODE_ENV=production webpack",
@@ -17,7 +17,7 @@
     "watch": "npm run client:watch & npm run server:watch",
     "start": "node dist/server",
     "serve": "node dist/server & npm run client:watch",
-    "nodemon": "nodemon dist/server --watch dist/server",
+    "nodemon": "nodemon server --watch server",
     "lint": "jshint client/**/*.js server/**/*.js server/*.js",
     "pretest": "npm run server:build",
     "test": "NODE_ENV=test mocha dist/server/**/*.{spec,integration}.js --require mocha.conf.js",
