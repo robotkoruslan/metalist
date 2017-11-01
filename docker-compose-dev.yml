@@ -7,7 +7,8 @@ services:
             - "9000:9000"
             - "465:465"
         volumes:
-            - ./dist:/app/dist
+            - ./dist/client:/app/client
+            - ./dist/server:/app/server
         command: bash -c "npm run nodemon"
     mongo:
         ports:

@@ -5,7 +5,7 @@ var multer  = require('multer');
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './dist/client/assets/teamLogos/');
+    cb(null, './client/assets/teamLogos/');
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -29,7 +29,7 @@ export function uploadFile(req, res) {
 
 export function getTeamLogos() {
   return new Promise((resolve, reject) => {
-    sys.exec('ls dist/client/assets/teamLogos/',
+    sys.exec('ls client/assets/teamLogos/',
       function (err, itog1) {
         if (err) {
           return reject(err);
