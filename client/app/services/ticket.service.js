@@ -25,4 +25,9 @@ export default class TicketsService {
       .then(response => response.data);
   }
 
+  removeTicket(ticketId) {
+    return this.$http.delete('/api/tickets/'+ ticketId)
+      .then(response => response.data);
+  }
+
 }

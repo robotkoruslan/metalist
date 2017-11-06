@@ -21,6 +21,8 @@
         <td ng-bind="stat.amount"></td>
         <td><a class="btn btn-primary btn-sm" ng-click="$ctrl.prints(stat)">Повтор печати</a>
         </td>
+        <td><a class="btn btn-primary btn-sm" ng-click="$ctrl.removeTicket(stat.id)">Отменить билет</a>
+        </td>
     </tr>
     </tbody>
 </table>
