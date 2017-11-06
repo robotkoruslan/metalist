@@ -17,4 +17,6 @@ router.get('/tribune/:tribune/code/:code', auth.hasRole('steward'), controller.u
 router.get('/sold-tickets', auth.hasRole('steward'), controller.getTicketsForCheckMobile);
 router.get('/count/:tribune', auth.hasRole('steward'), controller.getCountValidTicketsByTribune);
 
+router.delete('/:id', auth.hasRole('cashier'), controller.deleteTicketById);
+
 module.exports = router;

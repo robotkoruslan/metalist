@@ -14,6 +14,7 @@ let cashierLastTicketsComponent = {
       this.ticket = [];
       this.statistics = [];
       this.lastTickets =[];
+      this.currentData = new Date();
     }
 
     $onInit() {
@@ -21,6 +22,7 @@ let cashierLastTicketsComponent = {
     }
 
     dateChanges($event){
+      this.currentData = $event.date;
       this.getStatistics({
           date: $event.date,
           metod: 'event'
@@ -44,6 +46,11 @@ let cashierLastTicketsComponent = {
       seat.seat = blank.seat;
       blank.seat = seat;
       this.ticket.push(blank);
+    }
+
+    removeTicket(ticketId) {
+      return this.ticketsService.removeTicket(ticketId)
+        .then(() => this.getStatistics({date: this.currentData, metod: 'event'}))
     }
 
     ticketRendering(){

@@ -213,13 +213,22 @@ function eventStatistics(req, res) {
             row: ticket.seat.row,
             seat: ticket.seat.seat,
             amount: ticket.amount,
-            accessCode: ticket.accessCode
+            accessCode: ticket.accessCode,
+            id: ticket.id
           })
         })
       }, 0), tickets;
     })
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+
+export function deleteTicketById(req, res) {
+  return Ticket.findByIdAndRemove(req.params.id).exec()
+    .then(function () {
+      res.status(204).end();
+    })
     .catch(handleError(res));
 }
 
