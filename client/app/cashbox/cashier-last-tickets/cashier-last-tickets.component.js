@@ -7,9 +7,9 @@ let cashierLastTicketsComponent = {
   },
   controller: class CashierLastTicketsController {
 
-    constructor(CashboxService, PrintTicketService) {
+    constructor(TicketsService, PrintTicketService) {
       'ngInject';
-      this.cashboxService = CashboxService;
+      this.ticketsService = TicketsService;
       this.printTicketService = PrintTicketService;
       this.ticket = [];
       this.statistics = [];
@@ -28,7 +28,7 @@ let cashierLastTicketsComponent = {
     };
 
     getStatistics(date) {
-      this.cashboxService.getStatistics(date)
+      this.ticketsService.getStatistics(date)
         .then(response => {
           this.statistics = response;
         })
