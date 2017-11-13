@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+    web:
+        build: .
+        ports:
+            - "9000:9000"
+            - "465:465"
+        volumes:
+            - ./dist/client:/app/client
+            - ./dist/server:/app/server
+        command: bash -c "npm run nodemon"
+    mongo:
+        ports:
+            - "27018:27017"
