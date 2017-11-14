@@ -1,3 +1,11 @@
-<p>
-  admin works!
-</p>
+<div class="container">
+  <ul class="nav nav-tabs">
+    <li routerLinkActive="active" routerLink="ticketsStatistic"><a>Статистика</a></li>
+    <li routerLinkActive="active" routerLink="matchEditor"><a>Матчи</a></li>
+    <li routerLinkActive="active" routerLink="adminUsers"><a>Пользователи</a></li>
+    <li routerLinkActive="active" routerLink="seasonTicket"><a>Сезонные билеты</a></li>
+    <li routerLinkActive="active" routerLink="priceSchema"><a>Ценовая схема</a></li>
+    <li routerLinkActive="active" routerLink="orderDetails"><a>Детали ордера</a></li>
+  </ul>
+  <router-outlet></router-outlet>
+</div>

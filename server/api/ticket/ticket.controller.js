@@ -201,7 +201,9 @@ function dayStatistics(req, res) {
 }
 
 function eventStatistics(req, res) {
-  return orderService.getStatistics(req.user.id, req.query.date )
+
+  // return orderService.getStatistics(req.user.id, req.query.date )
+  return orderService.getStatistics(1, req.query.date )
     .then((order) => {
       let tickets = [];
       return order.reduce((sum, current) => {

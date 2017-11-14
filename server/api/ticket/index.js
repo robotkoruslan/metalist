@@ -11,7 +11,8 @@ router.get('/my', auth.isAuthenticated(), controller.getMyTickets);
 
 router.get('/abonticket/:accessCode', auth.hasRole('cashier'), controller.getTicketByAccessCode);
 router.get('/useabonticket/:ticketId', auth.hasRole('cashier'), controller.useAbonementTicket);
-router.get('/statistics', auth.hasRole('cashier'), controller.getStatistics);
+// router.get('/statistics', auth.hasRole('cashier'), controller.getStatistics);
+router.get('/statistics', controller.getStatistics);
 
 router.get('/tribune/:tribune/code/:code', auth.hasRole('steward'), controller.use);
 router.get('/sold-tickets', auth.hasRole('steward'), controller.getTicketsForCheckMobile);
