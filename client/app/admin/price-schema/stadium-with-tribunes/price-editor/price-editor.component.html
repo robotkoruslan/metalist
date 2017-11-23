@@ -1,0 +1,20 @@
+<!--<div ng-form="priceForm" *ngIf="currentTribune.name && !currentSector.name">-->
+<div ng-form="priceForm" >
+  <h4>Цена на трибуну: {{currentTribune.name}}</h4>
+  <div class="form-group col-md-3">
+    <input class="form-control" type="number" min="0" max="1500" [(ngModel)]="currentTribune.price" ng-change="changePrice()" />
+  </div>
+</div>
+
+<!--<div ng-form="priceForm" *ngIf="currentSector.name">-->
+<div ng-form="priceForm" >
+  <h4>Цена на сектор: № {{currentSector.name}}</h4>
+  <div class="form-group col-md-3">
+    <input class="form-control" type="number" min="0" max="1500" [(ngModel)]="currentSector.price" ng-change="changePrice()" />
+  </div>
+</div>
+<div class="col-md-3" *ngIf="isPriceChanged()" >
+  <button class="btn btn-default" (click)="clickApply()"
+  >Apply</button>
+</div>
+11 22

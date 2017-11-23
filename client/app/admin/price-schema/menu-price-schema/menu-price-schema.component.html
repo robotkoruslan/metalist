@@ -1,0 +1,12 @@
+<label>Список схем</label>
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let schema of priceSchemas">
+    <span class="badge" (click)="edit(schema)" style="cursor: pointer;">Edit</span>
+    {{schema.priceSchema.name}} :
+    {{schema.priceSchema.stadiumName}}
+  </li>
+</ul>
+<form class="form-inline">
+  <!--//@TODO remove id assigning after priceSchema refactoring-->
+  <button class="btn btn-default" (click)="edit({id : undefined, priceSchema:{}})">New price schema</button>
+</form>

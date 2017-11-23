@@ -1,3 +1,24 @@
-<p>
-  tickets works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Билеты</h1>
+      <div *ngIf="tickets.length">
+        <h3>У вас нет билетов.</h3>
+      </div>
+      <div [hidden]="tickets.length">
+        <table class="cart-items table table-condensed">
+          <tr *ngFor="let ticket of tickets">
+          <!--<tr ng-repeat="ticket in vm.tickets | orderBy:'-reserveDate'">-->
+            <td>
+              <p class="lead">{{ ticket.match.headline }} : {{ ticket.seat.sector }} сектор, {{ ticket.seat.row }} ряд, {{ ticket.seat.seat }} место</p>
+            </td>
+            <td>
+              <p class="lead"><a href="/api/tickets/ticket/{{ticket.ticketNumber}}" target="_blank" >Печать</a></p>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+

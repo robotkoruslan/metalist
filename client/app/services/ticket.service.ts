@@ -8,20 +8,20 @@ import 'rxjs/add/operator/map';
 export class TicketService {
   constructor(private http: Http) {}
 
-  // fetchReservedSeats(matchId, sectorName): Observable<any> {
-  //   return this.http.get('api/seats/reserved-on-match/' + matchId + '/sector/' + sectorName)
-  //     .map((response: Response) => response.json());
-  // }
-  //
-  // getMyTickets(): Observable<any> {
-  //   return this.http.get('api/tickets/my')
-  //     .map((response: Response) => response.json());
-  // }
-  //
-  // getPendingStatus(): Observable<any> {
-  //   return this.http.get('api/orders/payment-status')
-  //     .map((response: Response) => response.json());
-  // }
+  fetchReservedSeats(matchId, sectorName): Observable<any> {
+    return this.http.get('api/seats/reserved-on-match/' + matchId + '/sector/' + sectorName)
+      .map((response: Response) => response.json());
+  }
+
+  getMyTickets() {
+    return this.http.get('api/tickets/my')
+      .map((response: Response) => response.json());
+  }
+
+  getPendingStatus() {
+    return this.http.get('api/orders/payment-status')
+      .map((response: Response) => response.json());
+  }
 
   getStatistics(data): Observable<any> {
     console.log('getStatistics', data);

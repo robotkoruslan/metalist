@@ -1,0 +1,27 @@
+<div *ngIf="isShema()">
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let colorPrice of currentColorSchema">
+      <mat-icon [ngStyle]="{'color': colorPrice.color}">lens</mat-icon>
+      <span>
+      <!--<mat-form-field>-->
+        <!--<mat-select [(value)]="colorPrice.color">-->
+        <!--<mat-option *ngFor="let color of colors" [value]="color.color">-->
+        <!--{{ color.colorName }}-->
+        <!--</mat-option>-->
+        <!--</mat-select>-->
+        <!--</mat-form-field>-->
+      <select [(ngModel)]="colorPrice.color">
+        <option *ngFor="let color of colors" [ngValue]="color.color">{{color.colorName}}</option>
+      </select>
+      </span>
+      <span>= {{colorPrice.price}}</span>
+    </li>
+  </ul>
+  <div *ngIf="isColorChanged()">
+    <div>
+      <button class="form-control" (click)="edit(currentColorSchema)">
+        Apply Color
+      </button>
+    </div>
+  </div>
+</div>

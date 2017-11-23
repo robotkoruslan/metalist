@@ -1,16 +1,119 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CartService } from '../services/cart.service';
+import {AuthService} from '../services/auth.service';
+
+import moment from 'moment-timezone';
 
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
-  styleUrls: ['./checkout.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
 
-  constructor() { }
+  stopTime: string = '';
+  confirm: boolean = false;
+  message: string= '';
+  cart: any = {};
+  duration: number = 0;
+  reserveDate: string = '';
+  match: any = {};
+
+  constructor(private cartService: CartService, private authenticationService: AuthService) { }
 
   ngOnInit() {
+    this.checkReservedSeatForTimerOn();
+    // this.$scope.$on('$destroy', this.stopHandling.bind(this));
   }
+
+  checkReservedSeatForTimerOn() {
+    this.cart = this.cartService.getMyCart();
+
+    if (this.cart.seats.length) {
+      this.getReserveDate();
+      // this.timerOn();
+    }
+  }
+
+  // timerOn() {
+  //   let diffTime = moment(this.reserveDate).tz("Europe/Kiev") - moment().tz("Europe/Kiev"),
+  //     interval = 1000;
+  //
+  //   this.duration = moment.duration(diffTime, 'milliseconds') > 0 ? moment.duration(diffTime, 'milliseconds') : moment.duration(0, 'milliseconds');
+  //
+  //   this.stopTime = this.$interval(() => {
+  //     if (this.duration <= 0) {
+  //       return this.stopHandling();
+  //     }
+  //     this.duration = moment.duration(this.duration - interval, 'milliseconds');
+  //   }, interval);
+  // }
+
+  getReserveDate() {
+    if (this.cart.seats.length > 1) {
+      this.cart.seats.sort((a, b) => b.reservedUntil - a.reservedUntil);
+    }
+    this.reserveDate = this.cart.seats[0].reservedUntil;
+  }
+
+  // stopHandling() {
+  //   this.$interval.cancel(this.stopTime);
+  // }
+
+  updateCart() {
+    this.reserveDate = '';
+    this.match = {};
+    // this.stopHandling();
+    this.checkReservedSeatForTimerOn();
+  }
+
+  // confirmEmail(form, user) {
+  //   form.$setDirty();
+  //   form.email.$setDirty();
+  //
+  //   let email = user.email;
+  //
+  //   if (form.$valid) {
+  //     this.authenticationService.generateGuestPassword(email)
+  //       .then(response => {
+  //         this.confirm = true;
+  //         this.message = response.message;
+  //       })
+  //       .catch(err => {
+  //         this.confirm = false;
+  //         if (err.status === 409) {
+  //           this.message = 'Вы уже зарегистрированы.';
+  //         } else {
+  //           this.message = err.message;
+  //         }
+  //       });
+  //   }
+  // }
+
+  // guestLogin(form, user) {
+  //   form.$setDirty();
+  //   form.email.$setDirty();
+  //   form.password.$setDirty();
+  //
+  //   if (form.$valid) {
+  //     this.authenticationService.login({
+  //       email: user.email,
+  //       password: user.password
+  //     })
+  //       .catch(err => {
+  //         this.message = err.message;
+  //       });
+  //   }
+  // }
+
+  // checkout() {
+  //   this.cartService.checkout()
+  //     .then(response => {
+  //       this.$window.location.href = response.paymentLink;
+  //     } )
+  //     .catch((err) => {
+  //       if (err.status === 406) { this.isReserveSuccess = true; }
+  //     });
+  // }
 
 }

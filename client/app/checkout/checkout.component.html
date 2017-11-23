@@ -1,3 +1,86 @@
-<p>
-  checkout works!
-</p>
+<div class="container">
+  <app-navpanel></app-navpanel>
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Оформление заказа</h1>
+    </div>
+    <div class="col-sm-12">
+      <blockquote>
+        <p>Приобретая билет, вы соглашаетесь с &nbsp;<a href="http://metalist1925.com/club/stadium/rules.php" target="_blank">«Правилами поведения на стадионе»</a></p>
+      </blockquote>
+      <p [hidden]="reserveDate && !isReserveSuccess">Ваши билеты зарезервированы на
+        <span style="color: red; font-size: 12pt;"><strong>{{duration.minutes()}}</strong></span> мин <span  style="color: red;font-size: 12pt"><strong>{{duration.seconds()}}</strong></span> сек
+        , чтобы никто не мог их купить.<br />
+        Если вы не успеете за это время перейти к оплате, бронь будет снята и билеты вернутся в свободную продажу.<br/><br/>
+        <strong>Перед оплатой билетов, пожалуйста, убедитесь, что не ошиблись в выборе матча, даты и места.</strong><br /><br />
+      </p>
+      <p [hidden]="isReserveSuccess">
+        <strong>Бронь снята и билеты вернулись в свободную продажу.</strong><br /><br />
+      </p>
+    </div>
+
+    <div class="col-sm-12">
+      <div>
+        <strong>Билетов: {{ cartService.getMyCartSize() }} - Сумма: {{ cartService.getMyCartPrice() }} </strong>
+      </div>
+      <!--<cart-details on-delete="updateCart($event)"></cart-details>-->
+    </div>Купить билет
+
+￼ ￼
+Металлист 1925 - Реал-Фарма
+29 декабря 2017
+14:00
+
+29 декабря 2017
+14:00
+
+    <div class="buttons col-sm-12" [hidden]="cartService.getMyCartSize()">
+      <div class="col-sm-4 col-sm-offset-1" [hidden]="isLoggedIn()">
+        <a uiSref="login" class="btn btn-primary btn-block">Войти</a>
+      </div>
+      <div class="col-sm-1" [hidden]="isLoggedIn()">
+        - ИЛИ -
+      </div>
+      <div class="col-sm-5" [hidden]="isLoggedIn()">
+        <div [hidden]="!confirm" ng-form="confirmForm" ng-model-options="{ updateOn: 'blur' }">
+          <p [hidden]="message">{{message}}</p>
+          <div class="form-group" ng-class="{'has-error': confirmForm.email.$invalid && confirmForm.email.$dirty}">
+            <input type="email" class="form-control" name="email" placeholder="Email" ng-model="user.email"
+                   required="required"/>
+            <div class="help-block" [hidden]="confirmForm.email.$error.required && confirmForm.email.$dirty">Email is
+              required
+            </div>
+            <div class="help-block" [hidden]="confirmForm.email.$error.email && confirmForm.email.$dirty">Invalid email
+            </div>
+          </div>
+          <hr/>
+          <a (click)="confirmEmail(confirmForm, user)" class="btn btn-warning btn-block"
+             ng-class="{'disabled': confirmForm.$invalid && confirmForm.$dirty}">Подтвердить email</a>
+        </div>
+        <div [hidden]="confirm">
+          <p>{{message}}</p>
+          <form name="form" novalidate="novalidate" id="guest-user-form" ng-model-options="{ updateOn: 'blur' }">
+            <div class="form-group" ng-class="{'has-error': form.email.$invalid && form.email.$dirty}">
+              <input type="email" class="form-control" name="email" placeholder="Email" ng-model="user.email"
+                     required="required"/>
+              <div class="help-block" [hidden]="form.email.$error.required && form.email.$dirty">Email is required</div>
+              <div class="help-block" [hidden]="form.email.$error.email && form.email.$dirty">Invalid email</div>
+            </div>
+            <div class="form-group" ng-class="{'has-error': form.name.$invalid && form.name.$dirty}">
+              <input type="password" class="form-control" name="password" placeholder="Password" ng-model="user.password"
+                     required="required"/>
+              <div class="help-block" [hidden]="form.name.$error.required && form.name.$dirty">Password is required</div>
+            </div>
+            <hr/>
+            <a (click)="guestLogin(form, user)" class="btn btn-primary btn-block"
+               ng-class="{'disabled': form.$invalid && form.$dirty}">Войти</a>
+          </form>
+        </div>
+      </div>
+      <div class="col-sm-4 col-sm-offset-4" [hidden]="isLoggedIn()">
+        <a class="btn btn-primary btn-block" (click)="checkout()">Оплатить</a>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -62,20 +62,24 @@
     <div class="matches">
       <ul class="matchList">
 
-        <!--<li ng-repeat="match in $ctrl.matches | orderBy:'date':reverse:true " class="panel" ng-if="match.date" ui-sref="main.match({id: match.id})" title="Металлист 1925 - {{match.rival}}">-->
-          <!--<a class="link"><div class="bgTicket">-->
-            <!--<div class="buyTicket"><p>Купить билет</p></div>-->
-            <!--<div>-->
-              <!--<span class="teamLogos"><img src="../../assets/teamLogos/metalist.png" alt="..."></span>-->
-              <!--<span class="teamLogos"><img class="teamLogos" src="{{match.poster}}" alt="..."></span>-->
-            <!--</div>-->
-            <!--<span class="commandsNames"><h4>Металлист 1925 - {{match.rival}}</h4></span>-->
-            <!--<span class="matchDate"><p ng-if="match.date" class="panel-title">{{  match.formattedDate }}</p><p>{{ match.time }}</p></span><br/>-->
-            <!--<span class="commandsNames"><p ng-if="!match.date" class="panel-title">{{ match.dateApproximate }}</p></span>-->
-          <!--</div>  </a>-->
-        <!--</li>-->
-
-        <!--<li ng-repeat="match in $ctrl.matches | orderBy:'date':reverse:true " class="panel" ng-if="!match.date">-->
+        <!--<li *ngFor="let match of matches" class="panel" *ngIf="match.date" uiSref="main.match({id: match.id})" uiSrefActive="active" title="Металлист 1925 - {{match.rival}}">-->
+        <!--<li *ngFor="let match of matches" class="panel"   uiSref="match({id: match.id})" uiSrefActive="active" title="Металлист 1925 - {{match.rival}}">-->
+        <li *ngFor="let match of matches" class="panel" title="Металлист 1925 - {{match.rival}}">
+          <a class="link" [routerLink]="['match', match.id]"><div class="bgTicket">
+            {{match.id}}
+            <div class="buyTicket"><p>Купить билет</p></div>
+            <div>
+              <span class="teamLogos"><img src="../../assets/teamLogos/metalist.png" alt="..."></span>
+              <span class="teamLogos"><img class="teamLogos" src="{{match.poster}}" alt="..."></span>
+            </div>
+            <span class="commandsNames"><h4>Металлист 1925 - {{match.rival}}</h4></span>
+            <span class="matchDate"><p *ngIf="match.date" class="panel-title">{{  match.formattedDate }}</p><p>{{ match.time }}</p></span><br/>
+            <span class="matchDate"><p class="panel-title">{{  match.formattedDate }}</p><p>{{ match.time }}</p></span><br/>
+            <span class="commandsNames"><p class="panel-title">{{ match.dateApproximate }}</p></span>
+            <span class="commandsNames"><p *ngIf="!match.date" class="panel-title">{{ match.dateApproximate }}</p></span>
+          </div>  </a>
+        </li>
+        <!--<li *ngFor="let match of matches" class="panel" *ngIf="!match.date">-->
           <!--<div class="bgTicket">-->
             <!--<div class="buyTicket">Купить билет</div>-->
             <!--<div>-->

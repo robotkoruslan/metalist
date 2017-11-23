@@ -1,26 +1,49 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.less'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./navbar.component.less']
 })
 export class NavbarComponent implements OnInit {
-  isLoggedIn: Boolean;
-  isAdmin: Boolean;
-  isCashier: Boolean;
+  // isLoggedIn: Boolean;
+  // isAdmin: Boolean;
+  // isCashier: Boolean;
   isCollapsed: Boolean;
-  getCurrentUser: any;
+  currentUser: any = {};
 
-  constructor() {
+  constructor(private authenticationService: AuthService) {
     'ngInject';
-    this.isLoggedIn = true;
-    this.isAdmin = true;
-    this.isCashier = true;
-    this.getCurrentUser = {};
-    this.getCurrentUser.name = 'User';
+    // this.isLoggedIn = this.authenticationService.isAdmin();
+    // this.isAdmin = this.authenticationService.isAdmin();
+    // this.isCashier = this.authenticationService.isCashier();
+    // this.getCurrentUser = this.authenticationService.getCurrentUser();
+    // this.getCurrentUser.name = 'User';
     this.isCollapsed = true;
+  }
+
+  isLoggedIn(){
+    this.getCurrentUser();
+    return this.authenticationService.isLoggedIn();
+  }
+
+  isAdmin(){
+    // console.log('isLoggedIn', this.authenticationService.isAdmin());
+    return this.authenticationService.isAdmin();
+  }
+
+  // isAuthenticated(){
+  //   // console.log(' NavbarComponent isAuthenticated', this.authenticationService.isAuthenticated());
+  //   return this.authenticationService.isAuthenticated();
+  // }
+
+  getCurrentUser(){
+    // console.log('isLoggedIn', this.authenticationService.isAdmin());
+    return this.currentUser = this.authenticationService.getCurrentUser();
   }
 
   ngOnInit() {

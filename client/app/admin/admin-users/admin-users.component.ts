@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-admin-users',
   templateUrl: './admin-users.component.html',
-  styleUrls: ['./admin-users.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./admin-users.component.css']
 })
 export class AdminUsersComponent implements OnInit {
 
@@ -26,7 +25,7 @@ export class AdminUsersComponent implements OnInit {
   // setRole(user, role) {
   //   if (user.role != role) {
   //     this.userService.setRole({id: user.id, role: role})
-  //       .$promise.then(() => this.getUsers());
+  //       .then(() => this.getUsers());
   //   }
   // }
 

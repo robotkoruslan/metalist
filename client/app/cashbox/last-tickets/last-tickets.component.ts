@@ -1,51 +1,44 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 
 import { PrintTicketService } from '../../services/print-ticket.service';
 import { TicketService } from '../../services/ticket.service';
 // import * as moment from "moment";
 // import _date = moment.unitOfTime._date;
 
+
+
 @Component({
   selector: 'app-last-tickets',
   templateUrl: './last-tickets.component.html',
-  styleUrls: ['./last-tickets.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./last-tickets.component.css']
 })
 export class LastTicketsComponent implements OnInit {
-
-  // public localState = { value: '' };
 
   statistics: any = [];
   lastTickets: any = [];
   ticket: any = [];
   currentData: Date = new Date();
 
+  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.getStatistics({
+      date: event.value.toISOString(),
+      metod: 'event'
+    });
+  }
+
     constructor( private ticketsService: TicketService) {
-    // constructor(private printTicketService: PrintTicketService, private ticketsService: TicketService) {
-    // this.ticket = [];
-    // this.statistics = [];
-    // this.lastTickets =[];
-    // this.currentData = new Date();
   }
 
   ngOnInit() {
     console.log('ngOnInit');
     this.getStatistics({
-      date: this.currentData,
+      date: this.currentData.toISOString(),
       metod: 'event'
     });
   }
 
-  dateChanges(){
-    // this.currentData = $event.date;
-    this.getStatistics({
-      date: this.currentData,
-      metod: 'event'
-    });
-  };
-
   getStatistics(date) {
-    console.log('LastTicketsComponent getStatistics');
     this.ticketsService.getStatistics(date).subscribe(statistic => {
       this.statistics = statistic;
     });

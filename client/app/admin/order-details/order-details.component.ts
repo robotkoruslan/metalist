@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-order-details',
   templateUrl: './order-details.component.html',
-  styleUrls: ['./order-details.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./order-details.component.css']
 })
 export class OrderDetailsComponent implements OnInit {
 
@@ -21,7 +20,7 @@ export class OrderDetailsComponent implements OnInit {
   getOrder() {
     this.order = {};
     this.message = '';
-    this.order = this.cartService.getOrderByPrivateId(this.privateId);
+    // this.order = this.cartService.getOrderByPrivateId(this.privateId);
     console.log('this.order', this.order);
   }
 

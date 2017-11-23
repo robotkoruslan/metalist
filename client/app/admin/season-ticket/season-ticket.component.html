@@ -1,3 +1,19 @@
-<p>
-  season-ticket works!
-</p>
+      <mat-tab-group>
+
+        <mat-tab label="По событию">
+          <app-season-ticket-form on-change="createSeasonTicket($event)" error-message="errorMessageSeat">
+          </app-season-ticket-form>
+
+          <app-season-ticket-list season-tickets="seasonTickets" on-delete="deleteSeasonTicket($event)">
+          </app-season-ticket-list>
+        </mat-tab>
+
+        <mat-tab label="По событию">
+          <app-block-row-form error-message="errorMessageBlockRow" on-add="addBlockRow($event)">
+          </app-block-row-form>
+
+          <app-block-row-list block-row-seats="blockRowSeats" on-delete="deleteBlockRow($event)">
+          </app-block-row-list>
+        </mat-tab>
+
+      </mat-tab-group>

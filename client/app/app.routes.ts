@@ -11,25 +11,52 @@ import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 import { SeasonTicketComponent } from './admin/season-ticket/season-ticket.component';
 import { PriceSchemaComponent } from './admin/price-schema/price-schema.component';
 import { OrderDetailsComponent } from './admin/order-details/order-details.component';
-
+import { LoginComponent } from './auht/login/login.component';
+import { RegisterComponent } from './auht/register/register.component';
+import { RecoveryComponent } from './auht/recovery/recovery.component';
+import { SettingComponent } from './auht/setting/setting.component';
+import { MatchComponent } from './match/match.component';
+import { SectorComponent } from './match/sector/sector.component';
+import { TicketsComponent } from './tickets/tickets.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { SelectSectorComponent } from './match/select-sector/select-sector.component';
+import { AuthGuard } from './auht/auth.guard';
+import { RoleGuard } from './auht/role.guard';
+import { CartGuard } from './auht/cart.guard';
+// import { AdminGuard } from './auht/admin.guard';
 // import { DataResolver } from './app.resolver';
 
+
 export const ROUTES: Routes = [
-  { path: '',      component: HomeComponent },
-  { path: 'home',  component: HomeComponent },
-  { path: 'admin',  component: AdminComponent,
+  // { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', component: HomeComponent, canActivate: [CartGuard]  },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'recovery', component: RecoveryComponent , canActivate: [AuthGuard]},
+  { path: 'settings', component: SettingComponent, canActivate: [AuthGuard] },
+  { path: 'tickets', component: TicketsComponent, canActivate: [AuthGuard] },
+  { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
+  // { path: 'home',  component: HomeComponent, canActivate: [CartGuard]  },
+  {path: 'sectors/:matchId/:tribuneId/:sectorId', component: SectorComponent, canActivate: [CartGuard] },
+  { path: 'match/:matchId',  component: MatchComponent, canActivate: [CartGuard] ,
     children: [
-      {path: 'ticketsStatistic', component: TicketsStatisticComponent},
-      {path: 'matchEditor', component: MatchEditorComponent},
-      {path: 'adminUsers', component: AdminUsersComponent},
-      {path: 'seasonTicket', component: SeasonTicketComponent},
-      {path: 'priceSchema', component: PriceSchemaComponent},
-      {path: 'orderDetails', component: OrderDetailsComponent}
+      {path: '', component: SelectSectorComponent, canActivate: [CartGuard] }
     ]},
-  { path: 'cashbox',  component: CashboxComponent ,
+  { path: 'admin',  component: AdminComponent, canActivate: [AuthGuard, RoleGuard], data: {expectedRole: 'admin'},
     children: [
-    {path: 'daysStatistic', component: DaysStatisticComponent},
-    {path: 'lastTickets', component: LastTicketsComponent},
-    {path: 'abonementTicket', component: AbonementTicketComponent}
+      {path: '', redirectTo: 'ticketsStatistic', pathMatch: 'full'},
+      {path: 'ticketsStatistic', component: TicketsStatisticComponent, canActivate: [AuthGuard, RoleGuard], data: {expectedRole: 'admin'} },
+      {path: 'matchEditor', component: MatchEditorComponent, canActivate: [AuthGuard, RoleGuard], data: {expectedRole: 'admin'}},
+      {path: 'adminUsers', component: AdminUsersComponent, canActivate: [AuthGuard, RoleGuard], data: {expectedRole: 'admin'}},
+      {path: 'seasonTicket', component: SeasonTicketComponent, canActivate: [AuthGuard, RoleGuard], data: {expectedRole: 'admin'}},
+      {path: 'priceSchema', component: PriceSchemaComponent, canActivate: [AuthGuard, RoleGuard], data: {expectedRole: 'admin'}},
+      {path: 'orderDetails', component: OrderDetailsComponent, canActivate: [AuthGuard, RoleGuard], data: {expectedRole: 'admin'}}
+    ]},
+  { path: 'cashbox',  component: CashboxComponent, canActivate: [AuthGuard, RoleGuard], data: {expectedRole: 'admin'},
+    children: [
+    {path: '', redirectTo: 'daysStatistic', pathMatch: 'full'},
+    {path: 'daysStatistic', component: DaysStatisticComponent, canActivate: [AuthGuard]},
+    {path: 'lastTickets', component: LastTicketsComponent, canActivate: [AuthGuard]},
+    {path: 'abonementTicket', component: AbonementTicketComponent, canActivate: [AuthGuard]}
   ] },
 ];

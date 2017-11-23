@@ -1,0 +1,17 @@
+<form class="form" novalidate>
+  <label>Блокировка мест</label>
+  <table class="table">
+    <tbody>
+    <tr>
+      <td><input type="text" name="sector" class="form-control" [(ngModel)]="newTicket.sector" placeholder="сектор" required="" /></td>
+      <td><input type="text" name="row"  class="form-control" [(ngModel)]="newTicket.row" placeholder="ряд" required="" /></td>
+      <td><input type="text" name="seat" class="form-control" [(ngModel)]="newTicket.seat" placeholder="место" required="" /></td>
+      <td><input type="date" name="reservedUntil" class="form-control" [(ngModel)]="newTicket.reservedUntil" placeholder="" required="" /></td>
+      <td>
+        <button type="submit" class="btn btn-default" (click)="update()">Добавить</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <!--<p ng-show="$ctrl.errorMessageBlockRow">{{ $ctrl.errorMessageBlockRow }}</p>-->
+</form>
