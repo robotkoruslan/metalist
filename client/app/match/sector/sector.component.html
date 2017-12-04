@@ -53,7 +53,7 @@
           <strong>Время резерва окончилось и билет был кем-то выбран для покупки.</strong><br/>
         </p>
         <div>
-          <!--<cart-details on-delete="updateReservedTickets($event)"></cart-details>-->
+          <app-details [(seats)] = "seats" (onDelete)="updateReservedTickets($event)"></app-details>
         </div>
       </div>
     </div>

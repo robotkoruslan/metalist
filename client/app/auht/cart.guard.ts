@@ -15,9 +15,9 @@ export class CartGuard implements CanActivate {
 
     // const expectedRole = route.data.expectedRole;
     const cart = this._cookieService.get('cart');
-    console.log('CartGuard ', cart);
+    // console.log('CartGuard ', cart);
     if (!cart) {
-      console.log('CartGuard ');
+      // console.log('CartGuard ');
       // this.auth.isLoggedIn();
       return this.cartService.createCart();
     } else {

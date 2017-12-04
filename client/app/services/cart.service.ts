@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {CookieService} from 'angular2-cookie/services/cookies.service';
@@ -8,14 +8,17 @@ import decode from 'jwt-decode';
 @Injectable()
 export class CartService {
   data: any;
-  constructor(private http: Http, private _cookieService: CookieService) {}
+  cart: any;
+  constructor(private http: HttpClient, private _cookieService: CookieService) {}
 
   getCart(): Observable<boolean> {
-    const headers = new Headers({'Content-Type': 'application/json'});
-    const options = new RequestOptions({headers: headers});
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const options = {headers: headers};
     return this.http.get('/api/carts/my-cart', options)
       .map((response: Response) => {
         if (response) {
+          this.cart = response;
+          this.data = { 'cart' : this.cart};
           return true;
         } else {
           return false;
@@ -24,12 +27,12 @@ export class CartService {
   }
 
   createCart(): Observable<boolean> {
-    const headers = new Headers({'Content-Type': 'application/json'});
-    const options = new RequestOptions({headers: headers});
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const options = {headers: headers};
     return this.http.post('/api/carts', options)
       .map((response: Response) => {
-        if (response.json().publicId) {
-          this._cookieService.put('cart', response.json().publicId);
+        if (response.publicId) {
+          this._cookieService.put('cart', response.publicId);
           return true;
         } else {
           return false;
@@ -42,24 +45,30 @@ export class CartService {
   }
 
   getMyCart() {
-    return this.data.cart;
+    if (this.data) {
+      return this.data.cart;
+    } else { return {}; }
   }
 
-  // getMyCartSize() {
-  //   return this.data.cart.size;
-  // }
-  //
-  // getMyCartPrice() {
-  //   if (this.data.cart.seats) {
-  //     return this.data.cart.seats.reduce((price, seat) => {
-  //       return price + seat.price;
-  //     }, 0);
-  //   }
-  // }
+  getMyCartSize() {
+    if (this.data) {
+      return this.data.cart.size;
+    } else {
+      return 0; }
+
+  }
+
+  getMyCartPrice() {
+    if (this.data.cart.seats) {
+      return this.data.cart.seats.reduce((price, seat) => {
+        return price + seat.price;
+      }, 0);
+    }
+  }
 
   addSeatToCart(slug, matchId) {
-    const headers = new Headers({'Content-Type': 'application/json'});
-    const options = new RequestOptions({headers: headers});
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const options = {headers: headers};
     return this.http.post('/api/carts/addSeat', {slug: slug, matchId: matchId}, options)
       .map((response: Response) => {
         if (response) {
@@ -68,7 +77,6 @@ export class CartService {
           return false;
         }
       });
-      // .then(response => this.data.cart = response.data);
   }
 
   removeSeatFromCart(slug, matchId) {
@@ -80,9 +88,6 @@ export class CartService {
           return false;
         }
       });
-      // .then(response => {
-      //   this.data.cart = response.data;
-      // });
   }
 
   getOrderByPrivateId(privateId) {
@@ -90,8 +95,8 @@ export class CartService {
   }
 
   checkout() {
-    const headers = new Headers({'Content-Type': 'application/json'});
-    const options = new RequestOptions({headers: headers});
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const options = {headers: headers};
     return this.http.post('/api/orders/checkout', options)
       .map((response: Response) => {
         if (response) {
@@ -100,12 +105,11 @@ export class CartService {
           return false;
         }
       });
-      // .then(response => response.data);
   }
 
   pay() {
-    const headers = new Headers({'Content-Type': 'application/json'});
-    const options = new RequestOptions({headers: headers});
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const options = {headers: headers};
     return this.http.post('/api/orders/pay-cashier', options)
       .map((response: Response) => {
         if (response) {
@@ -114,7 +118,6 @@ export class CartService {
           return false;
         }
       });
-      // .then(response => response.data);
   }
 
 }

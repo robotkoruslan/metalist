@@ -1,8 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpModule } from '@angular/http';
-// import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'angular2-cookie';
 import { RouterModule, PreloadAllModules} from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -53,6 +52,8 @@ import { FileService } from './services/file.service';
 import { PriceSchemaService } from './services/price-schema.service';
 import { MatchEditorService } from './services/match-editor.service';
 import { MatchService } from './services/match.service';
+import { SummaryComponent } from './cart/summary/summary.component';
+import { DetailsComponent } from './cart/details/details.component';
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
@@ -74,14 +75,15 @@ import { MatchService } from './services/match.service';
     MatchDetailsComponent,
     NavpanelComponent,
     SectorComponent,
-    SelectSectorComponent
+    SelectSectorComponent,
+    SummaryComponent,
+    DetailsComponent
   ],
   imports: [
     CommonModule,
     BrowserModule,
     FormsModule,
-    // HttpClientModule,
-    HttpModule,
+    HttpClientModule,
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {CookieService} from 'angular2-cookie/services/cookies.service';
@@ -9,14 +9,14 @@ import decode from 'jwt-decode';
 export class AuthService {
   user: any = {};
   public token: string;
-  constructor(private http: Http, private _cookieService: CookieService) { }
+  constructor(private http: HttpClient, private _cookieService: CookieService) { }
 
   login(email: string, password: string): Observable<boolean> {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-    const options = new RequestOptions({ headers: headers });
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const options = {headers: headers};
     return this.http.post('/auth/local', JSON.stringify({ email: email, password: password }), options)
       .map((response: Response) => {
-        const token: string = response.json() && response.json().token;
+        const token: string = response && response.token;
         if (token) {
           this.token = token;
           this._cookieService.put('token', token);
@@ -53,7 +53,7 @@ export class AuthService {
     return this.http.get('/api/users/me')
       .map((response: Response) => {
         if (response) {
-          this.user = response.json();
+          this.user = response;
           return true;
         } else {
           return false;

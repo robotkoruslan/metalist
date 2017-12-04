@@ -1,5 +1,7 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import {UtilService} from "../../services/util.service";
+import {el} from "@angular/platform-browser/testing/src/browser_util";
 // import 'rxjs/add/operator/map';
 // import 'rxjs/add/operator/filter';
 
@@ -20,31 +22,37 @@ export class StadiumComponent implements OnInit, OnChanges {
   // priceSchema: any = { };
   // mycolor: string = '#808080';
 
-  constructor() { }
+  constructor(private utilService: UtilService) { }
 
   ngOnInit() {
-    console.log('ngOnInit StadiumComponent ', this.priceSchema);
+    // console.log('ngOnInit StadiumComponent ', this.priceSchema);
     // this.stadiumName = this.priceSchema.stadiumName;
   }
 
   ngOnChanges(changes) {
     if ( changes.priceSchema ) {
-      console.log('ngOnChanges StadiumComponent ', this.priceSchema);
+      if (this.priceSchema !== undefined) {
+        if (this.priceSchema.hasOwnProperty('stadiumName')) {
+          this.stadiumName = this.priceSchema.stadiumName;
+        }
+      }
     }
-
   }
 
   isStadium(stadiumName) {
     if (this.hasOwnProperty('priceSchema')) {
-      if (this.priceSchema.hasOwnProperty('stadiumName')) {
-        if (this.priceSchema.stadiumName === stadiumName) {
-          return true;
+      if (this.priceSchema !== undefined) {
+        if (this.priceSchema.hasOwnProperty('stadiumName')) {
+          return !this.utilService.deepEquals(this.priceSchema.stadiumName, stadiumName);
         } else {
           return false;
         }
+      } else {
+        return false;
       }
+    } else {
+      return false;
     }
-
   }
 
   // change(increased:any) {

@@ -4,6 +4,7 @@ import { PriceSchemaService } from '../../services/price-schema.service';
 import { CartService } from '../../services/cart.service';
 import { MatchService } from '../../services/match.service';
 import { AppConstant } from '../../app.constant';
+import {TicketService} from "../../services/ticket.service";
 
 @Component({
   selector: 'app-sector',
@@ -14,6 +15,7 @@ export class SectorComponent implements OnInit {
 
   match: any = {};
   sector: any;
+  seats: any;
   // hasRoleCashier = Auth.hasRole('cashier');
   // printTickets: any = [];
   tickets: any = [];
@@ -32,194 +34,11 @@ export class SectorComponent implements OnInit {
   // firstUpperRow = this.getFirstUpperRow($stateParams.sector);
 
   constructor(private priceSchemaService: PriceSchemaService, private cartService: CartService,
-              private route: ActivatedRoute, private matchService: MatchService) {
-    this.route.params.subscribe(params => console.log('SectorComponent 0 ', params.matchId));
+              private route: ActivatedRoute, private matchService: MatchService, private ticketsService: TicketService) {
     this.route.params.subscribe(params => this.matchId = params.matchId);
     this.route.params.subscribe(params => this.sectorId = params.sectorId);
     this.route.params.subscribe(params => this.tribuneName = params.tribuneId);
-    // this.route.params.pluck('matchId').subscribe(matchId => console.log('MatchComponent 1 ',matchId));
 
-    // this.sector = {
-    //   name: '1',
-    //   rows: [
-    //     {
-    //       name: '1',
-    //       seats: '17'
-    //     },
-    //     {
-    //       name: '2',
-    //       seats: '17'
-    //     },
-    //     {
-    //       name: '3',
-    //       seats: '17'
-    //     },
-    //     {
-    //       name: '4',
-    //       seats: '17',
-    //
-    //     },
-    //     {
-    //       name: '5',
-    //       seats: '17'
-    //     },
-    //     {
-    //       name: '6',
-    //       seats: '17'
-    //     },
-    //     {
-    //       name: '7',
-    //       seats: '13'
-    //     },
-    //     {
-    //       name: '8',
-    //       seats: '13'
-    //     },
-    //     {
-    //       name: '9',
-    //       seats: '13'
-    //     },
-    //     {
-    //       name: '10',
-    //       seats: '13'
-    //     },
-    //     {
-    //       name: '11',
-    //       seats: '13'
-    //     },
-    //     {
-    //       name: '12',
-    //       seats: '13'
-    //     },
-    //     {
-    //       name: '13',
-    //       seats: '13'
-    //     },
-    //     {
-    //       name: '14',
-    //       seats: '13'
-    //     },
-    //     {
-    //       name: '15',
-    //       seats: '13'
-    //     },
-    //     {
-    //       name: '16',
-    //       seats: '13'
-    //     },
-    //     {
-    //       name: '17',
-    //       seats: '13'
-    //     },
-    //     {
-    //       name: '18',
-    //       seats: '13'
-    //     },
-    //     {
-    //       name: '19',
-    //       seats: '5'
-    //     },
-    //     {
-    //       name: '20',
-    //       seats: '6'
-    //     },
-    //     {
-    //       name: '21',
-    //       seats: '6'
-    //     },
-    //     {
-    //       name: '22',
-    //       seats: '6'
-    //     },
-    //     {
-    //       name: '23',
-    //       seats: '6'
-    //     },
-    //     {
-    //       name: '24',
-    //       seats: '6'
-    //     },
-    //     {
-    //       name: '25',
-    //       seats: '19'
-    //     },
-    //     {
-    //       name: '26',
-    //       seats: '19'
-    //     },
-    //     {
-    //       name: '27',
-    //       seats: '19'
-    //     },
-    //     {
-    //       name: '28',
-    //       seats: '19'
-    //     },
-    //     {
-    //       name: '29',
-    //       seats: '19'
-    //     },
-    //     {
-    //       name: '30',
-    //       seats: '19'
-    //     },
-    //     {
-    //       name: '31',
-    //       seats: '19'
-    //     },
-    //     {
-    //       name: '32',
-    //       seats: '19'
-    //     },
-    //     {
-    //       name: '33',
-    //       seats: '19'
-    //     },
-    //     {
-    //       name: '34',
-    //       seats: '19'
-    //     },
-    //     {
-    //       name: '35',
-    //       seats: '19'
-    //     },
-    //     {
-    //       name: '36',
-    //       seats: '19'
-    //     },
-    //     {
-    //       name: '37',
-    //       seats: '19'
-    //     },
-    //     {
-    //       name: '38',
-    //       seats: '19'
-    //     },
-    //     {
-    //       name: '39',
-    //       seats: '19'
-    //     },
-    //     {
-    //       name: '40',
-    //       seats: '16'
-    //     },
-    //     {
-    //       name: '41',
-    //       seats: '20'
-    //     }
-    //   ]
-    //
-    //
-    //   //   if (match.priceSchema.priceSchema.stadiumName == 'dinamo') {
-    //   //   this.sector = AppConstant.StadiumDinamo['tribune_' + sector.tribune]['sector_' + sector.sector];
-    //   // } else {
-    //   //   if (match.priceSchema.priceSchema.stadiumName == 'solar') {
-    //   //     this.sector = AppConstant.StadiumSolar['tribune_' + sector.tribune]['sector_' + sector.sector];
-    //   //   } else {
-    //   //     this.sector = AppConstant.StadiumMetalist['tribune_' + sector.tribune]['sector_' + sector.sector];
-    //   //   }
-    //   // }
-    // };
     this.sector = {
       name: '3',
       rows: [
@@ -240,8 +59,8 @@ export class SectorComponent implements OnInit {
 
   ngOnInit() {
     this.getPrice();
-    // this.getReservedSeats();
-    // this.getSelectedSeats();
+    this.getReservedSeats();
+    this.getSelectedSeats();
   }
 
   getPrice() {
@@ -264,27 +83,31 @@ export class SectorComponent implements OnInit {
 
   }
 
-  // getReservedSeats() {
-  //   let matchId = this.match.id,
-  //     sectorName = this.sector.name;
-  //
-  //   return this.ticketsService.fetchReservedSeats(matchId, sectorName)
-  //     .then( seats => this.reservedSeats = seats );
-  // }
+  getReservedSeats() {
+    const matchId = this.matchId,
+      sectorName = this.sectorId;
 
-  // getSelectedSeats() {
-  //   this.selectedSeats = this.cartService.getMyCart().seats.map(seat => {
-  //     return {
-  //       slug: seat.slug,
-  //       matchId: seat.match.id
-  //     };
-  //   });
-  // }
+    return this.ticketsService.fetchReservedSeats(matchId, sectorName)
+      .subscribe(seats => this.reservedSeats = seats);
+      // .then( seats => this.reservedSeats = seats );
+  }
+
+  getSelectedSeats() {
+
+    this.seats = this.cartService.getMyCart().seats;
+    this.selectedSeats = this.cartService.getMyCart().seats.map(seat => {
+      return {
+        slug: seat.slug,
+        matchId: seat.match.id
+      };
+    });
+  }
+
 // @TODO need verification
-//   updateReservedTickets() {
-//     // this.getReservedSeats();
-//     this.getSelectedSeats();
-//   }
+  updateReservedTickets() {
+    // this.getReservedSeats();
+    this.getSelectedSeats();
+  }
 
   addClassByCheckSoldSeat(slug) {
     const [ checkSeat ] = this.selectedSeats.filter(seat => seat.slug === slug && seat.matchId === this.match.id);
@@ -314,20 +137,26 @@ export class SectorComponent implements OnInit {
         //   this.getSelectedSeats();
         // });
     }
-  //
-  //   if( !this.reservedSeats.includes(slug) ) {
-  //     this.cartService.addSeatToCart(slug, this.match.id)
-  //       .then(() => {
-  //         this.getReservedSeats();
-  //         this.getSelectedSeats();
-  //       })
-  //       .catch((err) => {
-  //         if (err.status === 409) {
-  //           this.message = 'Это место уже занято.';
-  //           this.getReservedSeats();
-  //         }
-  //       });
-  //   }
+
+    if( !this.reservedSeats.includes(slug) ) {
+      this.cartService.addSeatToCart(slug, this.match.id)
+        .subscribe(() => {
+          this.getReservedSeats();
+          this.getSelectedSeats();
+        },
+          error => {
+            if (error.status === 409) {
+              this.message = 'Это место уже занято.';
+              this.getReservedSeats();
+            }
+          });
+        // .catch((err) => {
+        //   if (err.status === 409) {
+        //     this.message = 'Это место уже занято.';
+        //     this.getReservedSeats();
+        //   }
+        // });
+    }
   }
 
   getFirstUpperRow(sectorNumber) {

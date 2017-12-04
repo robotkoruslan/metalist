@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -8,26 +8,26 @@ import 'rxjs/add/operator/map';
 export class UserService {
 
   token: string;
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {}
 
   getUsers(): Observable<any> {
     return this.http.get('/api/users/')
-      .map(res => res.json());
+      .map(res => res);
   }
 
   get(): Observable<any> {
     return this.http.get('/api/users/me')
-      .map(res => res.json());
+      .map(res => res);
   }
 
   create(email: string, name: string, isOfferNotification: boolean, password: string): Observable<boolean> {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-    const options = new RequestOptions({ headers: headers });
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const options = {headers: headers};
     return this.http.post('/api/users',
       JSON.stringify({ email: email, isOfferNotification: isOfferNotification, name: name, password: password }), options)
       .map((response: Response) => {
         // login successful if there's a jwt token in the response
-        const token: string = response.json() && response.json().token;
+        const token: string = response && response.token;
         if (token) {
           // set token property
           this.token = token;

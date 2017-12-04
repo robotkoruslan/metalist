@@ -1,9 +1,8 @@
 <div class="text-center seats">
   <div id="stad">
-   -1 {{priceSchema.stadiumName}} 1-
-   -1 {{priceSchema}} 1-
     <!--<div [hidden]="priceSchema.stadiumName == 'metalist'" class="stadium">-->
-    <div *ngIf="isStadium('metalist')" class="stadium">
+    <!--<div *ngIf="isStadium('metalist')" class="stadium">-->
+    <div *ngIf="[stadiumName] == 'metalist'" class="stadium">
       <div id="mainContent">
         <div class="row">
           <div class="sectorsList span8">
@@ -751,7 +750,8 @@
     </div>
 
     <!--<div ng-show = "priceSchema.stadiumName == 'dinamo'" class="stadium">-->
-    <div *ngIf="priceSchema.stadiumName == 'dinamo'" class="stadium">
+    <!--<div *ngIf="isStadium('dinamo')" class="stadium">-->
+    <div *ngIf="[stadiumName] == 'dinamo'" class="stadium">
       <div id="mainContent">
         <div class="row">
           <div class="sectorsList span8">
@@ -1393,7 +1393,8 @@
 
 
     <!--<div [hidden] = "priceSchema.stadiumName == 'solar'" class="stadium">-->
-    <div *ngIf="priceSchema.stadiumName == 'solar'" class="stadium">
+    <div *ngIf="[stadiumName] == 'solar'" class="stadium">
+    <!--<div *ngIf="isStadium('solar')" class="stadium">-->
       <div id="mainContent">
         <div class="row">
           <div class="sectorsList span8">
@@ -1408,7 +1409,8 @@
     </div>
   </div>
 </div>
-<div class="row">
+<!--<div class="row" *ngIf="isStadium('metalist')" >-->
+<div class="row" *ngIf="[stadiumName] == 'metalist'" >
   <div class="col-sm-12"><h3 style="text-align: left">Ценовая Категория</h3></div>
   <div class="col-sm-12">
     <div style="display: inline-block;margin: 2px;" *ngFor="let color of priceSchema.colorSchema">

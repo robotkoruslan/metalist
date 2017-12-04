@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -15,20 +15,20 @@ export class PriceSchemaService {
     {color: '#ff972f', colorName: 'orange'}
   ];
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   loadPrices() {
     return this.http.get('/api/priceSchema')
-      .map((response: Response) => response.json());
+      .map((response: Response) => response);
   }
 
   savePriceSchema(schema) {
     console.log('savePriceSchema', schema);
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-    const options = new RequestOptions({ headers: headers });
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const options = {headers: headers};
     const body = schema;
     return this.http.put('/api/priceSchema/' + schema.id, body, options)
-      .map((response: Response) => response.json());
+      .map((response: Response) => response);
   }
 
   getPriceBySector(tribuneName, sectorNumber, priceSchema) {
