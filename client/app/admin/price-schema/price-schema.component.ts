@@ -49,7 +49,7 @@ export class PriceSchemaComponent implements OnInit {
     this.priceSchemaService.updateColorSchema(this.currentPriceSchema);
     console.log(' --2 savePriceSchema', this.currentPriceSchema);
     this.priceSchemaService.savePriceSchema(this.currentPriceSchema)
-      .subscribe(response => {
+      .subscribe((response: any) => {
         this.edit(response.data);
         this.loadPriceSchemas();
       });

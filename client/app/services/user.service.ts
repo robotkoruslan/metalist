@@ -25,7 +25,7 @@ export class UserService {
     const options = {headers: headers};
     return this.http.post('/api/users',
       JSON.stringify({ email: email, isOfferNotification: isOfferNotification, name: name, password: password }), options)
-      .map((response: Response) => {
+      .map((response: any) => {
         // login successful if there's a jwt token in the response
         const token: string = response && response.token;
         if (token) {

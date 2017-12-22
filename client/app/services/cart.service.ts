@@ -30,7 +30,7 @@ export class CartService {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     const options = {headers: headers};
     return this.http.post('/api/carts', options)
-      .map((response: Response) => {
+      .map((response: any) => {
         if (response.publicId) {
           this._cookieService.put('cart', response.publicId);
           return true;

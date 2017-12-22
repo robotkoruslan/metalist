@@ -15,7 +15,7 @@ export class AuthService {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     const options = {headers: headers};
     return this.http.post('/auth/local', JSON.stringify({ email: email, password: password }), options)
-      .map((response: Response) => {
+      .map((response: any) => {
         const token: string = response && response.token;
         if (token) {
           this.token = token;
