@@ -1,3 +1,6 @@
+.container {
+  max-width: 970px;
+}
 .example-form {
   align-content: center;
   min-width: 150px;
@@ -7,4 +10,9 @@
 
 .example-full-width {
   width: 100%;
+}
+
+.error {
+  color: #f44336;
+  font-size: 75%;
 }

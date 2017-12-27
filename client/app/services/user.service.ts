@@ -44,6 +44,11 @@ export class UserService {
       });
   }
 
+  recoverPassword(email: string): Observable<any> {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const options = {headers: headers};
+    return this.http.put('/api/users/recovery-password', JSON.stringify({email}), options);
+  }
   // changePassword(): Observable<any> {
   //   return this.http.get('/api/tickets/statistics', {params: {date: data.date, metod: data.metod}})
   //     .map(res => res.json());

@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Регистрация</h1>
+    </div>
+    <div class="col-sm-12">
+      <form name="form" class="form" [formGroup]="registrationForm" (ngSubmit)="register()">
+        <div class="form-group">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Имя" type="text" name="name" formControlName="name">
+            <mat-error *ngIf="registrationForm.get('name').hasError('required')">
+              Name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Email" type="email" name="email" formControlName="email">
+            <mat-error *ngIf="registrationForm.get('email').hasError('email') &&
+            !registrationForm.get('email').hasError('required')">
+              Please enter a <strong>valid</strong> email address
+            </mat-error>
+            <mat-error *ngIf="registrationForm.get('email').hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Пароль" type="password" name="password" formControlName="password">
+            <mat-error *ngIf="registrationForm.get('password').hasError('required')">
+              Password is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Подтвердите пароль" type="password" name="confirmPassword"
+                   formControlName="confirmPassword">
+            <mat-error *ngIf="registrationForm.get('confirmPassword').hasError('required')">
+              Password confirmation is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <div *ngIf="registrationForm.hasError('mismatchedPasswords') &&
+          registrationForm.get('confirmPassword').touched" class="error">
+            Passwords <strong>do not</strong> match.
+          </div>
+          <input type="checkbox" id="subscribeNews" name="subscribeNews" formControlName="subscribeNews">
+            Я согласен получать информацию об акциях и скидках
+        </div>
+        <div class="help-block">{{error}}</div>
+        <div class="button-row">
+          <button type="submit" class="btn btn-inverse btn-lg btn-login" [disabled]="registrationForm.invalid">
+            Зарегистрироваться
+          </button>
+          <a class="btn btn-default btn-lg btn-register" routerLink="/login">Форма входа</a>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-sm-4 col-md-3">
+            <oauth-buttons></oauth-buttons>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <hr/>
+</div>
+
+
