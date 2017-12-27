@@ -19,7 +19,7 @@
         <li *ngIf="isAdmin()"><a routerLinkActive="active" routerLink="cashbox">Касса</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li *ngIf="!isLoggedIn()"><a routerLinkActive="active" routerLink="signup">РЕГИСТРАЦИЯ</a></li>
+        <li *ngIf="!isLoggedIn()"><a routerLinkActive="active" routerLink="register">РЕГИСТРАЦИЯ</a></li>
         <li *ngIf="!isLoggedIn()"><a routerLinkActive="active" routerLink="login">ВХОД</a></li>
         <li *ngIf="isLoggedIn()">
           <p class="navbar-text">Привет {{ currentUser.name }}</p>

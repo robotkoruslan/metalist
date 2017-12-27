@@ -16,10 +16,10 @@ import { SharedModule } from './shared/shared.module';
 import { CashboxModule } from './cashbox/cashbox.module';
 import { AdminModule } from './admin/admin.module';
 
-import { AuthGuard } from './auht/auth.guard';
-import { RoleGuard } from './auht/role.guard';
-import { AdminGuard } from './auht/admin.guard';
-import { CartGuard } from './auht/cart.guard';
+import { AuthGuard } from './auth/auth.guard';
+import { RoleGuard } from './auth/role.guard';
+import { AdminGuard } from './auth/admin.guard';
+import { CartGuard } from './auth/cart.guard';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -30,12 +30,12 @@ import { FooterComponent } from './footer/footer.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { MatchComponent } from './match/match.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { AuhtComponent } from './auht/auht.component';
-import { LoginComponent } from './auht/login/login.component';
-import { RegisterComponent } from './auht/register/register.component';
-import { RecoveryComponent } from './auht/recovery/recovery.component';
-import { OauthButtonComponent } from './auht/oauth-buttons/oauth-buttons.component'
-import { SettingComponent } from './auht/setting/setting.component';
+import { AuhtComponent } from './auth/auth.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { RecoveryComponent } from './auth/recovery/recovery.component';
+import { OauthButtonComponent } from './auth/oauth-buttons/oauth-buttons.component'
+import { SettingComponent } from './auth/setting/setting.component';
 import { MatchDetailsComponent } from './match/match-details/match-details.component';
 import { NavpanelComponent } from './match/navpanel/navpanel.component';
 import { SectorComponent } from './match/sector/sector.component';
