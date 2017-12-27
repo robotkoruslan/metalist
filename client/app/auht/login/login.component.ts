@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import { FormControl, FormGroupDirective, NgForm, Validators, FormGroup} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
-import {CookieService} from 'angular2-cookie/services/cookies.service';
 import {AuthService} from '../../services/auth.service';
 
-// import { User } from '../../model/user.interface';
+import { User } from '../../model/user.interface';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -22,44 +21,36 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class LoginComponent implements OnInit {
 
-  user: any = {};
-  loading = false;
-  error = '';
-  // user: User = {name: '', email: '', password: ''};
-
-
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
-
-  matcher = new MyErrorStateMatcher();
+  user: User;
+  error: string;
+  
+  form = new FormGroup({
+    login: new FormGroup({
+      email: new FormControl('', [
+        Validators.required,
+        Validators.email,
+      ]),
+      password: new FormControl('', [
+        Validators.required,
+      ])
+    })
+  });
 
   constructor(private router: Router,
-    private authenticationService: AuthService, private _cookieService: CookieService) { }
-
-  // cookie(){
-  //     this._cookieService.put('token', '12334557657878');
-  //     console.log('cook', this._cookieService.get('token'));
-  //   }
-
+    private authenticationService: AuthService) { }
 
   login() {
-    console.log(this.user);
-    this.loading = true;
-    this.authenticationService.login(this.user.email, this.user.password)
+    const { email, password } = this.form.value.login;
+    this.authenticationService.login(email, password)
       .subscribe(result => {
-        // console.log('login result ', result);
-        this.router.navigate(['/']);
-        // if (result === true) {
-        //   console.log('login result0 ');
-        //   // login successful
-        //   this.router.navigate(['/']);
-        // } else {
-        //   // login failed
-        //   this.error = 'Username or password is incorrect';
-        //   this.loading = false;
-        // }
+        if (result) {
+          this.router.navigate(['/']);
+        } else {
+          this.error = 'Username or password is incorrect';
+        }
+      }, ({error: {message}}) => {
+        console.log('Something went wrong!', message);
+        this.error = message;
       });
   }
 

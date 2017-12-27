@@ -34,6 +34,7 @@ import { AuhtComponent } from './auht/auht.component';
 import { LoginComponent } from './auht/login/login.component';
 import { RegisterComponent } from './auht/register/register.component';
 import { RecoveryComponent } from './auht/recovery/recovery.component';
+import { OauthButtonComponent } from './auht/oauth-buttons/oauth-buttons.component'
 import { SettingComponent } from './auht/setting/setting.component';
 import { MatchDetailsComponent } from './match/match-details/match-details.component';
 import { NavpanelComponent } from './match/navpanel/navpanel.component';
@@ -55,6 +56,8 @@ import { MatchService } from './services/match.service';
 import { SummaryComponent } from './cart/summary/summary.component';
 import { DetailsComponent } from './cart/details/details.component';
 
+import { EmailValidator } from './directives/email-validator.directive';
+
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   declarations: [
@@ -70,6 +73,7 @@ import { DetailsComponent } from './cart/details/details.component';
     LoginComponent,
     RegisterComponent,
     RecoveryComponent,
+    OauthButtonComponent,
     SettingComponent,
     MatchComponent,
     MatchDetailsComponent,
@@ -77,7 +81,9 @@ import { DetailsComponent } from './cart/details/details.component';
     SectorComponent,
     SelectSectorComponent,
     SummaryComponent,
-    DetailsComponent
+    DetailsComponent,
+    // custom directive
+    EmailValidator,
   ],
   imports: [
     CommonModule,

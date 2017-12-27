@@ -1,3 +1,30 @@
-<p>
-  recovery works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Восстановление пароля</h1>
+      <p>Для восстановления пароля вы должны указать свой e-mail.</p>
+      <p>Если вы укажете верные данные, то на e-mail будет отправлено письмо с временным паролем</p>
+    </div>
+    <form name="form" class="form" (ngSubmit)="recover(email.value)" #recovery="ngForm" class="col-sm-12">
+      <div class="form-group">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Email" type="email" name="email"
+                 ngModel #email="ngModel" required emailvalidator>
+          <mat-error *ngIf="email.touched && email.errors?.required">
+            Email is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="email.touched && !email.errors?.required && email.errors?.emailvalidator">
+            Please enter a <strong>valid</strong> email address
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div [ngClass]="{'error': error, 'help-block': true, 'notification': true}">{{message}}</div>
+      <div class="button-row">
+        <button type="submit" class="btn btn-inverse btn-lg btn-login" [disabled]="recovery.invalid">
+          Сбросить пароль
+        </button>
+      </div>
+    </form>
+  </div>
+  <hr/>
+</div>

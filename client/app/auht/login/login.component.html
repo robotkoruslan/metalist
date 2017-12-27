@@ -1,25 +1,41 @@
-<h1>Вход</h1>
-<form class="example-form">
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Email" [formControl]="emailFormControl"
-           [(ngModel)]="user.email"
-           [errorStateMatcher]="matcher">
-
-    <mat-hint>Errors appear instantly!</mat-hint>
-    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-      Please enter a valid email address
-    </mat-error>
-    <mat-error *ngIf="emailFormControl.hasError('required')">
-      Email is <strong>required</strong>
-    </mat-error>
-  </mat-form-field>
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Пароль" [(ngModel)]="user.password"
-           type="password" [ngModelOptions]="{standalone: true}">
-  </mat-form-field>
-  <div class="button-row">
-    <button mat-raised-button color="primary" (click)="login(user)">Login</button>
-    <button mat-raised-button color="primary" (click)="cookie()">Cookie</button>
-    <button mat-raised-button>Форма входа</button>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Вход</h1>
+    </div>
+    <div class="col-sm-12">
+      <form name="form" class="form" [formGroup]="form" (ngSubmit)="login()">
+        <div class="form-group" formGroupName="login">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Email" type="email" name="email" formControlName="email">
+            <mat-error *ngIf="form.get('login.email').hasError('email') && !form.get('login.email').hasError('required')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="form.get('login.email').hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Пароль" type="password" name="password" formControlName="password">
+            <mat-error *ngIf="form.get('login.password').hasError('required')">
+              Password is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="help-block">{{error}}</div>
+        <div>
+          <button type="submit" class="btn btn-inverse btn-lg btn-login" [disabled]="form.invalid">Войти</button>
+          <a class="btn btn-default btn-lg btn-register" routerLink="/register">Регистрация</a>
+          <a routerLink="/recovery">Забыли пароль?</a>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-sm-4 col-md-3">
+            <oauth-buttons></oauth-buttons>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
-</form>
+  <hr/>
+</div>
