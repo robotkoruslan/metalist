@@ -1,16 +1,14 @@
-<!--<div class="empty" [hide]="cartService.getMyCartSize()">Билеты не выбраны</div>-->
-<div class="empty" >Билеты не выбраны</div>
-<!--<div class="empty" *ngIf="message">{{message}}</div>-->
-<div class="empty" >{{message}}</div>
+<div *ngIf="!seats || !seats.length" class="empty">Билеты не выбраны</div>
 <table class="cart-items table table-condensed">
-  <tr class="cart-item" *ngFor="let seat of seats">
-    <td class="text-left">
-      {{seat.match.headline}}, {{seat.match.date | date : "dd MMM HH:mm"}}, {{ seat.sector }} сектор, {{ seat.row }} ряд, {{ seat.seat }} місце {{ seat.price }}
-    </td>
-    <td>
-      <button class="btn  btn-danger btn-xs" (click)="removeSeat(seat.slug, seat.match.id)">
-        <i class="fa fa-times"></i>
-      </button>
-    </td>
-  </tr>
+    <tr class="cart-item" *ngFor="let seat of seats">
+        <td class="text-left">
+            {{seat.match.headline}}, {{seat.match.date | date : "dd MMM HH:mm"}}, {{ seat.sector }} сектор,
+            {{ seat.row }} ряд, {{ seat.seat }} місце {{ seat.price }}
+        </td>
+        <td>
+            <button class="btn btn-danger btn-xs" (click)="removeSeat(seat.slug, seat.match.id)">
+                <i class="fa fa-times"></i>
+            </button>
+        </td>
+    </tr>
 </table>

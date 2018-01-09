@@ -12,23 +12,26 @@ export class PriceSchemaService {
     {color: '#ffcc00', colorName: 'yellow'},
     {color: '#6f89c0', colorName: 'blue'},
     {color: '#54aa6a', colorName: 'green'},
-    {color: '#ff972f', colorName: 'orange'}
+    {color: '#ff972f', colorName: 'orange'},
+    {color: '#ff69b4', colorName: 'pink'},
+    {color: '#add8e6', colorName: 'light-blue'},
+    {color: '#90EE90', colorName: 'light-green'},
+    {color: '#ffb6c1', colorName: 'light-pink'},
+    {color: '#8b4513', colorName: 'brown'},
+
   ];
 
   constructor(private http: HttpClient) { }
 
-  loadPrices() {
-    return this.http.get('/api/priceSchema')
-      .map((response: Response) => response);
+  loadPrices(): Observable<any> {
+    return this.http.get('/api/priceSchema');
   }
 
-  savePriceSchema(schema) {
-    console.log('savePriceSchema', schema);
+  savePriceSchema(schema): Observable<any> {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     const options = {headers: headers};
     const body = schema;
     return this.http.put('/api/priceSchema/' + schema.id, body, options)
-      .map((response: Response) => response);
   }
 
   getPriceBySector(tribuneName, sectorNumber, priceSchema) {

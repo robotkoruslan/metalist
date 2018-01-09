@@ -40,6 +40,8 @@ import { MatchDetailsComponent } from './match/match-details/match-details.compo
 import { NavpanelComponent } from './match/navpanel/navpanel.component';
 import { SectorComponent } from './match/sector/sector.component';
 import { SelectSectorComponent } from './match/select-sector/select-sector.component';
+import { SummaryComponent } from './cart/summary/summary.component';
+import { DetailsComponent } from './cart/details/details.component';
 
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
@@ -53,10 +55,10 @@ import { FileService } from './services/file.service';
 import { PriceSchemaService } from './services/price-schema.service';
 import { MatchEditorService } from './services/match-editor.service';
 import { MatchService } from './services/match.service';
-import { SummaryComponent } from './cart/summary/summary.component';
-import { DetailsComponent } from './cart/details/details.component';
+import {TeamLogosService} from "./services/team-logos.service";
 
 import { EmailValidator } from './directives/email-validator.directive';
+import { TooltipDirective } from './directives/tooltip.directive';
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
@@ -84,6 +86,7 @@ import { EmailValidator } from './directives/email-validator.directive';
     DetailsComponent,
     // custom directive
     EmailValidator,
+    TooltipDirective,
   ],
   imports: [
     CommonModule,
@@ -125,7 +128,9 @@ import { EmailValidator } from './directives/email-validator.directive';
     FileService,
     PriceSchemaService,
     MatchEditorService,
-    MatchService],
+    MatchService,
+    TeamLogosService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

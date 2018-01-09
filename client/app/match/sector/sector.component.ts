@@ -1,64 +1,65 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { PriceSchemaService } from '../../services/price-schema.service';
-import { CartService } from '../../services/cart.service';
-import { MatchService } from '../../services/match.service';
-import { AppConstant } from '../../app.constant';
+import {Component, OnInit } from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {PriceSchemaService} from '../../services/price-schema.service';
+import {CartService} from '../../services/cart.service';
+import {MatchService} from '../../services/match.service';
+import {AppConstant} from '../../app.constant';
 import {TicketService} from "../../services/ticket.service";
+import {Sector} from "../../model/sector.interface";
+import {Seat} from "../../model/seat.interface";
+import {PriceSchema} from "../../model/price-schema.interface";
+
+interface SelectedSeat {
+  slug: string,
+  matchId: string
+}
 
 @Component({
   selector: 'app-sector',
   templateUrl: './sector.component.html',
   styleUrls: ['./sector.component.less']
 })
+
 export class SectorComponent implements OnInit {
 
-  match: any = {};
-  sector: any;
-  seats: any;
+  match:any = {};
+  sector:Sector;
+  seats:Seat[];
   // hasRoleCashier = Auth.hasRole('cashier');
   // printTickets: any = [];
-  tickets: any = [];
-  reservedSeats: any = [];
-  selectedSeats: any = [];
-  priceSchema: any = {};
+  tickets:any = [];
+  reservedSeats:Seat[] = [];
+  selectedSeats:SelectedSeat[] = [];
+  priceSchema:PriceSchema|{} = {};
   // tribuneName: any = $stateParams.tribune;
-  sectorPrice: string = '';
-  rowRow: string = 'Ряд';
-  message: string = '';
-  matchId: string;
-  sectorId: string;
-  tribuneName: string;
-  slug: string;
-  isReserveSuccess: boolean;
-  // firstUpperRow = this.getFirstUpperRow($stateParams.sector);
+  sectorPrice:string = '';
+  rowRow:string = 'Ряд';
+  message:string = '';
+  matchId:string;
+  sectorId:string;
+  tribuneName:string;
+  slug:string;
+  show = false;
+  addresses = {
+    solar: 'Стадион Солнечный. Пятихатки, Белгородское шоссе',
+    dinamo: 'Стадион Динамо. Ул. Динамовская, 3, станция метро Научная',
+    metalist: 'Стадион Металлист. Ул. Плехановская, 65, станция метро Спортивная / Метростроителей',
+  };
 
-  constructor(private priceSchemaService: PriceSchemaService, private cartService: CartService,
-              private route: ActivatedRoute, private matchService: MatchService, private ticketsService: TicketService) {
-    this.route.params.subscribe(params => this.matchId = params.matchId);
-    this.route.params.subscribe(params => this.sectorId = params.sectorId);
-    this.route.params.subscribe(params => this.tribuneName = params.tribuneId);
+  constructor(private priceSchemaService:PriceSchemaService, private cartService:CartService,
+              private route:ActivatedRoute, private matchService:MatchService, private ticketsService:TicketService) {
+    this.route.params.subscribe((params: any) => this.matchId = params.matchId);
+    this.route.params.subscribe((params: any) => this.sectorId = params.sectorId);
+    this.route.params.subscribe((params: any) => this.tribuneName = params.tribuneId);
 
-    this.sector = {
-      name: '3',
-      rows: [
-      ]
-
-
-      //   if (match.priceSchema.priceSchema.stadiumName == 'dinamo') {
-      //   this.sector = AppConstant.StadiumDinamo['tribune_' + sector.tribune]['sector_' + sector.sector];
-      // } else {
-      //   if (match.priceSchema.priceSchema.stadiumName == 'solar') {
-      //     this.sector = AppConstant.StadiumSolar['tribune_' + sector.tribune]['sector_' + sector.sector];
-      //   } else {
-      //     this.sector = AppConstant.StadiumMetalist['tribune_' + sector.tribune]['sector_' + sector.sector];
-      //   }
-      // }
-    };
   }
 
   ngOnInit() {
     this.getPrice();
+    this.updateSeatsData();
+  }
+
+  updateSeatsData = () => {
     this.getReservedSeats();
     this.getSelectedSeats();
   }
@@ -66,11 +67,10 @@ export class SectorComponent implements OnInit {
   getPrice() {
     this.matchService.fetchMatch(this.matchId)
       .subscribe((res) => {
-      this.match = res;
-      this.priceSchema = this.match.priceSchema.priceSchema;
-      this.sectorPrice = this.priceSchemaService.getPriceBySector(this.tribuneName, this.sector.name, this.priceSchema);
+        this.match = res;
+        this.priceSchema = this.match.priceSchema.priceSchema;
 
-          if (this.match.priceSchema.priceSchema.stadiumName === 'dinamo') {
+        if (this.match.priceSchema.priceSchema.stadiumName === 'dinamo') {
           this.sector = AppConstant.StadiumDinamo['tribune_' + this.tribuneName]['sector_' + this.sectorId];
         } else {
           if (this.match.priceSchema.priceSchema.stadiumName === 'solar') {
@@ -79,6 +79,7 @@ export class SectorComponent implements OnInit {
             this.sector = AppConstant.StadiumMetalist['tribune_' + this.tribuneName]['sector_' + this.sectorId];
           }
         }
+        this.sectorPrice = this.priceSchemaService.getPriceBySector(this.tribuneName, this.sector.name, this.priceSchema);
       });
 
   }
@@ -88,20 +89,25 @@ export class SectorComponent implements OnInit {
       sectorName = this.sectorId;
 
     return this.ticketsService.fetchReservedSeats(matchId, sectorName)
-      .subscribe(seats => this.reservedSeats = seats);
-      // .then( seats => this.reservedSeats = seats );
+      .subscribe(seats => {
+        this.reservedSeats = seats
+      });
   }
 
-  getSelectedSeats() {
-
-    this.seats = this.cartService.getMyCart().seats;
-    this.selectedSeats = this.cartService.getMyCart().seats.map(seat => {
-      return {
-        slug: seat.slug,
-        matchId: seat.match.id
-      };
-    });
-  }
+  getSelectedSeats = () =>
+    this.cartService.getCart()
+      .subscribe(
+        cart => {
+          this.seats = cart.seats;
+          this.selectedSeats = this.seats.map(seat => {
+            return {
+              slug: seat.slug,
+              matchId: seat.match.id
+            };
+          });
+        },
+        err => console.log(err)
+      )
 
 // @TODO need verification
   updateReservedTickets() {
@@ -110,57 +116,46 @@ export class SectorComponent implements OnInit {
   }
 
   addClassByCheckSoldSeat(slug) {
-    const [ checkSeat ] = this.selectedSeats.filter(seat => seat.slug === slug && seat.matchId === this.match.id);
+    const checkSeat = this.selectedSeats.find(seat => seat.slug === slug && seat.matchId === this.match.id);
 
     if (this.reservedSeats.includes(slug) && checkSeat) {
       return 'blockedSeat';
     }
 
-    if ( this.reservedSeats.includes(slug) && !checkSeat ) {
+    if (this.reservedSeats.includes(slug) && !checkSeat) {
       return 'soldSeat';
     }
 
     return 'imgSeatsStyle';
   }
 
-  addSeatToCart(sectorName, rowName, seat) {
-    console.log('addSeatToCart ', sectorName, rowName, seat);
-    const slug = 's' + sectorName + 'r' + rowName + 'st' + seat,
-      [ checkSeat ] = this.selectedSeats.filter(seat => seat.slug === slug && seat.matchId === this.match.id);
+  toggleSeat(slug) {
+    const checkSeat = this.selectedSeats.find(seat => seat.slug === slug && seat.matchId === this.match.id);
     this.message = '';
-    this.isReserveSuccess = false;
-
-    if ( checkSeat && this.reservedSeats.includes(slug) ) {
-      this.cartService.removeSeatFromCart(slug, this.match.id);
-        // .then(() => {
-        //   this.getReservedSeats();
-        //   this.getSelectedSeats();
-        // });
+    if (checkSeat && this.reservedSeats.includes(slug)) {
+      this.cartService.removeSeatFromCart(slug, this.match.id)
+        .subscribe(
+          () => this.updateSeatsData(),
+          error => console.log(error)
+        );
     }
 
-    if( !this.reservedSeats.includes(slug) ) {
+    if (!this.reservedSeats.includes(slug)) {
       this.cartService.addSeatToCart(slug, this.match.id)
-        .subscribe(() => {
-          this.getReservedSeats();
-          this.getSelectedSeats();
-        },
+        .subscribe(
+          () => this.updateSeatsData(),
           error => {
             if (error.status === 409) {
               this.message = 'Это место уже занято.';
               this.getReservedSeats();
             }
-          });
-        // .catch((err) => {
-        //   if (err.status === 409) {
-        //     this.message = 'Это место уже занято.';
-        //     this.getReservedSeats();
-        //   }
-        // });
+          }
+        );
     }
   }
 
   getFirstUpperRow(sectorNumber) {
-    const sectorDividers: any = {
+    const sectorDividers:any = {
       "1": 19,
       "2": 20,
       "8": 20,
@@ -192,7 +187,7 @@ export class SectorComponent implements OnInit {
   //   return [...Array(parseInt(number) + 1).keys()].filter(Boolean);
   // }
 
-  makeArrayFromNumber (number) {
+  makeArrayFromNumber(number) {
     const seats = [];
     for (let i = 1; i <= number; i++) {
       seats.push(i);
@@ -202,7 +197,7 @@ export class SectorComponent implements OnInit {
 
   isSkybox() {
     const skyBoxes: any = ['SB_1', 'SB_2', 'SB_3_5', 'SB_6', 'SB_7', 'SB_8', 'SB_9', 'SB_10', 'SB_11' ];
-    return skyBoxes.includes(this.sector.name);
+    return this.sector ? skyBoxes.includes(this.sector.name) : false;
   }
 
   // pay() {

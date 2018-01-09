@@ -1,3 +1,48 @@
-<p>
-  setting works!
-</p>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>Изменить пароль</h1>
+        </div>
+        <div class="col-sm-12">
+            <form name="form" class="form" [formGroup]="settingsForm" (ngSubmit)="changePassword()">
+                <div class="form-group">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Текущий пароль" type="password"
+                               name="currentPassword" formControlName="currentPassword">
+                        <mat-error *ngIf="settingsForm.get('currentPassword').hasError('required')">
+                            Current password is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Новый пароль" type="password" name="newPassword"
+                               formControlName="newPassword">
+                        <mat-error *ngIf="settingsForm.get('newPassword').hasError('required')">
+                            New password is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Подтвердите пароль" type="password" name="confirmPassword"
+                               formControlName="confirmPassword">
+                        <mat-error *ngIf="settingsForm.get('confirmPassword').hasError('required')">
+                            Password confirmation is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <div *ngIf="settingsForm.hasError('mismatchedPasswords') &&
+          settingsForm.get('confirmPassword').touched" class="error">
+                        Passwords <strong>do not</strong> match.
+                    </div>
+                </div>
+                <div class="help-block">{{message}}</div>
+                <div class="button-row">
+                    <button type="submit" class="btn btn-inverse btn-lg btn-login" [disabled]="settingsForm.invalid">
+                        Сохранить изменения
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr/>
+</div>
+
+
+

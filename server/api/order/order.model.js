@@ -47,6 +47,7 @@ let OrderSchema = new Schema({
 }, {
   toObject: { virtuals: true },
   toJSON: { virtuals: true },
+  usePushEach: true,
 });
 
 OrderSchema

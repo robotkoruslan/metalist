@@ -3,26 +3,19 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {CookieService} from 'angular2-cookie/services/cookies.service';
-import decode from 'jwt-decode';
 
 @Injectable()
 export class CartService {
-  data: any;
   cart: any;
   constructor(private http: HttpClient, private _cookieService: CookieService) {}
 
-  getCart(): Observable<boolean> {
+  getCart(): Observable<any> {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     const options = {headers: headers};
     return this.http.get('/api/carts/my-cart', options)
-      .map((response: Response) => {
-        if (response) {
-          this.cart = response;
-          this.data = { 'cart' : this.cart};
-          return true;
-        } else {
-          return false;
-        }
+      .map(response => {
+        this.cart = response;
+        return this.cart;
       });
   }
 
@@ -40,27 +33,13 @@ export class CartService {
       });
   }
 
-  loadCart() {
-    return this.getCart();
-  }
+  getMyCart = () => this.cart || {}
 
-  getMyCart() {
-    if (this.data) {
-      return this.data.cart;
-    } else { return {}; }
-  }
-
-  getMyCartSize() {
-    if (this.data) {
-      return this.data.cart.size;
-    } else {
-      return 0; }
-
-  }
+  getMyCartSize = () => this.cart ? this.cart.size : 0
 
   getMyCartPrice() {
-    if (this.data.cart.seats) {
-      return this.data.cart.seats.reduce((price, seat) => {
+    if (this.cart.seats) {
+      return this.cart.seats.reduce((price, seat) => {
         return price + seat.price;
       }, 0);
     }

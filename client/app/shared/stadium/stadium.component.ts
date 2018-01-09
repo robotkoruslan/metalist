@@ -1,16 +1,13 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import {UtilService} from "../../services/util.service";
-import {el} from "@angular/platform-browser/testing/src/browser_util";
-// import 'rxjs/add/operator/map';
-// import 'rxjs/add/operator/filter';
+
 
 @Component({
   selector: 'app-stadium',
   templateUrl: './stadium.component.html',
   styleUrls: ['./stadium.component.css']
 })
-export class StadiumComponent implements OnInit, OnChanges {
+export class StadiumComponent implements OnChanges {
 
   @Input() priceSchema: any;
   @Output() onSectorSelect = new EventEmitter<any>();
@@ -19,16 +16,9 @@ export class StadiumComponent implements OnInit, OnChanges {
   prices: any = [];
   stadiumName: any = {};
   defaultPriceColor: any = {color : '#808080' };
-  // priceSchema: any = { };
-  // mycolor: string = '#808080';
 
   constructor(private utilService: UtilService) { }
-
-  ngOnInit() {
-    // console.log('ngOnInit StadiumComponent ', this.priceSchema);
-    // this.stadiumName = this.priceSchema.stadiumName;
-  }
-
+  
   ngOnChanges(changes) {
     if ( changes.priceSchema ) {
       if (this.priceSchema !== undefined) {
@@ -55,10 +45,6 @@ export class StadiumComponent implements OnInit, OnChanges {
     }
   }
 
-  // change(increased:any) {
-  //   this.onSectorSelect.emit(increased);
-  // }
-
   onSectorClick($event, tribuneName, sectorNumber) {
     console.log('onSectorClick', tribuneName, sectorNumber);
     const price = this.getPriceBySector(tribuneName, sectorNumber, this.priceSchema);
@@ -83,7 +69,7 @@ export class StadiumComponent implements OnInit, OnChanges {
   }
 
   getColorByPrice(price) {
-    return this.priceSchema.colorSchema
+    return this.priceSchema.colorSchema && this.priceSchema.colorSchema
       .filter(color => color.price === price)
       .map(color => color.color)[0];
   }
