@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { PriceSchemaService } from '../../services/price-schema.service';
-import { AppConstant } from '../../app.constant';
+import {PriceSchemaService} from '../../services/price-schema.service';
+import {AppConstant} from '../../app.constant';
+
+import {PriceSchema} from '../../model/price-schema.interface';
+import {ColorSchema} from "../../model/color-schema.interface";
 
 @Component({
   selector: 'app-price-schema',
@@ -10,15 +13,16 @@ import { AppConstant } from '../../app.constant';
 })
 export class PriceSchemaComponent implements OnInit {
 
-  stadiumName: string = '';
-  priceSchemas: any = [];
-  sourcePriceSchema: any = {};
-  currentPriceSchema: any = {};
-  colors: any;
+  stadiumName:string = '';
+  priceSchemas:PriceSchema[] = [];
+  sourcePriceSchema:any = {};
+  currentPriceSchema:any = {};
+  colors:ColorSchema[];
   stadium = AppConstant.StadiumMetalist;
   defaultPriceColor = AppConstant.DefaultPriceColor;
 
-  constructor(private priceSchemaService: PriceSchemaService) { }
+  constructor(private priceSchemaService:PriceSchemaService) {
+  }
 
   ngOnInit() {
     this.loadPriceSchemas();
@@ -32,10 +36,6 @@ export class PriceSchemaComponent implements OnInit {
       });
   }
 
-  changeSchema() {
-    this.currentPriceSchema = {...this.currentPriceSchema};
-  }
-
   edit(schema) {
     console.log(' -- edit(schema)', schema);
     if (schema) {
@@ -45,11 +45,11 @@ export class PriceSchemaComponent implements OnInit {
   }
 
   savePriceSchema() {
-  console.log(' -- savePriceSchema');
+    console.log(' -- savePriceSchema');
     this.priceSchemaService.updateColorSchema(this.currentPriceSchema);
     console.log(' --2 savePriceSchema', this.currentPriceSchema);
     this.priceSchemaService.savePriceSchema(this.currentPriceSchema)
-      .subscribe((response: any) => {
+      .subscribe((response:any) => {
         this.edit(response.data);
         this.loadPriceSchemas();
       });
@@ -62,13 +62,9 @@ export class PriceSchemaComponent implements OnInit {
   }
 
 
-  clickApply($event) {
-    this.currentPriceSchema = {...$event.currentPriceSchema};
+  clickApply(priceSchema) {
+    this.currentPriceSchema = {...priceSchema};
     this.currentPriceSchema = this.priceSchemaService.updateColorSchema(this.currentPriceSchema);
-  }
-
-  isSchemaChanged() {
-    return this.currentPriceSchema === this.sourcePriceSchema;
   }
 
 }

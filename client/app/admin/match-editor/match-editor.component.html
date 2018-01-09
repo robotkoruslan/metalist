@@ -1,47 +1,28 @@
 <div class="row">
-  <hr>
-  <div class="col-md-12">
-    <blockquote *ngIf="message">
-      <p>{{ message}}</p>
-    </blockquote>
-  </div>
-  <div class="col-md-12">
-    <div class="col-md-4">
-      <label>Список матчей</label>
-      <ul class="list-group">
-        <li class="list-group-item" *ngFor="let match of nextMatches">
-          <span class="badge" (click)="edit(match)" style="cursor: pointer;">Edit</span>
-          {{match.headline}}
-        </li>
-      </ul>
-      <form class="form-inline">
-        <button class="btn btn-default" (click)=" edit({})">Добавить новый матч</button>
-      </form>
+    <div class="col-md-12">
+        <blockquote *ngIf="message">
+            <p>{{message}}</p>
+        </blockquote>
     </div>
-    <div class="col-md-4">
-      <app-edit *ngIf="isMatchExist()"
-              match-to-edit=" matchToEdit"
-              price-schemas=" priceSchemas"
-              all-team-logos=" allTeamLogos"
-              on-change="onMatchUpdate($event)" on-upload=" upload($event)"></app-edit>
-    </div>
-    <div class="col-md-4">
-      <label>удалить матч</label>
-      <form class="form-inline">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="match Id" [(ngModel)]="matchId" name="matchId">
+    <div class="col-md-12">
+        <div class="col-md-4">
+            <match-list [matches]="nextMatches" type="next" (editMatch)="setMatchToEdit($event)">
+                <label>Список матчей</label>
+            </match-list>
+            <button class="btn btn-default" (click)="setMatchToEdit({})">Добавить новый матч</button>
         </div>
-        <button type="submit" class="btn btn-default" (click)=" remove()">Удалить</button>
-      </form>
-      <hr>
-      <label>Прошедшие матчи</label>
-      <ul class="list-group">
-        <li class="list-group-item" *ngFor="let match of prevMatches">
-          <a (click)=" deleteMatch(match.id)" class="trash"><span class="glyphicon glyphicon-trash pull-right text-danger"></span></a>
-          {{match.headline}}
-        </li>
-      </ul>
+        <div class="col-md-4">
+            <edit-match *ngIf="matchToEdit"
+                        [match]="matchToEdit" (save)="saveMatch($event)" (closeMatch)="closeForm()"></edit-match>
+        </div>
+        <div class="col-md-4">
+            <delete-match (deleteMatch)="deleteMatch($event)"></delete-match>
+            <hr>
+
+            <match-list [matches]="prevMatches" type="prev" (deleteMatch)="deleteMatch($event)">
+                <label>Прошедшие матчи</label>
+            </match-list>
+        </div>
     </div>
-  </div>
 </div>
 

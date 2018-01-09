@@ -1,45 +1,54 @@
 <div *ngIf="isStadium('metalist')">
-  <span class="input-group-addon"><button (click)="selectTribune('east')" class="btn btn-default">Восточная трибуна</button></span>
+  <span class="input-group-addon">
+      <button (click)="selectTribune('east')" class="btn btn-default">Восточная трибуна</button>
+  </span>
 </div>
 
-<div class="input-group"
-     *ngIf="isStadium('metalist')">
-                <span class="input-group-addon"><button (click)="selectTribune('north')" class="btn btn-default">
-                    <svg width="70" height="140" class="svg-text">
-                    <text x="0" y="0" transform="rotate(90)">Северная трибуна</text>
-                    </svg> .
-                </button></span>
-  <app-stadium [(priceSchema)]="currentPriceSchema"
-           (onSectorSelect)="getSectorForSetPrice($event)"></app-stadium>
-  <span class="input-group-addon"><button (click)="selectTribune('south')" class="btn btn-default">
-                <svg width="70" height="140" class="svg-text">
-                    <text x="0" y="0" transform="rotate(90)">Южная трибуна</text>
-                </svg> .
-                </button></span>
+<div class="input-group" *ngIf="isStadium('metalist')">
+    <span class="input-group-addon">
+        <button (click)="selectTribune('north')" class="btn btn-default">
+            <svg width="20" height="120" class="svg-text">
+            <text x="0" y="-5" transform="rotate(90)">Северная трибуна</text>
+            </svg>
+        </button>
+    </span>
+    <app-stadium [(priceSchema)]="currentPriceSchema"
+                 (onSectorSelect)="getSectorForSetPrice($event)"></app-stadium>
+    <span class="input-group-addon">
+        <button (click)="selectTribune('south')" class="btn btn-default">
+            <svg width="20" height="120" class="svg-text">
+                <text x="10" y="-5" transform="rotate(90)">Южная трибуна</text>
+            </svg>
+        </button>
+    </span>
 </div>
 
 <div class="input-group" *ngIf="isStadium('solar')">
-                            <span class="input-group-addon"><button (click)="selectTribune('east')"
-                                                                    class="btn btn-default">
-                                <svg width="70" height="140" class="svg-text">
-                                    <text x="0" y="0" transform="rotate(90)">Восточная трибуна</text>
-                                </svg> .
-                            </button></span>
-
-  <app-stadium [(priceSchema)]="currentPriceSchema" (onSectorSelect)="getSectorForSetPrice($event)"></app-stadium>
-
-  <span class="input-group-addon"><button (click)="selectTribune('west')" class="btn btn-default">
-                                <svg width="70" height="140" class="svg-text">
-                                    <text x="0" y="0" transform="rotate(90)">Западная трибуна</text>
-                                </svg> .
-                            </button></span>
+    <span class="input-group-addon">
+        <button (click)="selectTribune('east')" class="btn btn-default">
+            <svg width="70" width="70" height="140" class="svg-text">
+                <text x="0" y="0" transform="rotate(90)">Восточная трибуна</text>
+            </svg>
+        </button>
+    </span>
+    <app-stadium [(priceSchema)]="currentPriceSchema"
+                 (onSectorSelect)="getSectorForSetPrice($event)"></app-stadium>
+    <span class="input-group-addon">
+        <button (click)="selectTribune('west')" class="btn btn-default">
+        <svg width="70" height="140" class="svg-text">
+            <text x="0" y="0" transform="rotate(90)">Западная трибуна</text>
+        </svg>
+        </button>
+    </span>
 </div>
 
 <div *ngIf="isStadium('metalist')">
-  <span class="input-group-addon"><button (click)="selectTribune('west')" class="btn btn-default">Западная трибуна</button></span>
+  <span class="input-group-addon">
+      <button (click)="selectTribune('west')" class="btn btn-default">Западная трибуна</button>
+  </span>
 </div>
 
-<app-price-editor [(currentPrice)]="currentPriceSchema"
-              [(currentTribune)]="currentTribune"
-              [(currentSector)]="currentSector"
-              (onClickApply)="clickApply($event)"></app-price-editor>
+<app-price-editor *ngIf="currentPriceSchema.stadiumName" [(currentPrice)]="currentPriceSchema"
+                  [(currentTribune)]="currentTribune"
+                  [(currentSector)]="currentSector"
+                  (onClickApply)="clickApply($event)"></app-price-editor>

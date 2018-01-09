@@ -1,21 +1,27 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import {Component, OnInit, OnChanges, Input, Output, EventEmitter} from '@angular/core';
+
+import {Tribune} from '../../../../model/tribune.interface';
+import {Sector} from '../../../../model/sector.interface';
+import {PriceSchema} from '../../../../model/price-schema.interface';
 
 @Component({
   selector: 'app-price-editor',
   templateUrl: './price-editor.component.html',
   styleUrls: ['./price-editor.component.css']
 })
+
 export class PriceEditorComponent implements OnInit, OnChanges {
 
-  @Input() currentPrice: any;
-  @Input() currentTribune: any;
-  @Input() currentSector: any;
+  @Input() currentPrice: PriceSchema;
+  @Input() currentTribune:any;
+  @Input() currentSector:any;
   @Output() onClickApply = new EventEmitter<any>();
 
-  sourcePriceSchema: any;
-  currentPriceSchema: any;
+  sourcePriceSchema:PriceSchema;
+  currentPriceSchema:PriceSchema;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
@@ -38,17 +44,15 @@ export class PriceEditorComponent implements OnInit, OnChanges {
   }
 
   clickApply() {
-    this.onClickApply.emit({
-      $event: {
-        currentPriceSchema: this.currentPriceSchema
-      }
-    });
+
+    this.changePrice();
+    this.onClickApply.emit(this.currentPriceSchema);
     this.sourcePriceSchema = {...this.currentPriceSchema};
     this.currentTribune = {};
     this.currentSector = {};
   }
 
-  isPriceChanged(){
+  isPriceChanged() {
     return this.currentPriceSchema !== this.sourcePriceSchema
   };
 

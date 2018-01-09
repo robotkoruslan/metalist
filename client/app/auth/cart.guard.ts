@@ -21,7 +21,7 @@ export class CartGuard implements CanActivate {
       // this.auth.isLoggedIn();
       return this.cartService.createCart();
     } else {
-      return this.cartService.getCart();
+      return !!(this.cartService.getCart());
     }
     // return true;
   }

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { MatchEditorService } from '../../services/match-editor.service';
-import { PriceSchemaService } from '../../services/price-schema.service';
-import { FileService } from '../../services/file.service';
+import {Component, OnInit} from '@angular/core';
+import {MatchEditorService} from '../../services/match-editor.service';
+import {FileService} from '../../services/file.service';
 
+import {Match} from '../../model/match.interface';
 
 @Component({
   selector: 'app-match-editor',
@@ -11,98 +11,69 @@ import { FileService } from '../../services/file.service';
 })
 export class MatchEditorComponent implements OnInit {
 
-  nextMatches: any = [];
-  prevMatches: any = [];
-  priceSchemas: any = [];
-  matchToEdit: any = [];
-  allTeamLogos: any = [];
-  matchId: string = '';
-  message: string = '';
+  nextMatches:Match[] = [];
+  prevMatches:Match[] = [];
+  matchToEdit:Match | null;
+  message:string = '';
 
-  constructor(private matchEditorService: MatchEditorService, private priceSchemaService: PriceSchemaService,
-              private fileService: FileService) { }
+  constructor(private matchEditorService:MatchEditorService, private fileService:FileService) {
+  }
 
   ngOnInit() {
-    this.loadPriceSchemas();
-    this.loadMatches();
+    this.loadNextMatches();
+    this.loadPrevMatches();
     this.getTeamLogos();
   }
 
-  loadMatches() {
-    this.loadNextMatches();
-    this.loadPrevMatches();
+  setMatchToEdit(match) {
+    this.matchToEdit = match;
   }
 
-  edit(match) {
-    this.matchToEdit = { ...match};
-  }
+  loadNextMatches = () => this.matchEditorService.loadNextMatches()
+    .subscribe(
+      (res) => this.nextMatches = res,
+      err => console.log(err)
+    );
 
-  remove() {
-    this.deleteMatch(this.matchId);
-    this.matchToEdit = undefined;
-  }
+  loadPrevMatches = () => this.matchEditorService.loadPrevMatches()
+    .subscribe(
+      res => this.prevMatches = res,
+      err => console.log(err)
+    );
 
-  onMatchUpdate(event) {
-    if (event.match.id) {
-      this.saveMatch(event.match);
-    } else {
-
-      this.addMatch(event.match);
-      this.message = 'Процесс создания сидений для матча запущен. Это может занять 5-10 минут. ' +
-        'При успешном создании появится дата матча на домашней странице.';
-    }
-    this.matchToEdit = undefined;
-  }
-
-  loadPriceSchemas() {
-    return this.priceSchemaService.loadPrices();
-      // .then(response => this.priceSchemas = response.data);
-  }
-
-  loadNextMatches() {
-    this.matchId = '';
-    return this.matchEditorService.loadNextMatches();
-      // .then(matches => this.nextMatches = matches);
-  }
-
-  loadPrevMatches() {
-    this.matchId = '';
-    return this.matchEditorService.loadPrevMatches();
-      // .then(matches => this.prevMatches = matches);
-  }
-
-  deleteMatch(matchId) {
-    return this.matchEditorService.deleteMatch(matchId);
-      // .then(() => this.loadMatches());
-  }
-
-  addMatch(match) {
-    this.matchEditorService.createMatch(match);
-      // .then(() => this.loadMatches());
-  }
+  deleteMatch = (id:string) => this.matchEditorService.deleteMatch(id)
+    .subscribe(
+      () => this.prevMatches = this.prevMatches.filter(match => match.id !== id),
+      (err) => console.log('Something went wrong', err)
+    );
 
   saveMatch(match) {
-    this.matchEditorService.editMatch(match);
-      // .then(() => this.loadMatches());
-  }
-
-  upload(file) {
-    const formData = new FormData();
-    formData.append("teamLogo", file.file);
-    this.fileService.upload(formData);
-      // .then(() => this.getTeamLogos());
-  }
-
-  getTeamLogos() {
-    return this.fileService.loadTeamLogos();
-      // .then(logo => this.allTeamLogos = logo);
-  }
-
-  isMatchExist() {
-    if (this.matchToEdit) {
-      return true;
+    if (match.id) {
+      this.matchEditorService.editMatch(match)
+        .subscribe(
+          () => {
+            this.loadNextMatches();
+            this.matchToEdit = null;
+            this.message = 'Матч был успешно обновлен';
+          },
+          err => console.log(err)
+        )
+    } else {
+      this.matchEditorService.createMatch(match)
+        .subscribe(
+          () => {
+            this.loadNextMatches();
+            this.matchToEdit = null;
+            this.message = `Процесс создания сидений для матча запущен. Это может занять 5-10 минут. 
+            При успешном создании появится дата матча на домашней странице.`;
+          },
+          err => console.log(err)
+        );
     }
-
   }
+
+  getTeamLogos = () => this.fileService.loadTeamLogos();
+
+  closeForm = () => this.matchToEdit = null;
 
 }

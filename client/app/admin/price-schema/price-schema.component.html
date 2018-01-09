@@ -1,44 +1,37 @@
 <div class="row">
-  <div class="col-md-3">
-    <app-menu-price-schema [(priceSchemas)]="priceSchemas"
-                       (onEdit)="edit($event)"></app-menu-price-schema>
-    <app-color-schema-editor [(sourceColorSchema)]="currentPriceSchema.colorSchema"
-                         [(colors)]="colors"
-                         (onEdit)="changeColor($event)"></app-color-schema-editor>
-  </div>
-  <div class="col-md-9">
-    <form name="myForm"><br>
-      <label>Выберете стадион :</label>
-      <select class="form-control" name="currentPriceSchema.stadiumName"
-              ng-change="changeSchema()"
-              [(ngModel)]="currentPriceSchema.stadiumName">
-        <option value="metalist">metalist</option>
-        <option value="dinamo">dinamo</option>
-        <option value="solar">solar</option>
-      </select>
-      <div ng-form="priceForm">
-      <!--<div ng-form="priceForm" [hidden]="currentPriceSchema.stadiumName">-->
-
-        <div class="input-group">
-          <span class="input-group-addon" id="basic-addon3">Выбранная схема</span>
-          <input type="text" class="form-control" [(ngModel)]="currentPriceSchema.name" name="schemaName" required>
-        </div>
-        <!--<div class="alert alert-danger" [hidden]="priceForm.schemaName.$invalid">Укажите имя схемы.</div>-->
-        <app-stadium-with-tribunes [(currentPrice)]="currentPriceSchema"
-                               [(stadium)]="stadium"
-                               (onClickApply)="clickApply($event)"></app-stadium-with-tribunes>
-
-
-        <div>
-          <button [hidden]="isSchemaChanged()"
-                  class="btn btn-success btn-lg btn-block"
-                  (click)="savePriceSchema(priceForm)">
-                  <!--[disabled]="priceForm.schemaName.$invalid"-->
-            Save price
-          </button>
-
-        </div>
-      </div>
-    </form>
-  </div>
+    <div class="col-md-3">
+        <app-menu-price-schema [(priceSchemas)]="priceSchemas"
+                               (onEdit)="edit($event)"></app-menu-price-schema>
+        <app-color-schema-editor [(sourceColorSchema)]="currentPriceSchema.colorSchema"
+                                 [(colors)]="colors"
+                                 (onEdit)="changeColor($event)"></app-color-schema-editor>
+    </div>
+    <div class="col-md-9">
+        <form class="example-container">
+            <mat-form-field>
+                <mat-select [(value)]="currentPriceSchema.stadiumName" placeholder="Выберите стадион">
+                    <mat-option value="metalist">metalist</mat-option>
+                    <mat-option value="dinamo">dinamo</mat-option>
+                    <mat-option value="solar">solar</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div *ngIf="currentPriceSchema.stadiumName">
+                <mat-form-field>
+                    <input matInput placeholder="Выберите схему" [(ngModel)]="currentPriceSchema.name"
+                           name="schemaName" #schemaName="ngModel" required>
+                    <mat-error *ngIf="!schemaName.valid && schemaName.touched">
+                        Schema is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+                <div>
+                    <app-stadium-with-tribunes [(currentPrice)]="currentPriceSchema" [(stadium)]="stadium"
+                                               (onClickApply)="clickApply($event)"></app-stadium-with-tribunes>
+                    <button class="btn btn-success btn-lg btn-block" (click)="savePriceSchema(priceForm)"
+                            [disabled]="!schemaName.valid">
+                        Save price
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

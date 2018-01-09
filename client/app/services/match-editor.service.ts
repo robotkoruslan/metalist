@@ -8,43 +8,24 @@ export class MatchEditorService {
 
   constructor(private http: HttpClient) { }
 
-  loadNextMatches() {
-    return this.http.get('/api/matches/next/')
-      .map((response: Response) => response);
+  loadNextMatches(): Observable<any> {
+    return this.http.get('/api/matches/next/');
   }
 
-  loadPrevMatches() {
-    return this.http.get('/api/matches/prev/')
-      .map((response: Response) => response);
+  loadPrevMatches(): Observable<any> {
+    return this.http.get('/api/matches/prev/');
   }
 
   createMatch(match) {
-    return this.http.post('/api/matches', match)
-      .map((response: Response) => response);
-      // method: 'POST',
-      // url: '/api/matches',
-      // data: match,
-      // headers: {'Accept': 'application/json'}
-    // });
+    return this.http.post('/api/matches', match);
   }
 
   editMatch(match) {
-    return this.http.put('/api/matches/' , match._id)
-      .map((response: Response) => response);
-      // method: 'PUT',
-      // url: '/api/matches/' + match._id,
-      // data: match,
-      // headers: {'Accept': 'application/json'}
-    // });
+    return this.http.put(`/api/matches/${match._id}`, match);
   }
 
   deleteMatch(matchId) {
-    return this.http.delete('/api/matches/' + matchId)
-      .map((response: Response) => response);
-      // method: 'delete',
-      // url: '/api/matches/' + matchId,
-      // headers: {'Accept': 'application/json'}
-    // });
+    return this.http.delete(`/api/matches/${matchId}`);
   }
 
 }

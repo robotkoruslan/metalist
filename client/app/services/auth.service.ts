@@ -1,22 +1,24 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {CookieService} from 'angular2-cookie/services/cookies.service';
 import decode from 'jwt-decode';
 
 @Injectable()
 export class AuthService {
-  user: any = {};
-  public token: string;
-  constructor(private http: HttpClient, private _cookieService: CookieService) { }
+  user:any = {};
+  public token:string;
 
-  login(email: string, password: string): Observable<boolean> {
+  constructor(private http:HttpClient, private _cookieService:CookieService) {
+  }
+
+  login(email:string, password:string):Observable<boolean> {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     const options = {headers: headers};
-    return this.http.post('/auth/local', JSON.stringify({ email: email, password: password }), options)
-      .map((response: any) => {
-        const token: string = response && response.token;
+    return this.http.post('/auth/local', JSON.stringify({email: email, password: password}), options)
+      .map((response:any) => {
+        const token:string = response && response.token;
         if (token) {
           this.token = token;
           this._cookieService.put('token', token);
@@ -44,14 +46,14 @@ export class AuthService {
   //   return promise;
   // }
 
-  logout(): void {
+  logout():void {
     this.token = null;
     this._cookieService.remove('token');
   }
 
   getUser() {
     return this.http.get('/api/users/me')
-      .map((response: Response) => {
+      .map((response:Response) => {
         if (response) {
           this.user = response;
           return true;
@@ -59,7 +61,8 @@ export class AuthService {
           return false;
         }
       })
-      .subscribe( () => { });
+      .subscribe(() => {
+      });
   }
 
   getCurrentUser() {
@@ -97,7 +100,7 @@ export class AuthService {
       const token = this._cookieService.get('token');
       if (token) {
         return this.getUser();
-      }else {
+      } else {
         return false;
       }
     } else {
@@ -105,6 +108,7 @@ export class AuthService {
     }
   }
 
+  getToken = () => this._cookieService.get('token');
 }
 
 
