@@ -11,51 +11,52 @@ import {Sector} from '../../../model/sector.interface';
 })
 export class StadiumWithTribunesComponent implements OnChanges {
 
-  @Input() currentPrice:PriceSchema;
-  @Input() stadium:any;
+  @Input() currentPrice: PriceSchema;
+  @Input() stadium: any;
   @Output() onClickApply = new EventEmitter<any>();
 
 
-  currentPriceSchema:PriceSchema;
-  currentTribune:Tribune;
-  currentSector:Sector|{};
+  currentPriceSchema: PriceSchema;
+  currentTribune: Tribune|null;
+  currentSector: Sector|null;
 
   constructor() {
   }
-  
+
   ngOnChanges(changes) {
     if (this.currentPrice) {
-      this.currentPriceSchema = {...this.currentPrice};
+      this.currentPriceSchema = this.currentPrice;
       this.stadium = {...this.stadium};
     }
   }
 
   clickApply(priceSchema) {
     this.onClickApply.emit(priceSchema);
+    this.currentSector = null;
+    this.currentTribune = null;
   }
 
   selectTribune(tribuneName) {
     if (this.currentPriceSchema['tribune_' + tribuneName]) {
-      this.currentTribune = { ...this.currentPriceSchema['tribune_' + tribuneName]};
+      this.currentTribune = {...this.currentPriceSchema['tribune_' + tribuneName]};
     } else {
-      this.currentTribune.name = tribuneName;
-      this.currentTribune = { ...this.currentTribune};
+      this.currentTribune = {name: tribuneName};
     }
-    this.currentSector = {};
+    this.currentSector = null;
   }
 
   getSectorForSetPrice($event) {
-  
+
     let priceSchema = this.currentPriceSchema,
       tribuneName = $event.tribune,
       sectorNumber = $event.sector;
-  
+
     if (!priceSchema['tribune_' + tribuneName]) {
       this.currentTribune = Object.assign({}, this.stadium['tribune_' + tribuneName]);
       this.currentSector = Object.assign({}, this.stadium['tribune_' + tribuneName]['sector_' + sectorNumber]);
     } else {
       this.currentTribune = priceSchema['tribune_' + tribuneName];
-  
+
       if (!priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber]) {
         this.currentSector = Object.assign({}, this.stadium['tribune_' + tribuneName]['sector_' + sectorNumber]);
       } else {
@@ -63,7 +64,7 @@ export class StadiumWithTribunesComponent implements OnChanges {
       }
     }
   }
-  
+
   isStadium(stadiumName) {
     if (this.hasOwnProperty('currentPriceSchema')) {
       if (this.currentPriceSchema.hasOwnProperty('stadiumName')) {
