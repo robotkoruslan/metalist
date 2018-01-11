@@ -1,4 +1,4 @@
-import {Component, OnInit, OnChanges, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnChanges, Input, Output, EventEmitter} from '@angular/core';
 
 import {Tribune} from '../../../../model/tribune.interface';
 import {Sector} from '../../../../model/sector.interface';
@@ -10,91 +10,74 @@ import {PriceSchema} from '../../../../model/price-schema.interface';
   styleUrls: ['./price-editor.component.css']
 })
 
-export class PriceEditorComponent implements OnInit, OnChanges {
+export class PriceEditorComponent implements OnChanges {
 
   @Input() currentPrice: PriceSchema;
-  @Input() currentTribune:any;
-  @Input() currentSector:any;
+  @Input() currentTribune: Tribune;
+  @Input() currentSector: Sector;
   @Output() onClickApply = new EventEmitter<any>();
 
-  sourcePriceSchema:PriceSchema;
-  currentPriceSchema:PriceSchema;
+  sourceTribune: Tribune;
+  sourceSector: Sector;
+  currentPriceSchema: PriceSchema;
 
   constructor() {
   }
 
-  ngOnInit() {
-  }
-
   ngOnChanges(changes) {
-    if (changes.currentTribune) {
-      this.currentTribune = {...this.currentTribune};
-      this.currentSector = {...this.currentSector};
-      this.sourcePriceSchema = {...this.currentPrice};
-      this.currentPriceSchema = {...this.sourcePriceSchema};
+    if (changes.currentTribune || changes.currentSector) {
+      this.sourceTribune = {...this.currentTribune};
+      this.sourceSector = {...this.currentSector};
+      this.currentPriceSchema = {...this.currentPrice};
     }
-  }
 
+  }
 
   changePrice() {
-    this.currentTribune = {...this.currentTribune};
-    this.currentSector = {...this.currentSector};
-    this.currentPriceSchema = this.getPreparedPriceSchema(this.currentTribune.name, this.currentSector.name);
-
+    const tribune = this.currentTribune ? this.currentTribune.name : null;
+    const sector = this.currentSector ? this.currentSector.name : null;
+    this.currentPriceSchema = this.getPreparedPriceSchema(tribune, sector);
   }
 
   clickApply() {
-
     this.changePrice();
     this.onClickApply.emit(this.currentPriceSchema);
-    this.sourcePriceSchema = {...this.currentPriceSchema};
-    this.currentTribune = {};
-    this.currentSector = {};
+    this.currentTribune = null;
+    this.currentSector = null;
   }
 
   isPriceChanged() {
-    return this.currentPriceSchema !== this.sourcePriceSchema
+    const currentTribunePrice = this.currentTribune && this.currentTribune.price || null;
+    const sourceTribunePrice = this.sourceTribune.price || null;
+    const currentSectorPrice = this.currentSector && this.currentSector.price || null;
+    const sourceSectorPrice = this.sourceSector.price || null;
+    return sourceSectorPrice !== currentSectorPrice || sourceTribunePrice !== currentTribunePrice;
   };
 
   getPreparedPriceSchema(tribuneName, sectorNumber) {
-
-    let priceSchema = this.currentPriceSchema,
+    let priceSchema = this.currentPrice,
       tribune = this.currentTribune,
       sector = this.currentSector;
 
-    delete sector.rows;
-
-    if (sector.price == null && sector.name) {
-      delete priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber];
-      return priceSchema;
-    }
-
-    if (priceSchema['tribune_' + tribuneName] && priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber]) {
-      priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber].price = sector.price;
-      return priceSchema;
-    }
-
-    if (priceSchema['tribune_' + tribuneName] && !priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber] && sectorNumber) {
-      priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber] = sector;
-      return priceSchema;
-    }
-
     if (!priceSchema['tribune_' + tribuneName]) {
-      priceSchema['tribune_' + tribuneName] = {};
-      priceSchema['tribune_' + tribuneName].name = tribune.name;
+      priceSchema['tribune_' + tribuneName] = {name: tribuneName}
     }
 
     if (tribune.price) {
       priceSchema['tribune_' + tribuneName].price = tribune.price;
-      return priceSchema;
+    } else {
+      delete priceSchema['tribune_' + tribuneName].price;
     }
 
-    if (priceSchema['tribune_' + tribuneName].price && !tribune.price) {
-      delete priceSchema['tribune_' + tribuneName].price;
-      return priceSchema;
-    } else {
-      return priceSchema;
+    if (sectorNumber) {
+      delete sector.rows;
+      priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber] = sector;
+      if (!sector.price) {
+        delete priceSchema['tribune_' + tribuneName]['sector_' + sectorNumber];
+      }
     }
+    return priceSchema;
+
   }
 
 }

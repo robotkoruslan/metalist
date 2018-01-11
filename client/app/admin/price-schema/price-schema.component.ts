@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {FormBuilder, Validators, FormGroup} from '@angular/forms';
 
 import {PriceSchemaService} from '../../services/price-schema.service';
 import {AppConstant} from '../../app.constant';
@@ -13,15 +14,20 @@ import {ColorSchema} from "../../model/color-schema.interface";
 })
 export class PriceSchemaComponent implements OnInit {
 
-  stadiumName:string = '';
+  schemaName:string = '';
   priceSchemas:PriceSchema[] = [];
-  sourcePriceSchema:any = {};
-  currentPriceSchema:any = {};
+  sourcePriceSchema:PriceSchema;
+  currentPriceSchema:PriceSchema|null;
   colors:ColorSchema[];
   stadium = AppConstant.StadiumMetalist;
-  defaultPriceColor = AppConstant.DefaultPriceColor;
+  priceSchemaForm: FormGroup;
 
-  constructor(private priceSchemaService:PriceSchemaService) {
+  constructor(private priceSchemaService:PriceSchemaService, private formBuider: FormBuilder) {
+    this.priceSchemaForm = formBuider.group({
+      stadiumName: [{value:'', disabled: true}],
+      schemaName: [null, Validators.required]
+    })
+
   }
 
   ngOnInit() {
@@ -37,21 +43,30 @@ export class PriceSchemaComponent implements OnInit {
   }
 
   edit(schema) {
-    console.log(' -- edit(schema)', schema);
-    if (schema) {
-      this.sourcePriceSchema = {...schema};
-      this.currentPriceSchema = {...this.sourcePriceSchema};
-    }
+    this.currentPriceSchema = {...schema};
+  }
+
+  setCurrentSchema(schema) {
+    this.priceSchemaForm.reset();
+    // source and current reference to one object
+    const schemaObj = {...schema};
+    this.sourcePriceSchema = schemaObj;
+    this.currentPriceSchema = schemaObj;
+    this.schemaName = schemaObj.name;
+
+    this.priceSchemaForm.setValue({
+      stadiumName: this.currentPriceSchema.stadiumName,
+      schemaName: this.currentPriceSchema.name || ''
+    });
   }
 
   savePriceSchema() {
-    console.log(' -- savePriceSchema');
     this.priceSchemaService.updateColorSchema(this.currentPriceSchema);
-    console.log(' --2 savePriceSchema', this.currentPriceSchema);
     this.priceSchemaService.savePriceSchema(this.currentPriceSchema)
       .subscribe((response:any) => {
         this.edit(response.data);
         this.loadPriceSchemas();
+        this.currentPriceSchema = null;
       });
 
   }
@@ -66,5 +81,8 @@ export class PriceSchemaComponent implements OnInit {
     this.currentPriceSchema = {...priceSchema};
     this.currentPriceSchema = this.priceSchemaService.updateColorSchema(this.currentPriceSchema);
   }
+
+  isPriceSchemaChanged = () => this.sourcePriceSchema !== this.currentPriceSchema ||
+    this.schemaName !== this.currentPriceSchema.name;
 
 }
