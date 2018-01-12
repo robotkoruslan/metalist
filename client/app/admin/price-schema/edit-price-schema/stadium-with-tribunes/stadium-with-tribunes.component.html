@@ -12,7 +12,7 @@
             </svg>
         </button>
     </span>
-    <app-stadium [(priceSchema)]="currentPriceSchema"
+    <app-stadium [priceSchema]="priceSchema"
                  (onSectorSelect)="getSectorForSetPrice($event)"></app-stadium>
     <span class="input-group-addon">
         <button (click)="selectTribune('south')" class="btn btn-default">
@@ -31,7 +31,7 @@
             </svg>
         </button>
     </span>
-    <app-stadium [(priceSchema)]="currentPriceSchema"
+    <app-stadium [priceSchema]="priceSchema"
                  (onSectorSelect)="getSectorForSetPrice($event)"></app-stadium>
     <span class="input-group-addon">
         <button (click)="selectTribune('west')" class="btn btn-default">
@@ -48,7 +48,7 @@
   </span>
 </div>
 
-<app-price-editor *ngIf="currentPriceSchema.stadiumName" [(currentPrice)]="currentPriceSchema"
+<app-price-editor *ngIf="priceSchema.stadiumName" [(currentPrice)]="priceSchema"
                   [(currentTribune)]="currentTribune"
                   [(currentSector)]="currentSector"
                   (onClickApply)="clickApply($event)"></app-price-editor>

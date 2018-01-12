@@ -1,36 +1,8 @@
 <div class="row">
-    <div class="col-md-3">
-        <app-menu-price-schema [(priceSchemas)]="priceSchemas"
-                               (onUpdateSchema)="setCurrentSchema($event)" ></app-menu-price-schema>
-        <app-color-schema-editor *ngIf="currentPriceSchema"
-                                 [(sourceColorSchema)]="currentPriceSchema.colorSchema"
-                                 [(colors)]="colors"
-                                 (onEdit)="changeColor($event)"></app-color-schema-editor>
-    </div>
-    <div class="col-md-9" *ngIf="currentPriceSchema">
-        <form class="example-container" [formGroup]="priceSchemaForm">
-          <mat-form-field>
-            <input matInput placeholder="Выберите cтадион"
-                   [(ngModel)]="currentPriceSchema.stadiumName"
-                   formControlName="stadiumName">
-          </mat-form-field>
-
-          <mat-form-field>
-            <input matInput placeholder="Выберите схему" [(ngModel)]="currentPriceSchema.name"
-                   formControlName="schemaName">
-            <mat-error *ngIf="priceSchemaForm.get('schemaName').errors?.required &&
-            priceSchemaForm.get('schemaName').touched">
-              Schema is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-          <div>
-              <app-stadium-with-tribunes [(currentPrice)]="currentPriceSchema" [(stadium)]="stadium"
-                                         (onClickApply)="clickApply($event)"></app-stadium-with-tribunes>
-              <button class="btn btn-success btn-lg btn-block" (click)="savePriceSchema()"
-                      *ngIf="isPriceSchemaChanged()" [disabled]="!priceSchemaForm.valid">
-                  Save price
-              </button>
-          </div>
-        </form>
-    </div>
+  <edit-price-schema [priceSchema]="currentPriceSchema" [colors]="colors"
+                     (onUpdateSchema)="updateSchema($event)">
+    <app-menu-price-schema [priceSchemas]="priceSchemas"
+                           (onSetSchema)="setCurrentSchema($event)" ></app-menu-price-schema>
+  </edit-price-schema>
 </div>
+

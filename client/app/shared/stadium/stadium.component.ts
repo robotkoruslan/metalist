@@ -18,9 +18,10 @@ export class StadiumComponent implements OnChanges {
   defaultPriceColor: any = {color : '#808080' };
 
   constructor(private utilService: UtilService) { }
-  
+
   ngOnChanges(changes) {
-    if ( changes.priceSchema ) {
+    if (changes.priceSchema) {
+      this.priceSchema = { ...changes.priceSchema.currentValue };
       if (this.priceSchema !== undefined) {
         if (this.priceSchema.hasOwnProperty('stadiumName')) {
           this.stadiumName = this.priceSchema.stadiumName;

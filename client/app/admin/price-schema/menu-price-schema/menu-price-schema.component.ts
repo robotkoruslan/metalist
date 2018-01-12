@@ -10,12 +10,11 @@ import {PriceSchema} from '../../../model/price-schema.interface';
 export class MenuPriceSchemaComponent {
 
   @Input() priceSchemas: { priceSchema: PriceSchema }[];
-  @Output() onUpdateSchema = new EventEmitter<boolean>();
+  @Output() onSetSchema = new EventEmitter<boolean>();
 
   constructor() {
   }
 
-  selectSchema = (schema) => this.onUpdateSchema.emit(schema);
-
+  selectSchema = (schema) => this.onSetSchema.emit(schema);
 
 }

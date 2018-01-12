@@ -1,8 +1,9 @@
 import {Component, OnChanges, Input, Output, EventEmitter} from '@angular/core';
 
-import {Tribune} from '../../../../model/tribune.interface';
-import {Sector} from '../../../../model/sector.interface';
-import {PriceSchema} from '../../../../model/price-schema.interface';
+import {Tribune} from '../../../../../model/tribune.interface';
+import {Sector} from '../../../../../model/sector.interface';
+import {PriceSchema} from '../../../../../model/price-schema.interface';
+import {PriceSchemaService} from "../../../../../services/price-schema.service";
 
 @Component({
   selector: 'app-price-editor',
@@ -21,7 +22,7 @@ export class PriceEditorComponent implements OnChanges {
   sourceSector: Sector;
   currentPriceSchema: PriceSchema;
 
-  constructor() {
+  constructor(private priceSchemaService: PriceSchemaService) {
   }
 
   ngOnChanges(changes) {
@@ -30,7 +31,6 @@ export class PriceEditorComponent implements OnChanges {
       this.sourceSector = {...this.currentSector};
       this.currentPriceSchema = {...this.currentPrice};
     }
-
   }
 
   changePrice() {
@@ -41,6 +41,7 @@ export class PriceEditorComponent implements OnChanges {
 
   clickApply() {
     this.changePrice();
+    this.currentPriceSchema = this.priceSchemaService.updateColorSchema(this.currentPriceSchema);
     this.onClickApply.emit(this.currentPriceSchema);
     this.currentTribune = null;
     this.currentSector = null;

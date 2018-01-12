@@ -1,0 +1,32 @@
+<div class="col-md-3">
+  <ng-content select="app-menu-price-schema"></ng-content>
+  <app-color-schema-editor *ngIf="priceSchema"
+                           [colorSchema]="priceSchema.colorSchema"
+                           [colors]="colors"
+                           (onEdit)="changeColor($event)"></app-color-schema-editor>
+</div>
+<div class="col-md-9" *ngIf="priceSchema">
+  <form class="form-container" [formGroup]="priceSchemaForm">
+    <mat-form-field>
+      <input matInput placeholder="Cтадион" formControlName="stadiumName"
+             [(ngModel)]="priceSchema.stadiumName">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Наименование"
+             formControlName="name"
+             [(ngModel)]="priceSchema.name"
+      >
+      <mat-error *ngIf="priceSchemaForm.get('name').errors?.required && priceSchemaForm.get('name').touched">
+        Schema is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <div>
+      <app-stadium-with-tribunes [priceSchema]="priceSchema"
+                                 (onClickApply)="clickApply($event)"></app-stadium-with-tribunes>
+      <button class="btn btn-success btn-lg btn-block" (click)="updateSchema()"
+              *ngIf="isPriceSchemaChanged()" [disabled]="!priceSchemaForm.valid">
+        Save price
+      </button>
+    </div>
+  </form>
+</div>

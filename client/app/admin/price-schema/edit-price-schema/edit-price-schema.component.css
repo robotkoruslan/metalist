@@ -1,0 +1,10 @@
+button {
+  margin: 20px 0;
+}
+.form-container > input {
+  width: 100%;
+}
+
+.form-container * {
+  width: 100%;
+}
