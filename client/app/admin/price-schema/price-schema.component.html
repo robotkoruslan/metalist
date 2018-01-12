@@ -1,8 +1,11 @@
 <div class="row">
-  <edit-price-schema [priceSchema]="currentPriceSchema" [colors]="colors"
-                     (onUpdateSchema)="updateSchema($event)">
-    <app-menu-price-schema [priceSchemas]="priceSchemas"
-                           (onSetSchema)="setCurrentSchema($event)" ></app-menu-price-schema>
-  </edit-price-schema>
+  <div class="col-md-3">
+    <price-schema-menu [priceSchemas]="priceSchemas"
+                           (onSetSchema)="setCurrentSchema($event)" ></price-schema-menu>
+  </div>
+  <div class="col-md-9" *ngIf="currentPriceSchema">
+    <edit-price-schema [priceSchema]="currentPriceSchema" [colors]="colors"
+                       (onUpdateSchema)="updateSchema($event)">
+    </edit-price-schema>
+  </div>
 </div>
-

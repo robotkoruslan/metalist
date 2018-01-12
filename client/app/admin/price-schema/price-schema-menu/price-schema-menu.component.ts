@@ -1,13 +1,13 @@
-import {Component, OnInit, OnChanges, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 
 import {PriceSchema} from '../../../model/price-schema.interface';
 
 @Component({
-  selector: 'app-menu-price-schema',
-  templateUrl: './menu-price-schema.component.html',
-  styleUrls: ['./menu-price-schema.component.css']
+  selector: 'price-schema-menu',
+  templateUrl: './price-schema-menu.component.html',
+  styleUrls: ['./price-schema-menu.component.css']
 })
-export class MenuPriceSchemaComponent {
+export class PriceSchemaMenuComponent {
 
   @Input() priceSchemas: { priceSchema: PriceSchema }[];
   @Output() onSetSchema = new EventEmitter<boolean>();

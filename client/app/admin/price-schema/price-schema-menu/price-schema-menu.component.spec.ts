@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MenuPriceSchemaComponent } from './menu-price-schema.component';
+import { MenuPriceSchemaComponent } from './price-schema-menu.component';
 
 describe('MenuPriceSchemaComponent', () => {
   let component: MenuPriceSchemaComponent;

@@ -1,5 +1,6 @@
 button {
-  margin: 20px 0;
+  width: 40%;
+  margin: 20px auto;
 }
 .form-container > input {
   width: 100%;
