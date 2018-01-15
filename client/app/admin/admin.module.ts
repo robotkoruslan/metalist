@@ -56,10 +56,11 @@ import {BlockRowFormComponent} from './season-ticket/block-row-form/block-row-fo
 import {BlockRowListComponent} from './season-ticket/block-row-list/block-row-list.component';
 import {EventsSummaryComponent} from './tickets-statistic/events-summary/events-summary.component';
 import {DaysSummaryComponent} from './tickets-statistic/days-summary/days-summary.component';
-import {ColorSchemaEditorComponent} from './price-schema/color-schema-editor/color-schema-editor.component';
-import {MenuPriceSchemaComponent} from './price-schema/menu-price-schema/menu-price-schema.component';
-import {StadiumWithTribunesComponent} from './price-schema/stadium-with-tribunes/stadium-with-tribunes.component';
-import {PriceEditorComponent} from './price-schema/stadium-with-tribunes/price-editor/price-editor.component';
+import {ColorSchemaEditorComponent} from './price-schema/edit-price-schema/color-schema-editor/color-schema-editor.component';
+import {PriceSchemaMenuComponent} from './price-schema/price-schema-menu/price-schema-menu.component';
+import {StadiumWithTribunesComponent} from './price-schema/edit-price-schema/stadium-with-tribunes/stadium-with-tribunes.component';
+import {PriceEditorComponent} from './price-schema/edit-price-schema/stadium-with-tribunes/price-editor/price-editor.component';
+import {EditPriceSchemaComponent} from './price-schema/edit-price-schema/edit-price-schema.component';
 
 @NgModule({
   imports: [
@@ -105,8 +106,8 @@ import {PriceEditorComponent} from './price-schema/stadium-with-tribunes/price-e
   declarations: [TicketsStatisticComponent, MatchEditorComponent, AdminUsersComponent, SeasonTicketComponent,
     PriceSchemaComponent, OrderDetailsComponent, EditMatchComponent, SeasonTicketFormComponent, SeasonTicketListComponent,
     BlockRowFormComponent, BlockRowListComponent, EventsSummaryComponent, DaysSummaryComponent,
-    ColorSchemaEditorComponent, MenuPriceSchemaComponent, StadiumWithTribunesComponent, PriceEditorComponent,
-    MatchListComponent, DeleteMatchComponent],
+    ColorSchemaEditorComponent, PriceSchemaMenuComponent, StadiumWithTribunesComponent, PriceEditorComponent,
+    MatchListComponent, DeleteMatchComponent, EditPriceSchemaComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AdminModule {

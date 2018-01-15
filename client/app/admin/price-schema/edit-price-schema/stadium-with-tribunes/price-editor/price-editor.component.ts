@@ -1,8 +1,9 @@
 import {Component, OnChanges, Input, Output, EventEmitter} from '@angular/core';
+import {uniq, compact} from 'lodash';
 
-import {Tribune} from '../../../../model/tribune.interface';
-import {Sector} from '../../../../model/sector.interface';
-import {PriceSchema} from '../../../../model/price-schema.interface';
+import {Tribune} from '../../../../../model/tribune.interface';
+import {Sector} from '../../../../../model/sector.interface';
+import {PriceSchema} from '../../../../../model/price-schema.interface';
 
 @Component({
   selector: 'app-price-editor',
@@ -30,7 +31,6 @@ export class PriceEditorComponent implements OnChanges {
       this.sourceSector = {...this.currentSector};
       this.currentPriceSchema = {...this.currentPrice};
     }
-
   }
 
   changePrice() {
@@ -41,9 +41,35 @@ export class PriceEditorComponent implements OnChanges {
 
   clickApply() {
     this.changePrice();
+    this.currentPriceSchema = this.updateColorSchema(this.currentPriceSchema);
     this.onClickApply.emit(this.currentPriceSchema);
     this.currentTribune = null;
     this.currentSector = null;
+  }
+
+  updateColorSchema(priceSchema){
+    if (!priceSchema.colorSchema) {
+      priceSchema.colorSchema = []
+    }
+    const uniquePrices = this.getUniquePrices(priceSchema);
+    const uniqueColors = priceSchema.colorSchema
+      .filter(color => uniquePrices.includes(parseInt(color.price)));
+    priceSchema.colorSchema = uniquePrices.map(price => {
+      const color = uniqueColors.filter(color => color.price === price)[0];
+      return color || {price : price, color : "#ffcc00"};
+    });
+    return priceSchema;
+  }
+
+  getUniquePrices = (obj) => {
+    const prices = [];
+    const tribunes = Object.keys(obj).filter(key => key.indexOf('tribune') + 1);
+    tribunes.forEach(tribuneName => {
+      prices.push(obj[tribuneName].price);
+      const sectors = Object.keys(obj[tribuneName]).filter(key => key.indexOf('sector') + 1);
+      sectors.forEach(sectorName => prices.push(obj[tribuneName][sectorName].price))
+    });
+    return compact(uniq(prices));
   }
 
   isPriceChanged() {

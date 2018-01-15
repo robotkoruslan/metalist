@@ -1,9 +1,18 @@
-.row {
+div {
   display: flex;
+  align-items: center;
 }
-
+h4 {
+  margin: 10px 10px 10px 0;
+}
+button {
+  margin: 10px;
+}
 .col-md-3 {
   margin: auto 0;
+}
+.col-md-12 {
+  height: 60px;
 }
 
 .example-container, .example-container > * {

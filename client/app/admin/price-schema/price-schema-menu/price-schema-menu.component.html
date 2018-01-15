@@ -1,0 +1,16 @@
+<div class="menu-price-schema">
+  <label>Список схем</label>
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let schema of priceSchemas">
+    <span class="badge" (click)="selectSchema(schema.priceSchema)">
+      Edit
+    </span>
+      {{schema.priceSchema.name}} :
+      {{schema.priceSchema.stadiumName}}
+    </li>
+  </ul>
+  <button class="btn btn-default" (click)="selectSchema({stadiumName: 'metalist', name: ''})">
+    New price schema
+  </button>
+</div>
+

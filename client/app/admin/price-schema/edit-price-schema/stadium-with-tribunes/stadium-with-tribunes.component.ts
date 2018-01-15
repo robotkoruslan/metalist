@@ -1,8 +1,9 @@
 import {Component, OnChanges, Input, Output, EventEmitter} from '@angular/core';
 
-import {PriceSchema} from '../../../model/price-schema.interface';
-import {Tribune} from '../../../model/tribune.interface';
-import {Sector} from '../../../model/sector.interface';
+import {PriceSchema} from '../../../../model/price-schema.interface';
+import {Tribune} from '../../../../model/tribune.interface';
+import {Sector} from '../../../../model/sector.interface';
+import {AppConstant} from "../../../../app.constant";
 
 @Component({
   selector: 'app-stadium-with-tribunes',
@@ -11,21 +12,19 @@ import {Sector} from '../../../model/sector.interface';
 })
 export class StadiumWithTribunesComponent implements OnChanges {
 
-  @Input() currentPrice: PriceSchema;
-  @Input() stadium: any;
+  @Input() priceSchema: PriceSchema;
   @Output() onClickApply = new EventEmitter<any>();
 
-
-  currentPriceSchema: PriceSchema;
   currentTribune: Tribune|null;
   currentSector: Sector|null;
+  stadium: any = AppConstant.StadiumMetalist;
 
   constructor() {
   }
 
   ngOnChanges(changes) {
-    if (this.currentPrice) {
-      this.currentPriceSchema = this.currentPrice;
+    if (changes.priceSchema && changes.priceSchema.currentValue) {
+      this.priceSchema = { ...changes.priceSchema.currentValue};
       this.stadium = {...this.stadium};
     }
   }
@@ -37,8 +36,8 @@ export class StadiumWithTribunesComponent implements OnChanges {
   }
 
   selectTribune(tribuneName) {
-    if (this.currentPriceSchema['tribune_' + tribuneName]) {
-      this.currentTribune = {...this.currentPriceSchema['tribune_' + tribuneName]};
+    if (this.priceSchema['tribune_' + tribuneName]) {
+      this.currentTribune = {...this.priceSchema['tribune_' + tribuneName]};
     } else {
       this.currentTribune = {name: tribuneName};
     }
@@ -47,7 +46,7 @@ export class StadiumWithTribunesComponent implements OnChanges {
 
   getSectorForSetPrice($event) {
 
-    let priceSchema = this.currentPriceSchema,
+    let priceSchema = this.priceSchema,
       tribuneName = $event.tribune,
       sectorNumber = $event.sector;
 
@@ -66,9 +65,9 @@ export class StadiumWithTribunesComponent implements OnChanges {
   }
 
   isStadium(stadiumName) {
-    if (this.hasOwnProperty('currentPriceSchema')) {
-      if (this.currentPriceSchema.hasOwnProperty('stadiumName')) {
-        if (this.currentPriceSchema.stadiumName === stadiumName) {
+    if (this.hasOwnProperty('priceSchema')) {
+      if (this.priceSchema.hasOwnProperty('stadiumName')) {
+        if (this.priceSchema.stadiumName === stadiumName) {
           return true;
         } else {
           return false;
