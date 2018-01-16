@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { SeasonTicketService } from '../../services/season-ticket.service';
-import { TicketService } from '../../services/ticket.service';
+import {Component, OnInit} from '@angular/core';
+import {SeasonTicketService} from '../../services/season-ticket.service';
+import {TicketService} from '../../services/ticket.service';
+import {Seat} from "../../model/seat.interface";
 
 @Component({
   selector: 'app-season-ticket',
   templateUrl: './season-ticket.component.html',
   styleUrls: ['./season-ticket.component.css'],
-  providers: [ TicketService, SeasonTicketService ]
+  providers: [TicketService, SeasonTicketService]
 })
 export class SeasonTicketComponent implements OnInit {
 
@@ -14,69 +15,65 @@ export class SeasonTicketComponent implements OnInit {
   errorMessageBlockRow: string;
   lastTickets: any = [];
   ticket: any = [];
+  seasonTickets: Seat[];
+  blockRowSeats: Seat[];
 
-  constructor(private ticketsService: TicketService, private seasonTicketService: SeasonTicketService) { }
-
-  ngOnInit() {
+  constructor(private ticketsService: TicketService, private seasonTicketService: SeasonTicketService) {
   }
 
-  $onInit() {
+  ngOnInit() {
     this.loadSeasonTickets();
     this.loadBlockRowSeats();
   }
 
   loadSeasonTickets() {
-    this.seasonTicketService.loadSeasonTickets();
-      // .then(response => this.seasonTickets = response.data);
+    this.seasonTicketService.loadSeasonTickets()
+      .subscribe(response => this.seasonTickets = response.reverse());
     this.errorMessageSeat = '';
   }
 
-  // loadPreSaleAbonementTickets() {
-  //   this.ticketsService.fetchReservedSeats();
-  //     // .then(response => this.preSaleAbonementTickets = response.data);
-  //   this.errorMessageSeat = '';
-  // }
-
   loadBlockRowSeats() {
-    this.seasonTicketService.loadBlockRowSeats();
-      // .then(response => this.blockRowSeats = response.data);
+    this.seasonTicketService.loadBlockRowSeats()
+      .subscribe(response => this.blockRowSeats = response.reverse());
     this.errorMessageBlockRow = '';
   }
 
-  createSeasonTicket($event) {
-    const slug = 's' + $event.ticket.sector + 'r' + $event.ticket.row + 'st' + $event.ticket.seat;
+  addSeasonTicket(ticket) {
+    const slug = 's' + ticket.sector + 'r' + ticket.row + 'st' + ticket.seat;
 
-    this.seasonTicketService.createSeasonTicket($event.ticket, slug);
-      // .then(() => {
-      //   this.loadSeasonTickets();
-      // })
-      // .catch((err) => {
-      //   if (err.status === 409) {
-      //     this.errorMessageSeat = 'Это место уже занято.';
-      //   }
-      // });
+    this.seasonTicketService.createSeasonTicket(ticket, slug)
+      .subscribe(
+        () => this.loadSeasonTickets(),
+        (err) => {
+          this.errorMessageSeat = 'Место не было зарезервировано. Что-то пошло не так';
+          if (err.status === 409) {
+            this.errorMessageSeat = 'Это место уже занято';
+          }
+        })
   }
 
-  deleteSeasonTicket($event) {
-    this.seasonTicketService.deleteSeasonTicket($event.slug);
-      // .then(() => {
-      //   this.loadSeasonTickets();
-      // });
+  deleteSeasonTicket(slug) {
+    this.seasonTicketService.deleteSeasonTicket(slug)
+      .subscribe(
+        () => this.loadSeasonTickets(),
+        () => this.errorMessageBlockRow = 'Резервация места не была снята. Что-то пошло не так'
+      )
   }
 
-  addBlockRow($event) {
-    this.seasonTicketService.addBlockRow($event.blockRow);
-      // .then(() => this.loadBlockRowSeats())
-      // .catch((err) => {
-      //   if (err.status === 409) {
-      //     this.errorMessageBlockRow = 'Этот ряд уже заблокирован.';
-      //   }
-      // });
+  deleteBlockRow(blockRow) {
+    this.seasonTicketService.deleteBlockRow(blockRow)
+      .subscribe(
+        () => this.loadBlockRowSeats(),
+        () => this.errorMessageBlockRow = 'Резервация ряда не была снята. Что-то пошло не так'
+      )
   }
 
-  deleteBlockRow($event) {
-    this.seasonTicketService.deleteBlockRow($event.blockRow);
-      // .then(() => this.loadBlockRowSeats());
-  }
 
+  addBlockRow = (blockRow) => {
+    this.seasonTicketService.addBlockRow(blockRow)
+      .subscribe(
+        () => this.loadBlockRowSeats(),
+        () => this.errorMessageBlockRow = 'Ряд не был зарезервирован. Что-то пошло не так'
+      );
+  }
 }
