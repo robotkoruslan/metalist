@@ -1,27 +1,24 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import {Component, OnChanges, Input, Output, EventEmitter} from '@angular/core';
+import {Seat} from "../../../model/seat.interface";
 
 @Component({
   selector: 'app-season-ticket-list',
-  templateUrl: './season-ticket-list.component.html',
+  template: `
+    <block-row-seat-table [data]="tickets" [isSeatExist]="true" (delete)="onDelete($event)">
+    </block-row-seat-table>
+  `,
   styleUrls: ['./season-ticket-list.component.css']
 })
-export class SeasonTicketListComponent implements OnInit, OnChanges {
+export class SeasonTicketListComponent implements OnChanges {
 
-  tickets: any = [];
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+  @Input() tickets: Seat[];
+  @Output() delete = new EventEmitter<string>();
 
   ngOnChanges(changes) {
-    // if ( changes.seasonTickets ) {
-    //   this.tickets = this.seasonTickets;
-    // }
+    if (changes.tickets.currentValue) {
+      this.tickets = changes.tickets.currentValue;
+    }
   }
 
-  // deleteTicket(ticket) {
-  //   this.onDelete({$event: { slug: ticket.slug }});
-  // }
-
+  onDelete = (element) => this.delete.emit(element.slug);
 }
