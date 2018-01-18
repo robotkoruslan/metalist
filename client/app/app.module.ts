@@ -42,6 +42,7 @@ import { SectorComponent } from './match/sector/sector.component';
 import { SelectSectorComponent } from './match/select-sector/select-sector.component';
 import { SummaryComponent } from './cart/summary/summary.component';
 import { DetailsComponent } from './cart/details/details.component';
+import { ConfirmEmailFormComponent } from './checkout/confirm-email-form/confirm-email-form';
 
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
@@ -84,6 +85,7 @@ import { TooltipDirective } from './directives/tooltip.directive';
     SelectSectorComponent,
     SummaryComponent,
     DetailsComponent,
+    ConfirmEmailFormComponent,
     // custom directive
     EmailValidator,
     TooltipDirective,

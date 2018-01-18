@@ -1,119 +1,97 @@
-import { Component, OnInit } from '@angular/core';
-import { CartService } from '../services/cart.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {sortBy} from 'lodash';
+
+import {CartService} from '../services/cart.service';
 import {AuthService} from '../services/auth.service';
 
 import moment from 'moment-timezone';
+import {Cart} from '../model/cart.interface';
 
+interface Duration {
+  minutes: number,
+  seconds: number
+}
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })
-export class CheckoutComponent implements OnInit {
+export class CheckoutComponent implements OnInit, OnDestroy {
 
-  stopTime: string = '';
-  confirm: boolean = false;
-  message: string= '';
-  cart: any = {};
-  duration: number = 0;
-  reserveDate: string = '';
-  match: any = {};
+  cart: Cart;
+  duration: Duration;
+  expirationDate: string;
+  isReservationExpired: boolean;
+  refetchTime: number;
+  checkoutMessage: string;
 
-  constructor(private cartService: CartService, private authenticationService: AuthService) { }
+  constructor(private cartService: CartService, private authenticationService: AuthService) {
+  }
 
   ngOnInit() {
-    this.checkReservedSeatForTimerOn();
-    // this.$scope.$on('$destroy', this.stopHandling.bind(this));
+    this.getCart();
   }
 
-  checkReservedSeatForTimerOn() {
-    this.cart = this.cartService.getMyCart();
+  checkTime = () => {
+    if (this.refetchTime || !this.expirationDate) {
+      return;
+    }
+    this.refetchTime = window.setInterval(() => {
+      this.isReservationExpired = moment().isAfter(this.expirationDate);
+      if (this.isReservationExpired) {
+        this.clearInterval();
+      }
+      const timeDifference = moment(this.expirationDate).diff(moment(), 'seconds');
+      this.duration = {
+        minutes: Math.floor(timeDifference / 60),
+        seconds: timeDifference % 60
+      }
+    }, 1000);
+  };
 
+  clearInterval = () => window.clearInterval(this.refetchTime);
+
+  ngOnDestroy() {
+    this.clearInterval();
+  }
+
+  getCart = () => {
+    this.cartService.getCart()
+      .subscribe(
+        response => {
+          this.cart = response;
+          this.getExpirationDate();
+          this.checkTime();
+        },
+        err => console.log(err)
+      );
+  };
+
+  isLoggedIn = () => this.authenticationService.isLoggedIn();
+
+  getExpirationDate() {
+    sortBy(this.cart.seats, ['reservedUntil']);
     if (this.cart.seats.length) {
-      this.getReserveDate();
-      // this.timerOn();
+      this.expirationDate = this.cart.seats.slice(-1)[0].reservedUntil;
     }
   }
 
-  // timerOn() {
-  //   let diffTime = moment(this.reserveDate).tz("Europe/Kiev") - moment().tz("Europe/Kiev"),
-  //     interval = 1000;
-  //
-  //   this.duration = moment.duration(diffTime, 'milliseconds') > 0 ? moment.duration(diffTime, 'milliseconds') : moment.duration(0, 'milliseconds');
-  //
-  //   this.stopTime = this.$interval(() => {
-  //     if (this.duration <= 0) {
-  //       return this.stopHandling();
-  //     }
-  //     this.duration = moment.duration(this.duration - interval, 'milliseconds');
-  //   }, interval);
-  // }
-
-  getReserveDate() {
-    if (this.cart.seats.length > 1) {
-      this.cart.seats.sort((a, b) => b.reservedUntil - a.reservedUntil);
-    }
-    this.reserveDate = this.cart.seats[0].reservedUntil;
-  }
-
-  // stopHandling() {
-  //   this.$interval.cancel(this.stopTime);
-  // }
-
-  updateCart() {
-    this.reserveDate = '';
-    this.match = {};
-    // this.stopHandling();
-    this.checkReservedSeatForTimerOn();
-  }
-
-  // confirmEmail(form, user) {
-  //   form.$setDirty();
-  //   form.email.$setDirty();
-  //
-  //   let email = user.email;
-  //
-  //   if (form.$valid) {
-  //     this.authenticationService.generateGuestPassword(email)
-  //       .then(response => {
-  //         this.confirm = true;
-  //         this.message = response.message;
-  //       })
-  //       .catch(err => {
-  //         this.confirm = false;
-  //         if (err.status === 409) {
-  //           this.message = 'Вы уже зарегистрированы.';
-  //         } else {
-  //           this.message = err.message;
-  //         }
-  //       });
-  //   }
-  // }
-
-  // guestLogin(form, user) {
-  //   form.$setDirty();
-  //   form.email.$setDirty();
-  //   form.password.$setDirty();
-  //
-  //   if (form.$valid) {
-  //     this.authenticationService.login({
-  //       email: user.email,
-  //       password: user.password
-  //     })
-  //       .catch(err => {
-  //         this.message = err.message;
-  //       });
-  //   }
-  // }
-
-  // checkout() {
-  //   this.cartService.checkout()
-  //     .then(response => {
-  //       this.$window.location.href = response.paymentLink;
-  //     } )
-  //     .catch((err) => {
-  //       if (err.status === 406) { this.isReserveSuccess = true; }
-  //     });
-  // }
-
+  checkout = () => {
+    this.cartService.checkout()
+      .subscribe(
+        result => {
+          window.location.href = result.paymentLink;
+        },
+        err => {
+          this.checkoutMessage = 'Что-то пошло не так, перейти на страницу оплаты не выходит';
+          if (err.status === 406) {
+            // seats are not reserved
+            this.isReservationExpired = true;
+          }
+          if (err.status === 404) {
+            this.checkoutMessage = 'Заказ не был найден';
+          }
+        }
+      )
+  };
 }

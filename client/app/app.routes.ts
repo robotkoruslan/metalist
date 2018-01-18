@@ -35,7 +35,7 @@ export const ROUTES: Routes = [
   { path: 'recovery', component: RecoveryComponent , canActivate: [AuthGuard]},
   { path: 'settings', component: SettingComponent, canActivate: [AuthGuard] },
   { path: 'tickets', component: TicketsComponent, canActivate: [AuthGuard] },
-  { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
+  { path: 'checkout', component: CheckoutComponent },
   // { path: 'home',  component: HomeComponent, canActivate: [CartGuard]  },
   {path: 'sectors/:matchId/:tribuneId/:sectorId', component: SectorComponent, canActivate: [CartGuard] },
   { path: 'match/:matchId',  component: MatchComponent, canActivate: [CartGuard] ,

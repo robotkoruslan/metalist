@@ -29,7 +29,7 @@
         <li *ngIf="isLoggedIn()"><a routerLinkActive="active" routerLink="login">Выход</a></li>
 
         <li>
-          <app-summary></app-summary>
+          <app-summary [isHeader]="true"></app-summary>
         </li>
       </ul>
     </div>
