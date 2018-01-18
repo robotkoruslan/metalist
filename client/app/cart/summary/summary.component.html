@@ -1,4 +1,7 @@
-<a routerLink="/checkout" class="cart-summary">
+<a *ngIf="isHeader" routerLink="/checkout" class="cart-summary">
   <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
-  Квитків: {{ getSize() }} - Сума: {{ getPrice() }}
+  Билетов: {{ getSize() }} - Сумма: {{ getPrice() }}
 </a>
+<div *ngIf="!isHeader">
+  Билетов: {{ getSize() }} - Сумма: {{ getPrice() }}
+</div>

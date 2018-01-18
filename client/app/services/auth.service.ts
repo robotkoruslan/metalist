@@ -9,14 +9,12 @@ import decode from 'jwt-decode';
 export class AuthService {
   user:any = {};
   public token:string;
-
+  options = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
   constructor(private http:HttpClient, private _cookieService:CookieService) {
   }
 
   login(email:string, password:string):Observable<boolean> {
-    const headers = new HttpHeaders({'Content-Type': 'application/json'});
-    const options = {headers: headers};
-    return this.http.post('/auth/local', JSON.stringify({email: email, password: password}), options)
+    return this.http.post('/auth/local', JSON.stringify({email: email, password: password}), this.options)
       .map((response:any) => {
         const token:string = response && response.token;
         if (token) {
@@ -60,8 +58,6 @@ export class AuthService {
         } else {
           return false;
         }
-      })
-      .subscribe(() => {
       });
   }
 
@@ -107,6 +103,10 @@ export class AuthService {
       return true;
     }
   }
+
+  generateTemporaryPassword = (email): Observable<any> => {
+    return this.http.put('/api/users/temporary-password', {email}, this.options)
+  };
 
   getToken = () => this._cookieService.get('token');
 }

@@ -73,17 +73,10 @@ export class CartService {
     return this.http.get('/api/orders/order/' + privateId);
   }
 
-  checkout() {
+  checkout(): Observable<any> {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     const options = {headers: headers};
     return this.http.post('/api/orders/checkout', options)
-      .map((response: Response) => {
-        if (response) {
-          return true;
-        } else {
-          return false;
-        }
-      });
   }
 
   pay() {

@@ -3,7 +3,6 @@ import { Router, CanActivate } from '@angular/router';
 
 import {AuthService} from '../services/auth.service';
 
-
 @Injectable()
 export class AuthGuard implements CanActivate {
 
@@ -11,17 +10,6 @@ export class AuthGuard implements CanActivate {
 
   canActivate() {
 
-    console.log('canActivate isLoggedIn 0');
-
-    return true;
-  //
-  //   if (localStorage.getItem('currentUser')) {
-  //     // logged in so return true
-  //     return true;
-  //   }
-  //
-  //   // not logged in so redirect to login page
-  //   this.router.navigate(['/login']);
-  //   return false;
+    return this.authenticationService.isLoggedIn();
   }
 }
