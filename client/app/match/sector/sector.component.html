@@ -1,92 +1,89 @@
-<div class="row">
+<div class="container">
+  <navpanel section="3"></navpanel>
+  <div class="row">
+
     <div class="col-xs-12 matchData">
-        <h4 class="col-xs-4">{{match.date | date:'dd MMMM y, hh:mm'}}</h4>
-        <h4 class="col-xs-4">{{match.headline}}</h4>
-        <h4 class="col-xs-4">{{addresses[match.stadiumName]}}</h4>
+      <h4 class="col-xs-4">{{match?.date | date:'dd MMMM y, hh:mm'}}</h4>
+      <h4 class="col-xs-4">{{match?.headline}}</h4>
+      <h4 class="col-xs-4">{{addresses[match?.stadiumName]}}</h4>
     </div>
     <div class="col-xs-12" *ngIf="sector">
-        <p style="text-align: center; font-size: large">Выбор места ( {{sector.name}} Сектор) - {{sectorPrice}}
-            грн.</p>
+      <p style="text-align: center; font-size: large">Выбор места ( {{sector.name}} Сектор) - {{sectorPrice}}
+        грн.</p>
     </div>
     <div class="row rowPadding" *ngIf="sector">
-        <!--//@TODO need compolent-->
-        <div class="col-lg-12 col12Padding">
-            <div class="col-xs-1 rowNames">
-                <ul class="liststyle">
-                    <li *ngFor="let row of sector.rows" [ngClass]="{'rowdivider': firstUpperRow == row.name}">
-                        <div class="txt">{{rowRow}} {{row.name}}</div>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-xs-11 seatsMargin">
-                <ul class="liststyle">
-                    <li *ngFor="let row of sector.rows" [ngClass]="{'rowdivider': firstUpperRow == row.name}">
-                        <div id="s{{sector.name}}{{row.name}}{{1+$index}}"
-                             [ngClass]="addClassByCheckSoldSeat('s'+sector.name+'r'+row.name+'st'+seat)"
-                             *ngFor="let seat of makeArrayFromNumber(row.seats)"
-                             (click)="toggleSeat('s'+sector.name+'r'+row.name+'st'+seat)"
-                             tooltip="<span>Трибуна: <b>{{tribuneName}} {{sector.name}}</b><br />
-                             Ряд: <b>{{row.name}}</b><br />Место: <b>{{seat}}</b></span>"
-                        >
-                        </div>
-                    </li>
-                </ul>
-            </div>
+      <!--//@TODO need compolent-->
+      <div class="col-lg-12 col12Padding">
+        <div class="col-xs-1 rowNames">
+          <ul class="liststyle">
+            <li *ngFor="let row of sector.rows" [ngClass]="{'rowdivider': firstUpperRow == row.name}">
+              <div class="txt">{{rowRow}} {{row.name}}</div>
+            </li>
+          </ul>
         </div>
+        <div class="col-xs-11 seatsMargin">
+          <ul class="liststyle">
+            <li *ngFor="let row of sector.rows" [ngClass]="{'rowdivider': firstUpperRow == row.name}">
+              <div id="s{{sector.name}}{{row.name}}{{1+$index}}"
+                   [ngClass]="addClassByCheckSoldSeat('s'+sector.name+'r'+row.name+'st'+seat)"
+                   *ngFor="let seat of makeArrayFromNumber(row.seats)"
+                   (click)="toggleSeat('s'+sector.name+'r'+row.name+'st'+seat)"
+                   tooltip="<span>Трибуна: <b>{{tribuneName}} {{sector.name}}</b><br />
+                             Ряд: <b>{{row.name}}</b><br />Место: <b>{{seat}}</b></span>"
+              >
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
     <div class="col-sm-12">
-        <div class="gradientSeats"></div>
+      <div class="gradientSeats"></div>
     </div>
-</div>
-<div class="cardBlock container text-center">
+  </div>
+  <div class="cardBlock container text-center">
     <div class="row row-centered">
-        <div class="col-xs-9 col-centered col-fixed">
-            <div>
-                <!--<p [hidden]="isReserveSuccess">-->
-                <!--<strong>Время резерва окончилось и билет был кем-то выбран для покупки.</strong><br/>-->
-                <!--</p>-->
-                <div>
-                    <app-details [seats]="seats" (onDelete)="updateSeatsData()"></app-details>
-                </div>
-            </div>
+      <div class="col-xs-9 col-centered col-fixed">
+        <div>
+          <!--<p [hidden]="isReserveSuccess">-->
+          <!--<strong>Время резерва окончилось и билет был кем-то выбран для покупки.</strong><br/>-->
+          <!--</p>-->
+          <div>
+            <app-details [seats]="seats" (onDelete)="updateSeatsData()"></app-details>
+          </div>
         </div>
-        <div class="colPadding col-xs-3 col-centered col-fixed">
-            <div>
-                <div>
-                    <div [hidden]=true>
-                        <a routerLink="checkout" class="btn btn-info">Оформить заказ</a>
-                    </div>
-                    <div>
-                        <a class="btn btn-primary btn-block" routerLink="/checkout">Оплатить</a>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="colPadding col-xs-3 col-centered col-fixed">
+        <div *ngIf="seats">
+          <a class="btn btn-primary btn-block" routerLink="/checkout">Оплатить</a>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 
-<div class="col-sm-12">
-    <blockquote [hidden]="!isSkybox()">
-        <strong>Корпоративные ложи Skybox. </strong><br><br>
-        <p>Лучшие места для просмотра матчей команды «Металлист 1925»!</p>
+  <div class="col-sm-12">
+    <blockquote *ngIf="isSkybox()">
+      <strong>Корпоративные ложи Skybox. </strong><br><br>
+      <p>Лучшие места для просмотра матчей команды «Металлист 1925»!</p>
 
-        <p>Корпоративные ложи Skybox-современные и комфортабельные ложи для VIP-персон, вместимостью от 11 до 20 мест,
-            расположенные на 4 уровне Западной трибуны стадиона «Металлист».</p>
-        <p>Стоимость аренды одного места на одном матче - <strong>{{sectorPrice}} грн.</strong></p>
-        <p>К вашим услугам :</p>
-        <ul>
-            <li>комфортабельные современные помещения с отдельным VIP входом и индивидуальной террасой,</li>
-            <li>бесшумный лифт на этаж вместимостью до 12 человек (Schindler),</li>
-            <li>специально разработанные мягкие кресла для удобного просмотра матча,</li>
-            <li>центральное расположение на комфортной для просмотра высоте,</li>
-            <li>панорамный вид на поле,</li>
-            <li>программка к матчу,</li>
-            <li>персональный официант непосредственно в ложе,</li>
-            <li>фуршетное меню (алкогольные напитки не включены) премиум-класса за час до начала матча и в перерыве
-                между
-                таймами,
-            </li>
-            <li>место на VIP парковке Р-1.</li>
-        </ul>
+      <p>Корпоративные ложи Skybox-современные и комфортабельные ложи для VIP-персон, вместимостью от 11 до 20 мест,
+        расположенные на 4 уровне Западной трибуны стадиона «Металлист».</p>
+      <p>Стоимость аренды одного места на одном матче - <strong>{{sectorPrice}} грн.</strong></p>
+      <p>К вашим услугам :</p>
+      <ul>
+        <li>комфортабельные современные помещения с отдельным VIP входом и индивидуальной террасой,</li>
+        <li>бесшумный лифт на этаж вместимостью до 12 человек (Schindler),</li>
+        <li>специально разработанные мягкие кресла для удобного просмотра матча,</li>
+        <li>центральное расположение на комфортной для просмотра высоте,</li>
+        <li>панорамный вид на поле,</li>
+        <li>программка к матчу,</li>
+        <li>персональный официант непосредственно в ложе,</li>
+        <li>фуршетное меню (алкогольные напитки не включены) премиум-класса за час до начала матча и в перерыве
+          между
+          таймами,
+        </li>
+        <li>место на VIP парковке Р-1.</li>
+      </ul>
     </blockquote>
+  </div>
 </div>

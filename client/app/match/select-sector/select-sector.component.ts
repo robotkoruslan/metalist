@@ -2,6 +2,8 @@ import { Component, OnInit, Input  } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatchService } from '../../services/match.service';
 
+import {SharedDataService} from "../../services/shared-data.service";
+
 @Component({
   selector: 'app-select-sector',
   templateUrl: './select-sector.component.html',
@@ -9,43 +11,20 @@ import { MatchService } from '../../services/match.service';
 })
 export class SelectSectorComponent implements OnInit {
 
-  masterName: string;
   matchId: string;
   priceSchema: any;
   match: any;
 
-  constructor(private route: ActivatedRoute, private matchService: MatchService, private router: Router) {
-    // this.route.params.subscribe(params => console.log('-- constructor SelectSectorComponent ', params.matchId));
-    this.route.params.subscribe(params => this.matchId = params.matchId);
-    // this.route.params.pluck('matchId').subscribe(matchId => console.log('MatchComponent 1 ',matchId));
+  constructor(private router: Router, private dataService: SharedDataService) {
   }
 
   ngOnInit() {
-
-    // console.log(' -- 0 ngOnInit SelectSectorComponent', this.matchId);
-
-    this.matchService.fetchMatch(this.matchId)
-      .subscribe((res) => {
-        this.match = res;
-        this.priceSchema = this.match.priceSchema.priceSchema;
-        // console.log('-- 1 ngOnInit SelectSectorComponent this.priceSchema ', this.priceSchema);
-      });
+    this.dataService.getData().subscribe(data => {
+      this.match = data;
+      this.priceSchema = this.match.priceSchema.priceSchema;
+    })
   }
 
-  goToSector(sector) {
-    // this.router.navigate(['login']);
-    // this.router.navigate(['register']);
-
-    this.router.navigate(['sectors', this.matchId, sector.tribune, sector.sector],
-      // {
-      //   queryParams: {
-      //     'tribuneId': sector.tribune,
-      //     'sectorId': sector.sector
-      //   }
-      // }
-    );
-
-    console.log('goToSector', sector);
-  }
-
+  goToSector = (sector) =>
+    this.router.navigate(['sectors', this.match['_id'], sector.tribune, sector.sector]);
 }

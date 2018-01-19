@@ -1,8 +1,7 @@
 <div class="container">
-  <app-navpanel></app-navpanel>
+  <navpanel section="2"></navpanel>
   <div class="row">
-    <app-match-details match="match"></app-match-details>
+    <app-match-details [matchDetails]="match"></app-match-details>
   </div>
-  <!--<div class="gradientSeats"></div>-->
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </div>

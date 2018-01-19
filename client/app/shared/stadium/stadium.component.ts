@@ -1,7 +1,6 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import {UtilService} from "../../services/util.service";
 
-
 @Component({
   selector: 'app-stadium',
   templateUrl: './stadium.component.html',
@@ -12,8 +11,6 @@ export class StadiumComponent implements OnChanges {
   @Input() priceSchema: any;
   @Output() onSectorSelect = new EventEmitter<any>();
 
-
-  prices: any = [];
   stadiumName: any = {};
   defaultPriceColor: any = {color : '#808080' };
 
@@ -47,7 +44,6 @@ export class StadiumComponent implements OnChanges {
   }
 
   onSectorClick($event, tribuneName, sectorNumber) {
-    console.log('onSectorClick', tribuneName, sectorNumber);
     const price = this.getPriceBySector(tribuneName, sectorNumber, this.priceSchema);
     const increased = {
       price: price,

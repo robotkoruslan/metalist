@@ -37,12 +37,12 @@ import { RecoveryComponent } from './auth/recovery/recovery.component';
 import { OauthButtonComponent } from './auth/oauth-buttons/oauth-buttons.component'
 import { SettingComponent } from './auth/setting/setting.component';
 import { MatchDetailsComponent } from './match/match-details/match-details.component';
-import { NavpanelComponent } from './match/navpanel/navpanel.component';
 import { SectorComponent } from './match/sector/sector.component';
 import { SelectSectorComponent } from './match/select-sector/select-sector.component';
 import { SummaryComponent } from './cart/summary/summary.component';
 import { DetailsComponent } from './cart/details/details.component';
 import { ConfirmEmailFormComponent } from './checkout/confirm-email-form/confirm-email-form';
+import { NavpanelComponent} from "./navpanel/navpanel.component";
 
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';

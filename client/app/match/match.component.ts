@@ -1,23 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {Match} from "../model/match.interface";
+import {MatchService} from "../services/match.service";
+import {SharedDataService} from "../services/shared-data.service";
 
 @Component({
   selector: 'app-match',
   templateUrl: './match.component.html',
-  styleUrls: ['./match.component.css']
+  styleUrls: ['./match.component.css'],
+  providers: [SharedDataService]
 })
 export class MatchComponent implements OnInit {
 
   matchId: string;
+  match: Match;
 
-  constructor(private route: ActivatedRoute) {
-    this.route.params.subscribe(params => console.log('MatchComponent 0 ', params.matchId));
+  constructor(
+    private route: ActivatedRoute,
+    private dataService: SharedDataService,
+    private matchService: MatchService
+  ) {
     this.route.params.subscribe(params => this.matchId = params.matchId);
-    // this.route.params.pluck('matchId').subscribe(matchId => console.log('MatchComponent 1 ',matchId));
   }
-  // constructor() { }
 
   ngOnInit() {
+    this.matchService.fetchMatch(this.matchId)
+      .subscribe(
+        result => {
+          this.dataService.updateData(result);
+          this.match = result;
+        },
+        err => console.log(err)
+      )
   }
-
 }
