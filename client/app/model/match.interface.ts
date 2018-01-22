@@ -6,4 +6,5 @@ export interface Match {
   poster: string,
   priceSchema: any,
   info: string,
+  date: string
 }

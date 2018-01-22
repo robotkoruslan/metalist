@@ -9,26 +9,30 @@ import {CartService} from "../../services/cart.service";
 export class SummaryComponent implements OnInit {
   @Input() isHeader: boolean;
   cart: any;
-  constructor(private cartService: CartService) { }
 
-  ngOnInit() {
+  constructor(private cartService: CartService) {
   }
 
+  ngOnInit() {
+    this.getCart();
+  }
+
+  getCart = () => this.cartService.getCart()
+    .subscribe(
+      result => this.cart = result
+    )
+
   getPrice() {
-    if (this.isCartLoaded()) {
-      return this.cart.seats.reduce((price, seat) => {
+    const seats = this.getSeats();
+    if (seats) {
+      return seats.reduce((price, seat) => {
         return price + seat.price;
       }, 0);
     }
   }
 
-  getSize() {
-    return this.cartService.getMyCartSize();
-  }
+  getSize = () => this.cartService.getMyCartSize();
 
-  isCartLoaded() {
-    this.cart = this.cartService.getMyCart();
-    return this.cart.seats;
-  }
+  getSeats = () => this.cartService.getMyCart().seats;
 
 }

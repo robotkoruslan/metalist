@@ -8,6 +8,7 @@ import {TicketService} from "../../services/ticket.service";
 import {Sector} from "../../model/sector.interface";
 import {Seat} from "../../model/seat.interface";
 import {PriceSchema} from "../../model/price-schema.interface";
+import {Match} from "../../model/match.interface";
 
 interface SelectedSeat {
   slug: string,
@@ -22,7 +23,7 @@ interface SelectedSeat {
 
 export class SectorComponent implements OnInit {
 
-  match:any = {};
+  match: Match;
   sector:Sector;
   seats:Seat[];
   // hasRoleCashier = Auth.hasRole('cashier');
