@@ -3,10 +3,10 @@ import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 
 import { PrintTicketService } from '../../services/print-ticket.service';
 import { TicketService } from '../../services/ticket.service';
+import {Ticket} from "../../model/ticket.interface";
+
 // import * as moment from "moment";
 // import _date = moment.unitOfTime._date;
-
-
 
 @Component({
   selector: 'app-last-tickets',
@@ -16,9 +16,9 @@ import { TicketService } from '../../services/ticket.service';
 export class LastTicketsComponent implements OnInit {
 
   statistics: any = [];
-  lastTickets: any = [];
-  ticket: any = [];
-  currentData: Date = new Date();
+  lastTickets: Ticket[] = [];
+  tickets: Ticket[] = [];
+  date: Date = new Date();
 
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.getStatistics({
@@ -27,49 +27,34 @@ export class LastTicketsComponent implements OnInit {
     });
   }
 
-    constructor( private ticketsService: TicketService) {
-  }
+  constructor(
+    private ticketsService: TicketService,
+    private printTicketService: PrintTicketService
+  ) {}
 
   ngOnInit() {
-    console.log('ngOnInit');
     this.getStatistics({
-      date: this.currentData.toISOString(),
+      date: this.date.toISOString(),
       metod: 'event'
     });
   }
 
   getStatistics(date) {
-    this.ticketsService.getStatistics(date).subscribe(statistic => {
-      this.statistics = statistic;
+    this.ticketsService.getStatistics(date)
+      .subscribe(statistic => {
+        this.statistics = statistic;
     });
   }
-  // getStatistics(date) {
-  //   console.log('LastTicketsComponent getStatistics');
-  //   this.statistics = this.ticketsService.getStatistics(date);
-  //   console.log('LastTicketsComponent this.statistics', this.statistics);
-  // }
 
-  // prints(stat) {
-  //   let blank = angular.copy(stat);
-  //   this.ticket = [];
-  //   let seat = {};
-  //   seat.tribune = blank.tribune;
-  //   seat.sector = blank.sector;
-  //   seat.row = blank.row;
-  //   seat.seat = blank.seat;
-  //   blank.seat = seat;
-  //   this.ticket.push(blank);
-  // }
+  prints = ({tribune, sector, row, seat, amount, accessCode}) =>
+    this.printTicketService.print([{amount, accessCode, seat: {tribune, sector, row, seat}}]);
 
-  // removeTicket(ticketId) {
-  //   return this.ticketsService.removeTicket(ticketId)
-  //     .then(() => this.getStatistics({date: this.currentData, metod: 'event'}))
-  // }
-
-  // ticketRendering(){
-  //   this.printTicketService.print();
-  // }
-
-
+  removeTicket(ticketId) {
+    return this.ticketsService.removeTicket(ticketId)
+      .subscribe(
+        () => this.getStatistics({date: this.date, metod: 'event'}),
+        err => console.log(err)
+      )
+  }
 
 }

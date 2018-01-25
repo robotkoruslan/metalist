@@ -24,18 +24,15 @@ export class TicketService {
   }
 
   getStatistics(data): Observable<any> {
-    console.log('getStatistics', data);
     return this.http.get('/api/tickets/statistics', {params: {date: data.date, metod: data.metod}})
-      .map(res => res);
   }
   // getStatistics(data): Observable<any> {
   //   return this.http.get('/api/posts')
   //     .map(res => res.json());
   // }
 
-  // removeTicket(ticketId): Observable<any> {
-  //   return this.http.delete('/api/tickets/', ticketId)
-  //     .map((response: Response) => response.json());
-  // }
+  removeTicket(ticketId): Observable<any> {
+    return this.http.delete(`/api/tickets/${ticketId}`);
+  }
 
 }

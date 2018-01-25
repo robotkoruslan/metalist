@@ -9,6 +9,9 @@ import {Sector} from "../../model/sector.interface";
 import {Seat} from "../../model/seat.interface";
 import {PriceSchema} from "../../model/price-schema.interface";
 import {Match} from "../../model/match.interface";
+import {AuthService} from '../../services/auth.service';
+import {PrintTicketService} from "../../services/print-ticket.service";
+import {Ticket} from "../../model/ticket.interface";
 
 interface SelectedSeat {
   slug: string,
@@ -28,7 +31,7 @@ export class SectorComponent implements OnInit {
   seats:Seat[];
   // hasRoleCashier = Auth.hasRole('cashier');
   // printTickets: any = [];
-  tickets:any = [];
+  tickets:Ticket[] = [];
   reservedSeats:Seat[] = [];
   selectedSeats:SelectedSeat[] = [];
   priceSchema:PriceSchema|{} = {};
@@ -47,8 +50,15 @@ export class SectorComponent implements OnInit {
     metalist: 'Стадион Металлист. Ул. Плехановская, 65, станция метро Спортивная / Метростроителей',
   };
 
-  constructor(private priceSchemaService:PriceSchemaService, private cartService:CartService,
-              private route:ActivatedRoute, private matchService:MatchService, private ticketsService:TicketService) {
+  constructor(
+    private priceSchemaService:PriceSchemaService,
+    private cartService:CartService,
+    private route:ActivatedRoute,
+    private matchService:MatchService,
+    private ticketsService:TicketService,
+    private authService:AuthService,
+    private printTicketService: PrintTicketService,
+  ) {
     this.route.params.subscribe((params: any) => this.matchId = params.matchId);
     this.route.params.subscribe((params: any) => this.sectorId = params.sectorId);
     this.route.params.subscribe((params: any) => this.tribuneName = params.tribuneId);
@@ -201,29 +211,17 @@ export class SectorComponent implements OnInit {
     return this.sector ? skyBoxes.includes(this.sector.name) : false;
   }
 
-  // pay() {
-  //   this.cartService.pay()
-  //     .then((order) => {
-  //       this.tickets = order.tickets;
-  //       console.log('order', order);
-  //       this.cartService.loadCart()
-  //         .then(() => {
-  //           this.printTickets = [];
-  //           this.printTickets = angular.copy(this.tickets);
-  //           this.updateReservedTickets();
-  //         });
-  //     })
-  //     .catch((err) => {
-  //       if (err.status === 406) {
-  //         this.isReserveSuccess = true;
-  //       } else {
-  //         this.message = 'err';
-  //       }
-  //     });
-  // }
+  isCashier = () => this.authService.isCashier();
 
-  // ticketRendering(){
-  //   this.printTicketService.print();
-  // }
+  pay() {
+    this.cartService.pay()
+      .subscribe(
+        order => {
+          this.printTicketService.print(order.tickets)
+        },
+        err => console.log(err)
+      )
+
+  }
 
 }

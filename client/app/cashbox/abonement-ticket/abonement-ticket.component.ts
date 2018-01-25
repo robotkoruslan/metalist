@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { CashboxService } from '../cashbox.service';
-import { SeasonTicketService } from '../../services/season-ticket.service';
+import {Component, OnInit} from '@angular/core';
+import {CashboxService} from '../cashbox.service';
+import {SeasonTicketService} from '../../services/season-ticket.service';
+import {Ticket} from '../../model/ticket.interface';
 
 @Component({
   selector: 'app-abonement-ticket',
@@ -10,51 +11,71 @@ import { SeasonTicketService } from '../../services/season-ticket.service';
 export class AbonementTicketComponent implements OnInit {
 
   accessCode: string;
-  errorMessageSeat: string;
-  seasonTickets: any = {};
-  preSellTicket: any = {};
-  lastTickets: any = [];
-  ticket: any = [];
-  currentData: Date = new Date();
+  seatMessage: string;
+  abonementMessage: string;
+  seasonTickets: Ticket[];
+  preSellTicket;
+  lastTickets: Ticket[];
+  ticket: Ticket[];
 
-  constructor(private cashboxService: CashboxService, private seasonTicketService: SeasonTicketService) { }
+  constructor(private cashboxService: CashboxService, private seasonTicketService: SeasonTicketService) {
+  }
 
   ngOnInit() {
+    this.loadSeasonTickets();
   }
 
   loadSeasonTickets() {
-    // this.seasonTicketService.loadSeasonTickets().then(response => this.seasonTickets = response.data);
-    this.errorMessageSeat = '';
+    this.seasonTicketService.loadSeasonTickets()
+      .subscribe(
+        response => this.seasonTickets = response,
+        err => console.log(err)
+      );
+    this.seatMessage = '';
   }
 
-  deleteTicket($event) {
-    this.seasonTicketService.deleteSeasonTicket($event.slug);
-      // .then(() => {
-      //   this.loadSeasonTickets();
-      // });
+  handleDeleteTicket(ticket) {
+    this.seasonTicketService.deleteSeasonTicket(ticket.slug)
+      .subscribe(
+        result => this.loadSeasonTickets(),
+        err => {
+          console.log(err);
+          this.abonementMessage = 'Что-то пошло не так, не удается удалить абонемент.';
+        }
+      )
   }
 
   regTicket(accessCode) {
-    this.cashboxService.getTicketByAccessCode(accessCode);
-      // .then(response => {
-      //   this.preSellTicket = response;
-      // });
+    this.seatMessage = '';
+    this.cashboxService.getTicketByAccessCode(accessCode)
+      .subscribe(
+        (response) => this.preSellTicket = response,
+        (err) => console.log(err)
+      )
+
   }
 
   createSeasonTicket() {
-    const slug = 's' + this.preSellTicket.seat.sector + 'r' + this.preSellTicket.seat.row + 'st' + this.preSellTicket.seat.seat;
+    this.seatMessage = '';
+    const {seat} = this.preSellTicket;
+    const slug = `s${seat.sector}r${seat.row}st${seat.seat}`;
     const ticket = this.preSellTicket.seat;
-    // ticket.reservedUntil = this.endSeasonDate;
     ticket.accessCode = this.preSellTicket.accessCode;
-    this.seasonTicketService.createSeasonTicket(ticket, slug);
-      // .then(() => {
-      //   this.cashboxService.setTicketUsed(this.preSellTicket._id)
-      // })
-      // .catch((err) => {
-      //   if (err.status === 409) {
-      //     this.errorMessageSeat = 'Это место уже занято.';
-      //   }
-      // });
+    this.seasonTicketService.createSeasonTicket(ticket, slug)
+      .subscribe(
+        () => {
+          this.seatMessage = 'Абонемент было успешно зарегистрирован.';
+          this.cashboxService.setTicketUsed(this.preSellTicket._id)
+            .subscribe();
+          this.preSellTicket = null;
+        },
+        err => {
+          this.seatMessage = 'Что-то пошло не так, не удается зарегистрировать абонемент.';
+          if (err.status === 409) {
+            this.seatMessage = 'Это место уже занято.';
+          }
+        }
+      )
   }
 
 }

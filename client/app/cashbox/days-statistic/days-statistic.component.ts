@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
-import { TicketService } from '../../services/ticket.service';
+import {TicketService} from '../../services/ticket.service';
 
 @Component({
   selector: 'app-days-statistic',
@@ -10,9 +10,7 @@ import { TicketService } from '../../services/ticket.service';
 export class DaysStatisticComponent implements OnInit {
 
   statistics: any = [];
-  lastTickets: any = [];
-  ticket: any = [];
-  currentData: Date = new Date();
+  date: Date = new Date();
 
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.getStatistics({
@@ -21,12 +19,13 @@ export class DaysStatisticComponent implements OnInit {
     });
   }
 
-  constructor( private ticketsService: TicketService) { }
+  constructor(private ticketsService: TicketService) {
+  }
 
   ngOnInit() {
     console.log('ngOnInit');
     this.getStatistics({
-      date: this.currentData.toISOString(),
+      date: this.date.toISOString(),
       metod: 'day'
     });
   }
@@ -37,11 +36,11 @@ export class DaysStatisticComponent implements OnInit {
     });
   }
 
-  isStatistics(){
+  isStatistics() {
     return this.statistics;
   }
 
-  getAmount(){
+  getAmount() {
     return this.statistics.reduce((sum, current) => {
       return sum + current.sum;
     }, 0);

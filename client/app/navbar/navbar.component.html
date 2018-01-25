@@ -1,7 +1,7 @@
 <div class="navbar navbar-inverse navbar-static-top">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" ng-click="isCollapsed = !isCollapsed" class="navbar-toggle">
+      <button type="button" (click)="isCollapsed = !isCollapsed" class="navbar-toggle">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -10,19 +10,22 @@
       <a routerLink="" class="navbar-brand">METALIST 1925 TICKETS</a>
     </div>
     <div id="navbar-main" uib-collapse="isCollapsed" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-
-        <!--<li ng-repeat="item in menu" ui-sref-active="active"><a ui-sref="{{item.state}}">{{item.title}}</a></li>-->
-        <li *ngIf="isLoggedIn()"><a routerLinkActive="active" routerLink="tickets">Мои билеты</a></li>
-        <li *ngIf="!isAdmin()" ><a routerLinkActive="active" routerLink="admin">Admin1</a></li>
-        <li *ngIf="isAdmin()" ><a routerLinkActive="active" routerLink="admin">Admin</a></li>
-        <li *ngIf="isAdmin()"><a routerLinkActive="active" routerLink="cashbox">Касса</a></li>
+      <ul class="nav navbar-nav" *ngIf="isLoggedIn()">
+        <li>
+          <a routerLinkActive="active" routerLink="tickets">Мои билеты</a>
+        </li>
+        <li *ngIf="isAdmin()" >
+          <a routerLinkActive="active" routerLink="admin">Admin</a>
+        </li>
+        <li *ngIf="isAdmin() || isCashier()">
+          <a routerLinkActive="active" routerLink="cashbox">Касса</a>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li *ngIf="!isLoggedIn()"><a routerLinkActive="active" routerLink="register">РЕГИСТРАЦИЯ</a></li>
         <li *ngIf="!isLoggedIn()"><a routerLinkActive="active" routerLink="login">ВХОД</a></li>
         <li *ngIf="isLoggedIn()">
-          <p class="navbar-text">Привет {{ currentUser.name }}</p>
+          <p class="navbar-text">Привет {{ currentUser?.name }}</p>
         </li>
         <li *ngIf="isLoggedIn()"><a routerLinkActive="active" routerLink="settings"><span
           class="glyphicon glyphicon-cog"></span></a></li>

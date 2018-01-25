@@ -54,8 +54,11 @@
         </div>
       </div>
       <div class="colPadding col-xs-3 col-centered col-fixed">
-        <div *ngIf="seats">
+        <div *ngIf="seats && !isCashier()">
           <a class="btn btn-primary btn-block" routerLink="/checkout">Оплатить</a>
+        </div>
+        <div *ngIf="isCashier()">
+          <button class="btn btn-primary btn-block" (click)="pay()">Распечатать</button>
         </div>
       </div>
     </div>
