@@ -7,6 +7,7 @@ all.log
 .env
 mongo_data
 server/config/local.env.js
+server/config/environment/development.js
 images/teamLogos/
 !images/teamLogos/.gitkeep
 

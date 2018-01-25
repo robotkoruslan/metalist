@@ -3,4 +3,6 @@ export interface User {
   password: string,
   name?: string,
   subscribeNews?: boolean,
+  role: string,
+  id: string
 }

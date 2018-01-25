@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {CookieService} from 'angular2-cookie/services/cookies.service';
+import {Order} from '../model/order.interface';
 
 @Injectable()
 export class CartService {
@@ -82,14 +83,7 @@ export class CartService {
   pay() {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     const options = {headers: headers};
-    return this.http.post('/api/orders/pay-cashier', options)
-      .map((response: Response) => {
-        if (response) {
-          return true;
-        } else {
-          return false;
-        }
-      });
+    return this.http.post<Order>('/api/orders/pay-cashier', options)
   }
 
 }

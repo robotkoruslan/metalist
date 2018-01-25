@@ -1,7 +1,7 @@
 <hr>
 <mat-form-field>
-  <input matInput [matDatepicker]="picker" placeholder="Input & change events"
-         (dateInput)="addEvent('input', $event)">
+  <input matInput [matDatepicker]="picker" placeholder="Введите дату"
+         (dateInput)="addEvent('input', $event)" [ngModel]="date">
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>
@@ -17,8 +17,8 @@
   <!--<tr ng-repeat="stat in statistics | orderBy: '-price'">-->
   <tr *ngFor="let stat of statistics;">
     <td>{{stat.price}}</td>
-    <td ng-bind="stat.count"></td>
-    <td ng-bind="stat.sum"></td>
+    <td>{{stat.count}}</td>
+    <td>{{stat.sum}}</td>
   </tr>
   <tr *ngIf="isStatistics()">
     <td></td>

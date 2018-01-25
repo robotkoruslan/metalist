@@ -9,15 +9,11 @@ export class CashboxService {
   constructor(private http: HttpClient) { }
 
   getTicketByAccessCode(accessCode) {
-    return this.http.get('api/tickets/abonticket/' + accessCode)
-      .map((response: Response) => response)
-      .subscribe( (res) => res);
+    return this.http.get('api/tickets/abonticket/' + accessCode);
   }
 
   setTicketUsed(ticketId) {
-    return this.http.get('api/tickets/useabonticket/' + ticketId)
-      .map((response: Response) => response)
-      .subscribe( (res) => res);
+    return this.http.get('api/tickets/useabonticket/' + ticketId);
   }
 
 }

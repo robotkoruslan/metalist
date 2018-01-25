@@ -3,12 +3,13 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {CookieService} from 'angular2-cookie/services/cookies.service';
-import decode from 'jwt-decode';
+import {User} from '../model/user.interface';
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Injectable()
 export class AuthService {
-  user:any = {};
-  public token:string;
+  user = new BehaviorSubject(null);
+  token:string;
   options = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
   constructor(private http:HttpClient, private _cookieService:CookieService) {
   }
@@ -20,110 +21,50 @@ export class AuthService {
         if (token) {
           this.token = token;
           this._cookieService.put('token', token);
-          this.getUser();
           return true;
         } else {
           return false;
         }
       });
   }
-
-
-  // getUser() {
-  //   const promise = new Promise((resolve, reject) => {
-  //     this.http.get('/api/users/me')
-  //       .toPromise()
-  //       .then(
-  //         response => { // Success
-  //           console.log('----getUser then');
-  //           this.user = response.json();
-  //           resolve();
-  //         }
-  //       );
-  //   });
-  //   return promise;
-  // }
 
   logout():void {
     this.token = null;
     this._cookieService.remove('token');
+    this.user.next(null);
   }
 
   getUser() {
     return this.http.get('/api/users/me')
-      .map((response:Response) => {
+      .map((response: User) => {
         if (response) {
-          this.user = response;
-          return true;
+          this.user.next(response);
+          return response;
         } else {
-          return false;
+          this.user.next(null);
+          return null;
         }
       });
   }
 
-  getCurrentUser() {
-    // console.log('getCurrentUser   ', this.user);
-    return this.user;
-
-  }
-
-  hasRole() {
-    return this.getCurrentUser().role;
-  }
+  hasRole = () => this.user.getValue() && this.user.getValue().role;
 
   isAdmin() {
     return this.hasRole() === 'admin';
   }
 
-
   isModerator() {
     return this.hasRole() === 'moderator';
   }
 
-
   isCashier() {
     return this.hasRole() === 'cashier';
-  }
-
-  // isLoggedIn() {
-  //   console.log(' --- isLoggedIn');
-  //   return this.isAuthenticated();
-  //     // .then(() => true);
-  // }
-
-  isLoggedIn() {
-    if (!this.user.name) {
-      const token = this._cookieService.get('token');
-      if (token) {
-        return this.getUser();
-      } else {
-        return false;
-      }
-    } else {
-      return true;
-    }
   }
 
   generateTemporaryPassword = (email): Observable<any> => {
     return this.http.put('/api/users/temporary-password', {email}, this.options)
   };
 
-  getToken = () => this._cookieService.get('token');
+  isLoggedIn = () => !!(this._cookieService.get('token'));
+
 }
-
-
-// import { Injectable } from '@angular/core';
-//
-// @Injectable()
-// export class MessageService {
-//   messages: string[] = [];
-//
-//   add(message: string) {
-//     console.log('MessageService add');
-//     this.messages.push(message);
-//   }
-//
-//   clear() {
-//     this.messages.length = 0;
-//   }
-// }
