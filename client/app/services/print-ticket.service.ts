@@ -42,7 +42,7 @@ export class PrintTicketService {
                   body {
                     font-size: 0.5cm;
                   }
-      
+                
                   img {
                     height: 50px;
                     width: auto;
@@ -63,6 +63,7 @@ export class PrintTicketService {
               </style>
               <body onload="window.print(); window.close();">
                 ${tickets.map((ticket, index) => this.generateContent(ticket, response[index].img)).join('<br>')}
+              </body>  
             </html>
           `;
           win.document.write(content);
