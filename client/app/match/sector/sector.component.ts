@@ -217,7 +217,8 @@ export class SectorComponent implements OnInit {
     this.cartService.pay()
       .subscribe(
         order => {
-          this.printTicketService.print(order.tickets)
+          this.printTicketService.print(order.tickets);
+          this.updateSeatsData();
         },
         err => console.log(err)
       )

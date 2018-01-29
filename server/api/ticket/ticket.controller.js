@@ -163,7 +163,6 @@ export function getStatistics(req, res) {
 function dayStatistics(req, res) {
   return orderService.getStatistics(req.user.id, req.query.date )
     .then((order) => {
-      console.log(169, order);
     let tickets = [];
       return order.reduce((sum, current) => {
         return current.tickets.map(ticket => {
@@ -176,7 +175,6 @@ function dayStatistics(req, res) {
       }, 0), tickets;
   })
     .then((tickets) => {
-      console.log(182, tickets);
       let amounts = tickets.map(ticket => {
         return ticket.amount
       });
