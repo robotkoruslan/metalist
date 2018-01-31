@@ -70,8 +70,8 @@ export class CartService {
       });
   }
 
-  getOrderByPrivateId(privateId) {
-    return this.http.get('/api/orders/order/' + privateId);
+  getOrderByPrivateId(privateId): Observable<Order> {
+    return this.http.get<Order>('/api/orders/order/' + privateId);
   }
 
   checkout(): Observable<any> {

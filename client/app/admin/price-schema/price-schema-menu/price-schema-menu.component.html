@@ -2,7 +2,7 @@
   <label>Список схем</label>
   <ul class="list-group">
     <li class="list-group-item" *ngFor="let schema of priceSchemas">
-    <span class="badge" (click)="selectSchema(schema.priceSchema)">
+    <span class="badge" (click)="selectSchema(schema)">
       Edit
     </span>
       {{schema.priceSchema.name}} :

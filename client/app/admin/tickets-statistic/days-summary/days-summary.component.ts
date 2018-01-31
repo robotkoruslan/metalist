@@ -1,4 +1,5 @@
-import { Component, OnChanges } from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
+import sortBy from 'lodash/sortBy';
 
 @Component({
   selector: 'app-days-summary',
@@ -7,21 +8,16 @@ import { Component, OnChanges } from '@angular/core';
 })
 export class DaysSummaryComponent implements OnChanges {
 
-  statistics: any = [];
-  daysStatistics: any = [];
+  @Input() dayStatistics: any = [];
 
   constructor() { }
 
   ngOnChanges(changes) {
-    console.log('$onChanges', this.daysStatistics);
-    if (changes.daysStatistics) {
-      if (!this.daysStatistics.length) {
-        this.statistics = [];
-      }
-      if (this.daysStatistics.length) {
-        this.statistics = this.daysStatistics;
-      }
+    if (changes.dayStatistics.currentValue.length) {
+      this.dayStatistics = changes.dayStatistics.currentValue;
+    } else {
+      this.dayStatistics = [];
     }
   }
-
+  sortByPrice = (details) => sortBy(details, ['price'])
 }
