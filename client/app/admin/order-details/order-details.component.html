@@ -12,6 +12,6 @@
   </div>
 </div>
 <hr>
-<p *ngIf="message">{{message}}</p>
+<p [hidden]="!message">{{message}}</p>
 <p>Детали ордера:</p>
-<pre>{{order}}</pre>
+<pre>{{order | json}}</pre>

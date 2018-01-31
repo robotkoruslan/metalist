@@ -15,5 +15,6 @@ export class DeleteMatchComponent {
 
   handleClick() {
     this.deleteMatch.emit(this.matchId);
+    this.matchId = '';
   }
 }

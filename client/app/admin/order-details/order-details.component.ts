@@ -1,27 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
+import {Order} from '../../model/order.interface';
 
 @Component({
   selector: 'app-order-details',
   templateUrl: './order-details.component.html',
   styleUrls: ['./order-details.component.css']
 })
-export class OrderDetailsComponent implements OnInit {
+export class OrderDetailsComponent {
 
-  order: any;
+  order: Order;
   privateId: string;
   message: string;
 
   constructor(private cartService: CartService) { }
 
-  ngOnInit() {
-  }
-
   getOrder() {
-    this.order = {};
+    this.order = null;
     this.message = '';
-    // this.order = this.cartService.getOrderByPrivateId(this.privateId);
-    console.log('this.order', this.order);
+    this.cartService.getOrderByPrivateId(this.privateId)
+      .subscribe(
+        response => this.order = response,
+        err => this.message = 'Что-то пошло не так, не удается найти ордер',
+      )
   }
 
 }

@@ -1,4 +1,5 @@
-import { Component, OnChanges } from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
+import sortBy from 'lodash/sortBy';
 
 @Component({
   selector: 'app-events-summary',
@@ -6,23 +7,18 @@ import { Component, OnChanges } from '@angular/core';
   styleUrls: ['./events-summary.component.css']
 })
 export class EventsSummaryComponent implements OnChanges {
-
-  statistics: any = [];
-  eventsStatistics: any = [];
+  @Input() eventStatistics: any = [];
 
   constructor() { }
 
   ngOnChanges(changes) {
-    if (changes.eventsStatistics) {
-      this.eventsStatistics = { ...this.eventsStatistics};
-      if (!this.eventsStatistics.length) {
-        this.statistics = [];
-      }
-      if (this.eventsStatistics.length) {
-        this.eventsStatistics = { ...this.eventsStatistics};
-        this.statistics = { ...this.eventsStatistics};
-      }
+    if (changes.eventStatistics && changes.eventStatistics.currentValue.length) {
+      this.eventStatistics = changes.eventStatistics.currentValue.slice();
+    } else {
+      this.eventStatistics = [];
     }
   }
+
+  sortBySector = (details) => sortBy(details, ['sector'])
 
 }
