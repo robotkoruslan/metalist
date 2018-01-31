@@ -28,6 +28,8 @@ export class SummaryComponent implements OnInit {
       return seats.reduce((price, seat) => {
         return price + seat.price;
       }, 0);
+    } else {
+      return 0;
     }
   }
 

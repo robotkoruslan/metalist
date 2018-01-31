@@ -41,11 +41,14 @@ export class MatchEditorComponent implements OnInit {
       err => console.log(err)
     );
 
-  deleteMatch = (id:string) => this.matchEditorService.deleteMatch(id)
-    .subscribe(
-      () => this.prevMatches = this.prevMatches.filter(match => match.id !== id),
-      (err) => console.log('Something went wrong', err)
-    );
+  deleteMatch = (id:string) => {
+    this.message = '';
+    this.matchEditorService.deleteMatch(id)
+      .subscribe(
+        () => this.prevMatches = this.prevMatches.filter(match => match.id !== id),
+        (err) => this.message = 'Не удается удалить матч, что-то пошло не так.'
+      );
+  }
 
   saveMatch(match) {
     if (match.id) {
