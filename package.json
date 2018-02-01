@@ -121,6 +121,7 @@
     "file-loader": "^1.1.5",
     "html-webpack-plugin": "^2.29.0",
     "less-loader": "^4.0.5",
+    "postcss-custom-properties": "^6.2.0",
     "postcss-loader": "^1.3.3",
     "postcss-url": "^5.1.2",
     "raw-loader": "^0.5.1",
