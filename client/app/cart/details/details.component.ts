@@ -21,7 +21,7 @@ export class DetailsComponent implements OnInit {
   removeSeat(slug, matchId) {
     this.cartService.removeSeatFromCart(slug, matchId)
       .subscribe(
-        () => this.onDelete.emit(),
+        () => this.onDelete.emit(slug),
         error => console.log(error));
   }
 }

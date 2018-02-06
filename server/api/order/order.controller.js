@@ -60,7 +60,7 @@ export function liqpayRedirect(req, res) {
     .then(params => {
       if (params.status === 'success' || params.status === 'sandbox') {
         req.cookies.cart = '';
-        return res.redirect('/my/tickets');
+        return res.redirect('/tickets');
       } else {
         return res.redirect('/checkout');
       }

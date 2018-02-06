@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import {Ticket} from '../model/ticket.interface';
 
 @Injectable()
 export class TicketService {
@@ -13,9 +14,8 @@ export class TicketService {
       .map((response: Response) => response);
   }
 
-  getMyTickets() {
-    return this.http.get('api/tickets/my')
-      .map((response: Response) => response);
+  getMyTickets(): Observable<Ticket[]> {
+    return this.http.get<Ticket[]>('api/tickets/my');
   }
 
   getPendingStatus() {

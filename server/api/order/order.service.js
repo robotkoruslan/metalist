@@ -171,7 +171,6 @@ export function createOrderFromCartByCashier(cart, user) {
 
 ////////private function
 function handleSuccessPayment(order) {
-
   return Promise.all([
     User.findOne({_id: order.user.id}),
     createTicketsByOrder(order),

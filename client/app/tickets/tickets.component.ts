@@ -9,7 +9,6 @@ import { TicketService } from '../services/ticket.service';
 export class TicketsComponent implements OnInit {
 
   tickets: any = [];
-  isLoading: boolean = false;
 
   constructor(private ticketsService: TicketService) { }
 
@@ -36,10 +35,11 @@ export class TicketsComponent implements OnInit {
   // }
 
   getTickets() {
-    this.ticketsService.getMyTickets();
-      // .then(tickets => {
-      //   this.tickets = tickets;
-      // });
+    this.ticketsService.getMyTickets()
+      .subscribe(
+        response => this.tickets = response,
+        err => console.log(err)
+      );
   }
 
 }

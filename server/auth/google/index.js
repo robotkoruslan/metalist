@@ -13,11 +13,9 @@ router
             'profile',
             'email'
         ],
-        session: false
     }))
     .get('/callback', passport.authenticate('google', {
         failureRedirect: '/signup',
-        session: false
     }), setGoogleTokenCookie);
 
 export default router;

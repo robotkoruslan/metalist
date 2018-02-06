@@ -16,5 +16,5 @@ export class PriceSchemaMenuComponent {
   }
 
   selectSchema = (schema) => this.onSetSchema.emit({...schema.priceSchema, id: schema.id});
-
+  createSchema = (schema) => this.onSetSchema.emit(schema);
 }

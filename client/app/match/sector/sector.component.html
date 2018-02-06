@@ -49,16 +49,18 @@
           <!--<strong>Время резерва окончилось и билет был кем-то выбран для покупки.</strong><br/>-->
           <!--</p>-->
           <div>
-            <app-details [seats]="seats" (onDelete)="updateSeatsData()"></app-details>
+            <app-details [seats]="seats" (onDelete)="updateSeatsData($event)"></app-details>
           </div>
         </div>
       </div>
-      <div class="colPadding col-xs-3 col-centered col-fixed">
-        <div *ngIf="seats && !isCashier()">
-          <a class="btn btn-primary btn-block" routerLink="/checkout">Оплатить</a>
-        </div>
-        <div *ngIf="isCashier()">
-          <button class="btn btn-primary btn-block" (click)="pay()">Распечатать</button>
+      <div *ngIf="selectedSeats && selectedSeats.length" class="colPadding col-xs-3 col-centered col-fixed">
+        <div >
+          <button *ngIf="isCashier(); else notCashier" class="btn btn-primary btn-block" (click)="pay()">
+            Распечатать
+          </button>
+          <ng-template #notCashier>
+            <a class="btn btn-primary btn-block" routerLink="/checkout">Оплатить</a>
+          </ng-template>
         </div>
       </div>
     </div>
@@ -90,3 +92,7 @@
     </blockquote>
   </div>
 </div>
+
+<pre style="float: left">optimisticSeats: {{optimisticSeats | json}}</pre>
+
+
