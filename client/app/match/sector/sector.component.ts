@@ -1,22 +1,18 @@
-import {Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import { uniqBy, remove } from 'lodash';
 import {PriceSchemaService} from '../../services/price-schema.service';
 import {CartService} from '../../services/cart.service';
 import {MatchService} from '../../services/match.service';
 import {AppConstant} from '../../app.constant';
-import {TicketService} from "../../services/ticket.service";
-import {Sector} from "../../model/sector.interface";
-import {Seat} from "../../model/seat.interface";
-import {PriceSchema} from "../../model/price-schema.interface";
-import {Match} from "../../model/match.interface";
+import {TicketService} from '../../services/ticket.service';
+import {Sector} from '../../model/sector.interface';
+import {Seat} from '../../model/seat.interface';
+import {PriceSchema} from '../../model/price-schema.interface';
+import {Match} from '../../model/match.interface';
 import {AuthService} from '../../services/auth.service';
-import {PrintTicketService} from "../../services/print-ticket.service";
-import {Ticket} from "../../model/ticket.interface";
-
-interface SelectedSeat {
-  slug: string,
-  matchId: string
-}
+import {PrintTicketService} from '../../services/print-ticket.service';
+import {Ticket} from '../../model/ticket.interface';
 
 @Component({
   selector: 'app-sector',
@@ -27,22 +23,19 @@ interface SelectedSeat {
 export class SectorComponent implements OnInit {
 
   match: Match;
-  sector:Sector;
-  seats:Seat[];
-  // hasRoleCashier = Auth.hasRole('cashier');
-  // printTickets: any = [];
-  tickets:Ticket[] = [];
-  reservedSeats:Seat[] = [];
-  selectedSeats:SelectedSeat[] = [];
-  priceSchema:PriceSchema|{} = {};
-  // tribuneName: any = $stateParams.tribune;
-  sectorPrice:string = '';
-  rowRow:string = 'Ряд';
-  message:string = '';
-  matchId:string;
-  sectorId:string;
-  tribuneName:string;
-  slug:string;
+  sector: Sector;
+  tickets: Ticket[] = [];
+  reservedSeats: Seat[] = [];
+  selectedSeats: Seat[] = [];
+  optimisticSeats = [];
+  priceSchema: PriceSchema | {} = {};
+  sectorPrice: string = '';
+  rowRow: string = 'Ряд';
+  message: string = '';
+  matchId: string;
+  sectorId: string;
+  tribuneName: string;
+  slug: string;
   show = false;
   addresses = {
     solar: 'Стадион Солнечный. Пятихатки, Белгородское шоссе',
@@ -50,15 +43,13 @@ export class SectorComponent implements OnInit {
     metalist: 'Стадион Металлист. Ул. Плехановская, 65, станция метро Спортивная / Метростроителей',
   };
 
-  constructor(
-    private priceSchemaService:PriceSchemaService,
-    private cartService:CartService,
-    private route:ActivatedRoute,
-    private matchService:MatchService,
-    private ticketsService:TicketService,
-    private authService:AuthService,
-    private printTicketService: PrintTicketService,
-  ) {
+  constructor(private priceSchemaService: PriceSchemaService,
+              private cartService: CartService,
+              private route: ActivatedRoute,
+              private matchService: MatchService,
+              private ticketsService: TicketService,
+              private authService: AuthService,
+              private printTicketService: PrintTicketService,) {
     this.route.params.subscribe((params: any) => this.matchId = params.matchId);
     this.route.params.subscribe((params: any) => this.sectorId = params.sectorId);
     this.route.params.subscribe((params: any) => this.tribuneName = params.tribuneId);
@@ -70,7 +61,10 @@ export class SectorComponent implements OnInit {
     this.updateSeatsData();
   }
 
-  updateSeatsData = () => {
+  updateSeatsData = (slug?: string) => {
+    if (slug) {
+      this.toggleOptimisticSeats(slug, false);
+    }
     this.getReservedSeats();
     this.getSelectedSeats();
   }
@@ -101,22 +95,14 @@ export class SectorComponent implements OnInit {
 
     return this.ticketsService.fetchReservedSeats(matchId, sectorName)
       .subscribe(seats => {
-        this.reservedSeats = seats
+        this.reservedSeats = seats;
       });
   }
 
   getSelectedSeats = () =>
     this.cartService.getCart()
       .subscribe(
-        cart => {
-          this.seats = cart.seats;
-          this.selectedSeats = this.seats.map(seat => {
-            return {
-              slug: seat.slug,
-              matchId: seat.match.id
-            };
-          });
-        },
+        cart => this.selectedSeats = cart.seats,
         err => console.log(err)
       )
 
@@ -127,31 +113,34 @@ export class SectorComponent implements OnInit {
   }
 
   addClassByCheckSoldSeat(slug) {
-    const checkSeat = this.selectedSeats.find(seat => seat.slug === slug && seat.matchId === this.match.id);
+    const optimisticSeat = this.optimisticSeats.find(({slug: seatSlug}) => seatSlug === slug);
 
-    if (this.reservedSeats.includes(slug) && checkSeat) {
-      return 'blockedSeat';
+    if (optimisticSeat) {
+      return optimisticSeat.show ? 'blockedSeat' : 'imgSeatsStyle';
     }
-
-    if (this.reservedSeats.includes(slug) && !checkSeat) {
-      return 'soldSeat';
+    if (this.reservedSeats.includes(slug)) {
+      const checkSeat = this.selectedSeats.find(seat => seat.slug === slug && seat.match.id === this.match.id);
+      return checkSeat ? 'blockedSeat' : 'soldSeat';
     }
 
     return 'imgSeatsStyle';
   }
 
   toggleSeat(slug) {
-    const checkSeat = this.selectedSeats.find(seat => seat.slug === slug && seat.matchId === this.match.id);
+    const checkSeat = this.selectedSeats.find(seat => seat.slug === slug && seat.match.id === this.match.id);
     this.message = '';
     if (checkSeat && this.reservedSeats.includes(slug)) {
+      this.toggleOptimisticSeats(slug, false);
       this.cartService.removeSeatFromCart(slug, this.match.id)
         .subscribe(
           () => this.updateSeatsData(),
-          error => console.log(error)
+          error => {
+            console.log(error);
+            this.toggleOptimisticSeats(slug, true);
+          }
         );
-    }
-
-    if (!this.reservedSeats.includes(slug)) {
+    } else if (!this.reservedSeats.includes(slug)) {
+      this.toggleOptimisticSeats(slug, true);
       this.cartService.addSeatToCart(slug, this.match.id)
         .subscribe(
           () => this.updateSeatsData(),
@@ -160,36 +149,57 @@ export class SectorComponent implements OnInit {
               this.message = 'Это место уже занято.';
               this.getReservedSeats();
             }
+            this.toggleOptimisticSeats(slug, false);
           }
         );
     }
   }
 
+  toggleOptimisticSeats(slug, show) {
+    const optimisticSeat = this.optimisticSeats.find(({slug: seatSlug}) => seatSlug === slug);
+    if (optimisticSeat) {
+      optimisticSeat.show = show;
+    } else {
+      const [sector, row, seat] = slug.match(/\d{1,2}/g);
+      this.optimisticSeats.push({slug, seat, row, sector, match: this.match, show});
+    }
+  }
+
+  get seats() {
+    this.selectedSeats = this.selectedSeats.map(seat => {
+      const optimisticSeat = this.optimisticSeats.find(({slug}) => slug === seat.slug);
+      return {...optimisticSeat, ...seat};
+    });
+    const seats = uniqBy(this.selectedSeats.concat(this.optimisticSeats), 'slug');
+    remove(seats, seat => seat.hasOwnProperty('show') ? !seat.show : false);
+    return seats;
+  }
+
   getFirstUpperRow(sectorNumber) {
-    const sectorDividers:any = {
-      "1": 19,
-      "2": 20,
-      "8": 20,
-      "9": 19,
-      "10": 15,
-      "11": 15,
-      "12": 15,
-      "13": 15,
-      "14": 15,
-      "15": 15,
-      "16": 15,
-      "17": 15,
-      "18": 15,
-      "19": 15,
-      "20": 15,
-      "22": 9,
-      "23": 9,
-      "24": 9,
-      "25": 9,
-      "26": 9,
-      "27": 9,
-      "28": 9,
-      "29": 9,
+    const sectorDividers: any = {
+      '1': 19,
+      '2': 20,
+      '8': 20,
+      '9': 19,
+      '10': 15,
+      '11': 15,
+      '12': 15,
+      '13': 15,
+      '14': 15,
+      '15': 15,
+      '16': 15,
+      '17': 15,
+      '18': 15,
+      '19': 15,
+      '20': 15,
+      '22': 9,
+      '23': 9,
+      '24': 9,
+      '25': 9,
+      '26': 9,
+      '27': 9,
+      '28': 9,
+      '29': 9,
     };
     return sectorDividers[sectorNumber] || 1;
   }
@@ -221,8 +231,7 @@ export class SectorComponent implements OnInit {
           this.updateSeatsData();
         },
         err => console.log(err)
-      )
-
+      );
   }
 
 }

@@ -10,11 +10,9 @@ router
     .get('/', passport.authenticate('facebook', {
         scope: ['email'],
         failureRedirect: '/signup',
-        session: false
     }))
     .get('/callback', passport.authenticate('facebook', {
         failureRedirect: '/signup',
-        session: false
     }), setFacebookTokenCookie);
 
 export default router;
