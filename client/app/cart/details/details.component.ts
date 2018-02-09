@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
-import {Seat} from '../../model/seat.interface';
-import {CartService} from "../../services/cart.service";
+import {CartService} from '../../services/cart.service';
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
@@ -12,7 +11,7 @@ export class DetailsComponent implements OnInit {
   @Input() seats: any;
   @Output() onDelete = new EventEmitter<any>();
 
-  constructor(private cartService:CartService) {
+  constructor(private cartService: CartService) {
   }
 
   ngOnInit() {

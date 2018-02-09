@@ -1,15 +1,10 @@
 <div class="container">
   <navpanel section="3"></navpanel>
   <div class="row">
-
-    <div class="col-xs-12 matchData">
-      <h4 class="col-xs-4">{{match?.date | date:'dd MMMM y, hh:mm'}}</h4>
-      <h4 class="col-xs-4">{{match?.headline}}</h4>
-      <h4 class="col-xs-4">{{addresses[match?.stadiumName]}}</h4>
-    </div>
+    <app-match-details [matchDetails]="match" [stadiumName]="match?.stadiumName"></app-match-details>
     <div class="col-xs-12" *ngIf="sector">
-      <p style="text-align: center; font-size: large">Выбор места ( {{sector.name}} Сектор) - {{sectorPrice}}
-        грн.</p>
+      <h2 style="text-align: center;">Выбор места ( {{sector.name}} Сектор) - {{sectorPrice}}
+        грн.</h2>
     </div>
     <div class="row rowPadding" *ngIf="sector">
       <!--//@TODO need compolent-->
@@ -41,27 +36,22 @@
       <div class="gradientSeats"></div>
     </div>
   </div>
-  <div class="cardBlock container text-center">
-    <div class="row row-centered">
-      <div class="col-xs-9 col-centered col-fixed">
+  <div class="cardBlock text-center">
+    <div class="col-xs-12 col-md-9 col-centered col-fixed">
+      <div>
         <div>
-          <!--<p [hidden]="isReserveSuccess">-->
-          <!--<strong>Время резерва окончилось и билет был кем-то выбран для покупки.</strong><br/>-->
-          <!--</p>-->
-          <div>
-            <app-details [seats]="seats" (onDelete)="updateSeatsData($event)"></app-details>
-          </div>
+          <app-details [seats]="seats" (onDelete)="updateSeatsData($event)"></app-details>
         </div>
       </div>
-      <div *ngIf="selectedSeats && selectedSeats.length" class="colPadding col-xs-3 col-centered col-fixed">
-        <div >
-          <button *ngIf="isCashier(); else notCashier" class="btn btn-primary btn-block" (click)="pay()">
-            Распечатать
-          </button>
-          <ng-template #notCashier>
-            <a class="btn btn-primary btn-block" routerLink="/checkout">Оплатить</a>
-          </ng-template>
-        </div>
+    </div>
+    <div *ngIf="selectedSeats && selectedSeats.length" class="colPadding col-xs-3 col-centered col-fixed">
+      <div >
+        <button *ngIf="isCashier(); else notCashier" class="btn btn-primary btn-block" (click)="pay()">
+          Распечатать
+        </button>
+        <ng-template #notCashier>
+          <a class="btn btn-primary btn-block" routerLink="/checkout">Оплатить</a>
+        </ng-template>
       </div>
     </div>
   </div>
@@ -92,7 +82,4 @@
     </blockquote>
   </div>
 </div>
-
-<pre style="float: left">optimisticSeats: {{optimisticSeats | json}}</pre>
-
 

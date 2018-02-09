@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule} from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'angular2-cookie';
 import { RouterModule, PreloadAllModules} from '@angular/router';
@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule, MatInputModule, MatCheckboxModule } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { NguiDatetimePickerModule, NguiDatetimePickerComponent, NguiDatetimePickerDirective } from '@ngui/datetime-picker';
+
 import { ROUTES } from './app.routes';
 import { SharedModule } from './shared/shared.module';
 import { CashboxModule } from './cashbox/cashbox.module';
@@ -61,6 +63,8 @@ import {TeamLogosService} from "./services/team-logos.service";
 import { EmailValidator } from './directives/email-validator.directive';
 import { TooltipDirective } from './directives/tooltip.directive';
 
+import {RuDatePipe} from './pipes/ru-date.pipe';
+
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   declarations: [
@@ -89,6 +93,9 @@ import { TooltipDirective } from './directives/tooltip.directive';
     // custom directive
     EmailValidator,
     TooltipDirective,
+    // custom pipes
+    RuDatePipe,
+
   ],
   imports: [
     CommonModule,

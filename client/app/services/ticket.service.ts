@@ -18,9 +18,8 @@ export class TicketService {
     return this.http.get<Ticket[]>('api/tickets/my');
   }
 
-  getPendingStatus() {
-    return this.http.get('api/orders/payment-status')
-      .map((response: Response) => response);
+  getPendingStatus(): Observable<{status: boolean}> {
+    return this.http.get<{status: boolean}>('api/orders/payment-status');
   }
 
   getStatistics(data): Observable<any> {

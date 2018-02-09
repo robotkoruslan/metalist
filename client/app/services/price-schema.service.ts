@@ -50,4 +50,7 @@ export class PriceSchemaService {
     }
   }
 
+  deletePriceSchema(id: string): Observable<any> {
+    return this.http.delete(`/api/priceSchema/${id}`);
+  }
 }

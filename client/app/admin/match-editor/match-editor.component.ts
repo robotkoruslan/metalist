@@ -41,7 +41,7 @@ export class MatchEditorComponent implements OnInit {
       err => console.log(err)
     );
 
-  deleteMatch = (id:string) => {
+  deleteMatch = (id: string) => {
     this.message = '';
     this.matchEditorService.deleteMatch(id)
       .subscribe(

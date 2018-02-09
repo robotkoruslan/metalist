@@ -11,11 +11,12 @@ interface MatchDetails extends Match {
 @Component({
   selector: 'app-match-details',
   templateUrl: './match-details.component.html',
-  styleUrls: ['./match-details.component.css']
+  styleUrls: ['./match-details.component.less']
 })
 export class MatchDetailsComponent implements OnChanges {
 
   @Input() matchDetails: MatchDetails;
+  @Input() stadiumName: string;
 
   ngOnChanges(changes) {
     if (changes.matchDetails.currentValue) {

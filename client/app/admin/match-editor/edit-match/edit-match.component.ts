@@ -4,7 +4,7 @@ import { Match } from '../../../model/match.interface';
 
 import { PriceSchemaService } from '../../../services/price-schema.service';
 import { FileService } from '../../../services/file.service';
-import { TeamLogosService } from "../../../services/team-logos.service";
+import { TeamLogosService } from '../../../services/team-logos.service';
 
 @Component({
   selector: 'edit-match',
@@ -12,17 +12,16 @@ import { TeamLogosService } from "../../../services/team-logos.service";
   styleUrls: ['./edit-match.component.css']
 })
 export class EditMatchComponent implements OnInit {
-  path: string = "assets/teamLogo/";
-  
-  @Input()
-  match: Match;
-  
+  path = 'assets/teamLogo/';
   priceSchemas;
   teamLogos;
-  
+
+  @Input()
+  match: Match;
+
   @Output()
   save: EventEmitter<any> = new EventEmitter();
-  
+
   @Output()
   closeMatch: EventEmitter<any> = new EventEmitter();
 
@@ -30,24 +29,24 @@ export class EditMatchComponent implements OnInit {
     this.loadPriceSchemas();
     this.loadTeamLogos();
   }
-  
+
   constructor(private priceSchemaService: PriceSchemaService,
               private fileService: FileService,
               private teamLogosService: TeamLogosService) { }
-  
+
   loadPriceSchemas = () => this.priceSchemaService.loadPrices()
     .subscribe(
-      response => this.priceSchemas = response, 
+      response => this.priceSchemas = response,
       err => console.log(err)
     )
-  
+
   loadTeamLogos = () => this.teamLogosService.fetchTeamLogos()
     .subscribe(
       response => this.teamLogos = response,
       err => console.log(err)
     )
-  
-  
+
+
   handleFileInput(event) {
     const files = event.target.files;
     this.fileService.upload(files[0], 'teamLogo')
@@ -56,13 +55,13 @@ export class EditMatchComponent implements OnInit {
           this.loadTeamLogos();
           this.match.poster = this.path + files[0].name;
         },
-        err=> console.log(err)
+        err => console.log(err)
 
       );
   }
-  
+
   setSelectedOption = (schema1, schema2) => schema1.id === schema2.id;
-  
+
   saveMatch = () => {
     this.save.emit(this.match);
   }
@@ -70,5 +69,5 @@ export class EditMatchComponent implements OnInit {
   close = () => {
     this.closeMatch.emit();
   }
-  
+
 }

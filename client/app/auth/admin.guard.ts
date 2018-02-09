@@ -14,7 +14,6 @@ export class AdminGuard implements CanActivate {
 
     const expectedRole = route.data.expectedRole;
     const token = this._cookieService.get('token');
-    console.log('RoleGuard ', token);
     // decode the token to get its payload
     const tokenPayload = decode(token);
     if (

@@ -14,9 +14,7 @@ export class RoleGuard implements CanActivate, CanActivateChild{
 
     const expectedRole = route.data.expectedRole;
     const token = this._cookieService.get('token');
-    console.log('RoleGuard ', token);
     if (!token) {
-      console.log('RoleGuard ');
       this.router.navigate(['login']);
     } else {
       this.auth.isLoggedIn();
@@ -27,7 +25,6 @@ export class RoleGuard implements CanActivate, CanActivateChild{
       // !this.auth.isAuthenticated() ||
       !expectedRole.includes(tokenPayload.role)
     ) {
-      console.log('RoleGuard login');
       this.router.navigate(['login']);
       return false;
     }
@@ -40,7 +37,6 @@ export class RoleGuard implements CanActivate, CanActivateChild{
 
     const expectedRole = route.data.expectedRole;
     const token = this._cookieService.get('token');
-    console.log('RoleGuard ', token);
     const tokenPayload = decode(token);
     if (
       !this.auth.isLoggedIn() ||

@@ -1,14 +1,11 @@
 <div class="menu-price-schema">
   <label>Список схем</label>
-  <ul class="list-group">
-    <li class="list-group-item" *ngFor="let schema of priceSchemas">
-    <span class="badge" (click)="selectSchema(schema)">
-      Edit
-    </span>
-      {{schema.priceSchema.name}} :
-      {{schema.priceSchema.stadiumName}}
-    </li>
-  </ul>
+  <div class="list-group">
+    <list-item *ngFor="let schema of priceSchemas"
+               [headline]="schema.priceSchema.name + ' : ' + schema.priceSchema.stadiumName"
+               [edit]="true" (editItem)="selectSchema(schema)"
+               [delete]="true" (deleteItem)="deleteSchema(schema)"></list-item>
+  </div>
   <button class="btn btn-default" (click)="createSchema({stadiumName: 'metalist', name: ''})">
     New price schema
   </button>
