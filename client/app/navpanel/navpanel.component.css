@@ -1,5 +1,11 @@
+.crumbs .crm a,
+.crumbs .crmdis a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
 /** breadcrumbs landscape **/
-
 @media (min-width: 1281px) and (max-width: 4096px) and (orientation: landscape) {
 
   .cr {
@@ -14,48 +20,18 @@
 
   .crumbs .crm a {
     width: 19.4%;
-    padding: 20px 0 0 0;
+
   }
+
+  .crumbs span:nth-child(4) a {
+    padding-left: 10px;
+  }
+
 
   .crumbs .crmdis a {
     width: 19.4%;
-    padding: 20px 0 0 0;
   }
 
-  .bcTextInside1 {
-    z-index: 9999;
-    position: absolute;
-    margin: 0 0 0 -25px;
-    font-size: 100%;
-  }
-
-  .bcTextInside2 {
-    z-index: 9999;
-    position: absolute;
-    margin: 0 0 0 -30px;
-    font-size: 100%;
-  }
-
-  .bcTextInside3 {
-    z-index: 9999;
-    position: absolute;
-    margin: 0 0 0 -30px;
-    font-size: 100%;
-  }
-
-  .bcTextInside4 {
-    z-index: 9999;
-    position: absolute;
-    margin: 0 0 0 -55px;
-    font-size: 100%;
-  }
-
-  .bcTextInside5 {
-    z-index: 9999;
-    position: absolute;
-    margin: 0 0 0 -15px;
-    font-size: 100%;
-  }
 }
 
 @media (min-width: 721px) and (max-width: 1280px) and (orientation: landscape) {
@@ -72,47 +48,12 @@
 
   .crumbs .crm a {
     width: 19.2%;
-    padding: 16px 0 0 30px;
+    padding: 0 0 0 30px;
   }
 
   .crumbs .crmdis a {
     width: 19.2%;
-    padding: 16px 0 0 30px;
-  }
-
-  .bcTextInside1 {
-    z-index: 9999;
-    position: absolute;
-    margin: 2px 0 0 -40px;
-    font-size: 100%;
-  }
-
-  .bcTextInside2 {
-    z-index: 9999;
-    position: absolute;
-    margin: 2px 0 0 -50px;
-    font-size: 100%;
-  }
-
-  .bcTextInside3 {
-    z-index: 9999;
-    position: absolute;
-    margin: 2px 0 0 -45px;
-    font-size: 100%;
-  }
-
-  .bcTextInside4 {
-    z-index: 9999;
-    position: absolute;
-    margin: -5px 0 0 -55px;
-    font-size: 100%;
-  }
-
-  .bcTextInside5 {
-    z-index: 9999;
-    position: absolute;
-    margin: 2px 0 0 -35px;
-    font-size: 100%;
+    padding: 0 0 0 30px;
   }
 }
 
@@ -131,54 +72,21 @@
   .crumbs .crm a {
     height: 30px;
     width: 18.5%;
-    padding: 22px 0 0 30px;
+    padding: 0 0 0 20px;
+    font-size: 12px;
   }
 
   .crumbs .crmdis a {
     height: 30px;
     width: 18.5%;
-    padding: 22px 0 0 30px;
+    padding: 0 0 0 20px;
+    font-size: 12px;
   }
 
-  .bcTextInside1 {
-    z-index: 9999;
-    position: absolute;
-    margin: 0 0 0 -35px;
-    font-size: 70%;
-  }
-
-  .bcTextInside2 {
-    z-index: 9999;
-    position: absolute;
-    margin: 0 0 0 -35px;
-    font-size: 70%;
-  }
-
-  .bcTextInside3 {
-    z-index: 9999;
-    position: absolute;
-    margin: 0 0 0 -35px;
-    font-size: 70%;
-  }
-
-  .bcTextInside4 {
-    z-index: 9999;
-    position: absolute;
-    margin: -5px 0 0 -40px;
-    font-size: 70%;
-  }
-
-  .bcTextInside5 {
-    z-index: 9999;
-    position: absolute;
-    margin: 0 0 0 -25px;
-    font-size: 70%;
-  }
 }
 
 .crumbs .crm a {
   text-align: center;
-  display: inline-block;
   float: left;
   height: 60px;
   background: #ffcc00;
@@ -190,7 +98,6 @@
 
 .crumbs .crmdis a {
   text-align: center;
-  display: inline-block;
   float: left;
   height: 60px;
   background: #bcbcbc;
@@ -302,47 +209,10 @@
 
   .crumbs .crm a {
     width: 19.4%;
-    padding: 20px 0 0 0;
   }
 
   .crumbs .crmdis a {
     width: 19.4%;
-    padding: 20px 0 0 0;
-  }
-
-  .bcTextInside1 {
-    z-index: 9999;
-    position: absolute;
-    margin: 5px 0 0 -30px;
-    font-size: 90%;
-  }
-
-  .bcTextInside2 {
-    z-index: 9999;
-    position: absolute;
-    margin: 5px 0 0 -40px;
-    font-size: 90%;
-  }
-
-  .bcTextInside3 {
-    z-index: 9999;
-    position: absolute;
-    margin: 5px 0 0 -40px;
-    font-size: 90%;
-  }
-
-  .bcTextInside4 {
-    z-index: 9999;
-    position: absolute;
-    margin: 0 0 0 -60px;
-    font-size: 90%;
-  }
-
-  .bcTextInside5 {
-    z-index: 9999;
-    position: absolute;
-    margin: 5px 0 0 -30px;
-    font-size: 90%;
   }
 }
 
@@ -360,47 +230,12 @@
 
   .crumbs .crm a {
     width: 19.2%;
-    padding: 16px 0 0 30px;
+    padding: 0 0 0 30px;
   }
 
   .crumbs .crmdis a {
     width: 19.2%;
-    padding: 16px 0 0 30px;
-  }
-
-  .bcTextInside1 {
-    z-index: 9999;
-    position: absolute;
-    margin: 5px 0 0 -30px;
-    font-size: 85%;
-  }
-
-  .bcTextInside2 {
-    z-index: 9999;
-    position: absolute;
-    margin: 5px 0 0 -40px;
-    font-size: 85%;
-  }
-
-  .bcTextInside3 {
-    z-index: 9999;
-    position: absolute;
-    margin: 5px 0 0 -40px;
-    font-size: 85%;
-  }
-
-  .bcTextInside4 {
-    z-index: 9999;
-    position: absolute;
-    margin: 5px 0 0 -60px;
-    font-size: 85%;
-  }
-
-  .bcTextInside5 {
-    z-index: 9999;
-    position: absolute;
-    margin: 5px 0 0 -30px;
-    font-size: 85%;
+    padding: 0 0 0 30px;
   }
 }
 
@@ -419,49 +254,20 @@
   .crumbs .crm a {
     line-height: 15px;
     width: 18.5%;
-    padding: 22px 0 0 30px;
+    padding: 0 0 0 20px;
+    font-size: 12px;
   }
 
   .crumbs .crmdis a {
     line-height: 15px;
 
     width: 18.5%;
-    padding: 22px 0 0 30px;
+    padding: 15px 0 0 20px;
+    font-size: 12px;
   }
 
-  .bcTextInside1 {
-    z-index: 9999;
-    position: absolute;
-    margin: 0 0 0 -30px;
-    font-size: 60%;
-  }
-
-  .bcTextInside2 {
-    z-index: 9999;
-    position: absolute;
-    margin: -7px 0 0 -20px;
-    font-size: 60%;
-  }
-
-  .bcTextInside3 {
-    z-index: 9999;
-    position: absolute;
-    margin: -7px 0 0 -20px;
-    font-size: 60%;
-  }
-
-  .bcTextInside4 {
-    z-index: 9999;
-    position: absolute;
-    margin: -7px 0 0 -25px;
-    font-size: 60%;
-  }
-
-  .bcTextInside5 {
-    z-index: 9999;
-    position: absolute;
-    margin: 0 0 0 -20px;
-    font-size: 60%;
+  .crumbs .crmdis a:last-child {
+    padding: 0 0 0 20px;
   }
 }
 
@@ -479,46 +285,15 @@
 
   .crumbs .crm a {
     width: 18%;
-    padding: 22px 0 0 30px;
+    padding: 0 0 0 30px;
+    font-size: 12px;
   }
 
   .crumbs .crmdis a {
     width: 18%;
-    padding: 22px 0 0 30px;
+    padding: 0 0 0 30px;
+    font-size: 12px;
   }
 
-  .bcTextInside1 {
-    z-index: 9999;
-    position: absolute;
-    margin: 2px 0 0 -30px;
-    font-size: 60%;
-  }
 
-  .bcTextInside2 {
-    z-index: 9999;
-    position: absolute;
-    margin: -2px 0 0 -20px;
-    font-size: 60%;
-  }
-
-  .bcTextInside3 {
-    z-index: 9999;
-    position: absolute;
-    margin: -2px 0 0 -20px;
-    font-size: 60%;
-  }
-
-  .bcTextInside4 {
-    z-index: 9999;
-    position: absolute;
-    margin: -2px 0 0 -20px;
-    font-size: 50%;
-  }
-
-  .bcTextInside5 {
-    z-index: 9999;
-    position: absolute;
-    margin: 2px 0 0 -20px;
-    font-size: 60%;
-  }
 }

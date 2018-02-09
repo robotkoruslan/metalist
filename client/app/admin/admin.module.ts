@@ -61,6 +61,11 @@ import {PriceEditorComponent} from './price-schema/edit-price-schema/stadium-wit
 import {EditPriceSchemaComponent} from './price-schema/edit-price-schema/edit-price-schema.component';
 import {BlockRowSeatTableComponent} from './season-ticket/block-row-seat-table/block-row-seat-table';
 import {BlockRowSeatFormComponent} from './season-ticket/block-row-seat-form/block-row-seat-form';
+import { ListItemComponent } from './list-item/list-item.component';
+import { NguiDatetimePickerModule, NguiDatetime } from '@ngui/datetime-picker';
+
+// Override Date object parser
+NguiDatetime.parseDate = (str: any): Date => new Date(str);
 
 @NgModule({
   imports: [
@@ -101,13 +106,15 @@ import {BlockRowSeatFormComponent} from './season-ticket/block-row-seat-form/blo
     MatFormFieldModule,
     CommonModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    NguiDatetimePickerModule,
+
   ],
   declarations: [TicketsStatisticComponent, MatchEditorComponent, AdminUsersComponent, SeasonTicketComponent,
     PriceSchemaComponent, OrderDetailsComponent, EditMatchComponent, SeasonTicketListComponent, BlockRowListComponent,
     EventsSummaryComponent, DaysSummaryComponent, ColorSchemaEditorComponent, PriceSchemaMenuComponent,
     StadiumWithTribunesComponent, PriceEditorComponent, MatchListComponent, DeleteMatchComponent,
-    EditPriceSchemaComponent, BlockRowSeatTableComponent, BlockRowSeatFormComponent],
+    EditPriceSchemaComponent, BlockRowSeatTableComponent, BlockRowSeatFormComponent, ListItemComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AdminModule {

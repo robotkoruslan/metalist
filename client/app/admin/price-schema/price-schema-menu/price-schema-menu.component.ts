@@ -11,10 +11,12 @@ export class PriceSchemaMenuComponent {
 
   @Input() priceSchemas: { priceSchema: PriceSchema }[];
   @Output() onSetSchema = new EventEmitter<boolean>();
+  @Output() onDeleteSchema = new EventEmitter<any>();
 
   constructor() {
   }
 
   selectSchema = (schema) => this.onSetSchema.emit({...schema.priceSchema, id: schema.id});
   createSchema = (schema) => this.onSetSchema.emit(schema);
+  deleteSchema = (schema) => this.onDeleteSchema.emit(schema);
 }

@@ -52,4 +52,12 @@ export class PriceSchemaComponent implements OnInit {
       );
   }
 
+  deleteSchema(schema) {
+    this.priceSchemaService.deletePriceSchema(schema.id)
+      .subscribe(
+        () => this.loadPriceSchemas(),
+        err => console.log(err)
+      );
+  }
+
 }

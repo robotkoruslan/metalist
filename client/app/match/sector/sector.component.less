@@ -56,7 +56,7 @@
 
   .blockedSeat {
     background-color: @blockedSeatBg;
-    .cursoreD;
+    .cursorP;
     width: 4px;
     height: 8px;
     .blockedSeatBorders;
@@ -140,6 +140,11 @@
     max-width: 450px;
     padding-top: 10px;
   }
+
+  h2 {
+    margin: 0;
+    font-size: 20px;
+  }
 }
 
 @media (min-width: 300px) and (max-width: 610px) and (orientation: landscape) {
@@ -156,7 +161,7 @@
 
   .blockedSeat {
     background-color: @blockedSeatBg;
-    .cursoreD;
+    .cursorP;
     width: 8px;
     height: 8px;
     .blockedSeatBorders;
@@ -239,6 +244,11 @@
     width: 100%;
     max-width: 200px;
   }
+
+  h2 {
+    margin: 0;
+    font-size: 20px;
+  }
 }
 
 @media (min-width: 611px) and (max-width: 1280px) {
@@ -257,7 +267,7 @@
     background-color: @blockedSeatBg;
     width: 8px;
     height: 8px;
-    .cursoreD;
+    .cursorP;
     .blockedSeatBorders;
     .seatMarginAll;
   }
@@ -352,7 +362,7 @@
     background-color: @blockedSeatBg;
     width: 14px;
     height: 14px;
-    .cursoreD;
+    .cursorP;
     border: solid 2px #000000;
     .seatMarginAll;
   }
@@ -492,9 +502,4 @@ ul {
 .row {
   max-width: 960px;
   margin: 0 auto;
-}
-
-.matchData > .col-xs-4:last-child {
-  text-align: right;
-  font-size: 14px;
 }

@@ -25,10 +25,8 @@ export class HomeComponent implements OnInit {
     return this.matchEditorService.loadNextMatches()
       .map(matches => {
         this.matches = matches;
-        console.log('loadMatches ', matches);
 
         this.matches.forEach(match => {
-          console.log('matches.forEach(match ', match);
           if (match.date) {
             match.formattedDate = moment(match.date).locale('ru').tz('Europe/Kiev').format('DD MMMM YYYY');
             match.time = moment(match.date).tz('Europe/Kiev').format('HH:mm');

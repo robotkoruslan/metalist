@@ -23,7 +23,6 @@ export class DaysStatisticComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('ngOnInit');
     this.getStatistics({
       date: this.date.toISOString(),
       metod: 'day'
