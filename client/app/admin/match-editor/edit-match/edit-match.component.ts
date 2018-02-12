@@ -5,6 +5,7 @@ import { Match } from '../../../model/match.interface';
 import { PriceSchemaService } from '../../../services/price-schema.service';
 import { FileService } from '../../../services/file.service';
 import { TeamLogosService } from '../../../services/team-logos.service';
+import moment from 'moment-timezone';
 
 @Component({
   selector: 'edit-match',
@@ -70,4 +71,12 @@ export class EditMatchComponent implements OnInit {
     this.closeMatch.emit();
   }
 
+  get time() {
+    return this.match.date ? moment(this.match.date).locale('ru').tz('Europe/Kiev').format('HH:mm') : null;
+  }
+
+  handleTimeInput(event) {
+    const time = moment(event.target.valueAsDate).utc();
+    this.match.date = moment(this.match.date).hour(time.hour()).minute(time.minutes()).toISOString();
+  }
 }

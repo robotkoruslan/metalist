@@ -19,7 +19,7 @@ export class MatchDetailsComponent implements OnChanges {
   @Input() stadiumName: string;
 
   ngOnChanges(changes) {
-    if (changes.matchDetails.currentValue) {
+    if (changes.matchDetails.currentValue && this.matchDetails.date) {
       this.matchDetails.formattedDate = moment(this.matchDetails.date)
         .locale('ru').tz('Europe/Kiev').format('DD MMMM YYYY');
       this.matchDetails.time = moment(this.matchDetails.date).tz('Europe/Kiev').format('HH:mm');
