@@ -1,4 +1,4 @@
-<label>{{match.id ? 'Редактировать Матч' : 'Новый Матч'}}</label>
+<label>{{match?.id ? 'Редактировать Матч' : 'Новый Матч'}}</label>
 <form class="example-container">
 
   <mat-form-field class="example-full-width">
@@ -29,11 +29,17 @@
   <mat-form-field>
     <textarea matInput placeholder="Описание" name="info" [(ngModel)]="match.info" matAutosizeMinRows="4"></textarea>
   </mat-form-field>
-  <mat-form-field>
-    <input matInput class="date-time-picker"
-      [(ngModel)]="match.date" name="date" placeholder="Дата и время"
-      ngui-datetime-picker/>
-  </mat-form-field>
+  <div class="date-time">
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Дата и время" [(ngModel)]="match.date" name="date" >
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="time" [value]="time" (input)="handleTimeInput($event)"
+             name="time"/>
+    </mat-form-field>
+  </div>
   <mat-form-field>
     <mat-select [(ngModel)]="match.priceSchema" name="schema" [compareWith]="setSelectedOption">
       <mat-option *ngFor="let schema of priceSchemas" [value]="schema">
@@ -42,7 +48,7 @@
     </mat-select>
   </mat-form-field>
   <button type="submit" class="btn btn-default" (click)="saveMatch()">
-    {{match.id ? 'Coхранить': 'Добавить'}}
+    {{match?.id ? 'Coхранить': 'Добавить'}}
   </button>
   <button class="btn btn-default" (click)="close()">Закрыть</button>
 </form>

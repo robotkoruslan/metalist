@@ -16,3 +16,20 @@ img {
     display: flex;
     flex-direction: column;
 }
+
+.date-time {
+  display: flex;
+}
+
+.date-time .mat-form-field {
+  width: 48%;
+}
+
+.date-time .mat-form-field:nth-child(1) {
+  margin-right: 4%;
+}
+
+.date-time .mat-form-field:nth-child(1) input {
+  height: 21px;
+  margin-right: 5px;
+}
