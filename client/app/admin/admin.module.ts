@@ -49,7 +49,7 @@ import {PriceSchemaComponent} from './price-schema/price-schema.component';
 import {OrderDetailsComponent} from './order-details/order-details.component';
 import {EditMatchComponent} from './match-editor/edit-match/edit-match.component';
 import {MatchListComponent} from './match-editor/match-list/match-list.component';
-import {DeleteMatchComponent} from './match-editor/delete-match/delete-match.component';
+import {DeleteItemComponent} from './delete-item/delete-item.component';
 import {SeasonTicketListComponent} from './season-ticket/season-ticket-list/season-ticket-list.component';
 import {BlockRowListComponent} from './season-ticket/block-row-list/block-row-list.component';
 import {EventsSummaryComponent} from './tickets-statistic/events-summary/events-summary.component';
@@ -113,7 +113,7 @@ NguiDatetime.parseDate = (str: any): Date => new Date(str);
   declarations: [TicketsStatisticComponent, MatchEditorComponent, AdminUsersComponent, SeasonTicketComponent,
     PriceSchemaComponent, OrderDetailsComponent, EditMatchComponent, SeasonTicketListComponent, BlockRowListComponent,
     EventsSummaryComponent, DaysSummaryComponent, ColorSchemaEditorComponent, PriceSchemaMenuComponent,
-    StadiumWithTribunesComponent, PriceEditorComponent, MatchListComponent, DeleteMatchComponent,
+    StadiumWithTribunesComponent, PriceEditorComponent, MatchListComponent, DeleteItemComponent,
     EditPriceSchemaComponent, BlockRowSeatTableComponent, BlockRowSeatFormComponent, ListItemComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

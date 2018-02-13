@@ -1,6 +1,10 @@
 <label>{{match?.id ? 'Редактировать Матч' : 'Новый Матч'}}</label>
 <form class="example-container">
 
+  <mat-form-field>
+    <input matInput type="text" placeholder="Match id" name="matchId" [value]="match?.id" disabled>
+  </mat-form-field>
+
   <mat-form-field class="example-full-width">
     <input matInput type="text" placeholder="Соперник" [(ngModel)]="match.rival" name="rival">
   </mat-form-field>

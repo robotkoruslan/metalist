@@ -3,7 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {PriceSchemaService} from '../../services/price-schema.service';
 
 import {PriceSchema} from '../../model/price-schema.interface';
-import {ColorSchema} from "../../model/color-schema.interface";
+import {ColorSchema} from '../../model/color-schema.interface';
 
 @Component({
   selector: 'app-price-schema',
@@ -12,12 +12,12 @@ import {ColorSchema} from "../../model/color-schema.interface";
 })
 export class PriceSchemaComponent implements OnInit {
 
-  priceSchemas:PriceSchema[] = [];
-  sourcePriceSchema:PriceSchema;
-  currentPriceSchema:PriceSchema|null;
-  colors:ColorSchema[];
-
-  constructor(private priceSchemaService:PriceSchemaService) {
+  priceSchemas: PriceSchema[] = [];
+  sourcePriceSchema: PriceSchema;
+  currentPriceSchema: PriceSchema | null;
+  colors: ColorSchema[];
+  message = '';
+  constructor(private priceSchemaService: PriceSchemaService) {
   }
 
   ngOnInit() {
@@ -36,27 +36,42 @@ export class PriceSchemaComponent implements OnInit {
   }
 
   setCurrentSchema(schema) {
+    this.message = '';
     this.sourcePriceSchema = {...schema};
     this.currentPriceSchema = {...this.sourcePriceSchema};
   }
 
   updateSchema(schema) {
+    this.message = '';
     this.priceSchemaService.savePriceSchema(schema)
       .subscribe(
-        (response:any) => {
+        (response: any) => {
           this.currentPriceSchema = {...response.data};
           this.loadPriceSchemas();
           this.currentPriceSchema = null;
+          this.message = 'Прайс-схема была успешно обновлена';
         },
-        err => console.log(err)
+        err => {
+          this.message = 'Не удается обновить прайс-схему, что-то пошло не так.';
+          console.log(err);
+        }
       );
   }
 
-  deleteSchema(schema) {
-    this.priceSchemaService.deletePriceSchema(schema.id)
+  deleteSchema(schemaId) {
+    this.message = '';
+    this.priceSchemaService.deletePriceSchema(schemaId)
       .subscribe(
-        () => this.loadPriceSchemas(),
-        err => console.log(err)
+        () => {
+          this.loadPriceSchemas();
+          this.priceSchemas = this.priceSchemas.filter(schema => schema.id !== schemaId);
+          this.currentPriceSchema = this.currentPriceSchema.id === schemaId ? null : this.currentPriceSchema;
+          this.message = 'Прайс-схема была успешно удалена';
+        },
+        err => {
+          console.log(err);
+          this.message = 'Не удается удалить прайс-схему, что-то пошло не так.';
+        }
       );
   }
 

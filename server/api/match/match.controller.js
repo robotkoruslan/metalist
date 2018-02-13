@@ -50,7 +50,7 @@ export function deleteMatch(req, res) {
 
   return Promise.all([
     matchService.removeById(matchId),
-    seatService.deletePrevMatchSeats(matchId)
+    seatService.deleteByMatchId(matchId)
   ])
     .then(() => res.status(204).end())
     .catch(handleError(res));
