@@ -18,15 +18,15 @@ export class EditPriceSchemaComponent implements OnChanges {
   sourcePriceSchema: PriceSchema;
   priceSchemaForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder){
+  constructor(private formBuilder: FormBuilder) {
     this.priceSchemaForm = formBuilder.group({
-      stadiumName: [{value:'', disabled: true}],
+      stadiumName: [{value: '', disabled: true}],
       name: [null, Validators.required]
-    })
+    });
   }
 
   ngOnChanges(changes) {
-    if(changes.priceSchema && changes.priceSchema.currentValue) {
+    if (changes.priceSchema && changes.priceSchema.currentValue) {
       this.sourcePriceSchema = {...changes.priceSchema.currentValue};
       this.priceSchema = {...this.sourcePriceSchema};
       this.resetForm(changes.priceSchema.currentValue);
@@ -36,7 +36,7 @@ export class EditPriceSchemaComponent implements OnChanges {
   resetForm = (schema) => {
     this.priceSchemaForm.reset();
     this.priceSchemaForm.setValue({
-      stadiumName: schema.stadiumName,
+      stadiumName: schema.stadiumName || '',
       name: schema.name || ''
     });
   }

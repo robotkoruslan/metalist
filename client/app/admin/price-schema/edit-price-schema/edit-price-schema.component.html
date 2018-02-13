@@ -2,6 +2,9 @@
   <div class="col-md-12">
     <div class="col-md-3">
       <form class="form-container" [formGroup]="priceSchemaForm">
+        <mat-form-field *ngIf="priceSchema?.id">
+          <input matInput placeholder="Id" [value]="priceSchema.id" disabled>
+        </mat-form-field>
         <mat-form-field>
           <input matInput placeholder="Cтадион" formControlName="stadiumName"
                  [(ngModel)]="priceSchema.stadiumName">

@@ -18,5 +18,4 @@ export class PriceSchemaMenuComponent {
 
   selectSchema = (schema) => this.onSetSchema.emit({...schema.priceSchema, id: schema.id});
   createSchema = (schema) => this.onSetSchema.emit(schema);
-  deleteSchema = (schema) => this.onDeleteSchema.emit(schema);
 }

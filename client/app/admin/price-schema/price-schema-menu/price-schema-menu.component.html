@@ -4,7 +4,7 @@
     <list-item *ngFor="let schema of priceSchemas"
                [headline]="schema.priceSchema.name + ' : ' + schema.priceSchema.stadiumName"
                [edit]="true" (editItem)="selectSchema(schema)"
-               [delete]="true" (deleteItem)="deleteSchema(schema)"></list-item>
+               [delete]="false"></list-item>
   </div>
   <button class="btn btn-default" (click)="createSchema({stadiumName: 'metalist', name: ''})">
     New price schema

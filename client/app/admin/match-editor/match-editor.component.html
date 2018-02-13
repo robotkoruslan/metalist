@@ -16,7 +16,9 @@
                         [match]="matchToEdit" (save)="saveMatch($event)" (closeMatch)="closeForm()"></edit-match>
         </div>
         <div class="col-md-4">
-            <delete-match (deleteMatch)="deleteMatch($event)"></delete-match>
+            <delete-item (deleteItem)="deleteMatch($event)">
+              <label>Удалить матч</label>
+            </delete-item>
             <hr>
 
             <match-list [matches]="prevMatches" type="prev" (deleteMatch)="deleteMatch($event)">

@@ -11,12 +11,12 @@ import {Match} from '../../model/match.interface';
 })
 export class MatchEditorComponent implements OnInit {
 
-  nextMatches:Match[] = [];
-  prevMatches:Match[] = [];
-  matchToEdit:Match | null;
-  message:string = '';
+  nextMatches: Match[] = [];
+  prevMatches: Match[] = [];
+  matchToEdit: Match | null;
+  message = '';
 
-  constructor(private matchEditorService:MatchEditorService, private fileService:FileService) {
+  constructor(private matchEditorService: MatchEditorService, private fileService: FileService) {
   }
 
   ngOnInit() {
@@ -26,6 +26,7 @@ export class MatchEditorComponent implements OnInit {
   }
 
   setMatchToEdit(match) {
+    this.message = '';
     this.matchToEdit = match;
   }
 
@@ -33,24 +34,30 @@ export class MatchEditorComponent implements OnInit {
     .subscribe(
       (res) => this.nextMatches = res,
       err => console.log(err)
-    );
+    )
 
   loadPrevMatches = () => this.matchEditorService.loadPrevMatches()
     .subscribe(
       res => this.prevMatches = res,
       err => console.log(err)
-    );
+    )
 
   deleteMatch = (id: string) => {
     this.message = '';
     this.matchEditorService.deleteMatch(id)
       .subscribe(
-        () => this.prevMatches = this.prevMatches.filter(match => match.id !== id),
-        (err) => this.message = 'Не удается удалить матч, что-то пошло не так.'
+        () => {
+          this.prevMatches = this.prevMatches.filter(match => match.id !== id);
+          this.nextMatches = this.nextMatches.filter(match => match.id !== id);
+          this.matchToEdit = this.matchToEdit && this.matchToEdit.id === id ? null : this.matchToEdit;
+          this.message = 'Матч был успешно удален';
+        },
+        () => this.message = 'Не удается удалить матч, что-то пошло не так.'
       );
   }
 
   saveMatch(match) {
+    this.message = '';
     if (match.id) {
       this.matchEditorService.editMatch(match)
         .subscribe(

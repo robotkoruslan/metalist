@@ -91,7 +91,7 @@ export function createSeatsForMatch(match) {
     });
 }
 
-export function deletePrevMatchSeats(matchId) {
+export function deleteByMatchId(matchId) {
   console.log("-----------------------/// delete seats for previous match: ", matchId);
   return Seat.deleteMany({match: matchId})
 }
