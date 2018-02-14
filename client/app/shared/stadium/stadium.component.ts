@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import {UtilService} from "../../services/util.service";
-
+import sortBy from 'lodash/sortBy';
 @Component({
   selector: 'app-stadium',
   templateUrl: './stadium.component.html',
@@ -17,8 +17,10 @@ export class StadiumComponent implements OnChanges {
   constructor(private utilService: UtilService) { }
 
   ngOnChanges(changes) {
-    if (changes.priceSchema) {
-      this.priceSchema = { ...changes.priceSchema.currentValue };
+    if (changes.priceSchema && changes.priceSchema.currentValue) {
+      const currentPriceSchema = changes.priceSchema.currentValue;
+      const sortedColorSchema = sortBy(currentPriceSchema.colorSchema, 'price');
+      this.priceSchema = { ...currentPriceSchema, colorSchema: sortedColorSchema};
       if (this.priceSchema !== undefined) {
         if (this.priceSchema.hasOwnProperty('stadiumName')) {
           this.stadiumName = this.priceSchema.stadiumName;
