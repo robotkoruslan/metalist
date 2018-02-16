@@ -32,7 +32,7 @@ export const ROUTES: Routes = [
   { path: '', component: HomeComponent, canActivate: [CartGuard]  },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'recovery', component: RecoveryComponent , canActivate: [AuthGuard]},
+  { path: 'recovery', component: RecoveryComponent },
   { path: 'settings', component: SettingComponent, canActivate: [AuthGuard] },
   { path: 'tickets', component: TicketsComponent, canActivate: [AuthGuard] },
   { path: 'checkout', component: CheckoutComponent },

@@ -11,7 +11,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule, MatInputModule, MatCheckboxModule } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { NguiDatetimePickerModule, NguiDatetimePickerComponent, NguiDatetimePickerDirective } from '@ngui/datetime-picker';
 
 import { ROUTES } from './app.routes';
 import { SharedModule } from './shared/shared.module';

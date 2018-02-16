@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import {UtilService} from "../../services/util.service";
-
+import sortBy from 'lodash/sortBy';
 @Component({
   selector: 'app-stadium',
   templateUrl: './stadium.component.html',
@@ -17,8 +17,10 @@ export class StadiumComponent implements OnChanges {
   constructor(private utilService: UtilService) { }
 
   ngOnChanges(changes) {
-    if (changes.priceSchema) {
-      this.priceSchema = { ...changes.priceSchema.currentValue };
+    if (changes.priceSchema && changes.priceSchema.currentValue) {
+      const currentPriceSchema = changes.priceSchema.currentValue;
+      const sortedColorSchema = sortBy(currentPriceSchema.colorSchema, 'price');
+      this.priceSchema = { ...currentPriceSchema, colorSchema: sortedColorSchema};
       if (this.priceSchema !== undefined) {
         if (this.priceSchema.hasOwnProperty('stadiumName')) {
           this.stadiumName = this.priceSchema.stadiumName;
@@ -44,7 +46,10 @@ export class StadiumComponent implements OnChanges {
   }
 
   onSectorClick($event, tribuneName, sectorNumber) {
-    const price = this.getPriceBySector(tribuneName, sectorNumber, this.priceSchema);
+    const price = this.getPriceBySector(tribuneName, sectorNumber);
+    if (!price) {
+      return;
+    }
     const increased = {
       price: price,
       tribune: tribuneName,
@@ -55,7 +60,7 @@ export class StadiumComponent implements OnChanges {
   }
 
   getColor(tribuneName, sectorNumber) {
-    let price = this.getPriceBySector(tribuneName, sectorNumber, this.priceSchema);
+    let price = this.getPriceBySector(tribuneName, sectorNumber);
 
     if (!price) {
       return this.defaultPriceColor.color;
@@ -71,8 +76,8 @@ export class StadiumComponent implements OnChanges {
       .map(color => color.color)[0];
   }
 
-  getPriceBySector(tribuneName, sectorNumber, priceSchema) {
-    const currentTribune = priceSchema['tribune_' + tribuneName];
+  getPriceBySector(tribuneName, sectorNumber) {
+    const currentTribune = this.priceSchema['tribune_' + tribuneName];
     if (!currentTribune) {
       return undefined;
     }

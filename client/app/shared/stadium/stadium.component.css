@@ -53,6 +53,10 @@ a#sectorsLayer:hover {
     transition: all 50ms linear;
 }
 
+.sectorsList .disabledSector .sector {
+  cursor: not-allowed;
+}
+
 .sectorsList path.sector.disabled {
     fill-opacity: 0.8;
 }

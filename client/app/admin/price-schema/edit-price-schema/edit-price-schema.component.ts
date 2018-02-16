@@ -1,6 +1,6 @@
 import {Component, Output, Input, OnInit, OnChanges, EventEmitter} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import { isEqual, cloneDeep } from 'lodash';
+import { isEqual, cloneDeep, sortBy } from 'lodash';
 
 import {PriceSchema} from './../../../model/price-schema.interface';
 
@@ -27,7 +27,9 @@ export class EditPriceSchemaComponent implements OnChanges {
 
   ngOnChanges(changes) {
     if (changes.priceSchema && changes.priceSchema.currentValue) {
-      this.sourcePriceSchema = {...changes.priceSchema.currentValue};
+      const currentPriceSchema = changes.priceSchema.currentValue;
+      const sortedColorSchema = sortBy(currentPriceSchema.colorSchema, 'price');
+      this.sourcePriceSchema = {...currentPriceSchema, colorSchema: sortedColorSchema};
       this.priceSchema = {...this.sourcePriceSchema};
       this.resetForm(changes.priceSchema.currentValue);
     }

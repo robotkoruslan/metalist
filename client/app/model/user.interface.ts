@@ -4,5 +4,6 @@ export interface User {
   name?: string,
   subscribeNews?: boolean,
   role: string,
-  id: string
+  id: string,
+  provider: string
 }

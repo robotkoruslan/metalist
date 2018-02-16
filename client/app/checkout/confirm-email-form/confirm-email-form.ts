@@ -10,6 +10,7 @@ import {AuthService} from '../../services/auth.service';
 export class ConfirmEmailFormComponent {
   loginMessage: string;
   confirmationMessage: string;
+  showSection = false;
 
   constructor(private authenticationService: AuthService) {}
 
@@ -17,7 +18,7 @@ export class ConfirmEmailFormComponent {
     this.authenticationService.login(email, password)
       .subscribe(result => {
           if (!result) {
-            this.loginMessage = 'Username or password is incorrect';
+            this.loginMessage = 'Имя или пароль некорректны';
           }
         }, ({error: {message}}) => this.loginMessage = message
       );
@@ -26,7 +27,10 @@ export class ConfirmEmailFormComponent {
   confirmEmail(email) {
     this.authenticationService.generateTemporaryPassword(email)
       .subscribe(
-        response => this.confirmationMessage = response.message,
+        response => {
+          this.showSection = true;
+          this.confirmationMessage = response.message;
+        },
         err => {
           this.confirmationMessage = err.message;
           if (err.status === 409) {
@@ -35,4 +39,7 @@ export class ConfirmEmailFormComponent {
         }
       );
   }
+
+  handleEmailInput = () => this.confirmationMessage = null;
+  handlePasswordInput = () => this.loginMessage = null;
 }
