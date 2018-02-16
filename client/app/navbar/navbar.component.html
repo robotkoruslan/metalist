@@ -27,7 +27,7 @@
         <li *ngIf="isLoggedIn() && !isCollapsed">
           <p class="navbar-text" [ngStyle]="{'max-width.px': width}">Привет {{ currentUser?.name }}</p>
         </li>
-        <li *ngIf="isLoggedIn()"><a routerLinkActive="active" routerLink="settings"><span
+        <li *ngIf="isLoggedIn() && !loggedInWithOauth"><a routerLinkActive="active" routerLink="settings"><span
           class="glyphicon glyphicon-cog"></span></a></li>
         <li *ngIf="isLoggedIn()"><a routerLinkActive="active" routerLink="login">Выход</a></li>
         <li>

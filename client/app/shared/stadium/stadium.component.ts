@@ -46,7 +46,10 @@ export class StadiumComponent implements OnChanges {
   }
 
   onSectorClick($event, tribuneName, sectorNumber) {
-    const price = this.getPriceBySector(tribuneName, sectorNumber, this.priceSchema);
+    const price = this.getPriceBySector(tribuneName, sectorNumber);
+    if (!price) {
+      return;
+    }
     const increased = {
       price: price,
       tribune: tribuneName,
@@ -57,7 +60,7 @@ export class StadiumComponent implements OnChanges {
   }
 
   getColor(tribuneName, sectorNumber) {
-    let price = this.getPriceBySector(tribuneName, sectorNumber, this.priceSchema);
+    let price = this.getPriceBySector(tribuneName, sectorNumber);
 
     if (!price) {
       return this.defaultPriceColor.color;
@@ -73,8 +76,8 @@ export class StadiumComponent implements OnChanges {
       .map(color => color.color)[0];
   }
 
-  getPriceBySector(tribuneName, sectorNumber, priceSchema) {
-    const currentTribune = priceSchema['tribune_' + tribuneName];
+  getPriceBySector(tribuneName, sectorNumber) {
+    const currentTribune = this.priceSchema['tribune_' + tribuneName];
     if (!currentTribune) {
       return undefined;
     }

@@ -34,6 +34,9 @@ export class NavbarComponent implements OnInit {
   isAdmin = () => this.authenticationService.isAdmin();
 
   isCashier = () => this.authenticationService.isCashier();
+  get loggedInWithOauth () {
+    return this.currentUser && this.currentUser.provider !== 'local';
+  }
 
   get width () {
     let width = 250;

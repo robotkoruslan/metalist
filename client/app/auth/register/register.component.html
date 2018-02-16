@@ -9,35 +9,35 @@
           <mat-form-field class="example-full-width">
             <input matInput placeholder="Имя" type="text" name="name" formControlName="name">
             <mat-error *ngIf="registrationForm.get('name').hasError('required')">
-              Name is <strong>required</strong>
+              Имя является <strong>обязательным</strong> полем
             </mat-error>
           </mat-form-field>
           <mat-form-field class="example-full-width">
             <input matInput placeholder="Email" type="email" name="email" formControlName="email">
             <mat-error *ngIf="registrationForm.get('email').hasError('email') &&
             !registrationForm.get('email').hasError('required')">
-              Please enter a <strong>valid</strong> email address
+              Пожалуйста введите <strong>корректный</strong> email
             </mat-error>
             <mat-error *ngIf="registrationForm.get('email').hasError('required')">
-              Email is <strong>required</strong>
+              Email является <strong>обязательным</strong> полем
             </mat-error>
           </mat-form-field>
           <mat-form-field class="example-full-width">
             <input matInput placeholder="Пароль" type="password" name="password" formControlName="password">
             <mat-error *ngIf="registrationForm.get('password').hasError('required')">
-              Password is <strong>required</strong>
+              Пароль является <strong>обязательным</strong> полем
             </mat-error>
           </mat-form-field>
           <mat-form-field class="example-full-width">
             <input matInput placeholder="Подтвердите пароль" type="password" name="confirmPassword"
                    formControlName="confirmPassword">
             <mat-error *ngIf="registrationForm.get('confirmPassword').hasError('required')">
-              Password confirmation is <strong>required</strong>
+              Подтверждени пароля является <strong>обязательным</strong> полем
             </mat-error>
           </mat-form-field>
           <div *ngIf="registrationForm.hasError('mismatchedPasswords') &&
           registrationForm.get('confirmPassword').touched" class="error">
-            Passwords <strong>do not</strong> match.
+            Пароли <strong>не совпадают</strong>
           </div>
           <input type="checkbox" id="subscribeNews" name="subscribeNews" formControlName="subscribeNews">
             Я согласен получать информацию об акциях и скидках

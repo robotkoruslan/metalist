@@ -36,9 +36,7 @@ export function createTicket(seat) {
 }
 
 export function getUserTickets(tickets) {
-  return Promise.all(tickets.map(ticketId => {
-    return getTicketById(ticketId);
-  }));
+  return getTicketsById(tickets, {'match.date': { $gte: new Date()}}, {'match.date': -1});
 }
 
 export function getByTicketNumber(ticketNumber) {
@@ -59,4 +57,10 @@ export function randomNumericString(length) {
 
 function getTicketById(ticketId) {
   return Ticket.findById(ticketId);
+}
+
+function getTicketsById(ids, optionParams = {}, sortParams = {}) {
+  const options = Object.assign(optionParams, {'_id': {$in: ids}});
+  return Ticket.find(options)
+    .sort(sortParams)
 }

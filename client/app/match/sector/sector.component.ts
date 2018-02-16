@@ -24,25 +24,17 @@ export class SectorComponent implements OnInit {
 
   match: Match;
   sector: Sector;
-  tickets: Ticket[] = [];
   reservedSeats: Seat[] = [];
-  selectedSeats: Seat[] = [];
   optimisticSeats = [];
   priceSchema: PriceSchema | {} = {};
-  sectorPrice: string = '';
-  rowRow: string = 'Ряд';
-  message: string = '';
+  sectorPrice: string;
+  message: string;
   matchId: string;
   sectorId: string;
   tribuneName: string;
-  slug: string;
-  show = false;
-  addresses = {
-    solar: 'Стадион Солнечный. Пятихатки, Белгородское шоссе',
-    dinamo: 'Стадион Динамо. Ул. Динамовская, 3, станция метро Научная',
-    metalist: 'Стадион Металлист. Ул. Плехановская, 65, станция метро Спортивная / Метростроителей',
-  };
+  processedSeat: string;
 
+  tribuneNames = {north: 'Cеверная', south: 'Южная', west: 'Западная', east: 'Восточная'};
   constructor(private priceSchemaService: PriceSchemaService,
               private cartService: CartService,
               private route: ActivatedRoute,
@@ -58,13 +50,6 @@ export class SectorComponent implements OnInit {
 
   ngOnInit() {
     this.getPrice();
-    this.updateSeatsData();
-  }
-
-  updateSeatsData = (slug?: string) => {
-    if (slug) {
-      this.toggleOptimisticSeats(slug, false);
-    }
     this.getReservedSeats();
     this.getSelectedSeats();
   }
@@ -96,54 +81,51 @@ export class SectorComponent implements OnInit {
     return this.ticketsService.fetchReservedSeats(matchId, sectorName)
       .subscribe(seats => {
         this.reservedSeats = seats;
+        this.processedSeat = null;
       });
   }
 
   getSelectedSeats = () =>
     this.cartService.getCart()
       .subscribe(
-        cart => this.selectedSeats = cart.seats,
+        cart => this.optimisticSeats = cart.seats,
         err => console.log(err)
       )
 
-// @TODO need verification
-  updateReservedTickets() {
-    // this.getReservedSeats();
-    this.getSelectedSeats();
-  }
+  isSeatOptimistic = (slug) => this.optimisticSeats
+    .find(({slug: seatSlug, match}) => seatSlug === slug && match.id === this.match.id)
+  isSeatReserved = (slug) => this.reservedSeats.includes(slug)
 
   addClassByCheckSoldSeat(slug) {
-    const optimisticSeat = this.optimisticSeats.find(({slug: seatSlug}) => seatSlug === slug);
-
-    if (optimisticSeat) {
-      return optimisticSeat.show ? 'blockedSeat' : 'imgSeatsStyle';
+    if (this.isSeatOptimistic(slug)) {
+      return 'blockedSeat';
     }
-    if (this.reservedSeats.includes(slug)) {
-      const checkSeat = this.selectedSeats.find(seat => seat.slug === slug && seat.match.id === this.match.id);
-      return checkSeat ? 'blockedSeat' : 'soldSeat';
+    if (this.isSeatReserved(slug) && slug !== this.processedSeat) {
+      return 'soldSeat';
     }
-
     return 'imgSeatsStyle';
   }
 
   toggleSeat(slug) {
-    const checkSeat = this.selectedSeats.find(seat => seat.slug === slug && seat.match.id === this.match.id);
     this.message = '';
-    if (checkSeat && this.reservedSeats.includes(slug)) {
+    const isSeatReserved = this.isSeatReserved(slug);
+    const isSeatOptimistic = this.isSeatOptimistic(slug);
+    if (isSeatOptimistic) {
       this.toggleOptimisticSeats(slug, false);
       this.cartService.removeSeatFromCart(slug, this.match.id)
         .subscribe(
-          () => this.updateSeatsData(),
+          () => this.getReservedSeats(),
           error => {
             console.log(error);
+            this.getReservedSeats();
             this.toggleOptimisticSeats(slug, true);
           }
         );
-    } else if (!this.reservedSeats.includes(slug)) {
+    } else {
       this.toggleOptimisticSeats(slug, true);
       this.cartService.addSeatToCart(slug, this.match.id)
         .subscribe(
-          () => this.updateSeatsData(),
+          () => this.getReservedSeats(),
           error => {
             if (error.status === 409) {
               this.message = 'Это место уже занято.';
@@ -156,82 +138,39 @@ export class SectorComponent implements OnInit {
   }
 
   toggleOptimisticSeats(slug, show) {
-    const optimisticSeat = this.optimisticSeats.find(({slug: seatSlug}) => seatSlug === slug);
-    if (optimisticSeat) {
-      optimisticSeat.show = show;
-    } else {
+    this.processedSeat = slug;
+    if (show) {
       const [sector, row, seat] = slug.match(/\d{1,2}/g);
-      this.optimisticSeats.push({slug, seat, row, sector, match: this.match, show});
+      this.optimisticSeats.push({slug, seat, row, sector, match: this.match, price: this.sectorPrice});
+    } else {
+      this.optimisticSeats = this.optimisticSeats.filter(({slug: seatSlug}) => seatSlug !== slug);
     }
   }
 
-  get seats() {
-    this.selectedSeats = this.selectedSeats.map(seat => {
-      const optimisticSeat = this.optimisticSeats.find(({slug}) => slug === seat.slug);
-      return {...optimisticSeat, ...seat};
-    });
-    const seats = uniqBy(this.selectedSeats.concat(this.optimisticSeats), 'slug');
-    remove(seats, seat => seat.hasOwnProperty('show') ? !seat.show : false);
-    return seats;
-  }
-
-  getFirstUpperRow(sectorNumber) {
-    const sectorDividers: any = {
-      '1': 19,
-      '2': 20,
-      '8': 20,
-      '9': 19,
-      '10': 15,
-      '11': 15,
-      '12': 15,
-      '13': 15,
-      '14': 15,
-      '15': 15,
-      '16': 15,
-      '17': 15,
-      '18': 15,
-      '19': 15,
-      '20': 15,
-      '22': 9,
-      '23': 9,
-      '24': 9,
-      '25': 9,
-      '26': 9,
-      '27': 9,
-      '28': 9,
-      '29': 9,
-    };
-    return sectorDividers[sectorNumber] || 1;
-  }
-
-  // makeArrayFromNumber (number) {
-  //   return [...Array(parseInt(number) + 1).keys()].filter(Boolean);
-  // }
-
-  makeArrayFromNumber(number) {
-    const seats = [];
-    for (let i = 1; i <= number; i++) {
-      seats.push(i);
-    }
-    return seats;
-  }
+  makeArrayFromNumber = (number)  => Array.from(Array(+number).keys()).map(x => x + 1);
 
   isSkybox() {
     const skyBoxes: any = ['SB_1', 'SB_2', 'SB_3_5', 'SB_6', 'SB_7', 'SB_8', 'SB_9', 'SB_10', 'SB_11' ];
     return this.sector ? skyBoxes.includes(this.sector.name) : false;
   }
 
-  isCashier = () => this.authService.isCashier();
+  get isCashier() {
+    return this.authService.isCashier();
+  }
 
   pay() {
     this.cartService.pay()
       .subscribe(
         order => {
           this.printTicketService.print(order.tickets);
-          this.updateSeatsData();
+          this.getReservedSeats();
+          this.getSelectedSeats();
         },
         err => console.log(err)
       );
   }
 
+  get tribune() {
+    return this.tribuneNames[this.tribuneName];
+  }
 }

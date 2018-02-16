@@ -24,15 +24,15 @@
 
             <a id="sectorsLayer">
                 <metadata id="CorelCorpID_0Corel-Layer"></metadata>
-                <g id="_1731983043136" (click)="onSectorClick($event, 'east', '21')">
-                 <polygon class="sector sectorTooltip" sectorid="30658136" points="265,52 263,0 243,0 245,52 " [attr.fill] = "getColor('east','21')"></polygon>
+                <g id="_1731983043136" (click)="onSectorClick($event, 'east', '21')" [class.disabledSector]="!getPriceBySector('east', '21')">
+                 <polygon class="sector sectorTooltip" sectorid="30658136" points="265,52 263,0 243,0 245,52 " [attr.fill]="getColor('east','21')"></polygon>
                  <g>
                     <g transform="matrix(1 0 0 1 -203.642 -272.404)">
                    <text x="450" y="300" class="sector sectorTooltip" sectorid="30658136">21</text>
                   </g>
                  </g>
                 </g>
-                <g class="area-group" id="_1731983042720" (click)="onSectorClick($event, 'south', '38')">
+                <g class="area-group" id="_1731983042720" (click)="onSectorClick($event, 'south', '38')" [class.disabledSector]="!getPriceBySector('south', '38')">
                   <path class="sector sectorTooltip" sectorid="30692922" d="M806 305l-14 0c-1,15 -2,30 -5,43l13 3c3,-14 6,-29 6,-46l0 0z" [attr.fill]="getColor('south','38')"  ></path>
                   <path class="sector sectorTooltip" sectorid="30692922" d="M809 355l33 10 4 -12 13 5 -6 24 29 10c2,-3 3,-7 4,-10l6 -36c1,-6 3,-11 3,-17l-81 -7c-1,11 -3,22 -5,33l0 0z" [attr.fill]="getColor('south','38')"  ></path>
                  <g>
@@ -85,7 +85,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731983052608" (click)="onSectorClick($event, 'north', '10')">
+                <g id="_1731983052608" (click)="onSectorClick($event, 'north', '10')" [class.disabledSector]="!getPriceBySector('north', '10')">
                      <path class="sector sectorTooltip" sectorid="30672079" d="M241 525c-14,-1 -29,-6 -45,-14l-29 66c31,16 60,23 83,23l0 -71 -9 -1 0 -3 0 0z"  [attr.fill]="getColor('north','10')"  ></path>
                      <path class="sector sectorTooltip" sectorid="30672079" d="M241 485l-5 -3 -3 -7c-6,-1 -11,-3 -17,-6l-15 34c14,6 27,11 40,12l0 -30 0 0z" [attr.fill]="getColor('north','10')"  ></path>
                      <g>
@@ -99,7 +99,7 @@
                       </g>
                      </g>
                 </g>
-                <g id="_1731983054784" (click)="onSectorClick($event, 'north', '11')">
+                <g id="_1731983054784" (click)="onSectorClick($event, 'north', '11')" [class.disabledSector]="!getPriceBySector('north', '11')">
                  <path class="sector sectorTooltip" sectorid="30673465" d="M213 468c-9,-5 -18,-11 -25,-18l-24 29c11,8 23,16 34,23l15 -34z" [attr.fill]="getColor('north','11')" ></path>
                  <path class="sector sectorTooltip" sectorid="30673465" d="M165 491l-12 16 -16 -13 -37 38c20,19 42,33 64,44l30 -66c-10,-5 -19,-12 -29,-19l0 0z" [attr.fill]="getColor('north','11')"  ></path>
                  <g>
@@ -113,7 +113,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731983055040" (click)="onSectorClick($event, 'north', '12')">
+                <g id="_1731983055040" (click)="onSectorClick($event, 'north', '12')" [class.disabledSector]="!getPriceBySector('north', '12')">
                  <path class="sector sectorTooltip" sectorid="30674688" d="M154 469c3,3 5,5 7,7l23 -28c-11,-10 -20,-22 -30,-36l-31 19c11,17 22,29 31,38l0 0z" [attr.fill]="getColor('north','12')"  ></path>
                  <path class="sector sectorTooltip" sectorid="30674688" d="M147 476c-8,-8 -17,-18 -27,-33l-17 11 -13 -18 -46 29c15,26 34,46 53,65l52 -53c-1,-1 -1,-1 -2,-1l0 0z" [attr.fill]="getColor('north','12')"  ></path>
                  <g>
@@ -127,7 +127,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731983058848" (click)="onSectorClick($event, 'north', '13')">
+                <g id="_1731983058848" (click)="onSectorClick($event, 'north', '13')" [class.disabledSector]="!getPriceBySector('north', '13')">
                  <path class="sector sectorTooltip" sectorid="30676220" d="M153 409c-9,-14 -17,-29 -22,-47l-36 10c7,23 17,42 27,57l31 -20 0 0z" [attr.fill]="getColor('north','13')"  ></path>
                  <path class="sector sectorTooltip" sectorid="30676220" d="M90 384l-16 7 -6 -12 -55 17c8,24 18,46 30,67l63 -42c-6,-11 -12,-23 -16,-37l0 0z" [attr.fill]="getColor('north','13')"  ></path>
                  <g>
@@ -146,7 +146,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731983059360" (click)="onSectorClick($event, 'north', '14')">
+                <g id="_1731983059360" (click)="onSectorClick($event, 'north', '14')" [class.disabledSector]="!getPriceBySector('north', '14')">
                  <path class="sector sectorTooltip" sectorid="30677767" d="M130 359c-5,-18 -8,-37 -8,-58l-37 -1c0,26 4,49 9,69l36 -10z" [attr.fill]="getColor('north','14')"  ></path>
                  <path class="sector sectorTooltip" sectorid="30677767" d="M77 327l-75 7c1,21 6,40 11,59l72 -23c-4,-13 -7,-28 -8,-43l0 0z" [attr.fill]="getColor('north','14')"  ></path>
                  <g>
@@ -165,7 +165,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731983062560" (click)="onSectorClick($event, 'north', '15')">
+                <g id="_1731983062560" (click)="onSectorClick($event, 'north', '15')" [class.disabledSector]="!getPriceBySector('north', '15')">
                  <path class="sector sectorTooltip" sectorid="30679038" d="M75 297c1,-7 1,-15 2,-22l-76 -5c0,10 -1,20 -1,30 0,11 1,20 1,30l76 -6c-1,-9 -2,-18 -2,-27l0 0z" [attr.fill]="getColor('north','15')"  ></path>
                  <g>
                   <g transform="matrix(-0.0230008 -0.999735 0.999735 -0.0230008 -247.928 763.227)">
@@ -173,7 +173,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731983061152" (click)="onSectorClick($event, 'north', '16')">
+                <g id="_1731983061152" (click)="onSectorClick($event, 'north', '16')" [class.disabledSector]="!getPriceBySector('north', '16')">
                  <path class="sector sectorTooltip" sectorid="30679952" d="M85 296l37 0c0,-19 3,-39 9,-58l-36 -10c-6,22 -9,45 -10,68z" [attr.fill]="getColor('north','16')"  ></path>
                  <path class="sector sectorTooltip" sectorid="30679952" d="M83 235l-16 -6 4 -18 -55 -19c-7,23 -12,48 -14,75l75 4c1,-12 3,-24 6,-36z" [attr.fill]="getColor('north','16')"  ></path>
                  <g>
@@ -187,7 +187,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731983064704" (click)="onSectorClick($event, 'north', '17')">
+                <g id="_1731983064704" (click)="onSectorClick($event, 'north', '17')" [class.disabledSector]="!getPriceBySector('north', '17')">
                  <path class="sector sectorTooltip" sectorid="30681491" d="M132 235c5,-17 12,-32 21,-46l-32 -19c-10,18 -19,36 -24,55l35 10 0 0z" [attr.fill]="getColor('north','17')"  ></path>
                  <path class="sector sectorTooltip" sectorid="30681491" d="M110 172l-16 -10 7 -13 -49 -30c-14,20 -26,43 -34,70l72 25c5,-15 12,-30 20,-42l0 0z" [attr.fill]="getColor('north','17')"  ></path>
                  <g>
@@ -201,7 +201,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731983067040" (click)="onSectorClick($event, 'north', '18')">
+                <g id="_1731983067040" (click)="onSectorClick($event, 'north', '18')" [class.disabledSector]="!getPriceBySector('north', '18')">
                  <path class="sector sectorTooltip" sectorid="30683088" d="M123 167l32 18c9,-14 20,-26 30,-36l-24 -27c-8,8 -16,15 -23,24 -5,7 -11,14 -15,21z" [attr.fill]="getColor('north','18')"  ></path>
                  <path class="sector sectorTooltip" sectorid="30683088" d="M148 121l-13 -13 13 -15 -34 -41c-5,4 -12,9 -17,15l-36 38c-2,4 -5,7 -7,11l65 40c8,-13 18,-24 29,-35l0 0z" [attr.fill]="getColor('north','18')"  ></path>
                  <g>
@@ -215,7 +215,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731983066240" (click)="onSectorClick($event, 'north', '19')">
+                <g id="_1731983066240" (click)="onSectorClick($event, 'north', '19')" [class.disabledSector]="!getPriceBySector('north', '19')">
                  <path class="sector sectorTooltip" sectorid="30684608" d="M212 131l-14 -34c-13,6 -23,14 -34,23l25 27c7,-7 15,-12 23,-16l0 0z" [attr.fill]="getColor('north','19')"  ></path>
                  <path class="sector sectorTooltip" sectorid="30684608" d="M193 88l-31 -67c-14,8 -30,16 -45,28l47 59c9,-8 19,-15 29,-20l0 0z" [attr.fill]="getColor('north','19')"  ></path>
                  <g>
@@ -229,7 +229,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731983068256" (click)="onSectorClick($event, 'north', '20')">
+                <g id="_1731983068256" (click)="onSectorClick($event, 'north', '20')" [class.disabledSector]="!getPriceBySector('north', '20')">
                  <path class="sector sectorTooltip" sectorid="30685587" d="M240 75l-3 -75c-21,1 -45,8 -71,20l30 67c15,-8 30,-11 44,-12l0 0z" [attr.fill]="getColor('north','20')"></path>
                  <path class="sector sectorTooltip" sectorid="30685587" d="M215 130c7,-4 13,-6 21,-8l-1 -7 8 -3 -2 -29c-13,2 -27,6 -41,12l15 35 0 0z" [attr.fill]="getColor('north','20')"></path>
                  <g>
@@ -243,7 +243,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731983070912" (click)="onSectorClick($event, 'east', '22')">
+                <g id="_1731983070912" (click)="onSectorClick($event, 'east', '22')" [class.disabledSector]="!getPriceBySector('east', '22')">
                  <polygon class="sector sectorTooltip" sectorid="30658352" points="268,91 268,114 273,114 273,91 "   [attr.fill]="getColor('east','22')"></polygon>
                  <polygon class="sector sectorTooltip" sectorid="30658352" points="278,114 306,114 306,91 277,91 "   [attr.fill]="getColor('east','22')"></polygon>`
                  <polygon class="sector sectorTooltip" sectorid="30658352" points="268,81 306,81 307,0 268,0 "   [attr.fill]="getColor('east','22')"></polygon>
@@ -258,7 +258,7 @@
                   </g>
                  </g>
                 </g>
-               <g id="_1731983073632" (click)="onSectorClick($event,'east', '23')">
+               <g id="_1731983073632" (click)="onSectorClick($event,'east', '23')" [class.disabledSector]="!getPriceBySector('east', '23')">
                  <polygon class="sector sectorTooltip" sectorid="30659033" points="310,114 358,114 358,91 310,91 "   [attr.fill]="getColor('east','23')"></polygon>
                  <polygon class="sector sectorTooltip" sectorid="30659033" points="347,0 311,0 310,81 347,81 "   [attr.fill]="getColor('east','23')"></polygon>
                  <g>
@@ -277,7 +277,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731983091904" (click)="onSectorClick($event, 'east', '24')">
+                <g id="_1731983091904" (click)="onSectorClick($event, 'east', '24')" [class.disabledSector]="!getPriceBySector('east', '24')">
                  <polygon class="sector sectorTooltip" sectorid="30659921" points="350,66 374,66 374,81 415,81 415,0 350,0 "   [attr.fill]="getColor('east','24')"></polygon>
                  <rect class="sector sectorTooltip" sectorid="30659921" x="362" y="91" width="52.8394" height="22.9979"   [attr.fill]="getColor('east','24')"></rect>
                  <g>
@@ -291,7 +291,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731983094368" (click)="onSectorClick($event, 'east', '25')">
+                <g id="_1731983094368" (click)="onSectorClick($event, 'east', '25')" [class.disabledSector]="!getPriceBySector('east', '25')">
                  <polygon class="sector sectorTooltip" sectorid="30661119" points="418,117 450,117 450,100 454,100 454,91 418,91 "   [attr.fill]="getColor('east','25')"></polygon>
                  <polygon class="sector sectorTooltip" sectorid="30661119" points="418,81 450,81 450,63 454,63 454,0 418,0 "   [attr.fill]="getColor('east','25')"></polygon>
                  <g>
@@ -305,7 +305,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731983094944" (click)="onSectorClick($event, 'east', '26')">
+                <g id="_1731983094944" (click)="onSectorClick($event, 'east', '26')" [class.disabledSector]="!getPriceBySector('east', '26')">
                  <polygon class="sector sectorTooltip" sectorid="30661835" points="459,100 463,100 463,117 498,117 499,91 459,91 "   [attr.fill]="getColor('east','26')"></polygon>
                  <polygon class="sector sectorTooltip" sectorid="30661835" points="459,63 463,63 463,81 499,81 499,0 459,0 459,63 459,63 "   [attr.fill]="getColor('east','26')"></polygon>
                  <g>
@@ -319,7 +319,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731983096160" (click)="onSectorClick($event, 'east', '27')">
+                <g id="_1731983096160" (click)="onSectorClick($event, 'east', '27')" [class.disabledSector]="!getPriceBySector('east', '27')">
                  <polygon class="sector sectorTooltip" sectorid="30662541" points="543,66 567,66 566,0 503,0 503,81 543,81 "   [attr.fill]="getColor('east','27')"></polygon>
                  <polygon class="sector sectorTooltip" sectorid="30662541" points="503,114 555,114 555,91 503,91 "   [attr.fill]="getColor('east','27')"></polygon>
                  <g>
@@ -333,7 +333,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731983098432" (click)="onSectorClick($event, 'east', '28')">
+                <g id="_1731983098432" (click)="onSectorClick($event, 'east', '28')" [class.disabledSector]="!getPriceBySector('east', '28')">
                  <polygon class="sector sectorTooltip" sectorid="30663741" points="559,114 614,114 614,91 559,91 "   [attr.fill]="getColor('east','28')"></polygon>
                  <polygon class="sector sectorTooltip" sectorid="30663741" points="571,81 614,81 614,0 571,0 "   [attr.fill]="getColor('east','28')"></polygon>
                  <g>
@@ -347,7 +347,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731983100192" (click)="onSectorClick($event, 'east', '29')">
+                <g id="_1731983100192" (click)="onSectorClick($event, 'east', '29')" [class.disabledSector]="!getPriceBySector('east', '29')">
                  <polygon class="sector sectorTooltip" sectorid="30664628" points="617,91 617,114 643,114 642,91 "   [attr.fill]="getColor('east','29')"></polygon>
                  <polygon class="sector sectorTooltip" sectorid="30664628" points="646,114 651,114 651,91 645,91 "   [attr.fill]="getColor('east','29')"></polygon>
                  <polygon class="sector sectorTooltip" sectorid="30664628" points="617,0 617,81 651,81 651,0 "   [attr.fill]="getColor('east','29')"></polygon>
@@ -364,7 +364,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731983102304" (click)="onSectorClick($event, 'south', '30')">
+                <g id="_1731983102304" (click)="onSectorClick($event, 'south', '30')" [class.disabledSector]="!getPriceBySector('south', '30')">
                  <path class="sector sectorTooltip" sectorid="30686868" d="M687 48l10 4 14 -29c-24,-12 -45,-19 -57,-23l0 90c5,1 9,2 14,4l19 -46 0 0z" [attr.fill]="getColor('south','30')"  ></path>
                  <g>
                   <g transform="matrix(0.929158 0.369683 -0.369683 0.929158 368.555 -420.145)">
@@ -377,7 +377,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731983102336" (click)="onSectorClick($event, 'south', '31')">
+                <g id="_1731983102336" (click)="onSectorClick($event, 'south', '31')" [class.disabledSector]="!getPriceBySector('south', '31')">
                  <path class="sector sectorTooltip" sectorid="30687429" d="M685 64l-13 31 0 0c10,4 22,9 34,16l39 -69c-11,-7 -21,-12 -30,-18l-22 44 -8 -4z" [attr.fill]="getColor('south','31')"  ></path>
                  <g>
                   <g transform="matrix(0.887874 0.460087 -0.460087 0.887874 453.31 -430.884)">
@@ -390,7 +390,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731983105536" (click)="onSectorClick($event, 'south', '32')">
+                <g id="_1731983105536" (click)="onSectorClick($event, 'south', '32')" [class.disabledSector]="!getPriceBySector('south', '32')">
                  <path class="sector sectorTooltip" sectorid="30688013" d="M682 125c12,6 25,12 38,23l9 -10c-14,-12 -29,-19 -41,-26l-6 13 0 0z" [attr.fill]="getColor('south','32')"  ></path>
                  <path class="sector sectorTooltip" sectorid="30688013" d="M709 112l38 -69c17,10 32,22 49,36l-45 49 -20 -15 -8 9c-4,-3 -10,-7 -14,-10l0 0z" [attr.fill]="getColor('south','32')"  ></path>
                  <g>
@@ -406,7 +406,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731983040480" (click)="onSectorClick($event, 'south', '33')">
+                <g id="_1731983040480" (click)="onSectorClick($event, 'south', '33')" [class.disabledSector]="!getPriceBySector('south', '33')">
                  <path class="sector sectorTooltip" sectorid="30688885" d="M731 139l-9 11c12,9 23,21 32,34l11 -8c-10,-15 -22,-27 -34,-37z" [attr.fill]="getColor('south','33')"  ></path>
                  <path class="sector sectorTooltip" sectorid="30688885" d="M747 142c10,8 19,17 26,28l36 -26 6 10 31 -19c-14,-21 -31,-38 -48,-54l-53 58c1,0 2,1 2,3l0 0z" [attr.fill]="getColor('south','33')"  ></path>
                  <g>
@@ -422,7 +422,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731983042432" (click)="onSectorClick($event, 'south', '34')">
+                <g id="_1731983042432" (click)="onSectorClick($event, 'south', '34')" [class.disabledSector]="!getPriceBySector('south', '34')">
                  <path class="sector sectorTooltip" sectorid="30689895" d="M756 188c7,8 12,18 18,30l12 -6c-6,-12 -12,-23 -19,-33l-11 9 0 0z" [attr.fill]="getColor('south','34')"  ></path>
                  <path class="sector sectorTooltip" sectorid="30689895" d="M800 154l-25 18c8,11 14,23 20,35l72 -37c-5,-12 -12,-23 -19,-33l-41 28 -7 -11 0 0z" [attr.fill]="getColor('south','34')"  ></path>
                  <g>
@@ -436,7 +436,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731983042272" (click)="onSectorClick($event, 'south', '35')">
+                <g id="_1731983042272" (click)="onSectorClick($event, 'south', '35')" [class.disabledSector]="!getPriceBySector('south', '35')">
                  <path class="sector sectorTooltip" sectorid="30690634" d="M775 222c4,8 8,18 10,28l13 -4c-3,-11 -7,-22 -11,-32l-12 8z" [attr.fill]="getColor('south','35')"  ></path>
                  <path class="sector sectorTooltip" sectorid="30690634" d="M807 241l35 -12 -5 -11 43 -15c-3,-11 -7,-21 -12,-31l-72 38c4,10 7,20 11,31l0 0z" [attr.fill]="getColor('south','35')"  ></path>
                  <g>
@@ -450,7 +450,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1696736846880" (click)="onSectorClick($event, 'south', '36')">
+                <g id="_1696736846880" (click)="onSectorClick($event, 'south', '36')" [class.disabledSector]="!getPriceBySector('south', '36')">
                  <path class="sector sectorTooltip" sectorid="30691472" d="M806 294c-1,-16 -4,-31 -7,-45l-13 5c3,13 5,26 6,40l14 0z" [attr.fill]="getColor('south','36')"  ></path>
                  <path class="sector sectorTooltip" sectorid="30691472" d="M860 241l-14 4 -3 -12 -35 12c2,11 4,22 5,33l82 -9c-2,-10 -3,-20 -5,-29l-3 -14c-1,-6 -3,-13 -6,-20l-28 10 7 25 0 0z" [attr.fill]="getColor('south','36')"  ></path>
                  <g>
@@ -464,7 +464,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731914933840" (click)="onSectorClick($event, 'south', '37')">
+                <g id="_1731914933840" (click)="onSectorClick($event, 'south', '37')" [class.disabledSector]="!getPriceBySector('south', '37')">
                  <path class="sector sectorTooltip" sectorid="30692242" d="M895 272l-81 9c0,2 0,4 0,5l15 0 0 26 -14 0c-1,2 -1,4 -1,6l81 8c1,-9 1,-16 1,-26 0,-9 0,-19 -1,-28z" [attr.fill]="getColor('south','37')"  ></path>
                  <g>
                   <g transform="matrix(-0.00031 1 -1 -0.00031 1155.89 -159.387)">
@@ -477,7 +477,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731914897648" (click)="onSectorClick($event, 'south', '39')">
+                <g id="_1731914897648" (click)="onSectorClick($event, 'south', '39')" [class.disabledSector]="!getPriceBySector('south', '39')">
                  <path class="sector sectorTooltip" sectorid="30693701" d="M789 383l10 -28 -13 -4c-2,10 -6,20 -10,29l12 5c1,-1 1,-1 1,-2l0 0z" [attr.fill]="getColor('south','39')"  ></path>
                  <path class="sector sectorTooltip" sectorid="30693701" d="M841 369l-33 -11c-2,11 -7,22 -11,32l71 38c5,-11 9,-21 13,-33l-44 -15 4 -11 0 0z" [attr.fill]="getColor('south','39')"  ></path>
                  <g>
@@ -491,7 +491,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731914916080" (click)="onSectorClick($event, 'south', '40')">
+                <g id="_1731914916080" (click)="onSectorClick($event, 'south', '40')" [class.disabledSector]="!getPriceBySector('south', '40')">
                  <path class="sector sectorTooltip" sectorid="30694535" d="M787 389l-12 -6c-6,10 -11,20 -18,29l10 8c8,-10 14,-19 20,-31l0 0z" [attr.fill]="getColor('south','40')"  ></path>
                  <path class="sector sectorTooltip" sectorid="30694535" d="M776 425l25 18 5 -5 11 8 -10 14 27 20c2,-3 5,-5 6,-7l19 -28c3,-5 5,-9 7,-15l-70 -37c-6,11 -12,22 -20,32l0 0z" [attr.fill]="getColor('south','40')"  ></path>
                  <g>
@@ -505,7 +505,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731979742880" (click)="onSectorClick($event, 'south', '41')">
+                <g id="_1731979742880" (click)="onSectorClick($event, 'south', '41')" [class.disabledSector]="!getPriceBySector('south', '41')">
                  <path class="sector sectorTooltip" sectorid="30695388" d="M762 428l4 -4 -11 -9c-10,13 -22,25 -34,35l8 10c12,-10 23,-20 33,-32z" [attr.fill]="getColor('south','41')"  ></path>
                  <path class="sector sectorTooltip" sectorid="30695388" d="M799 447l-25 -19c-8,11 -18,21 -29,31l53 59c12,-11 23,-22 34,-35l-38 -29 5 -7 0 0z" [attr.fill]="getColor('south','41')"  ></path>
                  <g>
@@ -521,7 +521,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731979764000" (click)="onSectorClick($event, 'south', '42')">
+                <g id="_1731979764000" (click)="onSectorClick($event, 'south', '42')" [class.disabledSector]="!getPriceBySector('south', '42')">
                  <path class="sector sectorTooltip" sectorid="30696271" d="M684 487c14,-6 28,-15 43,-25l-8 -11c-13,11 -26,19 -40,25l5 11z" [attr.fill]="getColor('south','42')"  ></path>
                  <path class="sector sectorTooltip" sectorid="30696271" d="M730 486l-7 -11c-4,4 -10,7 -15,10l41 69c3,-2 6,-4 9,-6l20 -13c6,-5 11,-10 17,-15l-44 -50 -21 16 0 0z" [attr.fill]="getColor('south','42')"  ></path>
                  <g>
@@ -537,7 +537,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731979766112" (click)="onSectorClick($event, 'south', '43')">
+                <g id="_1731979766112" (click)="onSectorClick($event, 'south', '43')" [class.disabledSector]="!getPriceBySector('south', '43')">
                  <path class="sector sectorTooltip" sectorid="30697168" d="M672 503l14 32 -13 7 14 43c17,-7 37,-16 58,-29l-39 -70c-12,7 -23,12 -34,17l0 0z" [attr.fill]="getColor('south','43')"  ></path>
                  <g>
                   <g transform="matrix(0.862525 -0.506015 0.506015 0.862525 169.027 536.562)">
@@ -545,7 +545,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731979768672" (click)="onSectorClick($event, 'south', '44')">
+                <g id="_1731979768672" (click)="onSectorClick($event, 'south', '44')" [class.disabledSector]="!getPriceBySector('south', '44')">
                  <path class="sector sectorTooltip" sectorid="30697957" d="M682 533l-14 -29c-4,2 -9,4 -14,5l0 89c8,-2 18,-6 30,-11l-16 -46 14 -8 0 0z" [attr.fill]="getColor('south','44')"  ></path>
                  <g>
                   <g transform="matrix(1 0 0 1 207.789 286.026)">
@@ -553,7 +553,7 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731979771136" (click)="onSectorClick($event, 'west', 'VIP_BR')">
+                <g id="_1731979771136" (click)="onSectorClick($event, 'west', 'VIP_BR')" [class.disabledSector]="!getPriceBySector('west', 'VIP_BR')">
                  <polygon class="sector sectorTooltip" sectorid="30671945" points="530,552 495,552 495,566 549,566 549,539 530,539 "   [attr.fill]="getColor('west','VIP_BR')"></polygon>
                  <g>
                   <g transform="matrix(1 0 0 1 46.5189 260.496)">
@@ -564,13 +564,13 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731816975632" (click)="onSectorClick($event, 'west', 'VIP_B')">
+                <g id="_1731816975632" (click)="onSectorClick($event, 'west', 'VIP_B')" [class.disabledSector]="!getPriceBySector('west', 'VIP_B')">
                  <rect class="sector sectorTooltip" sectorid="30671405" x="426" y="539" width="64.1491" height="27.0958"   [attr.fill]="getColor('west','VIP_B')"></rect>
                  <g>
                   <text x="440" y="558" class="sector sectorTooltip" sectorid="30671405" style="font-size: 12px"   [attr.fill]="getColor('west','VIP_B')">VIP B</text>
                  </g>
                 </g>
-                <g id="_1731816978608" (click)="onSectorClick($event, 'west', 'VIP_BL')">
+                <g id="_1731816978608" (click)="onSectorClick($event, 'west', 'VIP_BL')" [class.disabledSector]="!getPriceBySector('west', 'VIP_BL')">
                  <polygon class="sector sectorTooltip" sectorid="30671807" points="385,539 367,539 367,566 420,566 420,552 385,552 "   [attr.fill]="getColor('west','VIP_BL')"></polygon>
                  <g>
                   <g transform="matrix(1 0 0 1 -80.8318 260.496)">
@@ -580,7 +580,7 @@
                 </g>
               <!--polygon class="fil0" points="620,479 650,479 650,504 620,504 "/-->
 
-                <g id="_1731978760304" (click)="onSectorClick($event, 'west', '1')">
+                <g id="_1731978760304" (click)="onSectorClick($event, 'west', '1')" [class.disabledSector]="!getPriceBySector('west', '1')">
                  <polygon class="sector sectorTooltip" sectorid="30665314" points="620,479 620,504 629,504 629,535 640,535 640,552 618,552 618,600 650,600 650,479"  [attr.fill]="getColor('west','1')"></polygon>
                  <g transform="matrix(1 0 0 1 181.557 193.332)">
                   <text x="450" y="300" class="sector sectorTooltip" sectorid="30665314"  [attr.fill]="getColor('west','1')">1</text>
@@ -589,7 +589,7 @@
                   <text x="450" y="300" class="sector sectorTooltip" sectorid="30665314"   [attr.fill]="getColor('west','1')">1</text>
                  </g>
                 </g>
-                <g id="_1731978761520" (click)="onSectorClick($event, 'west', '2')">
+                <g id="_1731978761520" (click)="onSectorClick($event, 'west', '2')" [class.disabledSector]="!getPriceBySector('west', '2')">
                  <polygon class="sector sectorTooltip" sectorid="30665934" points="573,535 623,535 623,507 617,507 617,479 581,479 581,508 573,508 "   [attr.fill]="getColor('west','2')"></polygon>
                  <polygon class="sector sectorTooltip" sectorid="30665934" points="560,567 553,567 553,600 615,600 615,538 560,538 560,567 "   [attr.fill]="getColor('west','2')"></polygon>
                   <!--rect class="fil9" x="581" y="479" width="35.7592" height="21.7321"/-->
@@ -604,14 +604,14 @@
                   </g>
                  </g>
                 </g>
-                <g id="_1731978762992" (click)="onSectorClick($event, 'west', 'VIP_AR')">
+                <g id="_1731978762992" (click)="onSectorClick($event, 'west', 'VIP_AR')" [class.disabledSector]="!getPriceBySector('west', 'VIP_AR')">
                  <polygon class="sector sectorTooltip" sectorid="30671283" points="520,510 532,510 532,500 496,500 496,535 520,535 "   [attr.fill]="getColor('west','VIP_AR')"></polygon>
                  <g transform="matrix(0 -1 1.05176 0 190.767 983.248)">
                   <text x="450" y="306" class="sector sectorTooltip" sectorid="30671283" style="font-size: 9px"   [attr.fill]="getColor('west','VIP_AR')">VIP AR</text>
                  </g>
                 </g>
                 <rect class="fil10" x="536" y="479" width="42.2331" height="21.7321"></rect>
-                <g id="_1731978764720" (click)="onSectorClick($event, 'west', '3')">
+                <g id="_1731978764720" (click)="onSectorClick($event, 'west', '3')" [class.disabledSector]="!getPriceBySector('west', '3')">
                  <polygon class="sector sectorTooltip" sectorid="30667295" points="524,535 570,535 570,500 577,500 577,479 536,479 536,500 524,500 524,535 524,535 "   [attr.fill]="getColor('west','3')"></polygon>
                  <g transform="matrix(1 0 0 1 102.98 193.332)">
                   <text x="450" y="300" class="sector sectorTooltip" sectorid="30667295"   [attr.fill]="getColor('west','3')">3</text>
@@ -620,13 +620,13 @@
                   <text x="450" y="300" class="sector sectorTooltip" sectorid="30667295"   [attr.fill]="getColor('west','3')">3</text>
                  </g>
                 </g>
-                <g id="_1731978765296" (click)="onSectorClick($event, 'west', '4')">
+                <g id="_1731978765296" (click)="onSectorClick($event, 'west', '4')" [class.disabledSector]="!getPriceBySector('west', '4')">
                  <polygon class="sector sectorTooltip" sectorid="30667783" points="520,495 532,495 532,479 496,479 496,500 520,500 "   [attr.fill]="getColor('west','4')"></polygon>
                  <g transform="matrix(1 0 0 1 53.3389 193.329)">
                   <text x="450" y="300" class="sector sectorTooltip" sectorid="30667783"   [attr.fill]="getColor('west','4')">4</text>
                  </g>
                 </g>
-                <g id="_1731978768048" (click)="onSectorClick($event, 'west', '5')">
+                <g id="_1731978768048" (click)="onSectorClick($event, 'west', '5')" [class.disabledSector]="!getPriceBySector('west', '5')">
                  <rect class="sector sectorTooltip" sectorid="30667906" x="468" y="479" width="24.7034" height="21.7321"   [attr.fill]="getColor('west','5')"></rect>
                  <g transform="matrix(1 0 0 1 25.5796 193.332)">
                   <text x="450" y="300" class="sector sectorTooltip" sectorid="30667906"   [attr.fill]="getColor('west','5')">5</text>
@@ -638,7 +638,7 @@
                   <text x="450" y="300" class="fil1 fnt9" style="font-size: 9px">PRESS</text>
                  </g>
                 </g>
-                <g id="_1731978772624" (click)="onSectorClick($event, 'west', '5')">
+                <g id="_1731978772624" (click)="onSectorClick($event, 'west', '5')" [class.disabledSector]="!getPriceBySector('west', '5')">
                  <rect class="sector sectorTooltip" sectorid="30667906" x="423" y="479" width="24.5035" height="21.7321"   [attr.fill]="getColor('west','5')"></rect>
                  <g transform="matrix(1 0 0 1 -20.4508 193.332)">
                   <text x="450" y="300" class="sector sectorTooltip" sectorid="30667906"   [attr.fill]="getColor('west','5')">5</text>
@@ -650,13 +650,13 @@
                   <text x="450" y="300" class="fil1 fnt10" style="font-size: 9px">PRESS</text>
                  </g>
                 </g>
-                <g id="_1731978774864" (click)="onSectorClick($event, 'west', '6')">
+                <g id="_1731978774864" (click)="onSectorClick($event, 'west', '6')" [class.disabledSector]="!getPriceBySector('west', '6')">
                  <polygon class="sector sectorTooltip" sectorid="30668210" points="419,479 383,479 383,495 394,495 394,500 419,500 "   [attr.fill]="getColor('west','6')"></polygon>
                  <g transform="matrix(1 0 0 1 -51.3197 193.332)">
                   <text x="450" y="300" class="sector sectorTooltip" sectorid="30668210"   [attr.fill]="getColor('west','6')">6</text>
                  </g>
                 </g>
-                <g id="_1731978776432" (click)="onSectorClick($event, 'west', 'VIP_AL')">
+                <g id="_1731978776432" (click)="onSectorClick($event, 'west', 'VIP_AL')" [class.disabledSector]="!getPriceBySector('west', 'VIP_AL')">
                  <polygon class="sector sectorTooltip" sectorid="30671174" points="394,510 383,510 383,500 419,500 419,535 394,535 "   [attr.fill]="getColor('west','VIP_AL')"></polygon>
                  <g transform="matrix(0 -1 1 0 104.878 983.25)">
                   <text x="450" y="306" class="sector sectorTooltip" sectorid="30671174" style="font-size: 9px"   [attr.fill]="getColor('west','VIP_AL')">VI</text>
@@ -666,7 +666,7 @@
                  </g>
                 </g>
                 <rect class="fil10" x="337" y="479" width="42.4334" height="21.7321"></rect>
-                <g id="_1731978777360" (click)="onSectorClick($event, 'west', '7')">
+                <g id="_1731978777360" (click)="onSectorClick($event, 'west', '7')" [class.disabledSector]="!getPriceBySector('west', '7')">
                  <polygon class="sector sectorTooltip" sectorid="30668332" points="345,535 391,535 391,500 380,500 380,479 337,479 337,500 345,500 "   [attr.fill]="getColor('west','7')"></polygon>
                  <g transform="matrix(1 0 0 1 -93.9512 193.332)">
                   <text x="450" y="300" class="sector sectorTooltip" sectorid="30668332"   [attr.fill]="getColor('west','7')">7</text>
@@ -675,7 +675,7 @@
                   <text x="450" y="300" class="sector sectorTooltip" sectorid="30668332"   [attr.fill]="getColor('west','7')">7</text>
                  </g>
                 </g>
-                <g id="_1731978779952" (click)="onSectorClick($event, 'west', '8')">
+                <g id="_1731978779952" (click)="onSectorClick($event, 'west', '8')" [class.disabledSector]="!getPriceBySector('west', '8')">
                  <polygon class="sector sectorTooltip" sectorid="30668815" points="352,538 297,538 297,600 359,600 359,566 352,566 "   [attr.fill]="getColor('west','8')"></polygon>
                   <polygon class="sector sectorTooltip" sectorid="30668815" points="290,535 341,535 341,508 334,508 334,479 297,479 297,508 290,508 290,535 "   [attr.fill]="getColor('west','8')"></polygon>
                  <g transform="matrix(1 0 0 1 -124.747 291.647)">
@@ -685,7 +685,7 @@
                   <text x="450" y="300" class="sector sectorTooltip" sectorid="30668815"   [attr.fill]="getColor('west','8')">8</text>
                  </g>
                 </g>
-                <g id="_1731978783952" (click)="onSectorClick($event, 'west', '9')">
+                <g id="_1731978783952" (click)="onSectorClick($event, 'west', '9')" [class.disabledSector]="!getPriceBySector('west', '9')">
                  <polygon class="sector sectorTooltip" sectorid="30670221" points="270,535 284,535 284,505 294,505 294,479 255,479 255,503 260,503 260,519 261,519 261,529 255,529 255,600 294,600 294,553 270,553 "   [attr.fill]="getColor('west','9')"></polygon>
                   <!--polygon class="fil0 sector" sectorId="30670221" points="255,503 260,503 260,505 289,505 294,505 294,479 255,479 255,503 "/-->
                  <g>
@@ -701,23 +701,23 @@
                   </g>
                  </g>
                 </g>
-              <g id="_1731978717488"  (click)="onSectorClick($event, 'west', 'SB_1')">
+                <g id="_1731978717488"  (click)="onSectorClick($event, 'west', 'SB_1')" [class.disabledSector]="!getPriceBySector('west', 'SB_1')">
                  <rect class="sector sectorTooltip" sectorid="30670951" x="368" y="568" width="30.6845" height="20.4238" [attr.fill]="getColor('west','SB_1')"></rect>
                  <text x="371" y="582" class="sector sectorTooltip" sectorid="30670951" style="font-size: 9px" [attr.fill]="getColor('west','SB_1')">SB 1</text>
                 </g>
-                <g id="_1731978718480"  (click)="onSectorClick($event, 'west', 'SB_2')">
+                <g id="_1731978718480"  (click)="onSectorClick($event, 'west', 'SB_2')" [class.disabledSector]="!getPriceBySector('west', 'SB_2')">
                  <rect class="sector sectorTooltip" sectorid="30671003" x="401" y="568" width="30.6845" height="20.4238" [attr.fill]="getColor('west','SB_2')"></rect>
                  <text x="406" y="582" class="sector sectorTooltip" sectorid="30671003" style="font-size: 9px" [attr.fill]="getColor('west','SB_2')">SB 2</text>
                 </g>
-                <g id="_1731978718608"  (click)="onSectorClick($event, 'west', 'SB_6')">
+                <g id="_1731978718608"  (click)="onSectorClick($event, 'west', 'SB_6')" [class.disabledSector]="!getPriceBySector('west', 'SB_6')">
                  <rect class="sector sectorTooltip" sectorid="30671102" x="483" y="568" width="30.6845" height="20.4238" [attr.fill]="getColor('west','SB_6')"></rect>
                  <text x="488" y="582" class="sector sectorTooltip" sectorid="30671102" style="font-size: 9px" [attr.fill]="getColor('west','SB_6')">SB 6</text>
                 </g>
-                <g id="_1731978720784"  (click)="onSectorClick($event, 'west', 'SB_7')">
+                <g id="_1731978720784"  (click)="onSectorClick($event, 'west', 'SB_7')" [class.disabledSector]="!getPriceBySector('west', 'SB_7')">
                  <rect class="sector sectorTooltip" sectorid="30671126" x="517" y="568" width="30.6845" height="20.4238" [attr.fill]="getColor('west','SB_7')"></rect>
                  <text x="522" y="582" class="sector sectorTooltip" sectorid="30671126" style="font-size: 9px" [attr.fill]="getColor('west','SB_7')">SB 7</text>
                 </g>
-                <g id="_1731978721584"  (click)="onSectorClick($event, 'west', 'SB_3_5')">
+                <g id="_1731978721584"  (click)="onSectorClick($event, 'west', 'SB_3_5')" [class.disabledSector]="!getPriceBySector('west', 'SB_3_5')">
                  <rect class="sector sectorTooltip" sectorid="30671025" x="435" y="568" width="45.9298" height="20.4238" [attr.fill]="getColor('west','SB_3_5')"></rect>
                  <text x="445" y="580" class="sector sectorTooltip" sectorid="30671025" style="font-size: 9px" [attr.fill]="getColor('west','SB_3_5')">SB 3-5</text>
                  <rect class="sector sectorTooltip" sectorid="30671047" x="435" y="568" width="45.9298" height="20.4238" [attr.fill]="getColor('west','SB_3_5')"></rect>
@@ -725,19 +725,19 @@
                  <rect class="sector sectorTooltip" sectorid="30671080" x="435" y="568" width="45.9298" height="20.4238" [attr.fill]="getColor('west','SB_3_5')"></rect>
                  <text x="445" y="580" class="sector sectorTooltip" sectorid="30671080" style="font-size: 9px" [attr.fill]="getColor('west','SB_3_5')">SB 3-5</text>
                 </g>
-                <g id="_1731978721552"  (click)="onSectorClick($event, 'west', 'SB_8')">
+                <g id="_1731978721552"  (click)="onSectorClick($event, 'west', 'SB_8')" [class.disabledSector]="!getPriceBySector('west', 'SB_8')">
                  <rect class="sector sectorTooltip" sectorid="30671142" x="368" y="592" width="30.6845" height="20.4238" [attr.fill]="getColor('west','SB_8')"></rect>
                  <text x="371" y="605" class="sector sectorTooltip" sectorid="30671142" style="font-size: 9px" [attr.fill]="getColor('west','SB_8')">SB 8</text>
                 </g>
-                <g id="_1731978723088"  (click)="onSectorClick($event, 'west', 'SB_9')">
+                <g id="_1731978723088"  (click)="onSectorClick($event, 'west', 'SB_9')" [class.disabledSector]="!getPriceBySector('west', 'SB_9')">
                  <rect class="sector sectorTooltip" sectorid="30671154" x="402" y="592" width="30.6845" height="20.4238" [attr.fill]="getColor('west','SB_9')"></rect>
                  <text x="405" y="605" class="sector sectorTooltip" sectorid="30671154" style="font-size: 9px" [attr.fill]="getColor('west','SB_9')">SB 9</text>
                 </g>
-                <g id="_1731978722000"  (click)="onSectorClick($event, 'west', 'SB_10')">
+                <g id="_1731978722000"  (click)="onSectorClick($event, 'west', 'SB_10')" [class.disabledSector]="!getPriceBySector('west', 'SB_10')">
                  <rect class="sector sectorTooltip" sectorid="30670977" x="435" y="592" width="30.6845" height="20.4238" [attr.fill]="getColor('west','SB_10')"></rect>
                  <text x="438" y="605" class="sector sectorTooltip" sectorid="30670977" style="font-size: 9px" [attr.fill]="getColor('west','SB_10')">SB 10</text>
                 </g>
-                <g id="_1731978724496"  (click)="onSectorClick($event, 'west', 'SB_11')">
+                <g id="_1731978724496"  (click)="onSectorClick($event, 'west', 'SB_11')" [class.disabledSector]="!getPriceBySector('west', 'SB_11')">
                  <rect class="sector sectorTooltip" sectorid="30670990" x="469" y="592" width="78.6659" height="13.7296" [attr.fill]="getColor('west','SB_11')"></rect>
                  <text x="493" y="602" class="sector sectorTooltip" sectorid="30670990" style="font-size: 9px" [attr.fill]="getColor('west','SB_11')">SB 11</text>
                 </g>
@@ -1393,14 +1393,14 @@
 
   <!--<div [hidden] = "priceSchema.stadiumName == 'solar'" class="stadium">-->
   <div *ngIf="[stadiumName] == 'solar'" class="stadium">
-  <!--<div *ngIf="isStadium('solar')" class="stadium">-->
+    <!--<div *ngIf="isStadium('solar')" class="stadium">-->
     <div id="mainContent">
       <div class="row">
         <div class="sectorsList span8">
           <h2>Трибуна западная. Посадка на секторе свободная. </h2> <br>
           <h2>Цена билета - 30 грн</h2>
           <div (click)="onSectorClick($event, 'west', '1')">
-            <img src="../../assets/images/stadiumSolar.jpg" alt="..." style="cursor:pointer;" >
+            <img src="../../assets/images/stadiumSolar.jpg" alt="..." style="cursor:pointer;">
           </div>
         </div>
       </div>
@@ -1408,7 +1408,7 @@
   </div>
 </div>
 <!--<div class="row" *ngIf="isStadium('metalist')" >-->
-<div class="row" *ngIf="[stadiumName] == 'metalist'" >
+<div class="row" *ngIf="[stadiumName] == 'metalist'">
   <div class="col-sm-12"><h4 style="text-align: center">Ценовая Категория</h4></div>
   <div class="col-sm-12">
     <div style="display: inline-block;margin: 2px;" *ngFor="let color of priceSchema.colorSchema">

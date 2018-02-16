@@ -67,6 +67,7 @@ export function addSeatToCart(req, res) {
           return cart.save();
         })
         .then(cart => {
+
           return orderService.findCartByPublicId(cart.publicId);
         })
         .then(respondWithResult(res))
@@ -127,7 +128,7 @@ function handleError(res, statusCode) {
 }
 
 function deleteReserveSeatFromCart(cart, slug, matchId) {
-  cart.seats = cart.seats.filter( seat => !(seat.slug === slug && seat.match.id === matchId) );
+  cart.seats = cart.seats.filter( seat => !(seat.slug === slug && seat.match === matchId) );
 
   return cart.save();
 }
