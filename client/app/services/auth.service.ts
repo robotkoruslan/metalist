@@ -28,7 +28,7 @@ export class AuthService {
       });
   }
 
-  logout():void {
+  logout(): void {
     this.token = null;
     this._cookieService.remove('token');
     this.user.next(null);
@@ -65,6 +65,16 @@ export class AuthService {
     return this.http.put('/api/users/temporary-password', {email}, this.options)
   };
 
-  isLoggedIn = () => !!(this._cookieService.get('token'));
+  isLoggedIn = () => {
+    const currentUser = this.user.getValue();
+    if (!currentUser) {
+      return this.getUser();
+    } else {
+      return Observable.create(function (observer) {
+        observer.next(currentUser);
+        observer.complete();
+      });
+    }
+  }
 
 }

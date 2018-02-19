@@ -173,4 +173,34 @@ export class SectorComponent implements OnInit {
   get tribune() {
     return this.tribuneNames[this.tribuneName];
   }
+
+
+  get firstUpperRow() {
+    const sectorDividers: any = {
+      '1': 19,
+      '2': 20,
+      '8': 20,
+      '9': 19,
+      '10': 15,
+      '11': 15,
+      '12': 15,
+      '13': 15,
+      '14': 15,
+      '15': 15,
+      '16': 15,
+      '17': 15,
+      '18': 15,
+      '19': 15,
+      '20': 15,
+      '22': 9,
+      '23': 9,
+      '24': 9,
+      '25': 9,
+      '26': 9,
+      '27': 9,
+      '28': 9,
+      '29': 9,
+    };
+    return sectorDividers[this.sector.name] || 2;
+  }
 }
