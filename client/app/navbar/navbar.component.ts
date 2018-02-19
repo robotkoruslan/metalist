@@ -12,6 +12,7 @@ import {User} from '../model/user.interface';
 export class NavbarComponent implements OnInit {
   isCollapsed: Boolean = false;
   currentUser: User;
+  isLoggedIn: Boolean;
 
   constructor(private authenticationService: AuthService) {
   }
@@ -19,17 +20,26 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.authenticationService.user
       .subscribe(value => {
-        if (!value) {
+        if (value) {
+          this.isLoggedIn = true;
+          this.currentUser = value;
+        } else {
           this.authenticationService.getUser()
-            .subscribe();
+            .subscribe(
+              res => {
+                this.isLoggedIn = true;
+                this.currentUser = res;
+              },
+              err => {
+                this.isLoggedIn = false;
+                this.currentUser = null;
+              }
+            );
         }
-        this.currentUser = value;
       });
   }
 
   toggleState = () => this.isCollapsed = !this.isCollapsed;
-
-  isLoggedIn = () => this.authenticationService.isLoggedIn();
 
   isAdmin = () => this.authenticationService.isAdmin();
 

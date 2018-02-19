@@ -52,6 +52,7 @@ export class CartService {
     return this.http.post('/api/carts/addSeat', {slug: slug, matchId: matchId}, options)
       .map((response: Response) => {
         if (response) {
+          this.cart = response;
           return true;
         } else {
           return false;
@@ -63,6 +64,7 @@ export class CartService {
     return this.http.delete('/api/carts/match/' + matchId + '/seat/' + slug)
       .map((response: Response) => {
         if (response) {
+          this.cart = response;
           return true;
         } else {
           return false;
