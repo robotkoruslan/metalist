@@ -128,7 +128,6 @@ function handleError(res, statusCode) {
 }
 
 function deleteReserveSeatFromCart(cart, slug, matchId) {
-  cart.seats = cart.seats.filter( seat => !(seat.slug === slug && seat.match === matchId) );
-
+  cart.seats = cart.seats.filter( seat => !(seat.slug === slug && seat.match.id === matchId) );
   return cart.save();
 }

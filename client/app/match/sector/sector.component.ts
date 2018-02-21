@@ -106,7 +106,7 @@ export class SectorComponent implements OnInit {
     return 'imgSeatsStyle';
   }
 
-  toggleSeat(slug) {
+  toggleSeat({slug}) {
     this.message = '';
     const isSeatReserved = this.isSeatReserved(slug);
     const isSeatOptimistic = this.isSeatOptimistic(slug);
@@ -116,7 +116,6 @@ export class SectorComponent implements OnInit {
         .subscribe(
           () => this.getReservedSeats(),
           error => {
-            console.log(error);
             this.getReservedSeats();
             this.toggleOptimisticSeats(slug, true);
           }
@@ -201,6 +200,6 @@ export class SectorComponent implements OnInit {
       '28': 9,
       '29': 9,
     };
-    return sectorDividers[this.sector.name] || 2;
+    return sectorDividers[this.sector.name] || 1;
   }
 }

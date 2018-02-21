@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 import {TicketService} from '../../services/ticket.service';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-days-statistic',
@@ -19,8 +20,10 @@ export class DaysStatisticComponent implements OnInit {
     });
   }
 
-  constructor(private ticketsService: TicketService) {
-  }
+  constructor(
+    private ticketsService: TicketService,
+    private authenticationService: AuthService
+  ) {}
 
   ngOnInit() {
     this.getStatistics({
@@ -30,9 +33,11 @@ export class DaysStatisticComponent implements OnInit {
   }
 
   getStatistics(date) {
-    this.ticketsService.getStatistics(date).subscribe(statistic => {
-      this.statistics = statistic;
-    });
+    if (this.authenticationService.isCashier()) {
+      this.ticketsService.getStatistics(date).subscribe(statistic => {
+        this.statistics = statistic;
+      });
+    }
   }
 
   isStatistics() {

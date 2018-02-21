@@ -28,13 +28,13 @@
     </div>
     <div class="col-sm-12" *ngIf="!isReservationExpired">
       <app-summary></app-summary>
-      <app-details [seats]="cart?.seats" (onDelete)="getCart()"></app-details>
+      <app-details [seats]="cart?.seats" (onDelete)="removeSeat($event)"></app-details>
       <div *ngIf="!cart?.seats">
         <strong>Билеты не выбраны</strong>
       </div>
     </div>
     <div *ngIf="!isReservationExpired && cart?.seats?.length">
-      <div class="buttons col-sm-12" *ngIf="!isLoggedIn()">
+      <div class="buttons col-sm-12" *ngIf="!isLoggedIn">
         <div class="col-sm-5">
           <a [routerLink]="['/login']" class="btn btn-primary btn-block">Войти</a>
         </div>
@@ -43,11 +43,10 @@
           <confirm-email-form></confirm-email-form>
         </div>
       </div>
-      <div class="col-sm-12" *ngIf="isLoggedIn()">
+      <div class="col-sm-12" *ngIf="isLoggedIn">
         <button class="btn btn-primary btn-block" (click)="checkout()">Оплатить</button>
         <p *ngIf="checkoutMessage" class="checkout-message">Заказ не был найден</p>
       </div>
     </div>
   </div>
 </div>
-

@@ -1,26 +1,18 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
-import {CartService} from '../../services/cart.service';
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css']
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent {
 
   @Input() seats: any;
   @Output() onDelete = new EventEmitter<any>();
 
-  constructor(private cartService: CartService) {
-  }
-
-  ngOnInit() {
-  }
+  constructor() {}
 
   removeSeat(slug, matchId) {
-    this.cartService.removeSeatFromCart(slug, matchId)
-      .subscribe(
-        () => this.onDelete.emit(slug),
-        error => console.log(error));
+    this.onDelete.emit({slug, matchId});
   }
 }

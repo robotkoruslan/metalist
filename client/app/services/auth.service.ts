@@ -4,20 +4,24 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {CookieService} from 'angular2-cookie/services/cookies.service';
 import {User} from '../model/user.interface';
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {catchError} from 'rxjs/operators/catchError';
+import {of} from 'rxjs/observable/of';
 
 @Injectable()
 export class AuthService {
-  user = new BehaviorSubject(null);
-  token:string;
+  user = new BehaviorSubject<User>(null);
+  token: string;
   options = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
-  constructor(private http:HttpClient, private _cookieService:CookieService) {
+  constructor(private http: HttpClient, private _cookieService: CookieService) {
+    this.getUser().subscribe();
   }
 
-  login(email:string, password:string):Observable<boolean> {
+  login(email: string, password: string): Observable<boolean> {
     return this.http.post('/auth/local', JSON.stringify({email: email, password: password}), this.options)
-      .map((response:any) => {
-        const token:string = response && response.token;
+      .map((response: any) => {
+        this.getUser();
+        const token: string = response && response.token;
         if (token) {
           this.token = token;
           this._cookieService.put('token', token);
@@ -44,7 +48,8 @@ export class AuthService {
           this.user.next(null);
           return null;
         }
-      });
+      })
+      .pipe(catchError(() => of(null)));
   }
 
   hasRole = () => this.user.getValue() && this.user.getValue().role;
@@ -62,19 +67,7 @@ export class AuthService {
   }
 
   generateTemporaryPassword = (email): Observable<any> => {
-    return this.http.put('/api/users/temporary-password', {email}, this.options)
-  };
-
-  isLoggedIn = () => {
-    const currentUser = this.user.getValue();
-    if (!currentUser) {
-      return this.getUser();
-    } else {
-      return Observable.create(function (observer) {
-        observer.next(currentUser);
-        observer.complete();
-      });
-    }
+    return this.http.put('/api/users/temporary-password', {email}, this.options);
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import uniq from 'lodash/uniq';
+import * as moment from 'moment';
 
 import { TicketService } from '../../services/ticket.service';
 
@@ -28,21 +29,22 @@ export class TicketsStatisticComponent implements OnInit {
           this.daysStatistics = this.createDaysStatisticModel(response);
         },
         err => console.log(err),
-      )
+      );
 
   }
 
   createEventsStatisticModel(statistic) {
-    let uniqueDatesForMatch = uniq(statistic.map(item => item.date));
-    return uniqueDatesForMatch.map(date => {
-      let uniqueUserTypes = uniq(statistic.filter(item => item.date === date)
+    const uniqueDatesForMatch = uniq(statistic.map(item => item.date));
+    return uniqueDatesForMatch
+      .sort(this.dateSortHandler)
+      .map(date => {
+      const uniqueUserTypes = uniq(statistic.filter(item => item.date === date)
         .map(item => item.cashier));
       return uniqueUserTypes
         .map(buyer => {
-
-          let itemsPrices = statistic.filter(item => item.date === date && item.cashier === buyer)
+          const itemsPrices = statistic.filter(item => item.date === date && item.cashier === buyer)
             .map(item => item.amount);
-          let itemSectors = statistic.filter(item => item.date === date && item.cashier === buyer)
+          const itemSectors = statistic.filter(item => item.date === date && item.cashier === buyer)
             .map(item => item.sector);
 
           return {
@@ -52,20 +54,21 @@ export class TicketsStatisticComponent implements OnInit {
             count: itemsPrices.length,
             sum: this.getSumOfArray(itemsPrices),
             details: this.getDetailsSectorsByEvent(itemSectors)
-          }
-        })
-    })
+          };
+        });
+    });
   }
 
   createDaysStatisticModel(statistic) {
-    let uniqueDates = uniq(statistic.map(item => item.dateBuy));
-
-    return uniqueDates.map(date => {
-      let uniqueUserTypes = uniq(statistic.filter(item => item.dateBuy === date)
+    const uniqueDates = uniq(statistic.map(item => item.dateBuy));
+    return uniqueDates
+      .sort(this.dateSortHandler)
+      .map(date => {
+        const uniqueUserTypes = uniq(statistic.filter(item => item.dateBuy === date)
         .map(item => item.cashier));
       return uniqueUserTypes
         .map(buyer => {
-          let itemPrices = statistic.filter(item => item.dateBuy === date && item.cashier === buyer)
+          const itemPrices = statistic.filter(item => item.dateBuy === date && item.cashier === buyer)
             .map(item => item.amount);
           return {
             cashier: buyer,
@@ -74,7 +77,7 @@ export class TicketsStatisticComponent implements OnInit {
             count: itemPrices.length,
             details: this.getDetailsPricesByDate(itemPrices)
           };
-        })
+        });
     });
   }
 
@@ -112,4 +115,11 @@ export class TicketsStatisticComponent implements OnInit {
     });
   }
 
+  dateSortHandler = (a, b) => {
+    if (moment(a).isSame(moment(b))) {
+      return 0;
+    } else {
+      return moment(a).isBefore(moment(b)) ? 1 : -1;
+    }
+  }
 }

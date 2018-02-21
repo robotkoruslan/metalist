@@ -3,7 +3,8 @@ import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 
 import { PrintTicketService } from '../../services/print-ticket.service';
 import { TicketService } from '../../services/ticket.service';
-import {Ticket} from "../../model/ticket.interface";
+import {AuthService} from '../../services/auth.service';
+import {Ticket} from '../../model/ticket.interface';
 
 // import * as moment from "moment";
 // import _date = moment.unitOfTime._date;
@@ -29,7 +30,8 @@ export class LastTicketsComponent implements OnInit {
 
   constructor(
     private ticketsService: TicketService,
-    private printTicketService: PrintTicketService
+    private printTicketService: PrintTicketService,
+    private authenticationService: AuthService
   ) {}
 
   ngOnInit() {
@@ -40,10 +42,12 @@ export class LastTicketsComponent implements OnInit {
   }
 
   getStatistics(date) {
-    this.ticketsService.getStatistics(date)
-      .subscribe(statistic => {
-        this.statistics = statistic;
-    });
+    if (this.authenticationService.isCashier()) {
+      this.ticketsService.getStatistics(date)
+        .subscribe(statistic => {
+          this.statistics = statistic;
+        });
+    }
   }
 
   prints = ({tribune, sector, row, seat, amount, accessCode}) =>

@@ -25,37 +25,23 @@ export function getStatistics(userId, date) {
 
 export function getEventsStatistics() {
   let day = moment().subtract(30, 'days');
-
-  return Order
-    .aggregate([
-      { $match: {status: 'paid', created: {$gte: new Date(day)}} },
-      {
-        $lookup:
-          {
-            from: "tickets",
-            localField: "tickets",
-            foreignField: "_id",
-            as: "tickets"
-          }
-      },
-      { $unwind : "$tickets" },
-      { $addFields: {
-          'tickets.paymentDetails': "$paymentDetails" ,
-        }
-      },
-      { $replaceRoot: { newRoot: "$tickets" } },
-      { $sort : { 'match.date' : -1} }
-
-    ])
-    .then(tickets => tickets.map(ticket => ({
-        cashier: !ticket.paymentDetails ? 'cashier' : 'user',
-        headline: ticket.match.headline,
-        sector: ticket.seat.sector,
-        date: moment(ticket.match.date).tz('Europe/Kiev').format('YYYY-MM-DD HH:mm'),
-        dateBuy: moment(ticket.reserveDate).tz('Europe/Kiev').format('YYYY-MM-DD'),
-        amount: ticket.amount
-      }))
-    )
+  let filtredTickets = [];
+  return Order.find({status: 'paid', created: {$gte: day.startOf('day').format('YYYY-MM-DD HH:mm:ss')}})
+    .populate('tickets')
+    .then(orders => {
+      return orders.map(order => {
+        return order.tickets.map(ticket => {
+          return filtredTickets.push({
+            cashier: !order.paymentDetails ? 'cashier' : 'user',
+            headline: ticket.match.headline,
+            sector: ticket.seat.sector,
+            date: moment(ticket.match.date).tz('Europe/Kiev').format('YYYY-MM-DD HH:mm'),
+            dateBuy: moment(ticket.reserveDate).tz('Europe/Kiev').format('YYYY-MM-DD'),
+            amount: ticket.amount
+          })
+        })
+      }, 0), filtredTickets;
+    })
 }
 
 export function findCartByPublicId(publicId) {
