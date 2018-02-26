@@ -2,12 +2,12 @@
 <table class="table table-hover">
   <thead class="thead-inverse">
   <tr>
-    <th>Match</th>
+    <th>Матч</th>
     <th>Дата</th>
-    <th>Тип пользователя</th>
-    <th>Количество</th>
-    <th>Сумма</th>
-    <th>Детали (по секторам)</th>
+    <th>{{'admin.userType' | translate}}</th>
+    <th>{{'common.quantity' | translate}}</th>
+    <th>{{'common.amount' | translate}}</th>
+    <th>{{'admin.sectorDetails' | translate}}</th>
   </tr>
   </thead>
   <tbody *ngFor="let stat of eventStatistics" >

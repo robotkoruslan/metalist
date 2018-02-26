@@ -3,7 +3,8 @@
     <!--<div>1 - {{ privateId }} - 1</div>-->
     <form class="form-inline pull-right search">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Введите код ордера" [(ngModel)]="privateId" name="privateId">
+        <input type="text" class="form-control"
+               [placeholder]="'placeholder.orderCode' | translate" [(ngModel)]="privateId" name="privateId">
         <div class="input-group-addon" (click)="getOrder()">
           <i class="glyphicon glyphicon-search"></i>
         </div>
@@ -12,6 +13,6 @@
   </div>
 </div>
 <hr>
-<p [hidden]="!message">{{message}}</p>
-<p>Детали ордера:</p>
+<p [hidden]="!message">{{('message.orderDetails.' + message) | translate}}</p>
+<p>{{'admin.orderDetails' | translate}}:</p>
 <pre>{{order | json}}</pre>

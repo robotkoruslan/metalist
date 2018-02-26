@@ -1,8 +1,8 @@
 <hr>
 
 <mat-form-field>
-  <input matInput [matDatepicker]="picker" placeholder="Введите дату" [ngModel]="date"
-         (dateInput)="addEvent('input', $event)">
+  <input matInput [matDatepicker]="picker" [placeholder]="'placeholder.date' | translate"
+         [ngModel]="date" (dateInput)="addEvent('input', $event)">
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>
@@ -13,9 +13,8 @@
     <th>Матч</th>
     <th>Сектор</th>
     <th>Ряд</th>
-    <th>Место</th>
-    <th>Прайс</th>
-    <th></th>
+    <th>{{'common.place' | translate}}</th>
+    <th>{{'cashbox.price' | translate}}</th>
   </tr>
   </thead>
   <tbody>
@@ -25,9 +24,15 @@
     <td>{{stat.row}}</td>
     <td>{{stat.seat}}</td>
     <td>{{stat.amount}}</td>
-    <td><a class="btn btn-primary btn-sm" (click)="prints(stat)">Повтор печати</a>
+    <td>
+      <a class="btn btn-primary btn-sm" (click)="prints(stat)">
+        {{'cashbox.message5' | translate}}
+      </a>
     </td>
-    <td><a class="btn btn-primary btn-sm" (click)="removeTicket(stat.id)">Отменить билет</a>
+    <td>
+      <a class="btn btn-primary btn-sm" (click)="removeTicket(stat.id)">
+        {{'cashbox.message6' | translate}}
+      </a>
     </td>
   </tr>
   </tbody>

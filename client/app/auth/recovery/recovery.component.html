@@ -1,9 +1,9 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <h1>Восстановление пароля</h1>
-      <p>Для восстановления пароля вы должны указать свой e-mail.</p>
-      <p>Если вы укажете верные данные, то на e-mail будет отправлено письмо с временным паролем</p>
+      <h1>{{'auth.message5' | translate}}</h1>
+      <p>{{'auth.message6' | translate}}.</p>
+      <p>{{'auth.message7' | translate}}</p>
     </div>
     <form name="form" class="form" (ngSubmit)="recover(email.value)" #recovery="ngForm" class="col-sm-12">
       <div class="form-group">
@@ -11,10 +11,10 @@
           <input matInput placeholder="Email" type="email" name="email"
                  ngModel #email="ngModel" required emailvalidator>
           <mat-error *ngIf="email.touched && email.errors?.required">
-            Email является <strong>обязательным</strong> полем
+            <input-required-error field="Email"></input-required-error>
           </mat-error>
           <mat-error *ngIf="email.touched && !email.errors?.required && email.errors?.emailvalidator">
-            Пожалуйста введите <strong>корректный</strong> email
+            <input-invalid-email-error></input-invalid-email-error>
           </mat-error>
         </mat-form-field>
       </div>

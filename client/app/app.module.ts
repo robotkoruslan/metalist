@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {CommonModule} from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { CookieService } from 'angular2-cookie';
 import { RouterModule, PreloadAllModules} from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 // import { NgForm, Validators} from '@angular/forms';
 // import { FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 // import { ErrorStateMatcher } from '@angular/material/core';
@@ -62,7 +64,9 @@ import {TeamLogosService} from "./services/team-logos.service";
 import { EmailValidator } from './directives/email-validator.directive';
 import { TooltipDirective } from './directives/tooltip.directive';
 
-import {RuDatePipe} from './pipes/ru-date.pipe';
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/locale/', '.json');
+}
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
@@ -91,10 +95,7 @@ import {RuDatePipe} from './pipes/ru-date.pipe';
     ConfirmEmailFormComponent,
     // custom directive
     EmailValidator,
-    TooltipDirective,
-    // custom pipes
-    RuDatePipe,
-
+    TooltipDirective
   ],
   imports: [
     CommonModule,
@@ -115,6 +116,13 @@ import {RuDatePipe} from './pipes/ru-date.pipe';
     RouterModule.forRoot(ROUTES, {
       useHash: Boolean(history.pushState) === false,
       preloadingStrategy: PreloadAllModules
+    }),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
     }),
     SharedModule,
     CashboxModule,

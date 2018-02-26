@@ -49,10 +49,10 @@ export class PriceSchemaComponent implements OnInit {
           this.currentPriceSchema = {...response.data};
           this.loadPriceSchemas();
           this.currentPriceSchema = null;
-          this.message = 'Прайс-схема была успешно обновлена';
+          this.message = 'editSuccess';
         },
         err => {
-          this.message = 'Не удается обновить прайс-схему, что-то пошло не так.';
+          this.message = 'editFail';
           console.log(err);
         }
       );
@@ -65,12 +65,12 @@ export class PriceSchemaComponent implements OnInit {
         () => {
           this.loadPriceSchemas();
           this.priceSchemas = this.priceSchemas.filter(schema => schema.id !== schemaId);
-          this.currentPriceSchema = this.currentPriceSchema.id === schemaId ? null : this.currentPriceSchema;
-          this.message = 'Прайс-схема была успешно удалена';
+          this.currentPriceSchema = this.currentPriceSchema && this.currentPriceSchema.id === schemaId ? null : this.currentPriceSchema;
+          this.message = 'deleteSuccess';
         },
         err => {
           console.log(err);
-          this.message = 'Не удается удалить прайс-схему, что-то пошло не так.';
+          this.message = 'deleteFail';
         }
       );
   }

@@ -4,5 +4,5 @@
   <mat-form-field class="example-full-width">
     <input matInput type="text" placeholder="Id" [(ngModel)]="itemId">
   </mat-form-field>
-  <button class="btn btn-default" (click)="handleClick()" [disabled]="!itemId">Удалить</button>
+  <button class="btn btn-default" (click)="handleClick()" [disabled]="!itemId">{{'admin.delete' | translate}}</button>
 </div>

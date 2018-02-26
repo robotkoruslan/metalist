@@ -1,6 +1,8 @@
 <div *ngIf="isStadium('metalist')">
   <span class="input-group-addon">
-      <button (click)="selectTribune('east')" class="btn btn-default">Восточная трибуна</button>
+      <button (click)="selectTribune('east')" class="btn btn-default">
+        {{'stadium.eastAdjective' | translate}} трибуна
+      </button>
   </span>
 </div>
 
@@ -8,7 +10,7 @@
     <span class="input-group-addon">
         <button (click)="selectTribune('north')" class="btn btn-default">
             <svg width="20" height="120" class="svg-text">
-            <text x="0" y="-5" transform="rotate(90)">Северная трибуна</text>
+            <text x="0" y="-5" transform="rotate(90)">{{'stadium.northAdjective' | translate}} трибуна</text>
             </svg>
         </button>
     </span>
@@ -17,7 +19,7 @@
     <span class="input-group-addon">
         <button (click)="selectTribune('south')" class="btn btn-default">
             <svg width="20" height="120" class="svg-text">
-                <text x="10" y="-5" transform="rotate(90)">Южная трибуна</text>
+                <text x="10" y="-5" transform="rotate(90)">{{'stadium.southAdjective' | translate}} трибуна</text>
             </svg>
         </button>
     </span>
@@ -27,7 +29,7 @@
     <span class="input-group-addon">
         <button (click)="selectTribune('east')" class="btn btn-default">
             <svg width="70" width="70" height="140" class="svg-text">
-                <text x="0" y="0" transform="rotate(90)">Восточная трибуна</text>
+                <text x="0" y="0" transform="rotate(90)">{{'stadium.eastAdjective' | translate}} трибуна</text>
             </svg>
         </button>
     </span>
@@ -36,7 +38,7 @@
     <span class="input-group-addon">
         <button (click)="selectTribune('west')" class="btn btn-default">
         <svg width="70" height="140" class="svg-text">
-            <text x="0" y="0" transform="rotate(90)">Западная трибуна</text>
+            <text x="0" y="0" transform="rotate(90)">{{'stadium.westAdjective' | translate}} трибуна</text>
         </svg>
         </button>
     </span>
@@ -44,7 +46,9 @@
 
 <div *ngIf="isStadium('metalist')">
   <span class="input-group-addon">
-      <button (click)="selectTribune('west')" class="btn btn-default">Западная трибуна</button>
+      <button (click)="selectTribune('west')" class="btn btn-default">
+        {{'stadium.westAdjective' | translate}} трибуна
+      </button>
   </span>
 </div>
 

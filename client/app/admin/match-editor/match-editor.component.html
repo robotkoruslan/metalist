@@ -1,15 +1,17 @@
 <div class="row">
     <div class="col-md-12">
         <blockquote *ngIf="message">
-            <p>{{message}}</p>
+            <p>{{('message.matchEditor.' + message) | translate}}</p>
         </blockquote>
     </div>
     <div class="col-md-12">
         <div class="col-md-4">
             <match-list [matches]="nextMatches" type="next" (editMatch)="setMatchToEdit($event)">
-                <label>Список матчей</label>
+                <label>{{'admin.matchList' | translate}}</label>
             </match-list>
-            <button class="btn btn-default" (click)="setMatchToEdit({})">Добавить новый матч</button>
+            <button class="btn btn-default" (click)="setMatchToEdit({})">
+              {{'admin.addNewMatch' | translate}}
+            </button>
         </div>
         <div class="col-md-4">
             <edit-match *ngIf="matchToEdit"
@@ -17,12 +19,12 @@
         </div>
         <div class="col-md-4">
             <delete-item (deleteItem)="deleteMatch($event)">
-              <label>Удалить матч</label>
+              <label>{{'admin.delete' | translate}} матч</label>
             </delete-item>
             <hr>
 
             <match-list [matches]="prevMatches" type="prev" (deleteMatch)="deleteMatch($event)">
-                <label>Прошедшие матчи</label>
+                <label>{{'admin.lastMatches' | translate}}</label>
             </match-list>
         </div>
     </div>

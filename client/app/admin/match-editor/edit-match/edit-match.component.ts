@@ -71,10 +71,6 @@ export class EditMatchComponent implements OnInit {
     this.closeMatch.emit();
   }
 
-  get time() {
-    return this.match.date ? moment(this.match.date).locale('ru').tz('Europe/Kiev').format('HH:mm') : null;
-  }
-
   handleTimeInput(event) {
     const time = moment(event.target.valueAsDate).utc();
     this.match.date = moment(this.match.date).hour(time.hour()).minute(time.minutes()).toISOString();

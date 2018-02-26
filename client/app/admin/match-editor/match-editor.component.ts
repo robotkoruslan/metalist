@@ -50,9 +50,9 @@ export class MatchEditorComponent implements OnInit {
           this.prevMatches = this.prevMatches.filter(match => match.id !== id);
           this.nextMatches = this.nextMatches.filter(match => match.id !== id);
           this.matchToEdit = this.matchToEdit && this.matchToEdit.id === id ? null : this.matchToEdit;
-          this.message = 'Матч был успешно удален';
+          this.message = 'deleteSuccess';
         },
-        () => this.message = 'Не удается удалить матч, что-то пошло не так.'
+        () => this.message = 'deleteFail'
       );
   }
 
@@ -64,7 +64,7 @@ export class MatchEditorComponent implements OnInit {
           () => {
             this.loadNextMatches();
             this.matchToEdit = null;
-            this.message = 'Матч был успешно обновлен';
+            this.message = 'editSuccess';
           },
           err => console.log(err)
         )
@@ -74,8 +74,7 @@ export class MatchEditorComponent implements OnInit {
           () => {
             this.loadNextMatches();
             this.matchToEdit = null;
-            this.message = `Процесс создания сидений для матча запущен. Это может занять 5-10 минут. 
-            При успешном создании появится дата матча на домашней странице.`;
+            this.message = 'seatsCreationProcess';
           },
           err => console.log(err)
         );

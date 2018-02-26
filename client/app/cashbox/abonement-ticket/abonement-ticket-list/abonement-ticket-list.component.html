@@ -1,4 +1,4 @@
-<label>Список абонементов</label>
+<label>{{'cashbox.message7' | translate}}</label>
 <form class="form">
   <table class="table">
     <thead>
@@ -7,8 +7,8 @@
       <th>Slug</th>
       <th>Сектор</th>
       <th>Ряд</th>
-      <th>Место</th>
-      <th>Действителен</th>
+      <th>{{'common.place' | translate}}</th>
+      <th>{{'cashbox.valid' | translate}}</th>
     </tr>
     </thead>
 
@@ -20,7 +20,7 @@
       <td> {{ticket.row}}</td>
       <td> {{ticket.seat}}</td>
       <td> {{ticket.reservedUntil | date}}</td>
-      <td><a class="btn btn-primary btn-sm" (click)="handleDelete(ticket)">Удалить</a>
+      <td><a class="btn btn-primary btn-sm" (click)="handleDelete(ticket)">{{'admin.delete' | translate}}</a>
     </tr>
     </tbody>
   </table>

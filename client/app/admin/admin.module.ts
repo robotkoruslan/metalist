@@ -62,6 +62,7 @@ import {EditPriceSchemaComponent} from './price-schema/edit-price-schema/edit-pr
 import {BlockRowSeatTableComponent} from './season-ticket/block-row-seat-table/block-row-seat-table';
 import {BlockRowSeatFormComponent} from './season-ticket/block-row-seat-form/block-row-seat-form';
 import { ListItemComponent } from './list-item/list-item.component';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -103,7 +104,7 @@ import { ListItemComponent } from './list-item/list-item.component';
     CommonModule,
     FormsModule,
     SharedModule,
-
+    TranslateModule.forChild(),
   ],
   declarations: [TicketsStatisticComponent, MatchEditorComponent, AdminUsersComponent, SeasonTicketComponent,
     PriceSchemaComponent, OrderDetailsComponent, EditMatchComponent, SeasonTicketListComponent, BlockRowListComponent,

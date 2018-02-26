@@ -18,7 +18,7 @@ export class ConfirmEmailFormComponent {
     this.authenticationService.login(email, password)
       .subscribe(result => {
           if (!result) {
-            this.loginMessage = 'Имя или пароль некорректны';
+            this.loginMessage = 'fail';
           }
         }, ({error: {message}}) => this.loginMessage = message
       );
@@ -34,7 +34,7 @@ export class ConfirmEmailFormComponent {
         err => {
           this.confirmationMessage = err.message;
           if (err.status === 409) {
-            this.confirmationMessage = 'Пользователь с таким же Email уже зарегистрирован';
+            this.confirmationMessage = 'alreadyTaken';
           }
         }
       );

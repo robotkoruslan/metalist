@@ -2,41 +2,41 @@
   <navpanel section="4"></navpanel>
   <div class="row">
     <div class="col-sm-12">
-      <h1>Оформление заказа</h1>
+      <h1>{{'checkout.ordering' | translate}}</h1>
     </div>
     <div class="col-sm-12">
       <blockquote>
-        <p>Приобретая билет, вы соглашаетесь с &nbsp;
+        <p>{{'checkout.message1' | translate}}
           <a href="https://metalist1925.com/fclub/stadium/rules.php" target="_blank">
-            «Правилами поведения на стадионе»
+            «{{'checkout.message2' | translate}}»
           </a>
         </p>
       </blockquote>
       <p *ngIf="!isReservationExpired && cart?.seats?.length && duration">
-        Ваши билеты зарезервированы на
+        {{'checkout.message3' | translate}}
         <span style="color: red; font-size: 12pt;"><strong>{{duration?.minutes}}</strong></span> мин
         <span style="color: red;font-size: 12pt"><strong>{{duration?.seconds}}</strong></span> сек
-        , чтобы никто не мог их купить.<br/>
+        , {{'checkout.message4' | translate}}.<br/>
         <strong>
-          Перед оплатой билетов, пожалуйста, убедитесь, что не ошиблись в выборе матча, даты и места.
+          {{'checkout.message5' | translate}}.
         </strong>
         <br/>
       </p>
       <p *ngIf="isReservationExpired">
-        <strong>Бронь снята и билеты вернулись в свободную продажу.</strong><br/><br/>
+        <strong>{{'checkout.message6' | translate}}.</strong><br/><br/>
       </p>
     </div>
     <div class="col-sm-12" *ngIf="!isReservationExpired">
       <app-summary></app-summary>
       <app-details [seats]="cart?.seats" (onDelete)="removeSeat($event)"></app-details>
       <div *ngIf="!cart?.seats">
-        <strong>Билеты не выбраны</strong>
+        <strong>{{'checkout.notOrderedTickets' | translate}}</strong>
       </div>
     </div>
     <div *ngIf="!isReservationExpired && cart?.seats?.length">
       <div class="buttons col-sm-12" *ngIf="!isLoggedIn">
         <div class="col-sm-5">
-          <a [routerLink]="['/login']" class="btn btn-primary btn-block">Войти</a>
+          <a [routerLink]="['/login']" class="btn btn-primary btn-block">{{'checkout.enter' | translate}}</a>
         </div>
         <div class="col-sm-2">ИЛИ</div>
         <div class="col-sm-5">
@@ -44,8 +44,8 @@
         </div>
       </div>
       <div class="col-sm-12" *ngIf="isLoggedIn">
-        <button class="btn btn-primary btn-block" (click)="checkout()">Оплатить</button>
-        <p *ngIf="checkoutMessage" class="checkout-message">Заказ не был найден</p>
+        <button class="btn btn-primary btn-block" (click)="checkout()">{{'checkout.pay' | translate}}</button>
+        <p *ngIf="checkoutMessage" class="checkout-message">{{('message.checkout.' + 'checkoutMessage') | translate}}</p>
       </div>
     </div>
   </div>

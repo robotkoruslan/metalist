@@ -45,18 +45,18 @@ export class SeasonTicketComponent implements OnInit {
       .subscribe(
         () => this.loadSeasonTickets(),
         (err) => {
-          this.errorMessageSeat = 'Место не было зарезервировано. Что-то пошло не так';
+          this.errorMessageSeat = 'fail';
           if (err.status === 409) {
-            this.errorMessageSeat = 'Это место уже занято';
+            this.errorMessageSeat = 'alreadyTaken';
           }
-        })
+        });
   }
 
   deleteSeasonTicket(slug) {
     this.seasonTicketService.deleteSeasonTicket(slug)
       .subscribe(
         () => this.loadSeasonTickets(),
-        () => this.errorMessageBlockRow = 'Резервация места не была снята. Что-то пошло не так'
+        () => this.errorMessageSeat = 'deleteReservationFail'
       )
   }
 
@@ -64,8 +64,8 @@ export class SeasonTicketComponent implements OnInit {
     this.seasonTicketService.deleteBlockRow(blockRow)
       .subscribe(
         () => this.loadBlockRowSeats(),
-        () => this.errorMessageBlockRow = 'Резервация ряда не была снята. Что-то пошло не так'
-      )
+        () => this.errorMessageBlockRow = 'deleteReservationFail'
+      );
   }
 
 
@@ -73,7 +73,7 @@ export class SeasonTicketComponent implements OnInit {
     this.seasonTicketService.addBlockRow(blockRow)
       .subscribe(
         () => this.loadBlockRowSeats(),
-        () => this.errorMessageBlockRow = 'Ряд не был зарезервирован. Что-то пошло не так'
+        () => this.errorMessageBlockRow = 'fail'
       );
   }
 }

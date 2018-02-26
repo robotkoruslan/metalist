@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
         if (result) {
           this.router.navigate(['/login']);
         } else {
-          this.error = 'Username or password is incorrect';
+          this.error = 'fail';
           this.loading = false;
         }
       }, ({error: {message}}) => {

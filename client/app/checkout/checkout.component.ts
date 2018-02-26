@@ -96,13 +96,13 @@ export class CheckoutComponent implements OnInit, OnDestroy {
           window.location.href = result.paymentLink;
         },
         err => {
-          this.checkoutMessage = 'Что-то пошло не так, перейти на страницу оплаты не выходит';
+          this.checkoutMessage = 'fail';
           if (err.status === 406) {
             // seats are not reserved
             this.isReservationExpired = true;
           }
           if (err.status === 404) {
-            this.checkoutMessage = 'Заказ не был найден';
+            this.checkoutMessage = 'orderNotFound';
           }
         }
       );

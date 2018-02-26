@@ -6,16 +6,16 @@
           <input matInput placeholder="Id" [value]="priceSchema.id" disabled>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Cтадион" formControlName="stadiumName"
+          <input matInput [placeholder]="'placeholder.stadium' | translate" formControlName="stadiumName"
                  [(ngModel)]="priceSchema.stadiumName">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Наименование"
+          <input matInput [placeholder]="'placeholder.name' | translate"
                  formControlName="name"
                  [(ngModel)]="priceSchema.name"
           >
           <mat-error *ngIf="priceSchemaForm.get('name').errors?.required && priceSchemaForm.get('name').touched">
-            Cхема является <strong>обязательным</strong> полем
+            <input-required-error field="Cхема"></input-required-error>
           </mat-error>
         </mat-form-field>
       </form>
@@ -32,7 +32,7 @@
                                (onClickApply)="clickApply($event)"></app-stadium-with-tribunes>
     <button class="btn btn-success btn-lg btn-block" (click)="updateSchema()"
             *ngIf="isPriceSchemaChanged()" [disabled]="!priceSchemaForm.valid">
-      Save price
+      {{'admin.savePriceSchema' | translate}}
     </button>
   </div>
 </div>

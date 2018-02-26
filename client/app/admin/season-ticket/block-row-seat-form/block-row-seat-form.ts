@@ -11,17 +11,17 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
         <input matInput name="row" ngModel placeholder="Ряд" required/>
       </mat-form-field>
       <mat-form-field *ngIf="isSeatExist">
-        <input matInput name="seat" ngModel placeholder="Место" required/>
+        <input matInput name="seat" ngModel [placeholder]="'common.place' | translate" required/>
       </mat-form-field>
       <mat-form-field>
         <input matInput [matDatepicker]="picker" ngModel name="reservedUntil"
-               placeholder="Зарезервировано до" required>
+               [placeholder]="'placeholder.reservedUntil' | translate" required>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
       <div class="button-container">
         <button type="submit" class="btn btn-default" (click)="onAdd(form.value); form.reset()"
-                [disabled]="form.invalid">Добавить
+                [disabled]="form.invalid">{{'admin.add' | translate}}
         </button>
       </div>
     </form>

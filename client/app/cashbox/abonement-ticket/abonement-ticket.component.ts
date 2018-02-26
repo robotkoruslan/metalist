@@ -40,9 +40,9 @@ export class AbonementTicketComponent implements OnInit {
         result => this.loadSeasonTickets(),
         err => {
           console.log(err);
-          this.abonementMessage = 'Что-то пошло не так, не удается удалить абонемент.';
+          this.abonementMessage = 'fail';
         }
-      )
+      );
   }
 
   regTicket(accessCode) {
@@ -64,18 +64,18 @@ export class AbonementTicketComponent implements OnInit {
     this.seasonTicketService.createSeasonTicket(ticket, slug)
       .subscribe(
         () => {
-          this.seatMessage = 'Абонемент было успешно зарегистрирован.';
+          this.seatMessage = 'success';
           this.cashboxService.setTicketUsed(this.preSellTicket._id)
             .subscribe();
           this.preSellTicket = null;
         },
         err => {
-          this.seatMessage = 'Что-то пошло не так, не удается зарегистрировать абонемент.';
+          this.seatMessage = 'fail';
           if (err.status === 409) {
-            this.seatMessage = 'Это место уже занято.';
+            this.seatMessage = 'alreadyTaken';
           }
         }
-      )
+      );
   }
 
 }

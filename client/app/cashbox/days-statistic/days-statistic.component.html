@@ -1,6 +1,6 @@
 <hr>
 <mat-form-field>
-  <input matInput [matDatepicker]="picker" placeholder="Введите дату"
+  <input matInput [matDatepicker]="picker" [placeholder]="'placeholder.date' | translate"
          (dateInput)="addEvent('input', $event)" [ngModel]="date">
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
@@ -8,9 +8,9 @@
 <table class="table table-hover">
   <thead class="thead-inverse">
   <tr>
-    <th>Цена</th>
-    <th>Количество</th>
-    <th>Сумма</th>
+    <th>{{'cashbox.price' | translate}}</th>
+    <th>{{'common.quantity' | translate}}</th>
+    <th>{{'common.amount' | translate}}</th>
   </tr>
   </thead>
   <tbody>
@@ -22,7 +22,7 @@
   </tr>
   <tr *ngIf="isStatistics()">
     <td></td>
-    <td> Сумма</td>
+    <td>{{'common.amount' | translate}}</td>
     <td> {{getAmount()}}</td>
   </tr>
   </tbody>
