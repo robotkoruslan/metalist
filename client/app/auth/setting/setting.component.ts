@@ -37,8 +37,9 @@ export class SettingComponent implements OnInit {
     const {currentPassword, newPassword} = this.settingsForm.value;
     this.userService.changePassword(this.authService.user.getValue().id, currentPassword, newPassword)
       .subscribe(
-        () => this.message = 'Password was successfully updated',
-        () => this.message = 'Something went wrong, please try again!')
+        () => this.message = 'success',
+        () => this.message = 'fail'
+      );
   }
 
   private matchingPasswords(passwordKey:string, confirmPasswordKey:string) {

@@ -7,11 +7,11 @@ import {Seat} from '../../../model/seat.interface';
     <table class="table">
       <thead [class.seat-exists]="isSeatExist">
       <tr>
-        <th>Sector</th>
-        <th>Row</th>
-        <th *ngIf="isSeatExist">Seat</th>
-        <th>Reserved until</th>
-        <th>Delete</th>
+        <th>Сектор</th>
+        <th>Ряд</th>
+        <th *ngIf="isSeatExist">{{'common.place' | translate}}</th>
+        <th>{{'placeholder.reservedUntil' | translate}}</th>
+        <th>{{'admin.delete' | translate}}</th>
       </tr>
       </thead>
       <tbody>
@@ -19,7 +19,7 @@ import {Seat} from '../../../model/seat.interface';
         <td>{{element.sector}}</td>
         <td>{{element.row}}</td>
         <td *ngIf="isSeatExist">{{element.seat}}</td>
-        <td>{{element.reservedUntil | date:'fullDate'}}</td>
+        <td>{{element.reservedUntil | localeDate:'dddd, MMMM DD, YYYY'}}</td>
         <td (click)="onDelete(element)"><i class="fa fa-trash" aria-hidden="true"></i></td>
       </tr>
       <tbody>

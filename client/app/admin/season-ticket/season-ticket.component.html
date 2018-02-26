@@ -1,12 +1,14 @@
 <mat-tab-group>
-  <mat-tab label="Блокировка мест">
-    <block-row-seat-form (add)="addSeasonTicket($event)" [isSeatExist]="true" [message]="errorMessageSeat">
+  <mat-tab [label]="'admin.blockPlaces' | translate">
+    <block-row-seat-form (add)="addSeasonTicket($event)" [isSeatExist]="true"
+      [message]="errorMessageSeat ? (('message.seasonTickets.seat.' + errorMessageSeat) | translate) : ''">
     </block-row-seat-form>
     <app-season-ticket-list [tickets]="seasonTickets" (delete)="deleteSeasonTicket($event)">
     </app-season-ticket-list>
   </mat-tab>
-  <mat-tab label="Блокировка рядов">
-    <block-row-seat-form (add)="addBlockRow($event)" [isSeatExist]="false" [message]="errorMessageBlockRow">
+  <mat-tab [label]="'admin.blockRows' | translate">
+    <block-row-seat-form (add)="addBlockRow($event)" [isSeatExist]="false"
+      [message]="errorMessageBlockRow ? (('message.seasonTickets.row.' + errorMessageBlockRow) | translate) : ''">
     </block-row-seat-form>
     <app-block-row-list [blockRowSeats]="blockRowSeats" (delete)="deleteBlockRow($event)">
     </app-block-row-list>

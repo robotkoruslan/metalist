@@ -11,9 +11,8 @@ import {User} from '../../model/user.interface';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  user:User;
-  error:string;
+  user: User;
+  error: string;
 
   form = new FormGroup({
     login: new FormGroup({
@@ -27,7 +26,7 @@ export class LoginComponent implements OnInit {
     })
   });
 
-  constructor(private router:Router, private authenticationService:AuthService) {
+  constructor(private router: Router, private authenticationService: AuthService) {
   }
 
   login() {
@@ -38,7 +37,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/']);
           this.authenticationService.getUser().subscribe();
         } else {
-          this.error = 'Username or password is incorrect';
+          this.error = 'fail';
         }
       }, ({error: {message}}) => {
         console.log('Something went wrong!', message);

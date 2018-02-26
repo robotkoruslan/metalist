@@ -6,6 +6,7 @@ import {AuthService} from '../services/auth.service';
 
 import moment from 'moment-timezone';
 import {Cart} from '../model/cart.interface';
+import {Subscription} from 'rxjs/Subscription';
 
 interface Duration {
   minutes: number,
@@ -24,12 +25,18 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   isReservationExpired: boolean;
   refetchTime: number;
   checkoutMessage: string;
+  isLoggedIn: boolean;
+  subscription: Subscription;
 
   constructor(private cartService: CartService, private authenticationService: AuthService) {
   }
 
   ngOnInit() {
     this.getCart();
+    this.subscription = this.authenticationService.user
+      .subscribe(value => {
+        this.isLoggedIn = Boolean(value);
+      });
   }
 
   checkTime = () => {
@@ -53,6 +60,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.clearInterval();
+    this.subscription.unsubscribe();
   }
 
   getCart = () => {
@@ -65,9 +73,14 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         },
         err => console.log(err)
       );
-  };
+  }
 
-  isLoggedIn = () => this.authenticationService.isLoggedIn();
+  removeSeat = ({slug, matchId}) => {
+    this.cartService.removeSeatFromCart(slug, matchId)
+      .subscribe(
+        () => this.getCart()
+      );
+  }
 
   getExpirationDate() {
     sortBy(this.cart.seats, ['reservedUntil']);
@@ -83,15 +96,15 @@ export class CheckoutComponent implements OnInit, OnDestroy {
           window.location.href = result.paymentLink;
         },
         err => {
-          this.checkoutMessage = 'Что-то пошло не так, перейти на страницу оплаты не выходит';
+          this.checkoutMessage = 'fail';
           if (err.status === 406) {
             // seats are not reserved
             this.isReservationExpired = true;
           }
           if (err.status === 404) {
-            this.checkoutMessage = 'Заказ не был найден';
+            this.checkoutMessage = 'orderNotFound';
           }
         }
-      )
-  };
+      );
+  }
 }

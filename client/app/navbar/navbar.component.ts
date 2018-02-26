@@ -1,44 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import 'rxjs/add/operator/map';
 
 import {AuthService} from '../services/auth.service';
 import {User} from '../model/user.interface';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   isCollapsed: Boolean = false;
   currentUser: User;
   isLoggedIn: Boolean;
+  subscription: Subscription;
 
   constructor(private authenticationService: AuthService) {
   }
 
   ngOnInit() {
-    this.authenticationService.user
+    this.subscription = this.authenticationService.user
       .subscribe(value => {
-        if (value) {
-          this.isLoggedIn = true;
           this.currentUser = value;
-        } else {
-          this.authenticationService.getUser()
-            .subscribe(
-              res => {
-                this.isLoggedIn = true;
-                this.currentUser = res;
-              },
-              err => {
-                this.isLoggedIn = false;
-                this.currentUser = null;
-              }
-            );
-        }
+          this.isLoggedIn = Boolean(value);
       });
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
   toggleState = () => this.isCollapsed = !this.isCollapsed;
 
   isAdmin = () => this.authenticationService.isAdmin();

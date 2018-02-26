@@ -21,7 +21,7 @@ export class OrderDetailsComponent {
     this.cartService.getOrderByPrivateId(this.privateId)
       .subscribe(
         response => this.order = response,
-        err => this.message = 'Что-то пошло не так, не удается найти ордер',
+        err => this.message = 'getOrderFail',
       )
   }
 

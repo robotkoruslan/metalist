@@ -57,14 +57,14 @@
 	c0-0.646,0.142-1.129,0.425-1.452c0.283-0.322,0.639-0.483,1.067-0.483C79.972,130.356,80.357,130.534,80.675,130.892z"/>
 </svg>
   </div>
-  <h4 class="page-header">Следующие матчи</h4>
+  <h4 class="page-header">{{'home.nextMatches' | translate}}</h4>
   <div class="row">
     <div class="matches">
       <ul class="matchList">
         <li *ngFor="let match of matches" class="panel">
           <a class="link" [routerLink]="['match', match.id]">
             <div class="bgTicket">
-              <div class="buyTicket"><p>Купить билет</p></div>
+              <div class="buyTicket"><p>{{'home.buyTicket' | translate}}</p></div>
               <div>
                 <span class="teamLogos">
                   <img src="assets/teamLogo/metalist.png" alt="Metalist">
@@ -74,11 +74,11 @@
                 </span>
               </div>
               <span class="commandsNames">
-                <h4>Металлист 1925 - {{match.rival}}</h4>
+                <h4>{{'common.metalist' | translate}} 1925 - {{match.rival}}</h4>
               </span>
               <span class="matchDate">
-                <p *ngIf="match.date" class="panel-title">{{match.formattedDate}}</p>
-                <p>{{ match.time }}</p>
+                <p *ngIf="match.date" class="panel-title">{{match.date | localeDate:'DD MMMM YYYY'}}</p>
+                <p>{{match.date | localeDate:'HH:mm'}}</p>
               </span><br/>
             </div>
           </a>

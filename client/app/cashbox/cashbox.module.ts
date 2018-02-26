@@ -5,6 +5,7 @@ import { DaysStatisticComponent } from './days-statistic/days-statistic.componen
 import { AbonementTicketComponent } from './abonement-ticket/abonement-ticket.component';
 import { AbonementTicketListComponent } from './abonement-ticket/abonement-ticket-list/abonement-ticket-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {TranslateModule} from '@ngx-translate/core';
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -81,9 +82,10 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatFormFieldModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule.forChild()
   ],
-  declarations: [LastTicketsComponent, DaysStatisticComponent, AbonementTicketComponent, AbonementTicketListComponent]
+  declarations: [LastTicketsComponent, DaysStatisticComponent, AbonementTicketComponent, AbonementTicketListComponent],
 })
 export class CashboxModule {
 }

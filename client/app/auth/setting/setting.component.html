@@ -1,41 +1,43 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <h1>Изменить пароль</h1>
+      <h1>{{'auth.change' | translate}} пароль</h1>
     </div>
     <div class="col-sm-12">
       <form name="form" class="form" [formGroup]="settingsForm" (ngSubmit)="changePassword()">
         <div class="form-group">
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Текущий пароль" type="password"
+            <input matInput [placeholder]="'auth.currentPassword' | translate" type="password"
                    name="currentPassword" formControlName="currentPassword">
             <mat-error *ngIf="settingsForm.get('currentPassword').hasError('required')">
-              Текущий пароль является <strong>обязательным</strong> полем
+              <input-required-error [field]="'auth.currentPassword' | translate"></input-required-error>
             </mat-error>
           </mat-form-field>
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Новый пароль" type="password" name="newPassword"
+            <input matInput [placeholder]="'auth.newPassword' | translate" type="password" name="newPassword"
                    formControlName="newPassword">
             <mat-error *ngIf="settingsForm.get('newPassword').hasError('required')">
-              Новый пароль является <strong>обязательным</strong> полем
+              <input-required-error [field]="'auth.newPassword' | translate"></input-required-error>
             </mat-error>
           </mat-form-field>
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Подтвердите пароль" type="password" name="confirmPassword"
-                   formControlName="confirmPassword">
+            <input matInput [placeholder]="'auth.passwordConfirmation' | translate" type="password"
+                   name="confirmPassword" formControlName="confirmPassword">
             <mat-error *ngIf="settingsForm.get('confirmPassword').hasError('required')">
-              Подтверждение пароля является <strong>обязательным</strong> полем
+              <input-required-error [field]="'auth.passwordConfirmation' | translate"></input-required-error>
             </mat-error>
           </mat-form-field>
           <div *ngIf="settingsForm.hasError('mismatchedPasswords') &&
                                 settingsForm.get('confirmPassword').touched" class="error">
-            Пароли <strong>не совпадают</strong>
+            {{'auth.passwords' | translate}} <strong>{{'auth.notMatch' | translate}} </strong>
           </div>
         </div>
-        <div class="help-block">{{message}}</div>
+        <div class="help-block">
+          <span *ngIf="message">{{('message.login.' + message) | translate}}</span>
+        </div>
         <div class="button-row">
           <button type="submit" class="btn btn-inverse btn-lg btn-login" [disabled]="settingsForm.invalid">
-            Сохранить изменения
+            {{'auth.saveChanges' | translate}}
           </button>
         </div>
       </form>

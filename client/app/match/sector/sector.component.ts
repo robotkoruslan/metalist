@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { uniqBy, remove } from 'lodash';
+import {TranslateService} from '@ngx-translate/core';
+
 import {PriceSchemaService} from '../../services/price-schema.service';
 import {CartService} from '../../services/cart.service';
 import {MatchService} from '../../services/match.service';
@@ -34,14 +36,18 @@ export class SectorComponent implements OnInit {
   tribuneName: string;
   processedSeat: string;
 
-  tribuneNames = {north: 'Cеверная', south: 'Южная', west: 'Западная', east: 'Восточная'};
+  tribuneNames = {
+    ru: {north: 'Cеверная', south: 'Южная', west: 'Западная', east: 'Восточная'},
+    uk: {north: 'Північна', south: 'Південна', west: 'Західна', east: 'Східна'}
+  };
   constructor(private priceSchemaService: PriceSchemaService,
               private cartService: CartService,
               private route: ActivatedRoute,
               private matchService: MatchService,
               private ticketsService: TicketService,
               private authService: AuthService,
-              private printTicketService: PrintTicketService,) {
+              private printTicketService: PrintTicketService,
+              private translateService: TranslateService) {
     this.route.params.subscribe((params: any) => this.matchId = params.matchId);
     this.route.params.subscribe((params: any) => this.sectorId = params.sectorId);
     this.route.params.subscribe((params: any) => this.tribuneName = params.tribuneId);
@@ -106,7 +112,7 @@ export class SectorComponent implements OnInit {
     return 'imgSeatsStyle';
   }
 
-  toggleSeat(slug) {
+  toggleSeat({slug}) {
     this.message = '';
     const isSeatReserved = this.isSeatReserved(slug);
     const isSeatOptimistic = this.isSeatOptimistic(slug);
@@ -116,7 +122,6 @@ export class SectorComponent implements OnInit {
         .subscribe(
           () => this.getReservedSeats(),
           error => {
-            console.log(error);
             this.getReservedSeats();
             this.toggleOptimisticSeats(slug, true);
           }
@@ -171,7 +176,8 @@ export class SectorComponent implements OnInit {
   }
 
   get tribune() {
-    return this.tribuneNames[this.tribuneName];
+    const language = this.translateService.getBrowserLang();
+    return this.tribuneNames[language][this.tribuneName];
   }
 
 
@@ -201,6 +207,6 @@ export class SectorComponent implements OnInit {
       '28': 9,
       '29': 9,
     };
-    return sectorDividers[this.sector.name] || 2;
+    return sectorDividers[this.sector.name] || 1;
   }
 }

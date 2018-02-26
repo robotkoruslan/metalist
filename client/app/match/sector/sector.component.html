@@ -3,7 +3,7 @@
   <div class="row">
     <app-match-details [matchDetails]="match" [stadiumName]="match?.stadiumName"></app-match-details>
     <div class="col-xs-12" *ngIf="sector">
-      <h2 style="text-align: center;">Выбор места ({{tribune}} Трибуна, {{sector.name}} Сектор) - {{sectorPrice}}
+      <h2 style="text-align: center;">{{'match.choosePlace' | translate}} ({{tribune}} Трибуна, {{sector.name}} Сектор) - {{sectorPrice}}
         грн.</h2>
     </div>
     <div class="row rowPadding" *ngIf="sector">
@@ -11,7 +11,7 @@
       <div class="col-lg-12 col12Padding">
         <div class="col-xs-1 rowNames">
           <ul class="liststyle">
-            <li *ngFor="let row of sector.rows" [ngClass]="{'rowdivider': firstUpperRow == row.name}">
+            <li *ngFor="let row of sector.rows.reverse()" [ngClass]="{'rowdivider': firstUpperRow == row.name}">
               <div class="txt">Ряд {{row.name}}</div>
             </li>
           </ul>
@@ -19,13 +19,13 @@
         <div class="col-xs-11 seatsMargin" >
           <ul class="liststyle">
             <li *ngFor="let row of sector.rows" [ngClass]="{'rowdivider': firstUpperRow == row.name}">
-              <div id="s{{sector.name}}{{row.name}}{{1+$index}}"
+              <div *ngFor="let seat of makeArrayFromNumber(row.seats); let i = index;"
+                   id="s{{sector.name}}r{{row.name}}s{{1+i}}"
                    [class]="addClassByCheckSoldSeat('s'+sector.name+'r'+row.name+'st'+seat)"
                    [class.pointerEventsN]="processedSeat === 's'+sector.name+'r'+row.name+'st'+seat"
-                   *ngFor="let seat of makeArrayFromNumber(row.seats)"
-                   (click)="toggleSeat('s'+sector.name+'r'+row.name+'st'+seat)"
+                   (click)="toggleSeat({slug: 's'+sector.name+'r'+row.name+'st'+seat})"
                    tooltip="<span>Трибуна: <b>{{tribune}} {{sector.name}}</b><br />
-                             Ряд: <b>{{row.name}}</b><br />Место: <b>{{seat}}</b></span>"
+                             Ряд: <b>{{row.name}}</b><br />{{'common.place' | translate}}: <b>{{seat}}</b></span>"
               >
               </div>
             </li>
@@ -48,10 +48,10 @@
     <div *ngIf="optimisticSeats.length" class="colPadding col-xs-3 col-centered col-fixed">
       <div >
         <button *ngIf="isCashier; else notCashier" class="btn btn-primary btn-block" (click)="pay()">
-          Распечатать
+          {{'match.print' | translate}}
         </button>
         <ng-template #notCashier>
-          <a class="btn btn-primary btn-block" routerLink="/checkout">Оплатить</a>
+          <a class="btn btn-primary btn-block" routerLink="/checkout">{{'checkout.pay' | translate}}</a>
         </ng-template>
       </div>
     </div>
@@ -59,26 +59,22 @@
 
   <div class="col-sm-12">
     <blockquote *ngIf="isSkybox()">
-      <strong>Корпоративные ложи Skybox. </strong><br><br>
-      <p>Лучшие места для просмотра матчей команды «Металлист 1925»!</p>
+      <strong>{{'skybox.message1' | translate}} Skybox. </strong><br><br>
+      <p>{{'skybox.message2' | translate}} «{{'common.metalist' | translate}} 1925»!</p>
 
-      <p>Корпоративные ложи Skybox-современные и комфортабельные ложи для VIP-персон, вместимостью от 11 до 20 мест,
-        расположенные на 4 уровне Западной трибуны стадиона «Металлист».</p>
-      <p>Стоимость аренды одного места на одном матче - <strong>{{sectorPrice}} грн.</strong></p>
-      <p>К вашим услугам :</p>
+      <p>{{'skybox.message3' | translate}} «{{'common.metalist' | translate}}».</p>
+      <p>{{'skybox.message4' | translate}} - <strong>{{sectorPrice}} грн.</strong></p>
+      <p>{{'skybox.message5' | translate}} :</p>
       <ul>
-        <li>комфортабельные современные помещения с отдельным VIP входом и индивидуальной террасой,</li>
-        <li>бесшумный лифт на этаж вместимостью до 12 человек (Schindler),</li>
-        <li>специально разработанные мягкие кресла для удобного просмотра матча,</li>
-        <li>центральное расположение на комфортной для просмотра высоте,</li>
-        <li>панорамный вид на поле,</li>
-        <li>программка к матчу,</li>
-        <li>персональный официант непосредственно в ложе,</li>
-        <li>фуршетное меню (алкогольные напитки не включены) премиум-класса за час до начала матча и в перерыве
-          между
-          таймами,
-        </li>
-        <li>место на VIP парковке Р-1.</li>
+        <li>{{'skybox.message6' | translate}},</li>
+        <li>{{'skybox.message7' | translate}},</li>
+        <li>{{'skybox.message8' | translate}},</li>
+        <li>{{'skybox.message9' | translate}},</li>
+        <li>{{'skybox.message10' | translate}},</li>
+        <li>{{'skybox.message11' | translate}},</li>
+        <li>{{'skybox.message12' | translate}},</li>
+        <li>{{'skybox.message13' | translate}},</li>
+        <li>{{'skybox.message14' | translate}}.</li>
       </ul>
     </blockquote>
   </div>

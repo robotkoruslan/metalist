@@ -12,24 +12,34 @@
     <div id="navbar-main" class="collapse navbar-collapse" id="navbar" [ngClass]="{ 'in': isCollapsed }">
       <ul class="nav navbar-nav" *ngIf="isLoggedIn">
         <li>
-          <a routerLinkActive="active" routerLink="tickets">Мои билеты</a>
+          <a routerLinkActive="active" routerLink="tickets">{{'navbar.myTickets' | translate}}</a>
         </li>
         <li *ngIf="isAdmin()" >
           <a routerLinkActive="active" routerLink="admin">Admin</a>
         </li>
         <li *ngIf="isAdmin() || isCashier()">
-          <a routerLinkActive="active" routerLink="cashbox">Касса</a>
+          <a routerLinkActive="active" routerLink="cashbox">{{'navbar.cashBox' | translate}}</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li *ngIf="!isLoggedIn"><a routerLinkActive="active" routerLink="register">РЕГИСТРАЦИЯ</a></li>
-        <li *ngIf="!isLoggedIn"><a routerLinkActive="active" routerLink="login">ВХОД</a></li>
+        <li *ngIf="!isLoggedIn">
+          <a routerLinkActive="active" routerLink="register">
+            {{'navbar.registration' | translate | uppercase}}
+          </a>
+        </li>
+        <li *ngIf="!isLoggedIn">
+          <a routerLinkActive="active" routerLink="login">
+            {{'navbar.entrance' | translate | uppercase}}
+          </a>
+        </li>
         <li *ngIf="isLoggedIn && !isCollapsed">
-          <p class="navbar-text" [ngStyle]="{'max-width.px': width}">Привет {{ currentUser?.name }}</p>
+          <p class="navbar-text" [ngStyle]="{'max-width.px': width}">
+            {{'navbar.hello' | translate}} {{ currentUser?.name }}
+          </p>
         </li>
         <li *ngIf="isLoggedIn && !loggedInWithOauth"><a routerLinkActive="active" routerLink="settings"><span
           class="glyphicon glyphicon-cog"></span></a></li>
-        <li *ngIf="isLoggedIn"><a routerLinkActive="active" routerLink="login">Выход</a></li>
+        <li *ngIf="isLoggedIn"><a routerLinkActive="active" routerLink="login">{{'navbar.exit' | translate}}</a></li>
         <li>
           <app-summary [isHeader]="true"></app-summary>
         </li>

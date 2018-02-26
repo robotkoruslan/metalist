@@ -10,6 +10,7 @@ server/config/local.env.js
 server/config/environment/development.js
 images/teamLogos/
 !images/teamLogos/.gitkeep
+client/assets/images/teamLogo
 
 # e2e
 /e2e/*.js
