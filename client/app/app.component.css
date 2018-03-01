@@ -4,17 +4,17 @@
   padding: 0.2em 0;
 }
 
-@media (min-width: 1200px) {
-  .container {
-    max-width: 960px;
-  }
-}
+/*@media (min-width: 1200px) {*/
+  /*.container {*/
+    /*max-width: 960px;*/
+  /*}*/
+/*}*/
 
-@media (min-width: 1200px) {
-  .container{
-    max-width: 960px;
-  }
-}
+/*@media (min-width: 1200px) {*/
+  /*.container{*/
+    /*max-width: 960px;*/
+  /*}*/
+/*}*/
 
 .tooltips {
   background: white;

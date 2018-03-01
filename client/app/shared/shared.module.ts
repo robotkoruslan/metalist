@@ -40,6 +40,7 @@ import { InputRequiredErrorComponent } from './form-fields/input-required-error.
 import {TranslateModule} from '@ngx-translate/core';
 import {InputInvalidEmailErrorComponent} from './form-fields/input-invalid-email-error.component';
 import {LocaleDatePipe} from '../pipes/locale-date.pipe';
+import {LogoCircleComponent} from './logo-circle/logo-circle.components';
 
 @NgModule({
   imports: [
@@ -78,9 +79,21 @@ import {LocaleDatePipe} from '../pipes/locale-date.pipe';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    TranslateModule.forChild()
+    TranslateModule.forChild(),
   ],
-  declarations: [StadiumComponent, InputRequiredErrorComponent, InputInvalidEmailErrorComponent, LocaleDatePipe ],
-  exports: [ StadiumComponent, InputRequiredErrorComponent, InputInvalidEmailErrorComponent, LocaleDatePipe ],
+  declarations: [
+    StadiumComponent,
+    InputRequiredErrorComponent,
+    InputInvalidEmailErrorComponent,
+    LogoCircleComponent,
+    LocaleDatePipe
+  ],
+  exports: [
+    StadiumComponent,
+    InputRequiredErrorComponent,
+    InputInvalidEmailErrorComponent,
+    LogoCircleComponent,
+    LocaleDatePipe
+  ],
 })
 export class SharedModule { }

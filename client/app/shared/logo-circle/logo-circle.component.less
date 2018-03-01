@@ -1,0 +1,31 @@
+@import "../../variables";
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  box-shadow: 0 0 0 15px @light-gray;
+  background: @dark-blue url(../../../assets/images/teamLogo/metalist.png) 50% 50% no-repeat;
+  background-size: 60% auto;
+  margin-top: 15px;
+  width: 110px;
+  height: 110px;
+}
+@media (max-width: 1240px) {
+  .circle {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 960px) {
+  .circle {
+    width: 90px;
+    height: 90px;
+  }
+}
+@media (max-width: 480px) {
+  .circle {
+    width: 80px;
+    height: 80px;
+  }
+}

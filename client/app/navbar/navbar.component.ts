@@ -8,10 +8,11 @@ import {Subscription} from 'rxjs/Subscription';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.less']
 })
+
 export class NavbarComponent implements OnInit, OnDestroy {
-  isCollapsed: Boolean = false;
+  isCollapsed: Boolean;
   currentUser: User;
   isLoggedIn: Boolean;
   subscription: Subscription;
@@ -25,13 +26,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
           this.currentUser = value;
           this.isLoggedIn = Boolean(value);
       });
+    this.isCollapsed = window.innerWidth >= 960;
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-  toggleState = () => this.isCollapsed = !this.isCollapsed;
-
+  toggleMenu = () => {
+    this.isCollapsed = !this.isCollapsed;
+  }
   isAdmin = () => this.authenticationService.isAdmin();
 
   isCashier = () => this.authenticationService.isCashier();

@@ -1,6 +1,8 @@
 <a *ngIf="isHeader" routerLink="/checkout" class="cart-summary">
-  <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
-  {{'summary.tickets' | translate}}: {{ getSize() }} - {{'common.amount' | translate}}: {{ getPrice() }}
+  <!--<i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>-->
+  <img src="assets/images/cart.png" />
+  <span>{{'common.cart' | translate | uppercase}}</span>
+  <!--{{'summary.tickets' | translate}}: {{ getSize() }} - {{'common.amount' | translate}}: {{ getPrice() }}-->
 </a>
 <div *ngIf="!isHeader">
   {{'summary.tickets' | translate}}: {{ getSize() }} - {{'common.amount' | translate}}: {{ getPrice() }}

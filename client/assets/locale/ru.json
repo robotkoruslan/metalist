@@ -127,12 +127,13 @@
     "valid": "корректный",
     "metalist": "Металлист",
     "quantity": "Количество",
-    "amount": "Сумма"
+    "amount": "Сумма",
+    "cart": "Корзина"
   },
   "match": {
-    "stadiumMetalist": "Стадион Металлист",
+    "stadiumMetalist": "Стадион Металлист г.Харьков",
     "address": "ул. Плехановская, 65",
-    "subway": "Спортивная / Метростроителей",
+    "subway": "Спортивная",
     "chooseSector": "Выбор сектора",
     "choosePlace": "Выбор места",
     "priceCategory": "Ценовая Категория",

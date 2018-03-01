@@ -1,7 +1,7 @@
 {
   "home": {
     "nextMatches": "Наступні матчі",
-    "buyTicket": "Купити квиток"
+    "buyTicket": "Придбати квиток"
   },
   "footer": {
     "sponsors": "Спонсори",
@@ -127,12 +127,13 @@
     "valid": "коректный",
     "metalist": "Металіст",
     "quantity": "Кількість",
-    "amount": "Сума"
+    "amount": "Сума",
+    "cart": "Кошик"
   },
   "match": {
-    "stadiumMetalist": "Стадіон Металіст",
+    "stadiumMetalist": "Стадіон Металіст, м.Харків",
     "address": "вул. Плеханівська, 65",
-    "subway": "Спортивна / Метробудівників",
+    "subway": "Спортивна",
     "chooseSector": "Вибір сектору",
     "choosePlace": "Вибір місця",
     "priceCategory": "Цінова категорія",

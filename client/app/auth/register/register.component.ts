@@ -12,13 +12,13 @@ import {User} from '../../model/user.interface';
 export class RegisterComponent implements OnInit {
   loading = false;
 
-  user:User;
-  error:string;
-  registrationForm:FormGroup;
+  user: User;
+  error: string;
+  registrationForm: FormGroup;
 
-  constructor(private router:Router,
-              private userService:UserService,
-              private formBuilder:FormBuilder) {
+  constructor(private router: Router,
+              private userService: UserService,
+              private formBuilder: FormBuilder) {
 
     this.registrationForm = formBuilder.group({
       name: new FormControl('', [

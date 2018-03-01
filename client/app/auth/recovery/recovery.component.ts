@@ -15,7 +15,7 @@ export class RecoveryComponent {
   constructor(private userService:UserService) {
   }
 
-  recover(email:string) {
+  recover(email: string) {
     this.error = false;
     this.userService.recoverPassword(email)
       .subscribe(result => {

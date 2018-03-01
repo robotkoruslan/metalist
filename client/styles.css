@@ -3,6 +3,8 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import '~bootstrap-social/bootstrap-social.css';
 @import '~font-awesome/css/font-awesome.min.css';
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800');
+@import "~swiper/dist/css/swiper.css";
 
 .tooltips {
     background: white;
@@ -22,8 +24,43 @@
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
-@media (min-width: 1200px) {
-  .container {
-    width: 960px;
+/*@media (min-width: 1200px) {*/
+  /*.container {*/
+    /*width: 960px;*/
+  /*}*/
+/*}*/
+
+/*.container {*/
+  /*padding: 0 20px;*/
+/*}*/
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+a, p {
+  font-size: 20px;
+}
+
+.outer-wrapper {
+  padding: 0 20px;
+}
+
+.inner-wrapper {
+  max-width: 1520px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1240px) {
+  a, p {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 960px) {
+  a, p {
+    font-size: 16px;
   }
 }
