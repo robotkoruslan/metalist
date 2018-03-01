@@ -1,0 +1,167 @@
+@import '../../variables';
+
+.card-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  background: @white;
+  padding: 50px;
+}
+
+.match-date, .match-time {
+  color: @dark-blue;
+  font-size: 32px;
+  text-align: center;
+  font-weight: 800;
+}
+
+.match-time {
+  margin-bottom: 50px;
+}
+
+.match-metalist, .match-rival {
+  display: flex;
+
+  position: relative;
+
+  height: 140px;
+
+  font-size: 24px;
+  color: @dark-blue;
+  font-weight: 700;
+
+  span {
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    white-space: pre;
+  }
+
+}
+
+.match-metalist {
+  margin-left: 70px;
+  background: linear-gradient(to right, @gray, @white);
+  padding: 0 0 0 70px;
+}
+
+.match-rival {
+  margin-right: 70px;
+  background: linear-gradient(to left, @gray, @white);
+  padding: 0 70px 0 0;
+  margin-bottom: 50px;
+}
+
+.match-vs {
+  text-align: center;
+  font-size: 45px;
+  font-weight: 300;
+  color: @dark-blue;
+  padding: 30px;
+}
+
+.match-address {
+  color: @dark-blue;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+}
+
+
+@media (max-width: 1240px) {
+  .card-wrapper {
+    padding: 40px;
+  }
+  .match-date, .match-time {
+    font-size: 28px;
+  }
+  .match-time {
+    margin-bottom: 40px;
+  }
+  .match-metalist, .match-rival {
+    height: 130px;
+    font-size: 20px;
+    span {
+      padding: 0 20px;
+    }
+  }
+  .match-metalist {
+    margin-left: 60px;
+    padding: 0 0 0 60px;
+  }
+  .match-rival {
+    margin-right: 60px;
+    padding: 0 60px 0 0;
+    margin-bottom: 40px;
+  }
+
+  .match-vs {
+    font-size: 41px;
+    padding: 20px;
+  }
+
+  .match-address {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 960px) {
+  .card-wrapper {
+    padding: 30px;
+  }
+  .match-date, .match-time {
+    font-size: 24px;
+  }
+  .match-time {
+    margin-bottom: 30px;
+  }
+  .match-metalist, .match-rival {
+    height: 120px;
+    font-size: 10px;
+    span {
+      padding: 0 10px;
+    }
+  }
+  .match-metalist {
+    margin-left: 50px;
+    padding: 0 0 0 50px;
+  }
+  .match-rival {
+    margin-right: 50px;
+    padding: 0 50px 0 0;
+    margin-bottom: 30px;
+  }
+  .match-vs {
+    font-size: 37px;
+    padding: 10px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .card-wrapper {
+    padding: 20px;
+  }
+  .match-date, .match-time {
+    font-size: 20px;
+  }
+  .match-time {
+    margin-bottom: 20px;
+  }
+  .match-metalist, .match-rival {
+    height: 110px;
+  }
+  .match-metalist {
+    margin-left: 40px;
+    padding: 0 0 0 40px;
+  }
+  .match-rival {
+    margin-right: 40px;
+    padding: 0 50px 0 0;
+    margin-bottom: 20px;
+  }
+  .match-vs {
+    font-size: 33px;
+  }
+
+}

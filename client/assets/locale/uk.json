@@ -1,7 +1,7 @@
 {
   "home": {
     "nextMatches": "Наступні матчі",
-    "buyTicket": "Купити квиток"
+    "buyTicket": "Придбати квиток"
   },
   "footer": {
     "sponsors": "Спонсори",
@@ -34,24 +34,23 @@
   "auth": {
     "registration": "Реєстрація",
     "entrance": "Вхід",
-    "password": "Пароль",
     "passwords": "Паролі",
-    "forgot": "Забули",
+    "forgotPassword": "Забули свій пароль",
     "name": "Им'я",
     "passwordConfirmation": "Підтвердження паролю",
     "notMatch": "не збігаються",
-    "message4": "Я згоден отримувати інформацію про акції та знижки",
     "register": "Зареєструватися",
     "loginForm": "Форма входу",
-    "confirmPassword": "Підтвердіть пароль",
     "confirmEmail": "Підтвердіть email",
     "message5": "Відновлення пароля",
     "message6": "Для відновлення пароля ви повинні вказати свій e-mail",
     "message7": "Якщо ви вкажете вірні дані, то на e-mail буде відправлено листа з тимчасовим паролем",
     "change": "Змінити",
-    "currentPassword": "Поточний пароль",
-    "newPassword": "Новий пароль",
-    "saveChanges": "Зберегти зміни"
+    "saveChanges": "Зберегти зміни",
+    "restore": "Відновити",
+    "dontHaveAccount": "У вас немає аккаунту",
+    "haveAccount": "У вас вже є аккаунт",
+    "recoverPassword": "Скинути пароль"
   },
   "tickets": {
     "tickets": "Квитки",
@@ -117,7 +116,13 @@
     "orderCode": "Введіть код ордеру",
     "reservedUntil": "Зарезервовано до",
     "stadium": "Cтадіон",
-    "name": "Найменування"
+    "name": "Найменування",
+    "email": "Email",
+    "password": "Пароль",
+    "confirmPassword": "Підтвердження паролю",
+    "subscribeNews": "Я згоден отримувати інформацію про акції та знижки",
+    "currentPassword": "Поточний пароль",
+    "newPassword": "Новий пароль"
   },
   "common": {
     "is": "є",
@@ -127,12 +132,13 @@
     "valid": "коректный",
     "metalist": "Металіст",
     "quantity": "Кількість",
-    "amount": "Сума"
+    "amount": "Сума",
+    "cart": "Кошик"
   },
   "match": {
-    "stadiumMetalist": "Стадіон Металіст",
+    "stadiumMetalist": "Стадіон Металіст, м.Харків",
     "address": "вул. Плеханівська, 65",
-    "subway": "Спортивна / Метробудівників",
+    "subway": "Спортивна",
     "chooseSector": "Вибір сектору",
     "choosePlace": "Вибір місця",
     "priceCategory": "Цінова категорія",

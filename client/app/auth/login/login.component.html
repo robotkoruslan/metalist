@@ -1,50 +1,26 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-      <h1>{{'auth.entrance' | translate}}</h1>
-    </div>
-    <div class="col-sm-12">
-      <form name="form" class="form" [formGroup]="form" (ngSubmit)="login()">
-        <div class="form-group" formGroupName="login">
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Email" type="email" name="email" formControlName="email">
-            <mat-error *ngIf="form.get('login.email').hasError('email') && !form.get('login.email').hasError('required')">
-              <input-invalid-email-error></input-invalid-email-error>
-            </mat-error>
-            <mat-error *ngIf="form.get('login.email').hasError('required')">
-              <input-required-error field="Email"></input-required-error>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Пароль" type="password" name="password" formControlName="password">
-            <mat-error *ngIf="form.get('login.password').hasError('required')">
-              <input-required-error field="Пароль"></input-required-error>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="help-block">
-          <span *ngIf="error === 'fail'; else elseBlock">
-            {{('message.login.' + error) | translate}}
-          </span>
-          <ng-template #elseBlock>
-            <span>{{error}}</span>
-          </ng-template>
-        </div>
-        <div>
-          <button type="submit" class="btn btn-inverse btn-lg btn-login" [disabled]="form.invalid">Войти</button>
-          <a class="btn btn-default btn-lg btn-register" routerLink="/register">
-            {{'auth.registration' | translate}}
-          </a>
-          <a routerLink="/recovery">{{'auth.forgot' | translate}} пароль?</a>
-        </div>
-        <hr/>
-        <div class="row">
-          <div class="col-sm-4 col-md-3">
-            <oauth-buttons></oauth-buttons>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-  <hr/>
+<div class="wrapper">
+  <shared-form [type]="'login'"
+               (submit)="login($event)">
+    <span class="title">{{'auth.entrance' | translate}}</span>
+    <span *ngIf="error === 'fail'; else elseBlock" class="error">
+      {{('message.login.' + error) | translate}}
+    </span>
+    <ng-template #elseBlock>
+      <span class="error">{{error}}</span>
+    </ng-template>
+    <span class="redirect">
+      {{'auth.forgotPassword' | translate}}?
+      <a routerLink="/recovery">{{'auth.restore' | translate}}</a>
+    </span>
+    <!--<button type="submit" class="classic">-->
+      <span class="button-title"> {{'auth.entrance' | translate}} </span>
+    <!--</button>-->
+  </shared-form>
+
+  <oauth-buttons></oauth-buttons>
+  <span class="registration">
+    {{'auth.dontHaveAccount' | translate}}?
+    <a routerLink="/register">{{"auth.registration" | translate | uppercase}}</a>
+  </span>
+  <a class="home" routerLink=""><i class="fa fa-home" aria-hidden="true"></i></a>
 </div>

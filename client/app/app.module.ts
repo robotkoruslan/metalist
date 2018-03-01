@@ -37,7 +37,7 @@ import { AuhtComponent } from './auth/auth.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { RecoveryComponent } from './auth/recovery/recovery.component';
-import { OauthButtonComponent } from './auth/oauth-buttons/oauth-buttons.component'
+import { OauthButtonComponent } from './auth/oauth-buttons/oauth-buttons.component';
 import { SettingComponent } from './auth/setting/setting.component';
 import { MatchDetailsComponent } from './match/match-details/match-details.component';
 import { SectorComponent } from './match/sector/sector.component';
@@ -45,7 +45,9 @@ import { SelectSectorComponent } from './match/select-sector/select-sector.compo
 import { SummaryComponent } from './cart/summary/summary.component';
 import { DetailsComponent } from './cart/details/details.component';
 import { ConfirmEmailFormComponent } from './checkout/confirm-email-form/confirm-email-form';
-import { NavpanelComponent} from "./navpanel/navpanel.component";
+import { NavpanelComponent } from './navpanel/navpanel.component';
+import { MatchCardComponent } from './home/match-card/match-card.component';
+import { SharedFormComponent } from './auth/shared-form/shared-form.component';
 
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
@@ -59,15 +61,22 @@ import { FileService } from './services/file.service';
 import { PriceSchemaService } from './services/price-schema.service';
 import { MatchEditorService } from './services/match-editor.service';
 import { MatchService } from './services/match.service';
-import {TeamLogosService} from "./services/team-logos.service";
+import {TeamLogosService} from './services/team-logos.service';
 
 import { EmailValidator } from './directives/email-validator.directive';
 import { TooltipDirective } from './directives/tooltip.directive';
 
+import { NgxCarouselModule } from 'ngx-carousel';
+import 'hammerjs';
+import { SwiperModule } from 'angular2-useful-swiper';
+
+import { NgSlimScrollModule, SLIMSCROLL_DEFAULTS } from 'ngx-slimscroll';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/locale/', '.json');
 }
-
+import {IfScrollbarsModule} from 'ng2-if-scrollbars';
+import { VirtualScrollModule } from 'angular2-virtual-scroll';
+import { ScrollbarModule } from 'ngx-scrollbar';
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   declarations: [
@@ -93,9 +102,11 @@ export function createTranslateLoader(http: HttpClient) {
     SummaryComponent,
     DetailsComponent,
     ConfirmEmailFormComponent,
+    MatchCardComponent,
+    SharedFormComponent,
     // custom directive
     EmailValidator,
-    TooltipDirective
+    TooltipDirective,
   ],
   imports: [
     CommonModule,
@@ -126,7 +137,13 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     SharedModule,
     CashboxModule,
-    AdminModule
+    AdminModule,
+    NgxCarouselModule,
+    SwiperModule,
+    IfScrollbarsModule,
+    NgSlimScrollModule,
+    VirtualScrollModule,
+    ScrollbarModule
   ],
   providers: [AuthGuard,
     CookieService,
@@ -146,6 +163,13 @@ export function createTranslateLoader(http: HttpClient) {
     MatchEditorService,
     MatchService,
     TeamLogosService,
+    {
+      provide: SLIMSCROLL_DEFAULTS,
+      useValue: {
+        alwaysVisible : true
+      }
+    },
+
   ],
   bootstrap: [AppComponent]
 })

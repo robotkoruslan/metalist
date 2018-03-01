@@ -1,11 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
 import { TicketService } from '../services/ticket.service';
 import {IntervalObservable} from 'rxjs/observable/IntervalObservable';
 import 'rxjs/add/operator/takeWhile';
+
 @Component({
   selector: 'app-tickets',
   templateUrl: './tickets.component.html',
-  styleUrls: ['./tickets.component.css']
+  styleUrls: ['./tickets.component.less'],
 })
 export class TicketsComponent implements OnInit, OnDestroy {
 
@@ -13,11 +14,22 @@ export class TicketsComponent implements OnInit, OnDestroy {
   intervalExists = true;
 
   constructor(private ticketsService: TicketService) {
+    // this.options = {
+    //   barBackground: '#fcfcfc',
+    //   gridBackground: '#f8f8f8',
+    //   barBorderRadius: '10',
+    //   barWidth: '6',
+    //   gridWidth: '2'
+    // };
   }
-
+  // scrollChanged($event) {
+  //   console.log($event);
+  //   // this.slimScrollState = $event;
+  // }
   ngOnInit() {
     this.getTickets();
     this.getPendingStatus();
+    // this.play();
   }
 
   ngOnDestroy() {
@@ -49,4 +61,6 @@ export class TicketsComponent implements OnInit, OnDestroy {
         },
       );
   }
+
+
 }
