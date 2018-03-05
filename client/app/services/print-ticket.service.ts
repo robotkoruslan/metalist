@@ -14,18 +14,6 @@ export class PrintTicketService {
   constructor(private http: HttpClient) {
   }
 
-  generateContent = (ticket, img) => `
-    <div>
-      <b>${this.translation[ticket.seat.tribune]}</b><br>
-      <b>${ticket.seat.sector}</b><br>
-      <b>${ticket.seat.row}</b><br>
-      <b>${ticket.seat.seat}</b><br>
-      <b>${ticket.amount}</b><br>
-      <b>${ticket.accessCode}</b><br>
-      <img src="data:image/png;base64, ${img}">
-    </div>
-  `;
-
   print = (tickets) => {
     forkJoin(tickets.map(ticket => this.http.get(`/api/tickets/abonticket/print/${ticket.accessCode}`)))
       .subscribe(
@@ -40,22 +28,26 @@ export class PrintTicketService {
               <style type=\"text/css\">
                 @media print {
                   body {
-                    font-size: 0.5cm;
+                    font-size: 12px;
+                    line-height: 1.4;
                   }
                 
+                  b {
+                    margin-left: 70px
+                  }
+                  b:first-of-type {
+                    margin: 60px 0 30px 120px;
+                    display: block;
+                  }
+                  b:last-of-type {
+                    margin: 0 0 20px 70px; 
+                    display:block;
+                  }
                   img {
                     height: 50px;
                     width: auto;
+                    margin: 0 0 15px 20px
                   }
-                  
-                  div {
-                    margin-bottom: 110px;
-                  }
-                  
-                  div:last-child {
-                    margin-bottom: 0;
-                  }
-                  
                   @page {
                     size: 5.5cm 8.5cm;/* width height */
                   }
@@ -71,5 +63,20 @@ export class PrintTicketService {
         },
         err => console.log(err)
       )
+  }
+
+  generateContent = (ticket, img) => {
+    const rival = ticket.match.headline.split(' ').reverse()[0];
+    return `
+    <div>
+      <b>${rival}</b><br>
+      <b>${this.translation[ticket.seat.tribune]}</b><br>
+      <b>${ticket.seat.sector}</b><br>
+      <b>${ticket.seat.row}</b><br>
+      <b>${ticket.seat.seat}</b><br>
+      <b>${ticket.amount}</b><br>
+      <img src="data:image/png;base64, ${img}">
+    </div>
+  `;
   }
 }

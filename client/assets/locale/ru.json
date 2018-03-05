@@ -13,10 +13,13 @@
     "registration": "регистрация",
     "entrance": "вход",
     "hello": "Привет",
-    "exit": "Выход"
+    "exit": "Выход",
+    "basket": "Корзина"
   },
   "summary": {
-    "tickets": "Билетов"
+    "total": "Всего",
+    "places": "мест",
+    "toPay": "к оплате"
   },
   "checkout": {
     "ordering": "Оформление заказа",
@@ -29,7 +32,8 @@
     "notOrderedTickets": "Билеты не выбраны",
     "enter": "Войти",
     "pay": "Оплатить",
-    "orderNotFound": "Заказ не был найден"
+    "orderNotFound": "Заказ не был найден",
+    "selectedSeats": "выбраные места"
   },
   "auth": {
     "registration": "Регистрация",
@@ -52,9 +56,10 @@
     "recoverPassword": "Сбросить пароль"
   },
   "tickets": {
-    "tickets": "Билеты",
+    "boughtTickets": "Приобретенные билеты",
     "message1": "У вас нет билетов",
-    "print": "Печать"
+    "print": "Печать",
+    "places": "места"
   },
   "cashbox": {
     "message1": "Статистика за день",
@@ -104,7 +109,11 @@
     "westAdjective": "Западная",
     "eastAdjective": "Восточная",
     "southAdjective": "Южная",
-    "northAdjective": "Cеверная"
+    "northAdjective": "Cеверная",
+    "west": "Запад",
+    "east": "Восток",
+    "south": "Юг",
+    "north": "Cевер"
   },
   "placeholder": {
     "date": "Введите дату",
@@ -132,7 +141,9 @@
     "metalist": "Металлист",
     "quantity": "Количество",
     "amount": "Сумма",
-    "cart": "Корзина"
+    "cart": "Корзина",
+    "price": "цена",
+    "execute": "Оформить"
   },
   "match": {
     "stadiumMetalist": "Стадион Металлист г.Харьков",

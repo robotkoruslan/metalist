@@ -13,10 +13,13 @@
     "registration": "реєстрація",
     "entrance": "вхід",
     "hello": "Привіт",
-    "exit": "Вихід"
+    "exit": "Вихід",
+    "basket": "Кошик"
   },
   "summary": {
-    "tickets": "Квитків"
+    "total": "Всього",
+    "places": "місць",
+    "toPay": "до сплати"
   },
   "checkout": {
     "ordering": "Оформлення замовлення",
@@ -29,7 +32,8 @@
     "notOrderedTickets": "Квитки не вибрані",
     "enter": "Увійти",
     "pay": "Оплатити",
-    "orderNotFound": "Замовлення не було знайдено"
+    "orderNotFound": "Замовлення не було знайдено",
+    "selectedSeats": "вибрані місця"
   },
   "auth": {
     "registration": "Реєстрація",
@@ -53,9 +57,10 @@
     "recoverPassword": "Скинути пароль"
   },
   "tickets": {
-    "tickets": "Квитки",
+    "boughtTickets": "Придбані квитки",
     "message1": "У вас немає квитків",
-    "print": "Друк"
+    "print": "Друк",
+    "places": "місця"
   },
   "cashbox": {
     "message1": "Статистика за день",
@@ -105,7 +110,11 @@
     "westAdjective": "Західна",
     "eastAdjective": "Східна",
     "southAdjective": "Південна",
-    "northAdjective": "Північна"
+    "northAdjective": "Північна",
+    "west": "Захід",
+    "east": "Схід",
+    "south": "Південь",
+    "north": "Північ"
   },
   "placeholder": {
     "date": "Введіть дату",
@@ -133,7 +142,9 @@
     "metalist": "Металіст",
     "quantity": "Кількість",
     "amount": "Сума",
-    "cart": "Кошик"
+    "cart": "Кошик",
+    "price": "ціна",
+    "execute": "Оформити"
   },
   "match": {
     "stadiumMetalist": "Стадіон Металіст, м.Харків",

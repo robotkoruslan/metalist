@@ -5,7 +5,7 @@ import {User} from '../../model/user.interface';
 @Component({
   selector: 'app-recovery',
   templateUrl: './recovery.component.html',
-  styleUrls: ['./recovery.component.css']
+  styleUrls: ['./recovery.component.less']
 })
 export class RecoveryComponent {
   user: User;

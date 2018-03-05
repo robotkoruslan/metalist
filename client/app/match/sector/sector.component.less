@@ -1,8 +1,229 @@
+@import '../../variables';
 @imgSeatsStyleBg: #60709E;
 @imgBtnInfoHover: #4d5c84;
-@blockedSeatBg: #ffcc00;
-@soldSeat: #c1c1c1;
 @txtColor: #636363;
+
+:host, .sector-wrapper {
+  display: flex;
+  width: 100%;
+}
+h1 {
+  color: @dark-blue;
+  font-size: 32px;
+  font-weight: 800;
+  text-align: center;
+}
+.circle-tab-container {
+  width: 320px;
+  margin: 40px auto;
+}
+.match-date, .match-time {
+  font-size: 16px;
+  font-weight: 400;
+  color: @dark-blue;
+  text-align: center;
+}
+.match-time {
+  margin-bottom: 35px;
+}
+
+.left-bar {
+  width: 25%;
+  background: @white;
+  padding: 80px 40px 40px;
+  text-align: center;
+  min-width: 420px;
+  display: flex;
+  flex-direction: column;
+
+  ng-scrollbar {
+    height: 300px;
+    margin-bottom: 20px;
+  }
+
+  .tickets-wrapper {
+    height: 300px;
+    width: 340px;
+    margin: 0 auto 40px;
+    background: url('../../../assets/images/tickets.png') no-repeat left;
+    background-size: contain;
+  }
+  :host /deep/ app-summary {
+    margin: 10px 0;
+  }
+
+  .classic {
+    margin: 50px 0;
+  }
+}
+.right-bar {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  padding: 80px 40px;
+  & > div {
+    display: flex;
+  }
+  ul {
+    list-style: none;
+    .number {
+      color: @dark-blue;
+      font-size: 16px;
+      font-weight: 700;
+      display: inline-block;
+      width: 24px;
+      text-align: center;
+      padding-right: 15px;
+      li {
+        line-height: 1;
+      }
+    }
+  }
+  .availableSeat,
+  .soldSeat,
+  .blockedSeat {
+    border-radius: 6px;
+    width: 20px;
+    height: 14px;
+    cursor: pointer;
+    margin: 0 2px 0 0;
+    display: inline-block;
+
+    &:hover {
+      box-shadow: 0 4px 7px rgba(0, 0, 0, 0.69);
+    }
+  }
+
+  .availableSeat {
+    background-color: #00426b;
+  }
+  .soldSeat {
+    background-color: #a2a2a2;
+  }
+  .blockedSeat {
+    background-color: #fa2c34;
+  }
+}
+@media (max-width: 1240px) {
+  :host, .sector-wrapper {
+    flex-direction: column-reverse;
+  }
+  .left-bar {
+    width: 100%;
+    padding: 40px;
+    & > div {
+      flex-basis: 50%;
+    }
+  }
+  .right-bar {
+    width: 100%;
+    padding: 40px;
+    .header {
+      flex-direction: column;
+      align-items: center;
+    }
+    .availableSeat,
+    .soldSeat,
+    .blockedSeat {
+      width: 16px;
+      height: 12px;
+      border-radius: 4px;
+    }
+  }
+  ul {
+    //&.seats {
+    //  line-height: 1;
+    //}
+    .number {
+      font-size: 14px;
+      padding-right: 12px;
+    }
+  }
+
+}
+
+
+@media (max-width: 960px) {
+  .left-bar {
+    .tickets-wrapper {
+      margin: 0 auto;
+    }
+  }
+  .right-bar {
+    padding: 30px;
+    ul {
+      .number {
+        font-size: 12px;
+        line-height: 1.2;
+        padding-right: 10px;
+      }
+    }
+    .seats {
+      line-height: 1;
+      margin: 0 auto;
+    }
+    .availableSeat,
+    .soldSeat,
+    .blockedSeat {
+      width: 9px;
+      height: 8px;
+      margin: 0 1px 0 0;
+      border-radius: 2px;
+    }
+  }
+  .circle-tab-container {
+    width: 300px;
+    margin: 30px auto;
+  }
+}
+
+
+@media (max-width: 640px) {
+  .left-bar {
+    padding: 20px;
+    min-width: 320px;
+    .tickets-wrapper {
+      width: 310px;
+    }
+  }
+  .right-bar {
+    padding: 20px;
+    ul {
+      .number {
+        line-height: 1.2;
+        padding-right: 8px;
+      }
+    }
+    .seats li {
+      line-height: 1;
+    }
+    .availableSeat,
+    .soldSeat,
+    .blockedSeat {
+      width: 5px;
+      height: 8px;
+      border-radius: 1px;
+    }
+  }
+  .circle-tab-container {
+    width: 280px;
+    margin: 20px auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .circle-tab-container {
+    width: 240px;
+    margin: 10px auto;
+  }
+  .left-bar {
+    .tickets-wrapper {
+      width: 280px;
+    }
+  }
+
+}
+
 .seatMarginAll {
   display: inline-block;
   margin: 0 1px 0 0;
@@ -58,23 +279,23 @@
     .seatMarginAll;
   }
 
-  .blockedSeat {
-    background-color: @blockedSeatBg;
-    .cursorP;
-    width: 4px;
-    height: 8px;
-    .blockedSeatBorders;
-    .seatMarginAll;
-  }
+  //.blockedSeat {
+  //  background-color: @blockedSeatBg;
+  //  .cursorP;
+  //  width: 4px;
+  //  height: 8px;
+  //  .blockedSeatBorders;
+  //  .seatMarginAll;
+  //}
 
-  .soldSeat {
-    width: 4px;
-    height: 8px;
-    background-color: @soldSeat;
-    .pointerEventsN;
-    .cursoreD;
-    .seatMarginAll;
-  }
+  //.soldSeat {
+  //  width: 4px;
+  //  height: 8px;
+  //  background-color: @soldSeat;
+  //  .pointerEventsN;
+  //  .cursoreD;
+  //  .seatMarginAll;
+  //}
 
   .address {
     font-size: 40%;
@@ -164,23 +385,23 @@
     .seatMarginAll;
   }
 
-  .blockedSeat {
-    background-color: @blockedSeatBg;
-    .cursorP;
-    width: 8px;
-    height: 8px;
-    .blockedSeatBorders;
-    .seatMarginAll;
-  }
+  //.blockedSeat {
+  //  background-color: @blockedSeatBg;
+  //  .cursorP;
+  //  width: 8px;
+  //  height: 8px;
+  //  .blockedSeatBorders;
+  //  .seatMarginAll;
+  //}
 
-  .soldSeat {
-    width: 8px;
-    height: 8px;
-    background-color: @soldSeat;
-    .pointerEventsN;
-    .cursoreD;
-    .seatMarginAll;
-  }
+  //.soldSeat {
+  //  width: 8px;
+  //  height: 8px;
+  //  background-color: @soldSeat;
+  //  .pointerEventsN;
+  //  .cursoreD;
+  //  .seatMarginAll;
+  //}
 
   .address {
     font-size: 40%;
@@ -269,23 +490,23 @@
     .seatMarginAll;
   }
 
-  .blockedSeat {
-    background-color: @blockedSeatBg;
-    width: 8px;
-    height: 8px;
-    .cursorP;
-    .blockedSeatBorders;
-    .seatMarginAll;
-  }
-
-  .soldSeat {
-    width: 8px;
-    height: 8px;
-    background-color: @soldSeat;
-    .pointerEventsN;
-    .cursoreD;
-    .seatMarginAll;
-  }
+  //.blockedSeat {
+  //  background-color: @blockedSeatBg;
+  //  width: 8px;
+  //  height: 8px;
+  //  .cursorP;
+  //  .blockedSeatBorders;
+  //  .seatMarginAll;
+  //}
+  //
+  //.soldSeat {
+  //  width: 8px;
+  //  height: 8px;
+  //  background-color: @soldSeat;
+  //  .pointerEventsN;
+  //  .cursoreD;
+  //  .seatMarginAll;
+  //}
 
   ul.rows li:before {
     margin: 0;
@@ -365,23 +586,23 @@
     .seatMarginAll;
   }
 
-  .blockedSeat {
-    background-color: @blockedSeatBg;
-    width: 14px;
-    height: 14px;
-    .cursorP;
-    border: solid 2px #000000;
-    .seatMarginAll;
-  }
-
-  .soldSeat {
-    width: 14px;
-    height: 14px;
-    background-color: @soldSeat;
-    .pointerEventsN;
-    .cursoreD;
-    .seatMarginAll;
-  }
+  //.blockedSeat {
+  //  background-color: @blockedSeatBg;
+  //  width: 14px;
+  //  height: 14px;
+  //  .cursorP;
+  //  border: solid 2px #000000;
+  //  .seatMarginAll;
+  //}
+  //
+  //.soldSeat {
+  //  width: 14px;
+  //  height: 14px;
+  //  background-color: @soldSeat;
+  //  .pointerEventsN;
+  //  .cursoreD;
+  //  .seatMarginAll;
+  //}
 
   .address {
     font-size: 0.8vw;

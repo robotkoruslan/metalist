@@ -1,6 +1,7 @@
 'use strict';
 
 import Ticket from './ticket.model';
+import Match from '../match/match.model';
 import * as priceSchemaService from '../priceSchema/priceSchema.service';
 import * as matchService from '../match/match.service';
 import * as crypto from 'crypto';
@@ -11,6 +12,7 @@ export function createTicket(seat) {
     matchService.findById(seat.match)
   ])
     .then(([price, match]) => {
+      console.log(15, match)
       let ticket = new Ticket({
         accessCode: randomNumericString(16),
         match: {
@@ -30,7 +32,7 @@ export function createTicket(seat) {
         ticketNumber: crypto.randomBytes(20).toString('hex'),
         reserveDate: new Date()
       });
-
+      console.log(37, ticket);
       return ticket.save();
     });
 }
@@ -61,6 +63,8 @@ function getTicketById(ticketId) {
 
 function getTicketsById(ids, optionParams = {}, sortParams = {}) {
   const options = Object.assign(optionParams, {'_id': {$in: ids}});
-  return Ticket.find(options)
+  return Ticket.find(options) .populate({
+    path: 'match.id', model: Match
+  })
     .sort(sortParams)
 }

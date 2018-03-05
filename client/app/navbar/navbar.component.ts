@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import {AuthService} from '../services/auth.service';
 import {User} from '../model/user.interface';
 import {Subscription} from 'rxjs/Subscription';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-navbar',
@@ -18,6 +19,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(private authenticationService: AuthService) {
+    Observable.fromEvent(window, 'resize').map((event: any) => {
+      // console.log(23, event.target.innerWidth);
+      this.isCollapsed = event.target.innerWidth >= 960;
+    }).subscribe();
   }
 
   ngOnInit() {
@@ -42,14 +47,4 @@ export class NavbarComponent implements OnInit, OnDestroy {
     return this.currentUser && this.currentUser.provider !== 'local';
   }
 
-  get width () {
-    let width = 250;
-    if (this.isCashier()) {
-      width = 190;
-    }
-    if (this.isAdmin()) {
-      width = 120;
-    }
-    return width;
-  }
 }

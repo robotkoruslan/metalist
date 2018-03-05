@@ -1,0 +1,53 @@
+@import '../../variables';
+
+.circle-tab-container {
+  position: relative;
+  height: 70px;
+  width: 100%;
+  margin: 0 auto;
+  background: linear-gradient(90deg, @gray, #f5f3f3, @gray);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 40px;
+}
+
+span {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: @dark-blue;
+  width: 33%;
+
+}
+
+span:nth-child(even) {
+  max-height: 40px;
+  overflow: hidden;
+}
+
+.match-vs {
+  text-align: center;
+  font-size: 45px;
+  font-weight: 300;
+  padding: 10px;
+}
+
+@media (max-width:960px) {
+  span {
+    font-size: 12px;
+  }
+  .match-vs {
+    font-size: 41px;
+  }
+}
+
+@media (max-width:640px) {
+  span {
+    font-size: 10px;
+  }
+  .match-vs {
+    font-size: 37px;
+    padding: 5px;
+  }
+}

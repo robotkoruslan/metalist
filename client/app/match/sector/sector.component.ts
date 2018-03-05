@@ -14,7 +14,7 @@ import {PriceSchema} from '../../model/price-schema.interface';
 import {Match} from '../../model/match.interface';
 import {AuthService} from '../../services/auth.service';
 import {PrintTicketService} from '../../services/print-ticket.service';
-import {Ticket} from '../../model/ticket.interface';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-sector',
@@ -35,9 +35,11 @@ export class SectorComponent implements OnInit {
   sectorId: string;
   tribuneName: string;
   processedSeat: string;
+  isMobile: boolean;
+  tribune: string;
 
   tribuneNames = {
-    ru: {north: 'Cеверная', south: 'Южная', west: 'Западная', east: 'Восточная'},
+    ru: {north: 'Cевер', south: 'Юг', west: 'Запад', east: 'Восток'},
     uk: {north: 'Північна', south: 'Південна', west: 'Західна', east: 'Східна'}
   };
   constructor(private priceSchemaService: PriceSchemaService,
@@ -58,6 +60,11 @@ export class SectorComponent implements OnInit {
     this.getPrice();
     this.getReservedSeats();
     this.getSelectedSeats();
+    this.isMobile = window.innerWidth <= 1240;
+    this.tribune = this.getTribune();
+    Observable.fromEvent(window, 'resize').map((event: any) => {
+      this.isMobile = event.target.innerWidth <= 1240;
+    }).subscribe();
   }
 
   getPrice() {
@@ -77,7 +84,6 @@ export class SectorComponent implements OnInit {
         }
         this.sectorPrice = this.priceSchemaService.getPriceBySector(this.tribuneName, this.sector.name, this.priceSchema);
       });
-
   }
 
   getReservedSeats() {
@@ -109,7 +115,7 @@ export class SectorComponent implements OnInit {
     if (this.isSeatReserved(slug) && slug !== this.processedSeat) {
       return 'soldSeat';
     }
-    return 'imgSeatsStyle';
+    return 'availableSeat';
   }
 
   toggleSeat({slug}) {
@@ -175,8 +181,9 @@ export class SectorComponent implements OnInit {
       );
   }
 
-  get tribune() {
-    const language = this.translateService.getBrowserLang();
+  getTribune() {
+    let language = this.translateService.getBrowserLang();
+    language = ['ru', 'uk'].includes(language) ? language : 'uk';
     return this.tribuneNames[language][this.tribuneName];
   }
 

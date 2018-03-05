@@ -6,7 +6,8 @@ import {User} from "../../model/user.interface";
 
 @Component({
   selector: 'app-setting',
-  templateUrl: './setting.component.html'
+  templateUrl: './setting.component.html',
+  styleUrls: ['./setting.component.less']
 })
 export class SettingComponent implements OnInit {
   user: User;

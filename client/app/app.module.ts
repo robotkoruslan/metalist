@@ -62,6 +62,7 @@ import { PriceSchemaService } from './services/price-schema.service';
 import { MatchEditorService } from './services/match-editor.service';
 import { MatchService } from './services/match.service';
 import {TeamLogosService} from './services/team-logos.service';
+import {SharedDataService} from './services/shared-data.service';
 
 import { EmailValidator } from './directives/email-validator.directive';
 import { TooltipDirective } from './directives/tooltip.directive';
@@ -77,6 +78,14 @@ export function createTranslateLoader(http: HttpClient) {
 import {IfScrollbarsModule} from 'ng2-if-scrollbars';
 import { VirtualScrollModule } from 'angular2-virtual-scroll';
 import { ScrollbarModule } from 'ngx-scrollbar';
+
+// import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+// import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+// import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+//
+// const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+//   suppressScrollX: true
+// };
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   declarations: [
@@ -143,7 +152,8 @@ import { ScrollbarModule } from 'ngx-scrollbar';
     IfScrollbarsModule,
     NgSlimScrollModule,
     VirtualScrollModule,
-    ScrollbarModule
+    ScrollbarModule,
+    // PerfectScrollbarModule
   ],
   providers: [AuthGuard,
     CookieService,
@@ -163,13 +173,17 @@ import { ScrollbarModule } from 'ngx-scrollbar';
     MatchEditorService,
     MatchService,
     TeamLogosService,
+    SharedDataService,
     {
       provide: SLIMSCROLL_DEFAULTS,
       useValue: {
         alwaysVisible : true
       }
     },
-
+    // {
+    //   provide: PERFECT_SCROLLBAR_CONFIG,
+    //   useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    // }
   ],
   bootstrap: [AppComponent]
 })

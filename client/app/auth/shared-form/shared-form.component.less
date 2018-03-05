@@ -28,7 +28,6 @@
 }
 
 :host /deep/ .classic {
-  width: 300px;
   margin-top: 20px;
   margin-bottom: 40px;
 }
@@ -50,10 +49,10 @@ div * {
   width: 100%;
 }
 
-form {
-  display: flex;
-  flex-direction: column
-}
+//form {
+//  display: flex;
+//  flex-direction: column
+//}
 input {
   padding: 14px;
   font-size: 24px;
@@ -69,6 +68,36 @@ input {
   }
 }
 
+@media (max-width: 960px) {
+  input {
+    font-size: 20px;
+  }
+  :host /deep/ .title {
+    font-size: 28px;
+  }
+  .errors {
+    font-size: 13px;
+  }
+
+  :host /deep/ .redirect, :host /deep/ .error {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  input {
+    font-size: 16px;
+  }
+  :host /deep/ .title {
+    font-size: 24px;
+  }
+  .errors {
+    font-size: 12px;
+  }
+  :host /deep/ .redirect, :host /deep/ .error {
+    font-size: 14px;
+  }
+}
 .checkbox-container {
   align-items: center;
   display: flex;
@@ -95,3 +124,4 @@ div:first-child input {
   color: #999999;
   font-size: 14px;
 }
+

@@ -8,18 +8,18 @@ import {Match} from '../../model/match.interface';
   selector: 'match-card',
   template: `
     <div class="card-wrapper">
-      <span *ngIf="match.date" class="match-date">{{match.date | localeDate:'DD MMMM YYYY'}}</span>
-      <span class="match-time">{{match.date | localeDate:'HH:mm'}}</span>
+      <span *ngIf="match?.date" class="match-date">{{match.date | localeDate:'DD MMMM YYYY'}}</span>
+      <span *ngIf="match?.date" class="match-time">{{match.date | localeDate:'HH:mm'}}</span>
       <div class="match-metalist">
-        <logo-circle [diameter]="110" [right]="false"></logo-circle>
+        <logo-circle dimension="140" [right]="false"></logo-circle>
         <span>{{'common.metalist' | translate}}<br/>1925</span>
       </div>
       <span class="match-vs">VS</span>
       <div class="match-rival">
-        <logo-circle [diameter]="110" [right]="true" [image]="match.poster"></logo-circle>
-        <span>{{match.rival}}</span>
+        <logo-circle dimension="140" [right]="true" [image]="match?.poster"></logo-circle>
+        <span>{{match?.rival}}</span>
       </div>
-      <button class="classic" [routerLink]="'/match/' + match.id">{{'home.buyTicket' | translate}}</button>
+      <button class="classic" [routerLink]="'/match/' + match?.id">{{'home.buyTicket' | translate}}</button>
       <span class="match-address">{{'match.stadiumMetalist' | translate}}</span>
       <span class="match-address">{{'match.address' | translate}}</span>
       <span class="match-address">

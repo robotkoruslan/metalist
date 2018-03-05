@@ -37,17 +37,20 @@
           </a>
         </li>
         <li *ngIf="isLoggedIn" class="user-name">
-          <p [ngStyle]="{'max-width.px': width}">
+          <span>
             {{'navbar.hello' | translate | uppercase}} {{ currentUser?.name | uppercase}}
-          </p>
+          </span>
         </li>
-        <li *ngIf="isLoggedIn && !loggedInWithOauth"><a routerLinkActive="active" routerLink="settings"><span
-          class="glyphicon glyphicon-cog"></span></a></li>
+        <li *ngIf="isLoggedIn && !loggedInWithOauth">
+          <a routerLinkActive="active" routerLink="settings">
+            <span class="glyphicon glyphicon-cog"></span>
+          </a>
+        </li>
         <li *ngIf="isLoggedIn">
           <a routerLinkActive="active" routerLink="login">{{'navbar.exit' | translate | uppercase}}</a>
         </li>
         <li>
-          <app-summary [isHeader]="true"></app-summary>
+          <a routerLinkActive="active" routerLink="checkout">{{'navbar.basket' | translate | uppercase}}</a>
         </li>
       </ul>
     </div>
