@@ -37,7 +37,7 @@ import { AuhtComponent } from './auth/auth.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { RecoveryComponent } from './auth/recovery/recovery.component';
-import { OauthButtonComponent } from './auth/oauth-buttons/oauth-buttons.component'
+import { OauthButtonComponent } from './auth/oauth-buttons/oauth-buttons.component';
 import { SettingComponent } from './auth/setting/setting.component';
 import { MatchDetailsComponent } from './match/match-details/match-details.component';
 import { SectorComponent } from './match/sector/sector.component';
@@ -62,6 +62,7 @@ import { PriceSchemaService } from './services/price-schema.service';
 import { MatchEditorService } from './services/match-editor.service';
 import { MatchService } from './services/match.service';
 import {TeamLogosService} from './services/team-logos.service';
+import {SharedDataService} from './services/shared-data.service';
 
 import { EmailValidator } from './directives/email-validator.directive';
 import { TooltipDirective } from './directives/tooltip.directive';
@@ -70,11 +71,20 @@ import { NgxCarouselModule } from 'ngx-carousel';
 import 'hammerjs';
 import { SwiperModule } from 'angular2-useful-swiper';
 
-
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/locale/', '.json');
 }
 
+import { VirtualScrollModule } from 'angular2-virtual-scroll';
+import { ScrollbarModule } from 'ngx-scrollbar';
+
+// import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+// import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+// import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+//
+// const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+//   suppressScrollX: true
+// };
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   declarations: [
@@ -104,7 +114,7 @@ export function createTranslateLoader(http: HttpClient) {
     SharedFormComponent,
     // custom directive
     EmailValidator,
-    TooltipDirective
+    TooltipDirective,
   ],
   imports: [
     CommonModule,
@@ -137,7 +147,10 @@ export function createTranslateLoader(http: HttpClient) {
     CashboxModule,
     AdminModule,
     NgxCarouselModule,
-    SwiperModule
+    SwiperModule,
+    VirtualScrollModule,
+    ScrollbarModule,
+    // PerfectScrollbarModule
   ],
   providers: [AuthGuard,
     CookieService,
@@ -157,6 +170,17 @@ export function createTranslateLoader(http: HttpClient) {
     MatchEditorService,
     MatchService,
     TeamLogosService,
+    SharedDataService,
+    // {
+    //   provide: SLIMSCROLL_DEFAULTS,
+    //   useValue: {
+    //     alwaysVisible : true
+    //   }
+    // },
+    // {
+    //   provide: PERFECT_SCROLLBAR_CONFIG,
+    //   useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    // }
   ],
   bootstrap: [AppComponent]
 })

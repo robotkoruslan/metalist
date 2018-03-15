@@ -7,21 +7,38 @@
 @import "~swiper/dist/css/swiper.css";
 
 .tooltips {
-    background: white;
-    color: #636363;
-    line-height: 1;
-    font-size: 12px;
-    padding: 5px;
-    text-align: left;
-    position: absolute;
-    top: -65px;
-    left: -40px;
-    white-space: nowrap;
-    display: none;
-    width: auto;
-    border-radius: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.4);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  background: white;
+  color: #123f6d;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 0px;
+  margin-bottom: 17px;
+  left: 50%;
+  margin-left: -75px;
+  display: none;
+  font-size: 14px;
+  padding: 20px;
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.69);
+  width: 150px;
+}
+
+.tooltips div div:nth-child(1) {
+  font-size: 16px;
+  text-decoration: underline;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.tooltips > div::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 75px;
+  margin-left: -10px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
 }
 
 /*@media (min-width: 1200px) {*/
@@ -45,7 +62,11 @@ a, p {
 }
 
 .outer-wrapper {
-  padding: 0 20px;
+  /*padding: 0 20px;*/
+  background-color: #f5f5f5;
+  display: flex;
+  flex: 1;
+  justify-content: center;
 }
 
 .inner-wrapper {
@@ -62,5 +83,67 @@ a, p {
 @media (max-width: 960px) {
   a, p {
     font-size: 16px;
+  }
+}
+
+
+button.classic {
+  background-color: #f52d2d;
+  color: #f4f4f4;
+  font-size: 21px;
+  font-weight: 700;
+  padding: 25px;
+  border-radius: 50px;
+  border: none;
+  text-transform: uppercase;
+  margin: 50px;
+}
+button.classic[disabled] {
+  opacity: 0.5;
+}
+
+
+@media (max-width: 1240px) {
+  button.classic {
+    font-size: 19px;
+    padding: 20px;
+    margin: 40px;
+  }
+}
+
+@media (max-width: 960px) {
+  button.classic {
+    font-size: 17px;
+    margin: 30px;
+  }
+}
+
+@media (max-width: 720px) {
+  button.classic {
+    margin: 20px;
+  }
+}
+
+.wrapper {
+  margin: 90px auto 40px;
+  padding: 0 20px;
+  width: 620px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .wrapper {
+    width: 100%;
+    margin: 40px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    width: 100%;
+    margin: 20px 0;
   }
 }

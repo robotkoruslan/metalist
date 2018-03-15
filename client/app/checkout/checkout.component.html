@@ -1,52 +1,18 @@
-<div class="container">
-  <navpanel section="4"></navpanel>
-  <div class="row">
-    <div class="col-sm-12">
-      <h1>{{'checkout.ordering' | translate}}</h1>
-    </div>
-    <div class="col-sm-12">
-      <blockquote>
-        <p>{{'checkout.message1' | translate}}
-          <a href="https://metalist1925.com/fclub/stadium/rules.php" target="_blank">
-            «{{'checkout.message2' | translate}}»
-          </a>
-        </p>
-      </blockquote>
-      <p *ngIf="!isReservationExpired && cart?.seats?.length && duration">
-        {{'checkout.message3' | translate}}
-        <span style="color: red; font-size: 12pt;"><strong>{{duration?.minutes}}</strong></span> мин
-        <span style="color: red;font-size: 12pt"><strong>{{duration?.seconds}}</strong></span> сек
-        , {{'checkout.message4' | translate}}.<br/>
-        <strong>
-          {{'checkout.message5' | translate}}.
-        </strong>
-        <br/>
-      </p>
-      <p *ngIf="isReservationExpired">
-        <strong>{{'checkout.message6' | translate}}.</strong><br/><br/>
-      </p>
-    </div>
-    <div class="col-sm-12" *ngIf="!isReservationExpired">
-      <app-summary></app-summary>
-      <app-details [seats]="cart?.seats" (onDelete)="removeSeat($event)"></app-details>
-      <div *ngIf="!cart?.seats">
-        <strong>{{'checkout.notOrderedTickets' | translate}}</strong>
+<div class="wrapper">
+  <span class="ordering">{{'checkout.ordering' | translate}}</span>
+  <div *ngIf="data?.length; else elseBlock">
+    <ng-scrollbar>
+      <ticket-section *ngFor="let d of data" [match]="d.match" [tickets]="d.seats"
+                      (handleClick)="removeSeat($event)" type="checkout">
+        <span>{{'checkout.selectedSeats' | translate}}:</span>
+      </ticket-section>
+      <div class="summary-container">
+        <app-summary></app-summary>
       </div>
-    </div>
-    <div *ngIf="!isReservationExpired && cart?.seats?.length">
-      <div class="buttons col-sm-12" *ngIf="!isLoggedIn">
-        <div class="col-sm-5">
-          <a [routerLink]="['/login']" class="btn btn-primary btn-block">{{'checkout.enter' | translate}}</a>
-        </div>
-        <div class="col-sm-2">ИЛИ</div>
-        <div class="col-sm-5">
-          <confirm-email-form></confirm-email-form>
-        </div>
-      </div>
-      <div class="col-sm-12" *ngIf="isLoggedIn">
-        <button class="btn btn-primary btn-block" (click)="checkout()">{{'checkout.pay' | translate}}</button>
-        <p *ngIf="checkoutMessage" class="checkout-message">{{('message.checkout.' + 'checkoutMessage') | translate}}</p>
-      </div>
-    </div>
+    </ng-scrollbar>
+    <button class="classic" (click)="checkout()">{{'checkout.pay' | translate}}</button>
   </div>
+
+  <ng-template #elseBlock><span class="no-ticket">{{'tickets.message1' | translate}}.</span></ng-template>
+  <home-button></home-button>
 </div>

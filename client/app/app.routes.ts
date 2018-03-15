@@ -38,10 +38,7 @@ export const ROUTES: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   // { path: 'home',  component: HomeComponent, canActivate: [CartGuard]  },
   {path: 'sectors/:matchId/:tribuneId/:sectorId', component: SectorComponent, canActivate: [CartGuard] },
-  { path: 'match/:matchId',  component: MatchComponent, canActivate: [CartGuard] ,
-    children: [
-      {path: '', component: SelectSectorComponent, canActivate: [CartGuard] }
-    ]},
+  { path: 'match/:matchId',  component: SelectSectorComponent, canActivate: [CartGuard] },
   { path: 'admin',  component: AdminComponent, canActivate: [AuthGuard, RoleGuard], data: {expectedRole: 'admin'},
     children: [
       {path: '', redirectTo: 'ticketsStatistic', pathMatch: 'full'},
