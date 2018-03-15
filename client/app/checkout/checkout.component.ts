@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {sortBy} from 'lodash';
+import {sortBy, uniq} from 'lodash';
 
 import {CartService} from '../services/cart.service';
 import {AuthService} from '../services/auth.service';
@@ -15,7 +15,7 @@ interface Duration {
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
-  styleUrls: ['./checkout.component.css']
+  styleUrls: ['./checkout.component.less']
 })
 export class CheckoutComponent implements OnInit, OnDestroy {
 
@@ -27,6 +27,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   checkoutMessage: string;
   isLoggedIn: boolean;
   subscription: Subscription;
+  data: any[];
 
   constructor(private cartService: CartService, private authenticationService: AuthService) {
   }
@@ -68,6 +69,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.cart = response;
+          this.data = this.prepareData(response.seats);
           this.getExpirationDate();
           this.checkTime();
         },
@@ -106,5 +108,16 @@ export class CheckoutComponent implements OnInit, OnDestroy {
           }
         }
       );
+  }
+
+  prepareData = (data) => {
+    const matchIds = uniq(data.map(({match: {id}}) => id));
+    const finalData = matchIds.map(id => ({match: {_id: id}, seats: []}));
+    data.forEach(({match, tribune, sector, row, seat, price, slug}) => {
+      const result = finalData.find(({match: {_id}}) => _id === match._id);
+      result.match = match;
+      result.seats.push({tribune, sector, row, seat, price, slug});
+    });
+    return finalData;
   }
 }

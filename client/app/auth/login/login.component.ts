@@ -8,7 +8,7 @@ import {User} from '../../model/user.interface';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.less']
 })
 export class LoginComponent implements OnInit {
   user: User;
@@ -29,8 +29,14 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router, private authenticationService: AuthService) {
   }
 
-  login() {
-    const {email, password} = this.form.value.login;
+  login(formValue) {
+
+    // return;
+    const {email, password} = formValue;
+    console.log(33, email, password);
+    if (!email || !password) {
+      return;
+    }
     this.authenticationService.login(email, password)
       .subscribe(result => {
         if (result) {
@@ -40,7 +46,6 @@ export class LoginComponent implements OnInit {
           this.error = 'fail';
         }
       }, ({error: {message}}) => {
-        console.log('Something went wrong!', message);
         this.error = message;
       });
   }

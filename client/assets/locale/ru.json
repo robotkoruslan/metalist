@@ -13,10 +13,13 @@
     "registration": "регистрация",
     "entrance": "вход",
     "hello": "Привет",
-    "exit": "Выход"
+    "exit": "Выход",
+    "basket": "Корзина"
   },
   "summary": {
-    "tickets": "Билетов"
+    "total": "Всего",
+    "places": "мест",
+    "toPay": "к оплате"
   },
   "checkout": {
     "ordering": "Оформление заказа",
@@ -29,34 +32,34 @@
     "notOrderedTickets": "Билеты не выбраны",
     "enter": "Войти",
     "pay": "Оплатить",
-    "orderNotFound": "Заказ не был найден"
+    "orderNotFound": "Заказ не был найден",
+    "selectedSeats": "выбраные места"
   },
   "auth": {
     "registration": "Регистрация",
     "entrance": "Вход",
-    "password": "Пароль",
     "passwords": "Пароли",
-    "forgot": "Забыли",
+    "forgotPassword": "Забыли свой пароль",
     "name": "Имя",
-    "passwordConfirmation": "Подтверждени пароля",
     "notMatch": "не совпадают",
-    "message4": "Я согласен получать информацию об акциях и скидках",
     "register": "Зарегистрироваться",
     "loginForm": "Форма входа",
-    "confirmPassword": "Подтвердите пароль",
     "confirmEmail": "Подтвердить email",
     "message5": "Восстановление пароля",
     "message6": "Для восстановления пароля вы должны указать свой e-mail",
     "message7": "Если вы укажете верные данные, то на e-mail будет отправлено письмо с временным паролем",
     "change": "Изменить",
-    "currentPassword": "Текущий пароль",
-    "newPassword": "Новый пароль",
-    "saveChanges": "Сохранить изменения"
+    "saveChanges": "Сохранить изменения",
+    "restore": "Восстановить",
+    "dontHaveAccount": "У вас нет аккаунта",
+    "haveAccount": "У вас уже есть аккаунт",
+    "recoverPassword": "Сбросить пароль"
   },
   "tickets": {
-    "tickets": "Билеты",
+    "boughtTickets": "Приобретенные билеты",
     "message1": "У вас нет билетов",
-    "print": "Печать"
+    "print": "Печать",
+    "places": "места"
   },
   "cashbox": {
     "message1": "Статистика за день",
@@ -103,10 +106,14 @@
     "applyPrice": "Сохранить цену"
   },
   "stadium": {
-    "westAdjective": "Западная",
-    "eastAdjective": "Восточная",
-    "southAdjective": "Южная",
-    "northAdjective": "Cеверная"
+    "westAdjective": "западная",
+    "eastAdjective": "восточная",
+    "southAdjective": "южная",
+    "northAdjective": "северная",
+    "west": "запад",
+    "east": "восток",
+    "south": "юг",
+    "north": "север"
   },
   "placeholder": {
     "date": "Введите дату",
@@ -117,7 +124,13 @@
     "orderCode": "Введите код ордера",
     "reservedUntil": "Зарезервировано до",
     "stadium": "Cтадион",
-    "name": "Наименование"
+    "name": "Наименование",
+    "email": "Email",
+    "password": "Пароль",
+    "confirmPassword": "Подтверждение пароля",
+    "subscribeNews": "Я согласен получать информацию об акциях и скидках",
+    "currentPassword": "Текущий пароль",
+    "newPassword": "Новый пароль"
   },
   "common": {
     "is": "является",
@@ -128,7 +141,9 @@
     "metalist": "Металлист",
     "quantity": "Количество",
     "amount": "Сумма",
-    "cart": "Корзина"
+    "cart": "Корзина",
+    "price": "цена",
+    "execute": "Оформить"
   },
   "match": {
     "stadiumMetalist": "Стадион Металлист г.Харьков",

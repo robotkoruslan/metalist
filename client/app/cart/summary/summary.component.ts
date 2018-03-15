@@ -1,13 +1,20 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CartService} from "../../services/cart.service";
+import {CartService} from '../../services/cart.service';
 
 @Component({
   selector: 'app-summary',
-  templateUrl: './summary.component.html',
-  styleUrls: ['./summary.component.css']
+  template: `
+    <div [class.light]="light">
+      <span>{{'summary.total' | translate}}: {{'summary.places' | translate}} - </span>
+      <span>{{ getSize() }}</span>
+      <span>, {{'summary.toPay' | translate}} - </span>
+      <span>{{ getPrice() }} грн.</span>
+    </div>
+  `,
+  styleUrls: ['./summary.component.less']
 })
 export class SummaryComponent implements OnInit {
-  @Input() isHeader: boolean;
+  @Input() light: boolean;
   cart: any;
 
   constructor(private cartService: CartService) {

@@ -1,12 +1,20 @@
 .header {
   background-color: #1f345a;
   padding: 0 20px;
-  a, p {
+  a, span {
     color: #ffffff;
     text-decoration: none;
-    //font-size: 20px;
     padding: 0;
     margin: 0;
+    align-items: center;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+  a {
+    display: flex;
+  }
+  .fa-bars {
+    cursor: pointer;
   }
 
   ul {
@@ -14,7 +22,7 @@
     margin: 0;
     padding: 0;
   }
-  .header-wrapper {
+  .inner-wrapper {
     display: flex;
     height: 100px;
     //max-width: 1520px;
@@ -47,8 +55,9 @@
         align-items: center;
         font-size: 26px;
       }
-
-
+    }
+    a, span {
+      font-size: 18px;
     }
     .menu-header {
       flex-grow: 1;
@@ -62,11 +71,23 @@
           height: 100%;
           display: flex;
           align-items: center;
-          padding: 0 40px;
           cursor: pointer;
           border-top: 4px solid transparent;
           border-bottom: 4px solid transparent;
 
+          a, span {
+            padding: 0 40px;
+          }
+
+          span {
+            cursor: initial;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+          }
+          &.user-name {
+            max-width: 250px;
+          }
           &.user-name:hover {
             border-bottom-color: transparent;
           }
@@ -84,27 +105,31 @@
   }
 
   @media (max-width: 1240px) {
-    .header-wrapper {
+    .inner-wrapper {
       //max-width: 1120px;
       height: 90px;
-      .menu-header ul li {
+      .menu-header ul li a, .menu-header ul li span {
         padding: 0 20px;
+      }
+
+      .user-name {
+        max-width: 160px;
       }
     }
   }
 
   @media (max-width: 960px) {
-    .header-wrapper {
+    .inner-wrapper {
       height: auto;
       flex-direction: column;
-      a, p {
-        font-size: 18px;
-      }
+
       .logo-header {
         flex-grow: 1;
         img {
-          margin-right: 20px;
           padding: 10px 0;
+          width: 40px;
+          margin-right: 10px;
+        }
         }
         li:last-child {
           display: flex;
@@ -116,9 +141,18 @@
 
         ul {
           flex-direction: column;
+          align-items: left;
           li {
             width: 100%;
             padding: 5px 70px;
+            border-bottom: 2px solid transparent;
+
+            a {
+              padding: 0;
+            }
+          }
+          .user-name {
+            display: none;
           }
         }
       }
@@ -134,7 +168,8 @@
   //    }
   //  }
   //}
-}
+
+
 
 
 

@@ -1,14 +1,15 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import {UtilService} from "../../services/util.service";
 import sortBy from 'lodash/sortBy';
+import {PriceSchema} from '../../model/price-schema.interface';
 @Component({
   selector: 'app-stadium',
   templateUrl: './stadium.component.html',
-  styleUrls: ['./stadium.component.css']
+  styleUrls: ['./stadium.component.less']
 })
 export class StadiumComponent implements OnChanges {
 
-  @Input() priceSchema: any;
+  @Input() priceSchema: PriceSchema;
   @Output() onSectorSelect = new EventEmitter<any>();
 
   stadiumName: any = {};
