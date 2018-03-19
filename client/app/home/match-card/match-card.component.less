@@ -1,16 +1,34 @@
 @import '../../variables';
+@import '../../mixins';
 
 .card-wrapper {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
 
   background: @white;
-  padding: 50px;
+  padding: 40px;
+  min-width: 400px;
+  max-width: 465px;
+  text-align: center;
+}
+.desktop {
+  width: 100%;
+}
+.sector.desktop {
+  display: block;
+  text-align: center;
+
+}
+.sector.mobile, .mobile {
+  display: none;
+  text-align: center;
 }
 
 .match-date, .match-time {
   color: @dark-blue;
-  font-size: 32px;
+  .font-size-big;
   text-align: center;
   font-weight: 800;
 }
@@ -20,21 +38,20 @@
 }
 
 .match-metalist, .match-rival {
-  display: flex;
-
   position: relative;
-
   height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  font-size: 24px;
+  .font-size(24px);
   color: @dark-blue;
   font-weight: 700;
 
   span {
-    display: flex;
-    align-items: center;
+
     padding: 0 30px;
-    white-space: pre;
+    overflow: hidden;
   }
 
 }
@@ -50,11 +67,14 @@
   background: linear-gradient(to left, @gray, @white);
   padding: 0 70px 0 0;
   margin-bottom: 50px;
+  span {
+    max-height: 110px;
+  }
 }
 
 .match-vs {
   text-align: center;
-  font-size: 45px;
+  .font-size-big(45px);
   font-weight: 300;
   color: @dark-blue;
   padding: 30px;
@@ -62,25 +82,19 @@
 
 .match-address {
   color: @dark-blue;
-  font-size: 16px;
+  .font-size-small;;
   font-weight: 400;
   text-align: center;
 }
 
 
 @media (max-width: 1240px) {
-  .card-wrapper {
-    padding: 40px;
-  }
-  .match-date, .match-time {
-    font-size: 28px;
-  }
+ 
   .match-time {
     margin-bottom: 40px;
   }
   .match-metalist, .match-rival {
     height: 130px;
-    font-size: 20px;
     span {
       padding: 0 20px;
     }
@@ -96,28 +110,27 @@
   }
 
   .match-vs {
-    font-size: 41px;
     padding: 20px;
   }
 
-  .match-address {
-    font-size: 12px;
+  .sector.desktop {
+    display: none;
+  }
+
+  .sector.mobile {
+    display: block;
   }
 }
 
 @media (max-width: 960px) {
   .card-wrapper {
-    padding: 30px;
-  }
-  .match-date, .match-time {
-    font-size: 24px;
+    padding: 30px 40px;
   }
   .match-time {
     margin-bottom: 30px;
   }
   .match-metalist, .match-rival {
     height: 120px;
-    font-size: 10px;
     span {
       padding: 0 10px;
     }
@@ -132,18 +145,25 @@
     margin-bottom: 30px;
   }
   .match-vs {
-    font-size: 37px;
     padding: 10px;
   }
 }
 
+@media (max-width: 860px) {
+  .card-wrapper {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 720px) {
+  .card-wrapper {
+    min-width: auto;
+  }
+}
 
 @media (max-width: 480px) {
   .card-wrapper {
-    padding: 20px;
-  }
-  .match-date, .match-time {
-    font-size: 20px;
+    padding: 20px 40px;
   }
   .match-time {
     margin-bottom: 20px;
@@ -159,9 +179,6 @@
     margin-right: 40px;
     padding: 0 50px 0 0;
     margin-bottom: 20px;
-  }
-  .match-vs {
-    font-size: 33px;
   }
 
 }

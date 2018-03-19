@@ -90,18 +90,9 @@ export class SharedFormComponent implements OnInit{
 
   getInputError(field) {
     return this.form.get(field).errors && this.form.get(field).touched ? Object.keys(this.form.get(field).errors) : [];
-    // switch (field) {
-    //   case 'password':
-    //     return this.form.get('password').hasError('required');
-    //   case 'email':
-    //     return null;
-    //   default:
-    //     return null;
-    // }
   }
 
   handleFocus() {
-    console.log(96);
     this.showError = false;
   }
 
@@ -111,7 +102,6 @@ export class SharedFormComponent implements OnInit{
     if (!firstPassword || !confirmPassword) {
       return;
     }
-    console.log(114, firstPassword, confirmPassword);
     if (firstPassword !== confirmPassword) {
       return {
         mismatchedPasswords: true

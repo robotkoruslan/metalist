@@ -12,9 +12,10 @@
   border-radius: 6px;
   position: absolute;
   z-index: 1;
-  bottom: 170%;
-  left: -22%;
-  margin-left: -60px;
+  bottom: 0px;
+  margin-bottom: 17px;
+  left: 50%;
+  margin-left: -75px;
   display: none;
   font-size: 14px;
   padding: 20px;
@@ -95,7 +96,9 @@ button.classic {
   border-radius: 50px;
   border: none;
   text-transform: uppercase;
-  margin: 50px;
+  margin: 40px;
+  white-space: nowrap;
+  max-width: 300px;
 }
 button.classic[disabled] {
   opacity: 0.5;
@@ -106,15 +109,20 @@ button.classic[disabled] {
   button.classic {
     font-size: 19px;
     padding: 20px;
-    /*margin: 40px;*/
+    margin: 30px;
   }
 }
 
 @media (max-width: 960px) {
   button.classic {
     font-size: 17px;
-    /*padding: 10px;*/
-    /*margin: 30px;*/
+    margin: 20px;
+  }
+}
+
+@media (max-width: 720px) {
+  button.classic {
+    margin: 10px;
   }
 }
 
@@ -132,5 +140,12 @@ button.classic[disabled] {
   .wrapper {
     width: 100%;
     margin: 40px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    width: 100%;
+    margin: 20px 0;
   }
 }

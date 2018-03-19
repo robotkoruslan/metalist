@@ -67,24 +67,14 @@ import {SharedDataService} from './services/shared-data.service';
 import { EmailValidator } from './directives/email-validator.directive';
 import { TooltipDirective } from './directives/tooltip.directive';
 
-import { NgxCarouselModule } from 'ngx-carousel';
-import 'hammerjs';
 import { SwiperModule } from 'angular2-useful-swiper';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/locale/', '.json');
 }
 
-import { VirtualScrollModule } from 'angular2-virtual-scroll';
 import { ScrollbarModule } from 'ngx-scrollbar';
 
-// import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-// import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
-// import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-//
-// const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-//   suppressScrollX: true
-// };
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   declarations: [
@@ -146,11 +136,8 @@ import { ScrollbarModule } from 'ngx-scrollbar';
     SharedModule,
     CashboxModule,
     AdminModule,
-    NgxCarouselModule,
     SwiperModule,
-    VirtualScrollModule,
-    ScrollbarModule,
-    // PerfectScrollbarModule
+    ScrollbarModule
   ],
   providers: [AuthGuard,
     CookieService,
@@ -171,16 +158,6 @@ import { ScrollbarModule } from 'ngx-scrollbar';
     MatchService,
     TeamLogosService,
     SharedDataService,
-    // {
-    //   provide: SLIMSCROLL_DEFAULTS,
-    //   useValue: {
-    //     alwaysVisible : true
-    //   }
-    // },
-    // {
-    //   provide: PERFECT_SCROLLBAR_CONFIG,
-    //   useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-    // }
   ],
   bootstrap: [AppComponent]
 })

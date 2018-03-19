@@ -8,7 +8,7 @@
             <span>METALIST 1925 TICKETS</span>
           </a>
         </li>
-        <li (click)="toggleMenu()">
+        <li (click)="toggleMenu()" [style.display]="isMobile ? 'flex' : 'none'">
           <span><i class="fa fa-bars"></i></span>
         </li>
       </ul>

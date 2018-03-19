@@ -2,7 +2,7 @@
   <div class="left-bar">
     <div>
       <div *ngIf="!isMobile">
-        <h1>{{'match.choosePlace' | translate}}</h1>
+        <span class="choosePlace">{{'match.choosePlace' | translate}}</span>
         <div class="circle-tab-container">
           <circle-tab [rival]="match?.rival" [image]="match?.poster"></circle-tab>
         </div>
@@ -15,7 +15,9 @@
                        [light]="true">
           </ticket-item>
         </ng-scrollbar>
-        <app-summary [light]="true"></app-summary>
+        <div>
+          <app-summary [light]="true"></app-summary>
+        </div>
       </div>
     </div>
     <div>
@@ -35,7 +37,7 @@
   <div class="right-bar" *ngIf="sector">
     <div class="header">
       <div *ngIf="isMobile">
-        <h1>{{'match.choosePlace' | translate}}</h1>
+        <span class="choosePlace">{{'match.choosePlace' | translate}}</span>
         <div class="circle-tab-container">
           <circle-tab [rival]="match?.rival" [image]="match?.poster"></circle-tab>
         </div>

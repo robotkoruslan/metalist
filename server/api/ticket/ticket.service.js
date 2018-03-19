@@ -12,7 +12,6 @@ export function createTicket(seat) {
     matchService.findById(seat.match)
   ])
     .then(([price, match]) => {
-      console.log(15, match)
       let ticket = new Ticket({
         accessCode: randomNumericString(16),
         match: {
@@ -32,7 +31,7 @@ export function createTicket(seat) {
         ticketNumber: crypto.randomBytes(20).toString('hex'),
         reserveDate: new Date()
       });
-      console.log(37, ticket);
+
       return ticket.save();
     });
 }

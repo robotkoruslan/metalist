@@ -32,34 +32,39 @@ export class PrintTicketService {
                     font-weight: bold;
                     line-height: 1;
                   }
+                  .page-container {
+                    page-break-after: always;
+                  }
                   b {
                     margin-left: 100px
                   }
                   .rival {
-                     margin: 50px 0 50px 100px;
+                     margin: 30px 0 35px 100px;
+                     height: 65px;
+                     display: flex;
+                     align-items: center;
                      text-align: center;
-                     font-weight: bold;
                   }
-                  .test {
-                    margin-bottom: 20px;
+                  .rival span {
+                    width: 100px;
+                    white-space: inherit;
+                    word-break: break-all;
+                    overflow: hidden;
+                    max-height: 65px;
+                    font-weight: bold;
                   }
                   .code {
-                    padding: 30px 0 24px 0;
-                    font-size: 20px;
-                    width: 100%;
-                    margin-right: -5px;
+                    padding: 35px 0 0 0;
                     text-align: center;
-                   
                   }
-                  img {
-                    margin-left: -5px;
-                  }
-                  
+                }
+                @page {
+                  size: 5.5cm 8.5cm;
                 }
               </style>
               <body onload="window.print(); window.close();">
                 ${tickets.map((ticket, index) => this.generateContent(ticket, response[index].img)).join('')}
-              </body>  
+              </body>
             </html>
           `;
           win.document.write(content);
@@ -72,18 +77,16 @@ export class PrintTicketService {
   generateContent = (ticket, img) => {
     const rival = ticket.match.headline.split(' ').reverse()[0];
     return `
-    <div style="border:1px solid transparent;">
-      <div class="rival">
-        <span>${rival}</span>
-      </div>
+    <div class="page-container">
+      <div class="rival"><span>${rival}</span></div>
       <b>${this.translation[ticket.seat.tribune]}</b><br>
       <b>${ticket.seat.sector}</b><br>
       <b>${ticket.seat.row}</b><br>
       <b>${ticket.seat.seat}</b><br>
-      <b class="test">${ticket.amount}</b>
+      <b>${ticket.amount}</b>
       <div class="code">
-        <span style="font-size: 20px;text-align: center;font-weight: bold;">${ticket.accessCode}</span>
-        <img height="52px" src="data:image/png;base64, ${img}">
+        <span style="font-size: 16px;text-align: center;font-weight: bold;">${ticket.accessCode}</span>
+        <img height="50px" width="185px" src="data:image/png;base64, ${img}">
       </div>
     </div>
   `;

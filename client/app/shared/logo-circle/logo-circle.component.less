@@ -7,23 +7,76 @@
   background: @dark-blue url(../../../assets/images/teamLogo/metalist.png) 50% 50% no-repeat;
   background-size: 60% auto;
   top: 0;
+  &.small {
+    margin-top: 7px;
+    width: 56px;
+    height: 56px;
+    box-shadow: 0 0 0 7px @light-gray;
+
+    &.left {
+      margin-left: -35px;
+      left: 0;
+    }
+
+    &.right {
+      margin-right: -35px;
+      right: 0;
+    }
+  }
+
+  &.classic {
+    margin-top: 14px;
+    width: 112px;
+    height: 112px;
+    box-shadow: 0 0 0 14px @light-gray;
+
+    &.left {
+      margin-left: -70px;
+      left: 0;
+    }
+
+    &.right {
+      margin-right: -70px;
+      right: 0;
+    }
+
+    @media (max-width: 1240px) {
+      margin-top: 13px;
+      width: 104px;
+      height: 104px;
+      box-shadow: 0 0 0 13px @light-gray;
+      &.left {
+        margin-left: -65px;
+      }
+
+      &.right {
+        margin-right: -65px;
+      }
+    }
+    @media (max-width: 960px) {
+      margin-top: 12px;
+      width: 96px;
+      height: 96px;
+      box-shadow: 0 0 0 12px @light-gray;
+      &.left {
+        margin-left: -60px;
+      }
+      &.right {
+        margin-right: -60px;
+      }
+    }
+    @media (max-width: 480px) {
+      margin-top: 11px;
+      width: 88px;
+      height: 88px;
+      box-shadow: 0 0 0 11px @light-gray;
+      &.left {
+        margin-left: -55px;
+      }
+      &.right {
+        margin-right: -55px;
+      }
+    }
+  }
 }
-//@media (max-width: 1240px) {
-//  .circle {
-//    width: 100px;
-//    height: 100px;
-//  }
-//}
-//
-//@media (max-width: 960px) {
-//  .circle {
-//    width: 90px;
-//    height: 90px;
-//  }
-//}
-//@media (max-width: 480px) {
-//  .circle {
-//    width: 80px;
-//    height: 80px;
-//  }
-//}
+

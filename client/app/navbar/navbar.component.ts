@@ -13,15 +13,16 @@ import { fromEvent } from 'rxjs/observable/fromEvent';
 })
 
 export class NavbarComponent implements OnInit, OnDestroy {
-  isCollapsed: Boolean;
+  isCollapsed = false;
+  isMobile: Boolean;
   currentUser: User;
   isLoggedIn: Boolean;
   subscription: Subscription;
 
   constructor(private authenticationService: AuthService) {
     fromEvent(window, 'resize').map((event: any) => {
-      // console.log(23, event.target.innerWidth);
-      this.isCollapsed = event.target.innerWidth >= 960;
+      this.isMobile = event.target.innerWidth <= 960;
+      this.isCollapsed = window.innerWidth >= 960;
     }).subscribe();
   }
 
@@ -31,6 +32,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
           this.currentUser = value;
           this.isLoggedIn = Boolean(value);
       });
+    this.isMobile = window.innerWidth <= 960;
     this.isCollapsed = window.innerWidth >= 960;
   }
 

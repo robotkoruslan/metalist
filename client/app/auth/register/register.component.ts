@@ -13,26 +13,9 @@ export class RegisterComponent implements OnInit {
   loading = false;
   user: User;
   error: string;
-  registrationForm: FormGroup;
 
   constructor(private router: Router,
               private userService: UserService, private formBuilder: FormBuilder) {
-    // this.registrationForm = formBuilder.group({
-    //   name: new FormControl('', [
-    //     Validators.required,
-    //   ]),
-    //   email: new FormControl('', [
-    //     Validators.required,
-    //     Validators.email,
-    //   ]),
-    //   password: new FormControl('', [
-    //     Validators.required,
-    //   ]),
-    //   confirmPassword: new FormControl('', [
-    //     Validators.required,
-    //   ]),
-    //   subscribeNews: new FormControl('')
-    // }, {validator: this.matchingPasswords('password', 'confirmPassword')});
   }
 
   ngOnInit() {

@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <h1>{{'checkout.ordering' | translate}}</h1>
+  <span class="ordering">{{'checkout.ordering' | translate}}</span>
   <div *ngIf="data?.length; else elseBlock">
     <ng-scrollbar>
       <ticket-section *ngFor="let d of data" [match]="d.match" [tickets]="d.seats"
@@ -13,6 +13,6 @@
     <button class="classic" (click)="checkout()">{{'checkout.pay' | translate}}</button>
   </div>
 
-  <ng-template #elseBlock><h3>{{'tickets.message1' | translate}}.</h3></ng-template>
+  <ng-template #elseBlock><span class="no-ticket">{{'tickets.message1' | translate}}.</span></ng-template>
   <home-button></home-button>
 </div>

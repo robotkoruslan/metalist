@@ -1,7 +1,8 @@
 {
   "home": {
     "nextMatches": "Следующие матчи",
-    "buyTicket": "Купить билет"
+    "buyTicket": "Купить билет",
+    "main": "Главная"
   },
   "footer": {
     "sponsors": "Спонсоры",

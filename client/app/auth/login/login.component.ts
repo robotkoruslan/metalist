@@ -30,10 +30,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(formValue) {
-
-    // return;
     const {email, password} = formValue;
-    console.log(33, email, password);
     if (!email || !password) {
       return;
     }

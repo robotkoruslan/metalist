@@ -6,11 +6,11 @@ import {Match} from '../../model/match.interface';
   selector: 'ticket-section',
   template: `
     <div class="ticket-section-wrapper">
-      <div style="width: 320px; margin:0 auto;">
+      <div style="">
         <circle-tab [rival]="match.rival" [image]="match.poster"></circle-tab>
       </div>
       <ng-content></ng-content>
-      <table class="tickets-wrapper">
+      <table>
         <ticket-item *ngFor="let ticket of tickets; let i = index"
                      [ticket]="ticket"
                      [type]="type"
