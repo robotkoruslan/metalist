@@ -1,0 +1,18 @@
+@import '../../variables';
+@import '../../mixins';
+
+div {
+  text-align: right;
+  .font-size;
+  font-weight: 700;
+  color: @dark-blue;
+}
+
+div.light {
+  .font-size(16px);
+  font-weight: 400;
+}
+
+span:nth-child(2n) {
+  color: @red;
+}

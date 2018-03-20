@@ -7,7 +7,7 @@ import {SharedDataService} from "../services/shared-data.service";
 @Component({
   selector: 'app-match',
   templateUrl: './match.component.html',
-  styleUrls: ['./match.component.css'],
+  styleUrls: ['./match.component.less'],
   providers: [SharedDataService]
 })
 export class MatchComponent implements OnInit {

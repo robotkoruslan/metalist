@@ -1,7 +1,8 @@
 {
   "home": {
     "nextMatches": "Наступні матчі",
-    "buyTicket": "Купити квиток"
+    "buyTicket": "Придбати квиток",
+    "main": "Головна"
   },
   "footer": {
     "sponsors": "Спонсори",
@@ -13,10 +14,13 @@
     "registration": "реєстрація",
     "entrance": "вхід",
     "hello": "Привіт",
-    "exit": "Вихід"
+    "exit": "Вихід",
+    "basket": "Кошик"
   },
   "summary": {
-    "tickets": "Квитків"
+    "total": "Всього",
+    "places": "місць",
+    "toPay": "до сплати"
   },
   "checkout": {
     "ordering": "Оформлення замовлення",
@@ -29,34 +33,35 @@
     "notOrderedTickets": "Квитки не вибрані",
     "enter": "Увійти",
     "pay": "Оплатити",
-    "orderNotFound": "Замовлення не було знайдено"
+    "orderNotFound": "Замовлення не було знайдено",
+    "selectedSeats": "вибрані місця"
   },
   "auth": {
     "registration": "Реєстрація",
     "entrance": "Вхід",
-    "password": "Пароль",
     "passwords": "Паролі",
-    "forgot": "Забули",
+    "forgotPassword": "Забули свій пароль",
     "name": "Им'я",
     "passwordConfirmation": "Підтвердження паролю",
     "notMatch": "не збігаються",
-    "message4": "Я згоден отримувати інформацію про акції та знижки",
     "register": "Зареєструватися",
     "loginForm": "Форма входу",
-    "confirmPassword": "Підтвердіть пароль",
     "confirmEmail": "Підтвердіть email",
     "message5": "Відновлення пароля",
     "message6": "Для відновлення пароля ви повинні вказати свій e-mail",
     "message7": "Якщо ви вкажете вірні дані, то на e-mail буде відправлено листа з тимчасовим паролем",
     "change": "Змінити",
-    "currentPassword": "Поточний пароль",
-    "newPassword": "Новий пароль",
-    "saveChanges": "Зберегти зміни"
+    "saveChanges": "Зберегти зміни",
+    "restore": "Відновити",
+    "dontHaveAccount": "У вас немає аккаунту",
+    "haveAccount": "У вас вже є аккаунт",
+    "recoverPassword": "Скинути пароль"
   },
   "tickets": {
-    "tickets": "Квитки",
+    "boughtTickets": "Придбані квитки",
     "message1": "У вас немає квитків",
-    "print": "Друк"
+    "print": "Друк",
+    "places": "місця"
   },
   "cashbox": {
     "message1": "Статистика за день",
@@ -103,10 +108,14 @@
     "applyPrice": "Зберегти ціну"
   },
   "stadium": {
-    "westAdjective": "Західна",
-    "eastAdjective": "Східна",
-    "southAdjective": "Південна",
-    "northAdjective": "Північна"
+    "westAdjective": "західна",
+    "eastAdjective": "східна",
+    "southAdjective": "південна",
+    "northAdjective": "північна",
+    "west": "захід",
+    "east": "схід",
+    "south": "південь",
+    "north": "північ"
   },
   "placeholder": {
     "date": "Введіть дату",
@@ -117,7 +126,13 @@
     "orderCode": "Введіть код ордеру",
     "reservedUntil": "Зарезервовано до",
     "stadium": "Cтадіон",
-    "name": "Найменування"
+    "name": "Найменування",
+    "email": "Email",
+    "password": "Пароль",
+    "confirmPassword": "Підтвердження паролю",
+    "subscribeNews": "Я згоден отримувати інформацію про акції та знижки",
+    "currentPassword": "Поточний пароль",
+    "newPassword": "Новий пароль"
   },
   "common": {
     "is": "є",
@@ -127,12 +142,15 @@
     "valid": "коректный",
     "metalist": "Металіст",
     "quantity": "Кількість",
-    "amount": "Сума"
+    "amount": "Сума",
+    "cart": "Кошик",
+    "price": "ціна",
+    "execute": "Оформити"
   },
   "match": {
-    "stadiumMetalist": "Стадіон Металіст",
+    "stadiumMetalist": "Стадіон Металіст, м.Харків",
     "address": "вул. Плеханівська, 65",
-    "subway": "Спортивна / Метробудівників",
+    "subway": "Спортивна",
     "chooseSector": "Вибір сектору",
     "choosePlace": "Вибір місця",
     "priceCategory": "Цінова категорія",

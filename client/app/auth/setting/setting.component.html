@@ -1,50 +1,8 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-      <h1>{{'auth.change' | translate}} пароль</h1>
-    </div>
-    <div class="col-sm-12">
-      <form name="form" class="form" [formGroup]="settingsForm" (ngSubmit)="changePassword()">
-        <div class="form-group">
-          <mat-form-field class="example-full-width">
-            <input matInput [placeholder]="'auth.currentPassword' | translate" type="password"
-                   name="currentPassword" formControlName="currentPassword">
-            <mat-error *ngIf="settingsForm.get('currentPassword').hasError('required')">
-              <input-required-error [field]="'auth.currentPassword' | translate"></input-required-error>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <input matInput [placeholder]="'auth.newPassword' | translate" type="password" name="newPassword"
-                   formControlName="newPassword">
-            <mat-error *ngIf="settingsForm.get('newPassword').hasError('required')">
-              <input-required-error [field]="'auth.newPassword' | translate"></input-required-error>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <input matInput [placeholder]="'auth.passwordConfirmation' | translate" type="password"
-                   name="confirmPassword" formControlName="confirmPassword">
-            <mat-error *ngIf="settingsForm.get('confirmPassword').hasError('required')">
-              <input-required-error [field]="'auth.passwordConfirmation' | translate"></input-required-error>
-            </mat-error>
-          </mat-form-field>
-          <div *ngIf="settingsForm.hasError('mismatchedPasswords') &&
-                                settingsForm.get('confirmPassword').touched" class="error">
-            {{'auth.passwords' | translate}} <strong>{{'auth.notMatch' | translate}} </strong>
-          </div>
-        </div>
-        <div class="help-block">
-          <span *ngIf="message">{{('message.login.' + message) | translate}}</span>
-        </div>
-        <div class="button-row">
-          <button type="submit" class="btn btn-inverse btn-lg btn-login" [disabled]="settingsForm.invalid">
-            {{'auth.saveChanges' | translate}}
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-  <hr/>
+<div class="wrapper">
+  <shared-form [type]="'settings'"
+               (submit)="changePassword($event)">
+    <span class="title">{{'auth.change' | translate}} пароль</span>
+    <span class="error" *ngIf="message">{{('message.settings.' + message) | translate}}</span>
+    <span class="button-title"> {{'auth.saveChanges' | translate}} </span>
+  </shared-form>
 </div>
-
-
-

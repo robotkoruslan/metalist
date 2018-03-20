@@ -4,19 +4,26 @@ import 'rxjs/add/operator/map';
 import {AuthService} from '../services/auth.service';
 import {User} from '../model/user.interface';
 import {Subscription} from 'rxjs/Subscription';
+import { fromEvent } from 'rxjs/observable/fromEvent';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.less']
 })
+
 export class NavbarComponent implements OnInit, OnDestroy {
-  isCollapsed: Boolean = false;
+  isCollapsed = false;
+  isMobile: Boolean;
   currentUser: User;
   isLoggedIn: Boolean;
   subscription: Subscription;
 
   constructor(private authenticationService: AuthService) {
+    fromEvent(window, 'resize').map((event: any) => {
+      this.isMobile = event.target.innerWidth <= 960;
+      this.isCollapsed = window.innerWidth >= 960;
+    }).subscribe();
   }
 
   ngOnInit() {
@@ -25,13 +32,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
           this.currentUser = value;
           this.isLoggedIn = Boolean(value);
       });
+    this.isMobile = window.innerWidth <= 960;
+    this.isCollapsed = window.innerWidth >= 960;
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-  toggleState = () => this.isCollapsed = !this.isCollapsed;
-
+  toggleMenu = () => {
+    this.isCollapsed = !this.isCollapsed;
+  }
   isAdmin = () => this.authenticationService.isAdmin();
 
   isCashier = () => this.authenticationService.isCashier();
@@ -39,14 +49,4 @@ export class NavbarComponent implements OnInit, OnDestroy {
     return this.currentUser && this.currentUser.provider !== 'local';
   }
 
-  get width () {
-    let width = 250;
-    if (this.isCashier()) {
-      width = 190;
-    }
-    if (this.isAdmin()) {
-      width = 120;
-    }
-    return width;
-  }
 }

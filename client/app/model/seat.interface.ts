@@ -8,4 +8,5 @@ export interface Seat {
   slug: string,
   match: Match,
   reservedUntil: string,
+  tribune?: string
 }

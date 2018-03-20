@@ -1,6 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import moment from 'moment-timezone'
-// import 'moment/locale/ru';
+import moment from 'moment-timezone';
 import {TranslateService} from '@ngx-translate/core';
 
 @Pipe({name: 'localeDate'})

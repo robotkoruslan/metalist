@@ -1,81 +1,68 @@
-<div class="container">
-  <navpanel section="3"></navpanel>
-  <div class="row">
-    <app-match-details [matchDetails]="match" [stadiumName]="match?.stadiumName"></app-match-details>
-    <div class="col-xs-12" *ngIf="sector">
-      <h2 style="text-align: center;">{{'match.choosePlace' | translate}} ({{tribune}} Трибуна, {{sector.name}} Сектор) - {{sectorPrice}}
-        грн.</h2>
-    </div>
-    <div class="row rowPadding" *ngIf="sector">
-      <!--//@TODO need compolent-->
-      <div class="col-lg-12 col12Padding">
-        <div class="col-xs-1 rowNames">
-          <ul class="liststyle">
-            <li *ngFor="let row of sector.rows.reverse()" [ngClass]="{'rowdivider': firstUpperRow == row.name}">
-              <div class="txt">Ряд {{row.name}}</div>
-            </li>
-          </ul>
-        </div>
-        <div class="col-xs-11 seatsMargin" >
-          <ul class="liststyle">
-            <li *ngFor="let row of sector.rows" [ngClass]="{'rowdivider': firstUpperRow == row.name}">
-              <div *ngFor="let seat of makeArrayFromNumber(row.seats); let i = index;"
-                   id="s{{sector.name}}r{{row.name}}s{{1+i}}"
-                   [class]="addClassByCheckSoldSeat('s'+sector.name+'r'+row.name+'st'+seat)"
-                   [class.pointerEventsN]="processedSeat === 's'+sector.name+'r'+row.name+'st'+seat"
-                   (click)="toggleSeat({slug: 's'+sector.name+'r'+row.name+'st'+seat})"
-                   tooltip="<span>Трибуна: <b>{{tribune}} {{sector.name}}</b><br />
-                             Ряд: <b>{{row.name}}</b><br />{{'common.place' | translate}}: <b>{{seat}}</b></span>"
-              >
-              </div>
-            </li>
-          </ul>
+<div class="sector-wrapper">
+  <div class="left-bar">
+    <div>
+      <div *ngIf="!isMobile">
+        <span class="choosePlace">{{'match.choosePlace' | translate}}</span>
+        <div class="circle-tab-container">
+          <circle-tab [rival]="match?.rival" [image]="match?.poster"></circle-tab>
         </div>
       </div>
-    </div>
-    <div class="col-sm-12">
-      <div class="gradientSeats"></div>
-    </div>
-  </div>
-  <div class="cardBlock text-center">
-    <div class="col-xs-12 col-md-9 col-centered col-fixed">
-      <div>
+      <div class="tickets-wrapper">
+        <ng-scrollbar>
+          <ticket-item *ngFor="let ticket of optimisticSeats; let i = index"
+                       [ticket]="ticket"
+                       [index]="i + 1"
+                       [light]="true">
+          </ticket-item>
+        </ng-scrollbar>
         <div>
-          <app-details [seats]="optimisticSeats" (onDelete)="toggleSeat($event)"></app-details>
+          <app-summary [light]="true"></app-summary>
         </div>
       </div>
     </div>
-    <div *ngIf="optimisticSeats.length" class="colPadding col-xs-3 col-centered col-fixed">
-      <div >
-        <button *ngIf="isCashier; else notCashier" class="btn btn-primary btn-block" (click)="pay()">
-          {{'match.print' | translate}}
-        </button>
-        <ng-template #notCashier>
-          <a class="btn btn-primary btn-block" routerLink="/checkout">{{'checkout.pay' | translate}}</a>
-        </ng-template>
+    <div>
+      <button *ngIf="isCashier; else notCashierBlock" class="classic" (click)="pay()">
+        {{'match.print' | translate}}
+      </button>
+      <ng-template #notCashierBlock>
+        <button class="classic" routerLink="/checkout">{{'common.execute' | translate}}</button>
+      </ng-template>
+      <div *ngIf="!isMobile">
+        <div *ngIf="match?.date" class="match-date">{{match.date | localeDate:'DD MMMM YYYY'}}</div>
+        <div *ngIf="match?.date" class="match-time">{{match.date | localeDate:'HH:mm'}}</div>
       </div>
+      <back-button [backUrl]="'/match/' + match?.id"></back-button>
     </div>
   </div>
-
-  <div class="col-sm-12">
-    <blockquote *ngIf="isSkybox()">
-      <strong>{{'skybox.message1' | translate}} Skybox. </strong><br><br>
-      <p>{{'skybox.message2' | translate}} «{{'common.metalist' | translate}} 1925»!</p>
-
-      <p>{{'skybox.message3' | translate}} «{{'common.metalist' | translate}}».</p>
-      <p>{{'skybox.message4' | translate}} - <strong>{{sectorPrice}} грн.</strong></p>
-      <p>{{'skybox.message5' | translate}} :</p>
-      <ul>
-        <li>{{'skybox.message6' | translate}},</li>
-        <li>{{'skybox.message7' | translate}},</li>
-        <li>{{'skybox.message8' | translate}},</li>
-        <li>{{'skybox.message9' | translate}},</li>
-        <li>{{'skybox.message10' | translate}},</li>
-        <li>{{'skybox.message11' | translate}},</li>
-        <li>{{'skybox.message12' | translate}},</li>
-        <li>{{'skybox.message13' | translate}},</li>
-        <li>{{'skybox.message14' | translate}}.</li>
+  <div class="right-bar" *ngIf="sector">
+    <div class="header">
+      <div *ngIf="isMobile">
+        <span class="choosePlace">{{'match.choosePlace' | translate}}</span>
+        <div class="circle-tab-container">
+          <circle-tab [rival]="match?.rival" [image]="match?.poster"></circle-tab>
+        </div>
+      </div>
+      <div *ngIf="isMobile">
+        <div *ngIf="match?.date" class="match-date">{{match.date | localeDate:'DD MMMM YYYY'}}</div>
+        <div *ngIf="match?.date" class="match-time">{{match.date | localeDate:'HH:mm'}}</div>
+      </div>
+    </div>
+    <div>
+      <ul class="seats">
+        <li *ngFor="let row of sector.rows.reverse(); index as ind" [ngClass]="{'rowdivider': firstUpperRow == row.name}">
+        <span class="number">{{row.name}}</span>
+        <span *ngFor="let seat of makeArrayFromNumber(row.seats); let i = index;"
+              id="s{{sector.name}}r{{row.name}}s{{1+i}}"
+              [class]="addClassByCheckSoldSeat('s'+sector.name+'r'+row.name+'st'+seat)"
+              [class.pointerEventsN]="processedSeat === 's'+sector.name+'r'+row.name+'st'+seat"
+              (click)="toggleSeat({slug: 's'+sector.name+'r'+row.name+'st'+seat})"
+              tooltip="<div><div><b>{{tribune}}</b></div><div>Ceктор: <b>{{sector.name}}</b></div>
+                      <div>Ряд: <b>{{row.name}}</b></div><div>{{'common.place' | translate}}: <b>{{seat}}</b>
+                      <div>{{'common.price' | translate}}: <b>{{sectorPrice}}грн</b></div></div>">
+        </span>
+        </li>
       </ul>
-    </blockquote>
+    </div>
   </div>
 </div>
+

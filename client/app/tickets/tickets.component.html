@@ -1,31 +1,16 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-      <h1>{{'tickets.tickets' | translate}}</h1>
-      <div *ngIf="!tickets.length">
-        <h3>{{'tickets.message1' | translate}}.</h3>
-      </div>
-      <div *ngIf="tickets.length">
-        <table class="cart-items table table-condensed">
-          <tr *ngFor="let ticket of tickets">
-          <!--<tr ng-repeat="ticket in vm.tickets | orderBy:'-reserveDate'">-->
-            <td>
-              <p class="lead">
-                {{ ticket.match.headline }} : {{ ticket.seat.sector }} сектор,
-                {{ ticket.seat.row }} ряд, {{ ticket.seat.seat }} {{'common.place' | translate}}
-              </p>
-            </td>
-            <td>
-              <p class="lead">
-                <a href="/api/tickets/ticket/{{ticket.ticketNumber}}" target="_blank" >
-                  {{'tickets.print' | translate}}
-                </a>
-              </p>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
+<div class="wrapper">
+  <h1>{{'tickets.boughtTickets' | translate}}</h1>
+  <div *ngIf="data?.length; else elseBlock">
+    <ng-scrollbar thumbClass="thumb" viewClass="scroll" barClass="thumb">
+      <ticket-section *ngFor="let ticket of data"
+                      [match]="ticket.match"
+                      [tickets]="ticket.tickets"
+                      type="tickets"
+                      (handleClick)="print($event)">
+        <span>{{'tickets.places' | translate}}:</span>
+      </ticket-section>
+    </ng-scrollbar>
   </div>
+  <ng-template #elseBlock><h3>{{'tickets.message1' | translate}}.</h3></ng-template>
+  <home-button></home-button>
 </div>
-

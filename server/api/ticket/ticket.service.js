@@ -1,6 +1,7 @@
 'use strict';
 
 import Ticket from './ticket.model';
+import Match from '../match/match.model';
 import * as priceSchemaService from '../priceSchema/priceSchema.service';
 import * as matchService from '../match/match.service';
 import * as crypto from 'crypto';
@@ -61,6 +62,8 @@ function getTicketById(ticketId) {
 
 function getTicketsById(ids, optionParams = {}, sortParams = {}) {
   const options = Object.assign(optionParams, {'_id': {$in: ids}});
-  return Ticket.find(options)
+  return Ticket.find(options) .populate({
+    path: 'match.id', model: Match
+  })
     .sort(sortParams)
 }

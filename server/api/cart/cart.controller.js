@@ -67,7 +67,6 @@ export function addSeatToCart(req, res) {
           return cart.save();
         })
         .then(cart => {
-
           return orderService.findCartByPublicId(cart.publicId);
         })
         .then(respondWithResult(res))
