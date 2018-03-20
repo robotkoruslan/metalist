@@ -19,10 +19,10 @@ import {Seat} from '../../model/seat.interface';
         <ng-template #elsePlace>
           <span>м. - {{ticket.seat}}</span>
         </ng-template>
-        <span *ngIf="type ==='checkout'">{{'common.price' | translate}} - {{ticket.price}};</span>
+        <span *ngIf="type">{{'common.price' | translate}} - {{ticket.price}};</span>
         <span *ngIf="!type">- {{ticket.price}}грн;</span>
       </td>
-      <td width="1%" *ngIf="type" class="symbol" style="cursor: pointer;">
+      <td width="1%" class="symbol" style="cursor: pointer;">
         <i *ngIf="type ==='tickets'; else elseBlock" class="fa fa-print" aria-hidden="true" (click)="handlePrint()"></i>
         <ng-template #elseBlock>
           <i class="fa fa-times" aria-hidden="true" (click)="handleDelete()"></i>

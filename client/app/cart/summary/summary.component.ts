@@ -4,7 +4,7 @@ import {CartService} from '../../services/cart.service';
 @Component({
   selector: 'app-summary',
   template: `
-    <div [class.light]="light">
+    <div>
       <span>{{'summary.total' | translate}}: {{'summary.places' | translate}} - </span>
       <span>{{ getSize() }}</span>
       <span>, {{'summary.toPay' | translate}} - </span>
@@ -14,7 +14,6 @@ import {CartService} from '../../services/cart.service';
   styleUrls: ['./summary.component.less']
 })
 export class SummaryComponent implements OnInit {
-  @Input() light: boolean;
   cart: any;
 
   constructor(private cartService: CartService) {

@@ -83,7 +83,9 @@ export class SectorComponent implements OnInit {
             this.sector = AppConstant.StadiumMetalist['tribune_' + this.tribuneName]['sector_' + this.sectorId];
           }
         }
-        this.sectorRows = this.sector.rows.reverse();
+        this.sectorRows = this.sector.rows.sort((a, b) => {
+          return (+b.name) - (+a.name);
+        });
         this.sectorPrice = this.priceSchemaService.getPriceBySector(this.tribuneName, this.sector.name, this.priceSchema);
       });
   }
@@ -218,5 +220,10 @@ export class SectorComponent implements OnInit {
       '29': 9,
     };
     return sectorDividers[this.sector.name] || 1;
+  }
+
+  handleDelete({slug}) {
+    this.toggleSeat({slug});
+
   }
 }

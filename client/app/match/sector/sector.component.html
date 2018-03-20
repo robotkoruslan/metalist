@@ -3,8 +3,8 @@
     <div>
       <div *ngIf="!isMobile" class="left-bar-header">
         <span class="choose-place">{{'match.choosePlace' | translate}}</span>
-        <span class="tribune">{{tribune | uppercase}}</span>
-        <span>{{sector?.name | uppercase}}</span>
+        <span class="tribune">Трибуна {{tribune | uppercase}}</span>
+        <span>Сектор {{sector?.name | uppercase}}</span>
         <div class="circle-tab-container">
           <circle-tab [rival]="match?.rival" [image]="match?.poster"></circle-tab>
         </div>
@@ -13,16 +13,16 @@
         <ng-scrollbar>
           <table>
             <ticket-item *ngFor="let ticket of optimisticSeats; let i = index"
-                         [type]="sector"
                          [ticket]="ticket"
                          [index]="i + 1"
                          [light]="true"
+                         (onClick)="handleDelete($event)"
             >
             </ticket-item>
           </table>
         </ng-scrollbar>
         <div>
-          <app-summary [light]="true"></app-summary>
+          <app-summary></app-summary>
         </div>
       </div>
     </div>
