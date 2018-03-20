@@ -1,4 +1,4 @@
-@bgForLogo: url(../../assets/images/main-background.png);
+@bgForLogo: url(../../assets/images/main-background-min.png);
 :host {
   flex: 1;
   display: flex;
@@ -15,6 +15,10 @@
 swiper {
   width: 1520px;
   height: auto;
+  .swiper-wrapper.centered {
+    display: flex;
+    justify-content: center;
+  }
 
   @media(max-width: 1560px) {
     width: 1420px;

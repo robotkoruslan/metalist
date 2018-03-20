@@ -6,10 +6,11 @@ import {FormControl, Validators, FormGroup} from '@angular/forms';
   templateUrl: './shared-form.component.html',
   styleUrls: ['./shared-form.component.less']
 })
-export class SharedFormComponent implements OnInit{
+export class SharedFormComponent implements OnInit {
   form: FormGroup;
   fields: string[] = [];
   showError = true;
+  @Input() hide: boolean;
   @Input() type: string;
   @Output() submit = new EventEmitter();
   constructor() {}
@@ -20,17 +21,15 @@ export class SharedFormComponent implements OnInit{
 
   generateForm = () => {
     const controlsConfig = {};
-    console.log(20, this.matchingPasswords);
     const validatorsConfig = this.fields.includes('confirmPassword') ?
       { validators: this.matchingPasswords } : {};
     this.fields.forEach(field => controlsConfig[field] = this.getFormControl(field));
-    console.log(26, validatorsConfig);
     return new FormGroup(controlsConfig, validatorsConfig);
   }
   getFields = () => {
-    console.log(26, this.type);
     switch (this.type) {
       case 'login':
+      case 'email-confirmation':
         this.fields = ['email', 'password'];
         break;
       case 'register':
@@ -72,14 +71,12 @@ export class SharedFormComponent implements OnInit{
       case 'email':
         return 'email';
       case 'subscribeNews':
-        console.log(67, field);
         return 'checkbox';
       default:
         return 'password';
     }
   }
   handleSubmit() {
-    console.log(77, this.form.value);
     if (!this.form.valid) {
       return;
     }

@@ -87,7 +87,7 @@ a, p {
 }
 
 
-button.classic {
+button.classic, a.classic {
   background-color: #f52d2d;
   color: #f4f4f4;
   font-size: 21px;

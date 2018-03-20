@@ -8,11 +8,18 @@
   display: flex;
   width: 100%;
 }
-span.choose-place {
+span {
   color: @dark-blue;
+  text-align: center;
+  .font-size;
+}
+span.tribune {
+  margin: 10px;
+}
+span.choose-place {
   .font-size-big;
   font-weight: 800;
-  text-align: center;
+
 }
 .circle-tab-container {
   margin: 50px auto;
@@ -38,6 +45,9 @@ span.choose-place {
   display: flex;
   flex-direction: column;
 
+  table {
+    margin-right: 10px;
+  }
   .left-bar-header {
     display: flex;
     flex-direction: column;
@@ -48,7 +58,7 @@ span.choose-place {
   }
 
   .tickets-wrapper {
-    width: 340px;
+    width: 450px;
     margin: 0 auto 40px;
     background: url('../../../assets/images/tickets.png') no-repeat left;
     background-size: contain;
@@ -167,9 +177,7 @@ span.choose-place {
       padding-right: 12px;
     }
   }
-
 }
-
 
 @media (max-width: 960px) {
   .circle-tab-container {

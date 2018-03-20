@@ -34,7 +34,8 @@
     "enter": "Войти",
     "pay": "Оплатить",
     "orderNotFound": "Заказ не был найден",
-    "selectedSeats": "выбраные места"
+    "selectedSeats": "выбраные места",
+    "or": "или"
   },
   "auth": {
     "registration": "Регистрация",

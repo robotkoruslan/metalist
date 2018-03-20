@@ -11,9 +11,9 @@ import {Seat} from '../../model/seat.interface';
           <span class="indicator" [style.background]="type ==='tickets' ? '#00426b' : '#fc2c34'">&nbsp;</span>
       </td>
       <td class="text-container" [class.light]="light">
-        <span *ngIf="type" [translate]="'stadium.'+ ticket.tribune"></span>
-        <span *ngIf="type">,</span>
-        <span [style.textTransform]="type ? 'lowercase' : 'cpitalize'">сектор - {{ ticket.sector }},</span>
+        <span *ngIf="type ==='tickets'" [translate]="'stadium.'+ ticket.tribune"></span>
+        <span *ngIf="type ==='tickets'">,</span>
+        <span [style.textTransform]="type ? 'lowercase' : 'capitalize'">сектор - {{ ticket.sector }},</span>
         <span>ряд - {{ ticket.row }},</span>
         <span *ngIf="type; else elsePlace">{{'common.place' | translate | lowercase}} - {{ticket.seat}},</span>
         <ng-template #elsePlace>

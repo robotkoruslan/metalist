@@ -12,6 +12,7 @@
              [name]="field"
              [id]="field"
              [formControlName]="field"
+             [style.display]="field === 'password' && type === 'email-confirmation' && hide ? 'none' : 'block'"
              (focus)="handleFocus()">
     </ng-template>
     <div class="errors">
@@ -26,6 +27,10 @@
         {{'auth.passwords' | translate}} <strong>{{'auth.notMatch' | translate}}</strong>
       </span>
     </div>
+    <div *ngIf="field=== 'email'">
+      <ng-content select=".confirmation-email-notification"></ng-content>
+    </div>
+
   </div>
   <ng-content select=".redirect"></ng-content>
   <div class="error" [style.visibility]="showError ? 'visible' : 'hidden'">

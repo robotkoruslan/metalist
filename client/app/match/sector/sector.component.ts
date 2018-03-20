@@ -37,6 +37,7 @@ export class SectorComponent implements OnInit {
   processedSeat: string;
   isMobile: boolean;
   tribune: string;
+  sectorRows: any[];
 
   tribuneNames = {
     ru: {north: 'Cевер', south: 'Юг', west: 'Запад', east: 'Восток'},
@@ -82,6 +83,7 @@ export class SectorComponent implements OnInit {
             this.sector = AppConstant.StadiumMetalist['tribune_' + this.tribuneName]['sector_' + this.sectorId];
           }
         }
+        this.sectorRows = this.sector.rows.reverse();
         this.sectorPrice = this.priceSchemaService.getPriceBySector(this.tribuneName, this.sector.name, this.priceSchema);
       });
   }
@@ -174,7 +176,6 @@ export class SectorComponent implements OnInit {
       .subscribe(
         order => {
           const data = order.tickets.map(ticket => ({...ticket, ...ticket.seat}));
-          console.log(176, data);
           this.printTicketService.print(data);
           this.getReservedSeats();
           this.getSelectedSeats();

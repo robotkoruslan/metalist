@@ -1,7 +1,7 @@
 <div class="inner-wrapper">
   <div class="match-list" *ngIf="matches?.length">
     <swiper *ngIf="!isMobile; else elseBlock" [config]="config">
-      <div class="swiper-wrapper">
+      <div [ngClass]="{'swiper-wrapper': true, 'centered': matches?.length < 3 }">
         <div class="swiper-slide" *ngFor="let match of matches">
           <match-card [match]="match"></match-card>
         </div>

@@ -34,7 +34,8 @@
     "enter": "Увійти",
     "pay": "Оплатити",
     "orderNotFound": "Замовлення не було знайдено",
-    "selectedSeats": "вибрані місця"
+    "selectedSeats": "вибрані місця",
+    "or": "або"
   },
   "auth": {
     "registration": "Реєстрація",

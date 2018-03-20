@@ -1,0 +1,20 @@
+<div class="wrapper">
+  <shared-form type="email-confirmation" [hide]="!emailValue"
+               (submit)="handleSubmit($event)">
+    <span class="error" *ngIf="confirmationMessage && confirmationMessage === 'alreadyTaken'">
+      {{('message.login.' + confirmationMessage) | translate}}
+    </span>
+    <span class="confirmation-email-notification"
+          *ngIf="confirmationMessage && confirmationMessage !== 'alreadyTaken'">
+      {{confirmationMessage}}
+    </span>
+
+    <span class="error" *ngIf="loginMessage && loginMessage === 'fail'; else loginElseBlock">
+      {{('message.login.' + loginMessage) | translate}}
+    </span>
+    <ng-template #loginElseBlock>
+      <span class="error">{{loginMessage}}</span>
+    </ng-template>
+    <span class="button-title"> {{(emailValue ? 'checkout.enter' : 'auth.confirmEmail') | translate}} </span>
+  </shared-form>
+</div>
