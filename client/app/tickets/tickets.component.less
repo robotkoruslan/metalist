@@ -1,4 +1,5 @@
 @import '../mixins';
+@import '../variables';
 
 :host {
   display: flex;
@@ -16,6 +17,38 @@
   div {
     width: 100%;
     margin-bottom: 40px;
+  }
+  @media (max-width: 720px) {
+    width: 100%;
+    padding: 0;
+    h1 {
+      margin: 0 0 25px;
+    }
+  }
+  @media (max-width: 480px) {
+    h1 {
+      margin: 0 0 15px;
+    }
+  }
+}
+
+ticket-section span {
+  display: flex;
+  justify-content: center;
+  .font-size-big;
+  font-weight: 600;
+  color: @dark-blue;
+  margin: 50px 0 40px;
+  @media (max-width: 960px) {
+    margin: 40px 0 30px;
+  }
+  @media (max-width: 720px) {
+    font-size: 14px;
+    margin: 30px 0 20px;
+  }
+  @media (max-width: 600px) {
+    font-size: 14px;
+    margin: 20px 0 10px;
   }
 }
 

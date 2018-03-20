@@ -69,6 +69,7 @@
   margin-bottom: 50px;
   span {
     max-height: 110px;
+    .line-clamp(3);
   }
 }
 
@@ -89,7 +90,7 @@
 
 
 @media (max-width: 1240px) {
- 
+
   .match-time {
     margin-bottom: 40px;
   }
@@ -105,7 +106,7 @@
   }
   .match-rival {
     margin-right: 60px;
-    padding: 0 60px 0 0;
+    padding: 0 65px 0 0;
     margin-bottom: 40px;
   }
 
@@ -141,8 +142,11 @@
   }
   .match-rival {
     margin-right: 50px;
-    padding: 0 50px 0 0;
+    padding: 0 60px 0 0;
     margin-bottom: 30px;
+    span {
+      max-height: 100px;
+    }
   }
   .match-vs {
     padding: 10px;
@@ -159,15 +163,26 @@
   .card-wrapper {
     min-width: auto;
   }
+  .match-rival {
+    span {
+      max-height: 90px;
+    }
+  }
+}
+
+@media (max-width: 680px) {
+  .match-rival {
+    span {
+      max-height: 80px;
+    }
+  }
 }
 
 @media (max-width: 480px) {
   .card-wrapper {
-    padding: 20px 40px;
+    padding: 20px;
   }
-  .match-time {
-    margin-bottom: 20px;
-  }
+
   .match-metalist, .match-rival {
     height: 110px;
   }
@@ -177,7 +192,7 @@
   }
   .match-rival {
     margin-right: 40px;
-    padding: 0 50px 0 0;
+    padding: 0 55px 0 0;
     margin-bottom: 20px;
   }
 

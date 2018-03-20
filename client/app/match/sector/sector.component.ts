@@ -173,7 +173,9 @@ export class SectorComponent implements OnInit {
     this.cartService.pay()
       .subscribe(
         order => {
-          this.printTicketService.print(order.tickets);
+          const data = order.tickets.map(ticket => ({...ticket, ...ticket.seat}));
+          console.log(176, data);
+          this.printTicketService.print(data);
           this.getReservedSeats();
           this.getSelectedSeats();
         },

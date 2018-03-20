@@ -28,8 +28,7 @@ export class TicketSectionComponent {
   @Input() type: string;
   @Output() handleClick = new EventEmitter();
 
-  processClick({slug, ticketNumber}) {
-
-    this.handleClick.emit(slug ? {slug, matchId: this.match.id} : ticketNumber);
+  processClick({slug, ticket}) {
+    this.handleClick.emit(slug ? {slug, matchId: this.match.id} : ticket);
   }
 }
