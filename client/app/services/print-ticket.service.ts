@@ -75,14 +75,15 @@ export class PrintTicketService {
   }
 
   generateContent = (ticket, img) => {
-    const rival = ticket.match.headline.split(' ').reverse()[0];
+    const headline = ticket.match.headline;
+    const rival = headline.substring(headline.indexOf('-') + 1);
     return `
     <div class="page-container">
       <div class="rival"><span>${rival}</span></div>
-      <b>${this.translation[ticket.seat.tribune]}</b><br>
-      <b>${ticket.seat.sector}</b><br>
-      <b>${ticket.seat.row}</b><br>
-      <b>${ticket.seat.seat}</b><br>
+      <b>${this.translation[ticket.tribune]}</b><br>
+      <b>${ticket.sector}</b><br>
+      <b>${ticket.row}</b><br>
+      <b>${ticket.seat}</b><br>
       <b>${ticket.amount}</b>
       <div class="code">
         <span style="font-size: 16px;text-align: center;font-weight: bold;">${ticket.accessCode}</span>

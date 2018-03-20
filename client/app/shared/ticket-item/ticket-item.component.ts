@@ -44,6 +44,6 @@ export class TicketItemComponent {
     this.onClick.emit({slug: this.ticket.slug});
   }
   handlePrint() {
-    this.onClick.emit({ticketNumber: this.ticket.ticketNumber});
+    this.onClick.emit({ticket: this.ticket});
   }
 }

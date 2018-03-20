@@ -36,7 +36,7 @@
             {{'navbar.entrance' | translate | uppercase}}
           </a>
         </li>
-        <li *ngIf="isLoggedIn" class="user-name">
+        <li *ngIf="isLoggedIn && !isMobile" class="user-name">
           <span>
             {{'navbar.hello' | translate | uppercase}} {{ currentUser?.name | uppercase}}
           </span>
