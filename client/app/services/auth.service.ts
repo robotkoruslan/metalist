@@ -20,7 +20,7 @@ export class AuthService {
   login(email: string, password: string): Observable<boolean> {
     return this.http.post('/auth/local', JSON.stringify({email: email, password: password}), this.options)
       .map((response: any) => {
-        this.getUser();
+        this.getUser().subscribe();
         const token: string = response && response.token;
         if (token) {
           this.token = token;

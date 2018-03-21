@@ -15,7 +15,7 @@
     </div>
     <div class="menu-header" [style.display]="isCollapsed ? 'flex' : 'none'">
       <ul *ngIf="isLoggedIn">
-        <li *ngIf="!isCashier() && !isAdmin()">
+        <li *ngIf="!isCashier()">
           <a routerLinkActive="active" routerLink="tickets">{{'navbar.myTickets' | translate | uppercase}}</a>
         </li>
         <li *ngIf="isAdmin()" >

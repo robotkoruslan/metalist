@@ -170,7 +170,7 @@ export function generatePassword(req, res, next) {
       then((newUser) => {
           Mailer.sendMailTemporaryPassword(newUser.email, password);
 
-          return res.status(200).json({message: 'На ваш email был выслан временный пароль.'});
+          return res.status(200).json({message: 'auth.temporaryPassword'});
         }
       )
         .catch(() => {

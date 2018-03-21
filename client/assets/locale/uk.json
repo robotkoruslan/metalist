@@ -56,7 +56,9 @@
     "restore": "Відновити",
     "dontHaveAccount": "У вас немає аккаунту",
     "haveAccount": "У вас вже є аккаунт",
-    "recoverPassword": "Скинути пароль"
+    "recoverPassword": "Скинути пароль",
+    "wrongPassword": "Введений пароль не коректний",
+    "temporaryPassword": "На ваш email був надіслан тимчасовий пароль"
   },
   "tickets": {
     "boughtTickets": "Придбані квитки",
