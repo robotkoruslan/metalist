@@ -126,7 +126,7 @@
     "orderCode": "Введите код ордера",
     "reservedUntil": "Зарезервировано до",
     "stadium": "Cтадион",
-    "name": "Наименование",
+    "name": "Имя",
     "email": "Email",
     "password": "Пароль",
     "confirmPassword": "Подтверждение пароля",

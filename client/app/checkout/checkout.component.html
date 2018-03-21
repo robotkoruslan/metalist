@@ -1,24 +1,24 @@
 <div class="wrapper">
   <span class="ordering">{{'checkout.ordering' | translate}}</span>
   <div>
-    <span>Приобретая билет, вы соглашаетесь с &nbsp;
-      <a href="http://metalist1925.com/club/stadium/rules.php" target="_blank">
-        «Правилами поведения на стадионе»
+    <span>{{'checkout.message1' | translate}} &nbsp;
+      <a href="https://metalist1925.com/fclub/stadium/rules.php" target="_blank">
+        «{{'checkout.message2' | translate}}»
       </a>
     </span>
   </div>
   <span *ngIf="!isReservationExpired && cart?.seats?.length && duration">
-    Ваши билеты зарезервированы на
+    {{'checkout.message3' | translate}}
     <span style="color: red; font-size: 12pt;"><strong>{{duration?.minutes}}</strong></span> мин
     <span style="color: red;font-size: 12pt"><strong>{{duration?.seconds}}</strong></span> сек
-    , чтобы никто не мог их купить.<br/>
+    , {{'checkout.message4' | translate}}.<br/>
     <strong>
-      Перед оплатой билетов, пожалуйста, убедитесь, что не ошиблись в выборе матча, даты и места.
+      {{'checkout.message5' | translate}}.
     </strong>
     <br/>
   </span>
   <p *ngIf="isReservationExpired">
-    <strong>Бронь снята и билеты вернулись в свободную продажу.</strong><br/><br/>
+    <strong>{{'checkout.message6' | translate}}.</strong><br/><br/>
   </p>
   <div *ngIf="data?.length && !isReservationExpired; else noTicketBlock">
     <ng-scrollbar>

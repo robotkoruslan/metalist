@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'logo-circle',
   template: `<div [ngClass]="{'circle': true, 'classic': !dimension, 'small': dimension, 'right': right, 'left': !right}"
-                  [style]="style"></div>`,
+                  [style.backgroundImage]="style"></div>`,
   styleUrls: ['./logo-circle.component.less']
 })
 
@@ -13,6 +13,6 @@ export class LogoCircleComponent {
   @Input() image: string;
 
   get style() {
-    return this.image && `backgroundImage: url(${this.image})`;
+    return this.image ? `url(${this.image})` : 'url(assets/teamLogo/metalist.png)';
   }
 }

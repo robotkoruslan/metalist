@@ -16,6 +16,7 @@ import {AuthService} from '../../services/auth.service';
 import {PrintTicketService} from '../../services/print-ticket.service';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 
+
 @Component({
   selector: 'app-sector',
   templateUrl: './sector.component.html',
