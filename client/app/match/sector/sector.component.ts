@@ -16,6 +16,7 @@ import {AuthService} from '../../services/auth.service';
 import {PrintTicketService} from '../../services/print-ticket.service';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 
+
 @Component({
   selector: 'app-sector',
   templateUrl: './sector.component.html',
@@ -37,6 +38,7 @@ export class SectorComponent implements OnInit {
   processedSeat: string;
   isMobile: boolean;
   tribune: string;
+  sectorRows: any[];
 
   tribuneNames = {
     ru: {north: 'Cевер', south: 'Юг', west: 'Запад', east: 'Восток'},
@@ -82,6 +84,9 @@ export class SectorComponent implements OnInit {
             this.sector = AppConstant.StadiumMetalist['tribune_' + this.tribuneName]['sector_' + this.sectorId];
           }
         }
+        this.sectorRows = this.sector.rows.sort((a, b) => {
+          return (+b.name) - (+a.name);
+        });
         this.sectorPrice = this.priceSchemaService.getPriceBySector(this.tribuneName, this.sector.name, this.priceSchema);
       });
   }
@@ -174,7 +179,6 @@ export class SectorComponent implements OnInit {
       .subscribe(
         order => {
           const data = order.tickets.map(ticket => ({...ticket, ...ticket.seat}));
-          console.log(176, data);
           this.printTicketService.print(data);
           this.getReservedSeats();
           this.getSelectedSeats();
@@ -217,5 +221,10 @@ export class SectorComponent implements OnInit {
       '29': 9,
     };
     return sectorDividers[this.sector.name] || 1;
+  }
+
+  handleDelete({slug}) {
+    this.toggleSeat({slug});
+
   }
 }

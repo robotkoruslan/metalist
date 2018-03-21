@@ -34,7 +34,8 @@
     "enter": "Увійти",
     "pay": "Оплатити",
     "orderNotFound": "Замовлення не було знайдено",
-    "selectedSeats": "вибрані місця"
+    "selectedSeats": "вибрані місця",
+    "or": "або"
   },
   "auth": {
     "registration": "Реєстрація",
@@ -126,7 +127,7 @@
     "orderCode": "Введіть код ордеру",
     "reservedUntil": "Зарезервовано до",
     "stadium": "Cтадіон",
-    "name": "Найменування",
+    "name": "Ім'я",
     "email": "Email",
     "password": "Пароль",
     "confirmPassword": "Підтвердження паролю",

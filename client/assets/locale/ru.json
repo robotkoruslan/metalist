@@ -34,7 +34,8 @@
     "enter": "Войти",
     "pay": "Оплатить",
     "orderNotFound": "Заказ не был найден",
-    "selectedSeats": "выбраные места"
+    "selectedSeats": "выбраные места",
+    "or": "или"
   },
   "auth": {
     "registration": "Регистрация",
@@ -125,7 +126,7 @@
     "orderCode": "Введите код ордера",
     "reservedUntil": "Зарезервировано до",
     "stadium": "Cтадион",
-    "name": "Наименование",
+    "name": "Имя",
     "email": "Email",
     "password": "Пароль",
     "confirmPassword": "Подтверждение пароля",

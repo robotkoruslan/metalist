@@ -1,9 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Match} from '../../model/match.interface';
 
-// import 'rxjs/add/operator/map';
-
-
 @Component({
   selector: 'match-card',
   template: `

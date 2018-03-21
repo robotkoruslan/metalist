@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   config: SwiperOptions = {
     nextButton: '.swiper-button-next',
     prevButton: '.swiper-button-prev',
+    pagination: '.swiper-pagination',
     watchSlidesProgress: false,
     paginationHide: true,
     breakpoints: {

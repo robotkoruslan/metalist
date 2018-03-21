@@ -8,7 +8,7 @@ interface Response {
 
 @Injectable()
 export class PrintTicketService {
-  translation = {north: 'Северная', south: 'Южная', east: 'Восточная', west: 'Западная'};
+  translation = {north: 'Північна', south: 'Південна', east: 'Східна', west: 'Західна'};
 
 
   constructor(private http: HttpClient) {
@@ -84,7 +84,7 @@ export class PrintTicketService {
       <b>${ticket.sector}</b><br>
       <b>${ticket.row}</b><br>
       <b>${ticket.seat}</b><br>
-      <b>${ticket.amount}</b>
+      <b>${ticket.amount} грн.</b>
       <div class="code">
         <span style="font-size: 16px;text-align: center;font-weight: bold;">${ticket.accessCode}</span>
         <img height="50px" width="185px" src="data:image/png;base64, ${img}">

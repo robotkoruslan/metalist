@@ -150,7 +150,6 @@ export function generatePassword(req, res, next) {
   let email = String(req.body.email),
     password = passwordGenerator.generatePassByMail(),
     newUser = {};
-
   return User.findOne({email: email}).exec()
     .then(user => {
       if (user && user.name) {

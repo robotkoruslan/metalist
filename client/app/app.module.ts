@@ -44,7 +44,7 @@ import { SectorComponent } from './match/sector/sector.component';
 import { SelectSectorComponent } from './match/select-sector/select-sector.component';
 import { SummaryComponent } from './cart/summary/summary.component';
 import { DetailsComponent } from './cart/details/details.component';
-import { ConfirmEmailFormComponent } from './checkout/confirm-email-form/confirm-email-form';
+import { ConfirmEmailFormComponent } from './auth/confirm-email-form/confirm-email-form';
 import { NavpanelComponent } from './navpanel/navpanel.component';
 import { MatchCardComponent } from './home/match-card/match-card.component';
 import { SharedFormComponent } from './auth/shared-form/shared-form.component';

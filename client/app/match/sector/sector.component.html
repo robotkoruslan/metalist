@@ -3,20 +3,26 @@
     <div>
       <div *ngIf="!isMobile" class="left-bar-header">
         <span class="choose-place">{{'match.choosePlace' | translate}}</span>
+        <span class="tribune">Трибуна {{tribune | uppercase}}</span>
+        <span>Сектор {{sector?.name | uppercase}}</span>
         <div class="circle-tab-container">
           <circle-tab [rival]="match?.rival" [image]="match?.poster"></circle-tab>
         </div>
       </div>
       <div class="tickets-wrapper">
         <ng-scrollbar>
-          <ticket-item *ngFor="let ticket of optimisticSeats; let i = index"
-                       [ticket]="ticket"
-                       [index]="i + 1"
-                       [light]="true">
-          </ticket-item>
+          <table>
+            <ticket-item *ngFor="let ticket of optimisticSeats; let i = index"
+                         [ticket]="ticket"
+                         [index]="i + 1"
+                         [light]="true"
+                         (onClick)="handleDelete($event)"
+            >
+            </ticket-item>
+          </table>
         </ng-scrollbar>
         <div>
-          <app-summary [light]="true"></app-summary>
+          <app-summary></app-summary>
         </div>
       </div>
     </div>
@@ -34,7 +40,7 @@
       <back-button [backUrl]="'/match/' + match?.id"></back-button>
     </div>
   </div>
-  <div class="right-bar" *ngIf="sector">
+  <div class="right-bar" *ngIf="sectorRows">
     <div class="header">
       <div *ngIf="isMobile">
         <span class="choose-place">{{'match.choosePlace' | translate}}</span>
@@ -49,7 +55,7 @@
     </div>
     <div>
       <ul class="seats">
-        <li *ngFor="let row of sector.rows.reverse(); index as ind" [ngClass]="{'rowdivider': firstUpperRow == row.name}">
+        <li *ngFor="let row of sectorRows; index as ind" [ngClass]="{'rowdivider': firstUpperRow == row.name}">
         <span class="number">{{row.name}}</span>
         <span *ngFor="let seat of makeArrayFromNumber(row.seats); let i = index;"
               id="s{{sector.name}}r{{row.name}}s{{1+i}}"

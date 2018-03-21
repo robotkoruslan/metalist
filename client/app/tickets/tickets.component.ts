@@ -63,8 +63,8 @@ export class TicketsComponent implements OnInit, OnDestroy {
     return tickets;
   }
 
-  print(ticket) {
-    this.printService.print([ticket]);
+  print({ticketNumber}) {
+    window.open(`api/tickets/ticket/${ticketNumber}`, '_blank');
   }
 
 }
