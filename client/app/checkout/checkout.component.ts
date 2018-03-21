@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {sortBy, uniq} from 'lodash';
+import {sortBy, uniq, cloneDeep} from 'lodash';
 
 import {CartService} from '../services/cart.service';
 import {AuthService} from '../services/auth.service';
@@ -77,7 +77,23 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       );
   }
 
+  removeOptimisticSeat = (slug, matchId) => {
+    const data = cloneDeep(this.data);
+    const targetMatch = data.find(({match}) => match.id === matchId);
+    if (!targetMatch) {
+      return;
+    }
+    const seats = targetMatch.seats.filter(({sector, row, seat}) => {
+      return slug !== `s${sector}r${row}st${seat}`;
+    })
+    targetMatch.seats = seats;
+    if (!seats.length) {
+      data.filter(({match}) => match.id !== matchId);
+    }
+    this.data = data;
+  }
   removeSeat = ({slug, matchId}) => {
+    this.removeOptimisticSeat(slug, matchId);
     this.cartService.removeSeatFromCart(slug, matchId)
       .subscribe(
         () => this.getCart()

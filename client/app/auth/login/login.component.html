@@ -6,7 +6,7 @@
       {{('message.login.' + error) | translate}}
     </span>
     <ng-template #elseBlock>
-      <span class="error">{{error}}</span>
+      <span class="error">{{error | translate}}</span>
     </ng-template>
     <span class="redirect">
       {{'auth.forgotPassword' | translate}}?

@@ -110,7 +110,9 @@ export class SectorComponent implements OnInit {
       )
 
   isSeatOptimistic = (slug) => this.optimisticSeats
-    .find(({slug: seatSlug, match}) => seatSlug === slug && match.id === this.match.id)
+    .find(({slug: seatSlug, match}) => {
+      return this.match && match && seatSlug === slug && match.id === this.match.id;
+    })
   isSeatReserved = (slug) => this.reservedSeats.includes(slug)
 
   addClassByCheckSoldSeat(slug) {

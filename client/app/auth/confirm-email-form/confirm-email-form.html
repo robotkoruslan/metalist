@@ -19,7 +19,7 @@
           {{('message.login.' + confirmationMessage) | translate}}
         </span>
         <ng-template #confirmationMessageBlock>
-          <span class="confirmation-email-notification">{{confirmationMessage}}</span>
+          <span class="confirmation-email-notification">{{confirmationMessage | translate}}</span>
         </ng-template>
       </div>
     </div>
@@ -39,7 +39,7 @@
         {{('message.login.' + loginMessage) | translate}}
       </span>
         <ng-template #loginElseBlock>
-          <span class="error">{{loginMessage}}</span>
+          <span class="error">{{loginMessage | translate}}</span>
         </ng-template>
       </div>
     </div>

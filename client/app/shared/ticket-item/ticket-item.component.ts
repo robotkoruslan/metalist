@@ -6,20 +6,20 @@ import {Seat} from '../../model/seat.interface';
   selector: 'ticket-item',
   template: `
     <tr class="ticket-item-wrapper">
-      <td width="5%" class="number">{{index}}</td>
+      <td width="5%" *ngIf="type" class="number">{{index}}</td>
       <td width="5%" *ngIf="type">
           <span class="indicator" [style.background]="type ==='tickets' ? '#00426b' : '#fc2c34'">&nbsp;</span>
       </td>
       <td class="text-container" [class.light]="light">
-        <span *ngIf="type ==='tickets'" [translate]="'stadium.'+ ticket.tribune"></span>
-        <span *ngIf="type ==='tickets'">,</span>
+        <span [translate]="'stadium.'+ ticket.tribune" *ngIf="type"></span>
+        <span *ngIf="type">,</span>
         <span [style.textTransform]="type ? 'lowercase' : 'capitalize'">сектор - {{ ticket.sector }},</span>
         <span>ряд - {{ ticket.row }},</span>
         <span *ngIf="type; else elsePlace">{{'common.place' | translate | lowercase}} - {{ticket.seat}},</span>
         <ng-template #elsePlace>
           <span>м. - {{ticket.seat}}</span>
         </ng-template>
-        <span *ngIf="type">{{'common.price' | translate}} - {{ticket.price}};</span>
+        <span *ngIf="type">{{'common.price' | translate}} - {{ticket.price || ticket.amount}};</span>
         <span *ngIf="!type">- {{ticket.price}}грн;</span>
       </td>
       <td width="1%" class="symbol" style="cursor: pointer;">

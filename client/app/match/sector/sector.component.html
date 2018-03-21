@@ -41,9 +41,11 @@
     </div>
   </div>
   <div class="right-bar" *ngIf="sectorRows">
-    <div class="header">
-      <div *ngIf="isMobile">
+    <div>
+      <div *ngIf="isMobile" class="right-bar-header">
         <span class="choose-place">{{'match.choosePlace' | translate}}</span>
+        <span class="tribune">Трибуна {{tribune | uppercase}}</span>
+        <span>Сектор {{sector?.name | uppercase}}</span>
         <div class="circle-tab-container">
           <circle-tab [rival]="match?.rival" [image]="match?.poster"></circle-tab>
         </div>
