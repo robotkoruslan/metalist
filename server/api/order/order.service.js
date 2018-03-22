@@ -20,7 +20,7 @@ export function getStatistics(userId, date) {
   return Order.find({"user.id": userId, created : {
     $gte: day.startOf('day').format('YYYY-MM-DD HH:mm:ss'),
     $lt: day.endOf('day').format('YYYY-MM-DD HH:mm:ss')
-  }}).populate('tickets');
+  }}).sort({created: -1}).populate('tickets');
 }
 
 export function getEventsStatistics() {

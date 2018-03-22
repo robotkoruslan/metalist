@@ -132,7 +132,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     data.forEach(({match, tribune, sector, row, seat, price, slug}) => {
       const result = finalData.find(({match: {_id}}) => _id === match._id);
       result.match = match;
-      result.seats.push({tribune, sector, row, seat, price, slug});
+      result.seats.push({tribune, sector, row, seat, price, slug, match});
     });
     return finalData;
   }

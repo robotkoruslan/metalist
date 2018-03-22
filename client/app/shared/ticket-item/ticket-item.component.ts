@@ -10,7 +10,7 @@ import {Seat} from '../../model/seat.interface';
       <td width="5%" *ngIf="type">
           <span class="indicator" [style.background]="type ==='tickets' ? '#00426b' : '#fc2c34'">&nbsp;</span>
       </td>
-      <td class="text-container" [class.light]="light">
+      <td class="text-container">
         <span [translate]="'stadium.'+ ticket.tribune" *ngIf="type"></span>
         <span *ngIf="type">,</span>
         <span [style.textTransform]="type ? 'lowercase' : 'capitalize'">сектор - {{ ticket.sector }},</span>
@@ -37,11 +37,10 @@ export class TicketItemComponent {
   @Input() ticket: any;
   @Input() type: string;
   @Input() index: number;
-  @Input() light: true;
   @Output() onClick = new EventEmitter();
 
   handleDelete() {
-    this.onClick.emit({slug: this.ticket.slug});
+    this.onClick.emit({slug: this.ticket.slug, matchId: this.ticket.match._id});
   }
   handlePrint() {
     this.onClick.emit({ticket: this.ticket});
