@@ -16,7 +16,6 @@ import {AuthService} from '../../services/auth.service';
 import {PrintTicketService} from '../../services/print-ticket.service';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 
-
 @Component({
   selector: 'app-sector',
   templateUrl: './sector.component.html',
@@ -109,14 +108,18 @@ export class SectorComponent implements OnInit {
         err => console.log(err)
       )
 
-  isSeatOptimistic = (slug) => this.optimisticSeats
-    .find(({slug: seatSlug, match}) => {
-      return this.match && match && seatSlug === slug && match.id === this.match.id;
-    })
-  isSeatReserved = (slug) => this.reservedSeats.includes(slug)
+  isSeatOptimistic = (slug, matchId) => {
+    // check if seat is optimistic by slug and match id
+    return this.optimisticSeats
+      .find(({slug: seatSlug, match}) =>
+         matchId && match && seatSlug === slug && match.id === matchId
+      );
+  }
+
+  isSeatReserved = (slug) => this.reservedSeats.includes(slug);
 
   addClassByCheckSoldSeat(slug) {
-    if (this.isSeatOptimistic(slug)) {
+    if (this.isSeatOptimistic(slug, this.match.id)) {
       return 'blockedSeat';
     }
     if (this.isSeatReserved(slug) && slug !== this.processedSeat) {
@@ -125,43 +128,61 @@ export class SectorComponent implements OnInit {
     return 'availableSeat';
   }
 
-  toggleSeat({slug}) {
+  toggleSeat(data) {
+    const {slug} = data;
+    // if match id is not passed sector match id is taken
+    const matchId = data.matchId || this.match.id;
     this.message = '';
-    const isSeatReserved = this.isSeatReserved(slug);
-    const isSeatOptimistic = this.isSeatOptimistic(slug);
+    const isSeatOptimistic = this.isSeatOptimistic(slug, matchId);
+    // if seat exists in optimisticSeats than remove it, othervise add it
     if (isSeatOptimistic) {
-      this.toggleOptimisticSeats(slug, false);
-      this.cartService.removeSeatFromCart(slug, this.match.id)
-        .subscribe(
-          () => this.getReservedSeats(),
-          error => {
-            this.getReservedSeats();
-            this.toggleOptimisticSeats(slug, true);
-          }
-        );
+      this.removeSeat(slug, matchId);
     } else {
-      this.toggleOptimisticSeats(slug, true);
-      this.cartService.addSeatToCart(slug, this.match.id)
-        .subscribe(
-          () => this.getReservedSeats(),
-          error => {
-            if (error.status === 409) {
-              this.message = 'Это место уже занято.';
-              this.getReservedSeats();
-            }
-            this.toggleOptimisticSeats(slug, false);
-          }
-        );
+      this.addSeat(slug, matchId);
     }
   }
 
-  toggleOptimisticSeats(slug, show) {
+  handleDelete(data) {
+    // if match id is not given sector match id is taken
+    const matchId = data.matchId || this.match.id;
+    this.removeSeat(data.slug, matchId);
+  }
+
+  removeSeat = (slug, matchId) => {
+    this.toggleOptimisticSeats(slug, matchId, false);
+    return this.cartService.removeSeatFromCart(slug, matchId)
+      .subscribe(
+        () => this.getReservedSeats(),
+        error => {
+          this.getReservedSeats();
+          this.toggleOptimisticSeats(slug, matchId, true);
+        }
+      );
+  }
+
+  addSeat = (slug, matchId) => {
+    this.toggleOptimisticSeats(slug, matchId, true);
+    return this.cartService.addSeatToCart(slug, matchId)
+      .subscribe(
+        () => this.getReservedSeats(),
+        error => {
+          if (error.status === 409) {
+            this.message = 'Это место уже занято.';
+            this.getReservedSeats();
+          }
+          this.toggleOptimisticSeats(slug, matchId, false);
+        }
+      );
+  }
+
+  toggleOptimisticSeats(slug, matchId, show) {
     this.processedSeat = slug;
     if (show) {
       const [sector, row, seat] = slug.match(/\d{1,2}/g);
       this.optimisticSeats.push({slug, seat, row, sector, match: this.match, price: this.sectorPrice});
     } else {
-      this.optimisticSeats = this.optimisticSeats.filter(({slug: seatSlug}) => seatSlug !== slug);
+      this.optimisticSeats = this.optimisticSeats
+        .filter(({slug: seatSlug, match: {_id: seatMatchId}}) => !(seatSlug === slug && seatMatchId === matchId));
     }
   }
 
@@ -223,10 +244,5 @@ export class SectorComponent implements OnInit {
       '29': 9,
     };
     return sectorDividers[this.sector.name] || 1;
-  }
-
-  handleDelete({slug}) {
-    this.toggleSeat({slug});
-
   }
 }
