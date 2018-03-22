@@ -63,7 +63,7 @@
               id="s{{sector.name}}r{{row.name}}s{{1+i}}"
               [class]="getSeatStatus('s'+sector.name+'r'+row.name+'st'+seat)"
               [class.pointerEventsN]="processedSeat === 's'+sector.name+'r'+row.name+'st'+seat"
-              (click)="toggleSeat({slug: 's'+sector.name+'r'+row.name+'st'+seat})"
+              (click)="toggleSeat({sector: sector.name, row: row.name, seat: seat})"
               tooltip="<div><div><b>{{tribune}}</b></div><div>Ceктор: <b>{{sector.name}}</b></div>
                       <div>Ряд: <b>{{row.name}}</b></div><div>{{'common.place' | translate}}: <b>{{seat}}</b>
                       <div>{{'common.price' | translate}}: <b>{{sectorPrice}}грн</b></div></div>">

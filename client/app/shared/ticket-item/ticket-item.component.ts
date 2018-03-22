@@ -40,7 +40,13 @@ export class TicketItemComponent {
   @Output() onClick = new EventEmitter();
 
   handleDelete() {
-    this.onClick.emit({slug: this.ticket.slug, matchId: this.ticket.match._id});
+    this.onClick.emit({
+      slug: this.ticket.slug,
+      sector: this.ticket.sector,
+      row: this.ticket.row,
+      seat: this.ticket.seat,
+      matchId: this.ticket.match._id
+    });
   }
   handlePrint() {
     this.onClick.emit({ticket: this.ticket});

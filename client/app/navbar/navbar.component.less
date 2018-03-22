@@ -77,6 +77,19 @@
 
           a, span {
             padding: 0 40px;
+
+            @media (max-width: 1640px) {
+              padding: 0 30px;
+
+            }
+            @media (max-width: 1540px) {
+              padding: 0 20px;
+
+            }
+            @media (max-width: 1060px) {
+              padding: 0 10px;
+            }
+
           }
 
           span {
@@ -86,7 +99,17 @@
 
           }
           &.user-name {
-            max-width: 250px;
+            max-width: 400px;
+            @media (max-width: 1240px) {
+              max-width: 350px;
+
+            }
+            @media (max-width: 1160px) {
+              max-width: 300px;
+            }
+            @media (max-width: 1060px) {
+              max-width: 250px;
+            }
           }
           &.user-name:hover {
             border-bottom-color: transparent;
@@ -106,15 +129,7 @@
 
   @media (max-width: 1240px) {
     .inner-wrapper {
-      //max-width: 1120px;
       height: 90px;
-      .menu-header ul li a, .menu-header ul li span {
-        padding: 0 20px;
-      }
-
-      .user-name {
-        max-width: 160px;
-      }
     }
   }
 
