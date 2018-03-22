@@ -118,7 +118,7 @@ export class SectorComponent implements OnInit {
 
   isSeatReserved = (slug) => this.reservedSeats.includes(slug);
 
-  addClassByCheckSoldSeat(slug) {
+  getSeatStatus(slug) {
     if (this.isSeatOptimistic(slug, this.match.id)) {
       return 'blockedSeat';
     }
@@ -130,6 +130,9 @@ export class SectorComponent implements OnInit {
 
   toggleSeat(data) {
     const {slug} = data;
+    if (this.getSeatStatus(slug) === 'soldSeat') {
+      return;
+    }
     // if match id is not passed sector match id is taken
     const matchId = data.matchId || this.match.id;
     this.message = '';

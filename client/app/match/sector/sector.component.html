@@ -61,7 +61,7 @@
         <span class="number">{{row.name}}</span>
         <span *ngFor="let seat of makeArrayFromNumber(row.seats); let i = index;"
               id="s{{sector.name}}r{{row.name}}s{{1+i}}"
-              [class]="addClassByCheckSoldSeat('s'+sector.name+'r'+row.name+'st'+seat)"
+              [class]="getSeatStatus('s'+sector.name+'r'+row.name+'st'+seat)"
               [class.pointerEventsN]="processedSeat === 's'+sector.name+'r'+row.name+'st'+seat"
               (click)="toggleSeat({slug: 's'+sector.name+'r'+row.name+'st'+seat})"
               tooltip="<div><div><b>{{tribune}}</b></div><div>Ceктор: <b>{{sector.name}}</b></div>
