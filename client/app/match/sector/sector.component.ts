@@ -130,6 +130,9 @@ export class SectorComponent implements OnInit {
 
   toggleSeat(data) {
     const {slug} = data;
+    if (this.isSeatReserved(slug) && slug !== this.processedSeat) {
+      return null;
+    }
     // if match id is not passed sector match id is taken
     const matchId = data.matchId || this.match.id;
     this.message = '';
