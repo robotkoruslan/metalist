@@ -2422,7 +2422,7 @@ export class AppConstant {
         ]
       },
       sector_SB_2: {
-        name: 'SB_1',
+        name: 'SB_2',
         rows: [
           {
             name: '1',
@@ -2435,7 +2435,7 @@ export class AppConstant {
         ]
       },
       sector_SB_3_5: {
-        name: 'SB_1',
+        name: 'SB_3_5',
         rows: [
           {
             name: '1',
@@ -2448,7 +2448,7 @@ export class AppConstant {
         ]
       },
       sector_SB_6: {
-        name: 'SB_1',
+        name: 'SB_6',
         rows: [
           {
             name: '1',
@@ -2474,7 +2474,7 @@ export class AppConstant {
         ]
       },
       sector_SB_8: {
-        name: 'SB_1',
+        name: 'SB_8',
         rows: [
           {
             name: '1',
@@ -2487,7 +2487,7 @@ export class AppConstant {
         ]
       },
       sector_SB_9: {
-        name: 'SB_1',
+        name: 'SB_9',
         rows: [
           {
             name: '1',
@@ -2500,7 +2500,7 @@ export class AppConstant {
         ]
       },
       sector_SB_10: {
-        name: 'SB_1',
+        name: 'SB_10',
         rows: [
           {
             name: '1',
@@ -2513,7 +2513,7 @@ export class AppConstant {
         ]
       },
       sector_SB_11: {
-        name: 'SB_1',
+        name: 'SB_11',
         rows: [
           {
             name: '1',

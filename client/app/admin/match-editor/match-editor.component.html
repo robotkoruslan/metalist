@@ -9,7 +9,7 @@
             <match-list [matches]="nextMatches" type="next" (editMatch)="setMatchToEdit($event)">
                 <label>{{'admin.matchList' | translate}}</label>
             </match-list>
-            <button class="btn btn-default" (click)="setMatchToEdit({})">
+            <button class="btn btn-default" (click)="setMatchToEdit()">
               {{'admin.addNewMatch' | translate}}
             </button>
         </div>
