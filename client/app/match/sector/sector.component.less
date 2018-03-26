@@ -60,8 +60,18 @@ span.choose-place {
     background: url('../../../assets/images/tickets.png') no-repeat left;
     background-size: contain;
   }
-  :host /deep/ app-summary {
+  app-summary {
     margin: 10px 0;
+  }
+  mat-form-field {
+    margin-top: 10px;
+    .mat-select-value {
+      color: @dark-blue;
+    }
+  }
+
+  button.classic {
+    margin: 20px;
   }
 }
 .right-bar {

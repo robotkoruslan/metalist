@@ -27,9 +27,15 @@
       </div>
     </div>
     <div>
-      <button *ngIf="isCashier; else notCashierBlock" class="classic" (click)="pay()">
-        {{'match.print' | translate}}
-      </button>
+      <div *ngIf="isCashier; else notCashierBlock">
+        <mat-form-field>
+          <mat-select [(value)]="currentPriceType" >
+            <mat-option *ngFor="let type of priceTypes" [value]="type">{{type.label | translate}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button  class="classic" (click)="pay()">{{'match.print' | translate}}</button>
+      </div>
+
       <ng-template #notCashierBlock>
         <button class="classic" routerLink="/checkout">{{'common.execute' | translate}}</button>
       </ng-template>

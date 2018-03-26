@@ -10,7 +10,7 @@ import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 // import { NgForm, Validators} from '@angular/forms';
 // import { FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 // import { ErrorStateMatcher } from '@angular/material/core';
-import { MatFormFieldModule, MatInputModule, MatCheckboxModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatCheckboxModule, MatSelectModule } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -112,6 +112,7 @@ import { ScrollbarModule } from 'ngx-scrollbar';
     FormsModule,
     HttpClientModule,
     MatFormFieldModule,
+    MatSelectModule,
     MatInputModule,
     MatCheckboxModule,
     MatIconModule,

@@ -44,6 +44,10 @@ let OrderSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  freeMessageStatus: {
+    type: String,
+    default: null
+  }
 }, {
   toObject: { virtuals: true },
   toJSON: { virtuals: true },

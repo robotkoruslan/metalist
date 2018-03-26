@@ -207,7 +207,8 @@ function eventStatistics(req, res) {
             seat: ticket.seat.seat,
             amount: ticket.amount,
             accessCode: ticket.accessCode,
-            id: ticket.id
+            id: ticket.id,
+            freeMessageStatus: ticket.freeMessageStatus
           })
         })
       }, 0), tickets;

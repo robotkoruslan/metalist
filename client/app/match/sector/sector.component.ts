@@ -38,7 +38,12 @@ export class SectorComponent implements OnInit {
   isMobile: boolean;
   tribune: string;
   sectorRows: any[];
-
+  priceTypes = [
+    {value: 'default', label: 'match.priceTypeOriginal', freeMessageStatus: null},
+    {value: 'invitation', label: 'match.priceTypeInvitation', freeMessageStatus: 'invitation'},
+    {value: 'zero', label: '0 грн.', freeMessageStatus: 'zero'},
+  ];
+  currentPriceType = this.priceTypes[0];
   tribuneNames = {
     ru: {north: 'Cевер', south: 'Юг', west: 'Запад', east: 'Восток'},
     uk: {north: 'Північна', south: 'Південна', west: 'Західна', east: 'Східна'}
@@ -201,11 +206,14 @@ export class SectorComponent implements OnInit {
   }
 
   pay() {
-    this.cartService.pay()
+    if (!this.optimisticSeats.length) {
+      return;
+    }
+    this.cartService.pay(this.currentPriceType.freeMessageStatus)
       .subscribe(
         order => {
           const data = order.tickets.map(ticket => ({...ticket, ...ticket.seat}));
-          this.printTicketService.print(data);
+          this.printTicketService.print(data, this.currentPriceType.freeMessageStatus);
           this.getReservedSeats();
           this.getSelectedSeats();
         },

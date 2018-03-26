@@ -151,7 +151,7 @@
     "execute": "Оформити"
   },
   "match": {
-    "stadiumMetalist": "Стадіон Металіст, м.Харків",
+    "stadiumMetalist": "cтадіон Металіст, м. Харків",
     "address": "вул. Плеханівська, 65",
     "subway": "Спортивна",
     "chooseSector": "Вибір сектору",
@@ -160,7 +160,9 @@
     "print": "Роздрукувати",
     "soldSeat": "викуплено або у кошику іншого покупця",
     "blockedSeat": "у моєму кошику",
-    "availableSeat": "вільно"
+    "availableSeat": "вільно",
+    "priceTypeOriginal": "згідно прайс-схемі",
+    "priceTypeInvitation": "запрошення"
   },
   "skybox": {
     "message1": "Корпоративні ложі",
