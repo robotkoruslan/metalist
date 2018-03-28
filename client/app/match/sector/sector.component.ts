@@ -38,7 +38,12 @@ export class SectorComponent implements OnInit {
   isMobile: boolean;
   tribune: string;
   sectorRows: any[];
-
+  priceTypes = [
+    {value: 'default', label: 'match.priceTypeOriginal', freeMessageStatus: null},
+    {value: 'invitation', label: 'match.priceTypeInvitation', freeMessageStatus: 'invitation'},
+    {value: 'zero', label: '0 грн.', freeMessageStatus: 'zero'},
+  ];
+  currentPriceType = this.priceTypes[0];
   tribuneNames = {
     ru: {north: 'Cевер', south: 'Юг', west: 'Запад', east: 'Восток'},
     uk: {north: 'Північна', south: 'Південна', west: 'Західна', east: 'Східна'}
@@ -129,7 +134,8 @@ export class SectorComponent implements OnInit {
   }
 
   toggleSeat(data) {
-    const {slug} = data;
+    const {sector, row, seat} = data;
+    const slug = `s${sector}r${row}st${seat}`;
     if (this.getSeatStatus(slug) === 'soldSeat') {
       return;
     }
@@ -139,32 +145,32 @@ export class SectorComponent implements OnInit {
     const isSeatOptimistic = this.isSeatOptimistic(slug, matchId);
     // if seat exists in optimisticSeats than remove it, othervise add it
     if (isSeatOptimistic) {
-      this.removeSeat(slug, matchId);
+      this.removeSeat(slug, seat, row, sector, matchId);
     } else {
-      this.addSeat(slug, matchId);
+      this.addSeat(slug, seat, row, sector, matchId);
     }
   }
 
   handleDelete(data) {
     // if match id is not given sector match id is taken
     const matchId = data.matchId || this.match.id;
-    this.removeSeat(data.slug, matchId);
+    this.removeSeat(data.slug, data.sector, data.row, data.seat, matchId);
   }
 
-  removeSeat = (slug, matchId) => {
-    this.toggleOptimisticSeats(slug, matchId, false);
+  removeSeat = (slug, seat, row, sector, matchId) => {
+    this.toggleOptimisticSeats(slug, seat, row, sector, matchId, false);
     return this.cartService.removeSeatFromCart(slug, matchId)
       .subscribe(
         () => this.getReservedSeats(),
         error => {
           this.getReservedSeats();
-          this.toggleOptimisticSeats(slug, matchId, true);
+          this.toggleOptimisticSeats(slug, seat, row, sector, matchId, true);
         }
       );
   }
 
-  addSeat = (slug, matchId) => {
-    this.toggleOptimisticSeats(slug, matchId, true);
+  addSeat = (slug, seat, row, sector, matchId) => {
+    this.toggleOptimisticSeats(slug, seat, row, sector, matchId, true);
     return this.cartService.addSeatToCart(slug, matchId)
       .subscribe(
         () => this.getReservedSeats(),
@@ -173,15 +179,14 @@ export class SectorComponent implements OnInit {
             this.message = 'Это место уже занято.';
             this.getReservedSeats();
           }
-          this.toggleOptimisticSeats(slug, matchId, false);
+          this.toggleOptimisticSeats(slug, seat, row, sector, matchId, false);
         }
       );
   }
 
-  toggleOptimisticSeats(slug, matchId, show) {
+  toggleOptimisticSeats(slug, seat, row, sector, matchId, show) {
     this.processedSeat = slug;
     if (show) {
-      const [sector, row, seat] = slug.match(/\d{1,2}/g);
       this.optimisticSeats.push({slug, seat, row, sector, match: this.match, price: this.sectorPrice});
     } else {
       this.optimisticSeats = this.optimisticSeats
@@ -201,11 +206,14 @@ export class SectorComponent implements OnInit {
   }
 
   pay() {
-    this.cartService.pay()
+    if (!this.optimisticSeats.length) {
+      return;
+    }
+    this.cartService.pay(this.currentPriceType.freeMessageStatus)
       .subscribe(
         order => {
           const data = order.tickets.map(ticket => ({...ticket, ...ticket.seat}));
-          this.printTicketService.print(data);
+          this.printTicketService.print(data, this.currentPriceType.freeMessageStatus);
           this.getReservedSeats();
           this.getSelectedSeats();
         },

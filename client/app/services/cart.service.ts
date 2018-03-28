@@ -79,13 +79,13 @@ export class CartService {
   checkout(): Observable<any> {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     const options = {headers: headers};
-    return this.http.post('/api/orders/checkout', options)
+    return this.http.post('/api/orders/checkout', options);
   }
 
-  pay() {
+  pay(freeMessageStatus) {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     const options = {headers: headers};
-    return this.http.post<Order>('/api/orders/pay-cashier', options)
+    const body = freeMessageStatus ? {freeMessageStatus} : {};
+    return this.http.post<Order>('/api/orders/pay-cashier', body, options);
   }
-
 }

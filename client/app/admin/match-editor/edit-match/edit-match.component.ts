@@ -61,7 +61,7 @@ export class EditMatchComponent implements OnInit {
       );
   }
 
-  setSelectedOption = (schema1, schema2) => schema1.id === schema2.id;
+  setSelectedOption = (schema1, schema2) => schema1 && schema2 && schema1.id === schema2.id;
 
   saveMatch = () => {
     this.save.emit(this.match);

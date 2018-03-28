@@ -8,14 +8,14 @@ var router = express.Router();
 
 router
     .get('/', passport.authenticate('google', {
-        failureRedirect: '/signup',
+        failureRedirect: '/login',
         scope: [
             'profile',
             'email'
         ],
     }))
     .get('/callback', passport.authenticate('google', {
-        failureRedirect: '/signup',
+        failureRedirect: '/login',
     }), setGoogleTokenCookie);
 
 export default router;

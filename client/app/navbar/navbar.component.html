@@ -38,7 +38,7 @@
         </li>
         <li *ngIf="isLoggedIn && !isMobile" class="user-name">
           <span>
-            {{'navbar.hello' | translate | uppercase}} {{ currentUser?.name | uppercase}}
+            {{'navbar.hello' | translate | uppercase}}, {{ currentUser?.name | uppercase}}
           </span>
         </li>
         <li *ngIf="isLoggedIn && !loggedInWithOauth">

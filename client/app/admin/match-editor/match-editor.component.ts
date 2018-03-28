@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MatchEditorService} from '../../services/match-editor.service';
 import {FileService} from '../../services/file.service';
+import moment from 'moment-timezone';
 
 import {Match} from '../../model/match.interface';
 
@@ -13,7 +14,7 @@ export class MatchEditorComponent implements OnInit {
 
   nextMatches: Match[] = [];
   prevMatches: Match[] = [];
-  matchToEdit: Match | null;
+  matchToEdit: Match | Partial<Match> | null;
   message = '';
 
   constructor(private matchEditorService: MatchEditorService, private fileService: FileService) {
@@ -25,7 +26,7 @@ export class MatchEditorComponent implements OnInit {
     this.getTeamLogos();
   }
 
-  setMatchToEdit(match) {
+  setMatchToEdit(match = {date: moment(new Date()).toISOString()}) {
     this.message = '';
     this.matchToEdit = match;
   }

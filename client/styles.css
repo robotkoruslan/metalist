@@ -98,7 +98,6 @@ button.classic, a.classic {
   text-transform: uppercase;
   margin: 40px;
   white-space: nowrap;
-  max-width: 300px;
 }
 button.classic[disabled] {
   opacity: 0.5;

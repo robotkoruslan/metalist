@@ -48,6 +48,7 @@ import {TicketSectionComponent} from './ticket-section/ticket-section.component'
 import {HomeButtonComponent} from './home-button/home-button.component';
 import {PriceCategoryComponent} from './price-category/price-category.component';
 import {BackButtonComponent} from './back-button/back-button.component';
+import {LegendComponent} from './legend/legend.component';
 
 @NgModule({
   imports: [
@@ -100,6 +101,7 @@ import {BackButtonComponent} from './back-button/back-button.component';
     HomeButtonComponent,
     BackButtonComponent,
     PriceCategoryComponent,
+    LegendComponent,
     LocaleDatePipe
   ],
   exports: [
@@ -113,6 +115,7 @@ import {BackButtonComponent} from './back-button/back-button.component';
     HomeButtonComponent,
     BackButtonComponent,
     PriceCategoryComponent,
+    LegendComponent,
     LocaleDatePipe,
   ],
 })

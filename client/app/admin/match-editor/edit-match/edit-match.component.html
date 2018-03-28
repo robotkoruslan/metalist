@@ -4,7 +4,7 @@
 </ng-template>
 <form class="example-container">
 
-  <mat-form-field>
+  <mat-form-field *ngIf="match?.id">
     <input matInput type="text" placeholder="Match id" name="matchId" [value]="match?.id" disabled>
   </mat-form-field>
 

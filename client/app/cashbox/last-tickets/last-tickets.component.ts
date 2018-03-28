@@ -50,8 +50,8 @@ export class LastTicketsComponent implements OnInit {
     }
   }
 
-  prints = ({tribune, sector, row, seat, amount, accessCode, headline}) =>
-    this.printTicketService.print([{amount, accessCode, tribune, sector, row, seat, match: {headline}}])
+  prints = ({tribune, sector, row, seat, amount, accessCode, headline, freeMessageStatus}) =>
+    this.printTicketService.print([{amount, accessCode, tribune, sector, row, seat, match: {headline}}], freeMessageStatus)
 
   removeTicket(ticketId) {
     return this.ticketsService.removeTicket(ticketId)

@@ -9,12 +9,12 @@ interface Response {
 @Injectable()
 export class PrintTicketService {
   translation = {north: 'Північна', south: 'Південна', east: 'Східна', west: 'Західна'};
-
+  freeMessages = { invitation: 'Запрошення', zero: '0 грн.'};
 
   constructor(private http: HttpClient) {
   }
 
-  print = (tickets) => {
+  print = (tickets, freeMessageStatus) => {
     forkJoin(tickets.map(ticket => this.http.get(`/api/tickets/abonticket/print/${ticket.accessCode}`)))
       .subscribe(
         (response: Response[]) => {
@@ -36,7 +36,8 @@ export class PrintTicketService {
                     page-break-after: always;
                   }
                   b {
-                    margin-left: 100px
+                    margin-left: 100px;
+                    white-space: nowrap;
                   }
                   .rival {
                      margin: 30px 0 35px 100px;
@@ -63,7 +64,7 @@ export class PrintTicketService {
                 }
               </style>
               <body onload="window.print(); window.close();">
-                ${tickets.map((ticket, index) => this.generateContent(ticket, response[index].img)).join('')}
+                ${tickets.map((ticket, index) => this.generateContent(ticket, response[index].img, freeMessageStatus)).join('')}
               </body>
             </html>
           `;
@@ -74,7 +75,11 @@ export class PrintTicketService {
       )
   }
 
-  generateContent = (ticket, img) => {
+  generateContent = (ticket, img, freeMessageStatus) => {
+    let label = `${ticket.amount} грн.`;
+    if (freeMessageStatus) {
+      label = this.freeMessages[freeMessageStatus];
+    }
     const headline = ticket.match.headline;
     const rival = headline.substring(headline.indexOf('-') + 1);
     return `
@@ -84,7 +89,7 @@ export class PrintTicketService {
       <b>${ticket.sector}</b><br>
       <b>${ticket.row}</b><br>
       <b>${ticket.seat}</b><br>
-      <b>${ticket.amount} грн.</b>
+      <b>${label}</b>
       <div class="code">
         <span style="font-size: 16px;text-align: center;font-weight: bold;">${ticket.accessCode}</span>
         <img height="50px" width="185px" src="data:image/png;base64, ${img}">
