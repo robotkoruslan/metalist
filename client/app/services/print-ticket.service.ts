@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {forkJoin} from 'rxjs/observable/forkJoin';
+import * as moment from 'moment';
 
 interface Response {
   img: string
@@ -40,19 +41,28 @@ export class PrintTicketService {
                     white-space: nowrap;
                   }
                   .rival {
-                     margin: 30px 0 35px 100px;
-                     height: 65px;
+                     margin: 25px 0 35px 100px;
+                     height: 70px;
                      display: flex;
                      align-items: center;
                      text-align: center;
+                     position: relative;
+                     padding-bottom: 20px;
                   }
                   .rival span {
                     width: 100px;
                     white-space: inherit;
                     word-break: break-all;
                     overflow: hidden;
-                    max-height: 65px;
+                    max-height: 50px;
                     font-weight: bold;
+                  }
+                  .rival .date-time {
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    left: 0;
+                    font-size: 14px;
                   }
                   .code {
                     padding: 35px 0 0 0;
@@ -82,9 +92,18 @@ export class PrintTicketService {
     }
     const headline = ticket.match.headline;
     const rival = headline.substring(headline.indexOf('-') + 1);
+    const date = moment(ticket.match.date).format('d.MM.YYYY');
+    const time = moment(ticket.match.date).format('HH:mm');
     return `
     <div class="page-container">
-      <div class="rival"><span>${rival}</span></div>
+      <div class="rival">
+        <span>${rival}</span>
+        <div class="date-time">
+          <span>${date}</span>
+          <br/>
+          <span>${time}</span>
+        </div>
+      </div>
       <b>${this.translation[ticket.tribune]}</b><br>
       <b>${ticket.sector}</b><br>
       <b>${ticket.row}</b><br>

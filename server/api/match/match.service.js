@@ -1,5 +1,7 @@
 'use strict';
 
+import moment from 'moment';
+
 import Match from './match.model';
 
 export function findById(matchId) {
@@ -7,9 +9,11 @@ export function findById(matchId) {
 }
 
 export function getNextMatches() {
+  // Select matches with start time more than 2 hours before now(match time).
+  // Match is considered as next even if it has just started and is playing at this time
   return Match.find({
     $or: [
-      {date: {$gt: Date.now()}},
+      {date: {$gt: moment().subtract(2, 'h')}},
       {date: null}
     ]
   })
@@ -18,13 +22,16 @@ export function getNextMatches() {
 }
 
 export function getPrevMatches() {
-  return Match.find({date: {$lt: Date.now()}})
+  // Select matches with start time less than 2 hours before now.
+  // Match is considered as previous if it has already ended.
+  return Match.find({date: {$lt: moment().add(2, 'h')}})
     .sort({date: -1});
 }
 
 export function getNextMatch() {
-  let date = new Date;
-  return Match.find({ date: { $gt: date.setHours(date.getHours() + 3) }})
+  // Select matches with start time more than 2 hours before now(match time).
+  // Match is considered as next even if it started and is playing at this time
+  return Match.find({ date: { $gt: moment().subtract(2, 'h') }})
     .sort({date: 1})
     .then( matches => matches[0] );
 }
