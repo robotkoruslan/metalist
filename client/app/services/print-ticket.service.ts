@@ -41,19 +41,19 @@ export class PrintTicketService {
                     white-space: nowrap;
                   }
                   .rival {
-                     margin: 25px 0 35px 100px;
+                     margin: 15px 0 25px 85px;
                      height: 70px;
                      display: flex;
                      align-items: center;
                      text-align: center;
                      position: relative;
                      padding-bottom: 20px;
+                     /*border: 1px dotted black;*/
                   }
-                  .rival span {
+                  .rival > span {
                     width: 100px;
                     white-space: inherit;
-                    word-break: break-all;
-                    overflow: hidden;
+                    text-align: center;
                     max-height: 50px;
                     font-weight: bold;
                   }
@@ -63,6 +63,7 @@ export class PrintTicketService {
                     right: 0;
                     left: 0;
                     font-size: 14px;
+                    text-align: center;
                   }
                   .code {
                     padding: 35px 0 0 0;
@@ -92,8 +93,9 @@ export class PrintTicketService {
     }
     const headline = ticket.match.headline;
     const rival = headline.substring(headline.indexOf('-') + 1);
-    const date = moment(ticket.match.date).format('d.MM.YYYY');
+    const date = moment(ticket.match.date).format('DD.MM.YYYY');
     const time = moment(ticket.match.date).format('HH:mm');
+
     return `
     <div class="page-container">
       <div class="rival">
