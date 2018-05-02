@@ -45,12 +45,13 @@ export function addSeatToCart(req, res) {
   let publicId = req.cookies.cart,
     slug = req.body.slug,
     matchId = req.body.matchId,
+    data = req.body.data,
     reserveDate = moment().add(30, 'minutes');
   logger.info('add seat to cart: ' + req.cookies.cart);
 
   Promise.all([
     orderService.findCartByPublicId(publicId),
-    seatService.findForMatchBySlug(slug, matchId),
+    seatService.findSeatOrCreate(slug, matchId, data),
     seasonTicketService.findBySlug(slug),
   ])
     .then(([cart, seat, seasonTicket]) => {
