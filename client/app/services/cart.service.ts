@@ -46,10 +46,10 @@ export class CartService {
     }
   }
 
-  addSeatToCart(slug, matchId) {
+  addSeatToCart(slug, matchId, data) {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     const options = {headers: headers};
-    return this.http.post('/api/carts/addSeat', {slug: slug, matchId: matchId}, options)
+    return this.http.post('/api/carts/addSeat', {slug: slug, matchId: matchId, data}, options)
       .map((response: Response) => {
         if (response) {
           this.cart = response;

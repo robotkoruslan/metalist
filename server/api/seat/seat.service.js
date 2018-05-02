@@ -23,6 +23,24 @@ export function findForMatchBySlug(slug, matchId) {
     .populate('match');
 }
 
+export function findSeatOrCreate(slug, matchId, data) {
+  return findForMatchBySlug(slug, matchId)
+    .then(seat => {
+      if (seat) {
+        return seat;
+      } else {
+        const { tribune, sector, row} = data;
+        if (!seatExists(tribune, sector, row, data.seat) ) {
+          return null;
+        }
+        return createSeat(tribune, sector, { name: row }, data.seat, { id: matchId })
+          .then(() => findForMatchBySlug(slug, matchId)).then(seat => {
+            return seat;
+          });
+      }
+    })
+}
+
 export function extendReservationTime(seats, reservedByCart) {
   return Promise.all(seats.map(seat => {
     return findForMatchBySlug(seat.slug, seat.match.id)
@@ -210,4 +228,12 @@ function createSeat(tribuneName, sectorName, row, seat, match) {
 
 function removeSeatByMatchId(matchId) {
   return Seat.remove({match: matchId});
+}
+
+function seatExists(tribune, sector, row, seat) {
+  const tribuneData = StadiumMetalist[`tribune_${tribune}`];
+  const sectorData = tribuneData && tribuneData[`sector_${sector}`];
+  const rowsData = sectorData && sectorData.rows;
+  return rowsData && rowsData.find(({name, seats}) => name === row && seat <= seats);
+
 }

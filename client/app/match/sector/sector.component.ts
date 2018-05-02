@@ -171,7 +171,15 @@ export class SectorComponent implements OnInit {
 
   addSeat = (slug, seat, row, sector, matchId) => {
     this.toggleOptimisticSeats(slug, seat, row, sector, matchId, true);
-    return this.cartService.addSeatToCart(slug, matchId)
+    return this.cartService.addSeatToCart(
+      slug,
+      matchId,
+      {
+        seat,
+        row,
+        sector,
+        tribune: this.tribuneName
+      })
       .subscribe(
         () => this.getReservedSeats(),
         error => {
