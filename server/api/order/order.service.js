@@ -146,7 +146,7 @@ export function getLiqPayParams(req) {
 }
 
 
-export function createOrderFromCartByCashier(cart, user, freeMessageStatus) {
+export function createOrderFromCartByCashier(cart, user, freeMessageStatus, customPrice) {
   return countPriceBySeats(cart.seats)
     .then(price => {
       let order = new Order({
@@ -162,7 +162,8 @@ export function createOrderFromCartByCashier(cart, user, freeMessageStatus) {
         privateId: ticketService.randomNumericString(8),
         created: new Date(),
         price: freeMessageStatus ? 0 : price,
-        freeMessageStatus
+        freeMessageStatus,
+        customPrice
       });
 
       return order.save();
@@ -201,9 +202,9 @@ function createDescription(order) {
   return `${order.privateId} | ${matchesDescription}`;
 }
 
-export function createTicketsByOrder(order, freeMessageStatus) {
+export function createTicketsByOrder(order, freeMessageStatus, customPrice) {
   return Promise.all(order.seats.map(seat => {
-    return ticketService.createTicket(seat, freeMessageStatus);
+    return ticketService.createTicket(seat, freeMessageStatus, customPrice);
   }));
 }
 

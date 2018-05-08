@@ -19,11 +19,11 @@
   </thead>
   <tbody>
   <tr *ngFor="let stat of statistics;">
-    <td>{{stat.headline}}</td>
+    <td>{{stat.match.headline}}</td>
     <td>{{stat.sector}}</td>
     <td>{{stat.row}}</td>
     <td>{{stat.seat}}</td>
-    <td>{{stat.amount}}</td>
+    <td>{{stat.amount || stat.customPrice}}</td>
     <td>
       <a class="btn btn-primary btn-sm" (click)="prints(stat)">
         {{'cashbox.message5' | translate}}

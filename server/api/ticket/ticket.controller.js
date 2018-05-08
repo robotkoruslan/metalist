@@ -200,7 +200,7 @@ function eventStatistics(req, res) {
       return order.reduce((sum, current) => {
         return current.tickets.map(ticket => {
           return tickets.push({
-            headline: ticket.match.headline,
+            match: ticket.match,
             tribune: ticket.seat.tribune,
             sector: ticket.seat.sector,
             row: ticket.seat.row,
@@ -208,7 +208,8 @@ function eventStatistics(req, res) {
             amount: ticket.amount,
             accessCode: ticket.accessCode,
             id: ticket.id,
-            freeMessageStatus: ticket.freeMessageStatus
+            freeMessageStatus: ticket.freeMessageStatus,
+            customPrice: ticket.customPrice
           })
         })
       }, 0), tickets;

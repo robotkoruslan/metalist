@@ -47,6 +47,10 @@ let OrderSchema = new Schema({
   freeMessageStatus: {
     type: String,
     default: null
+  },
+  customPrice: {
+    type: String,
+    default: null
   }
 }, {
   toObject: { virtuals: true },

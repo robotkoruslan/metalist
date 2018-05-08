@@ -76,6 +76,7 @@ export function liqpayCallback(req, res) {
 export function payCashier(req, res) {
   let publicId = req.cookies.cart;
   const freeMessageStatus = req.body.freeMessageStatus;
+  const customPrice = req.body.customPrice;
   return orderService.findCartByPublicId(publicId) // find currents order
     .then(handleEntityNotFound(res))
     .then(handleEntityWithoutTicketsAndSeats(res))
@@ -86,11 +87,11 @@ export function payCashier(req, res) {
       ])
     })
     .then(([seats, cart]) => {
-      return orderService.createOrderFromCartByCashier(cart, req.user, freeMessageStatus); // new order pending
+      return orderService.createOrderFromCartByCashier(cart, req.user, freeMessageStatus, customPrice); // new order pending
     })
     .then(order => {
       return Promise.all([
-        orderService.createTicketsByOrder(order, freeMessageStatus),
+        orderService.createTicketsByOrder(order, freeMessageStatus, customPrice),
         Promise.resolve(order)
       ]);
     })

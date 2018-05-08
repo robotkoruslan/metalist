@@ -6,7 +6,7 @@ import * as priceSchemaService from '../priceSchema/priceSchema.service';
 import * as matchService from '../match/match.service';
 import * as crypto from 'crypto';
 
-export function createTicket(seat, freeMessageStatus) {
+export function createTicket(seat, freeMessageStatus, customPrice) {
   return Promise.all([
     priceSchemaService.getSeatPrice(seat),
     matchService.findById(seat.match)
@@ -31,8 +31,8 @@ export function createTicket(seat, freeMessageStatus) {
         ticketNumber: crypto.randomBytes(20).toString('hex'),
         reserveDate: new Date(),
         freeMessageStatus,
+        customPrice
       });
-
       return ticket.save();
     });
 }

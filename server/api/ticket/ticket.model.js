@@ -54,6 +54,10 @@ const TicketSchema = new mongoose.Schema({
     type: String,
     default: null
   },
+  customPrice: {
+    type: String,
+    default: null
+  },
 });
 
 export default mongoose.model('Ticket', TicketSchema);

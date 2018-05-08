@@ -33,7 +33,11 @@
             <mat-option *ngFor="let type of priceTypes" [value]="type">{{type.label | translate}}</mat-option>
           </mat-select>
         </mat-form-field>
-        <button  class="classic" (click)="pay()">{{'match.print' | translate}}</button>
+        <br>
+        <mat-form-field *ngIf="currentPriceType.value === 'custom'">
+          <input matInput type="number" [placeholder]="('match.enterCustomPrice' | translate)" name="customPrice" [(ngModel)]="customPrice">
+        </mat-form-field>
+        <button class="classic" (click)="pay()">{{'match.print' | translate}}</button>
       </div>
 
       <ng-template #notCashierBlock>
