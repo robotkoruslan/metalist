@@ -82,10 +82,10 @@ export class CartService {
     return this.http.post('/api/orders/checkout', options);
   }
 
-  pay(freeMessageStatus) {
+  pay(freeMessageStatus, customPrice) {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     const options = {headers: headers};
-    const body = freeMessageStatus ? {freeMessageStatus} : {};
+    const body = {freeMessageStatus, customPrice};
     return this.http.post<Order>('/api/orders/pay-cashier', body, options);
   }
 }

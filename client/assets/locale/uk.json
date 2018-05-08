@@ -162,7 +162,9 @@
     "blockedSeat": "у моєму кошику",
     "availableSeat": "вільно",
     "priceTypeOriginal": "згідно прайс-схемі",
-    "priceTypeInvitation": "запрошення"
+    "priceTypeInvitation": "запрошення",
+    "customPrice": "ввести ціну",
+    "enterCustomPrice": "Введіть ціну"
   },
   "skybox": {
     "message1": "Корпоративні ложі",

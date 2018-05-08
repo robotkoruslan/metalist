@@ -161,7 +161,9 @@
     "blockedSeat": "в моей корзине",
     "availableSeat": "свободно",
     "priceTypeOriginal": "согласно прайс-схеме",
-    "priceTypeInvitation": "приглашение"
+    "priceTypeInvitation": "приглашение",
+    "customPrice": "ввести цену",
+    "enterCustomPrice": "Введите цену"
   },
   "skybox": {
     "message1": "Корпоративные ложи",

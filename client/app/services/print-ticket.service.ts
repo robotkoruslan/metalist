@@ -91,6 +91,9 @@ export class PrintTicketService {
     if (freeMessageStatus) {
       label = this.freeMessages[freeMessageStatus];
     }
+    if (freeMessageStatus === 'custom') {
+      label = `${ticket.customPrice} грн.`;
+    }
     const headline = ticket.match.headline;
     const rival = headline.substring(headline.indexOf('-') + 1);
     const date = moment(ticket.match.date).format('DD.MM.YYYY');

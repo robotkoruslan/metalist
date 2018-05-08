@@ -42,12 +42,14 @@ export class SectorComponent implements OnInit {
     {value: 'default', label: 'match.priceTypeOriginal', freeMessageStatus: null},
     {value: 'invitation', label: 'match.priceTypeInvitation', freeMessageStatus: 'invitation'},
     {value: 'zero', label: '0 грн.', freeMessageStatus: 'zero'},
+    {value: 'custom', label: 'match.customPrice', freeMessageStatus: 'custom'}
   ];
   currentPriceType = this.priceTypes[0];
   tribuneNames = {
     ru: {north: 'Cевер', south: 'Юг', west: 'Запад', east: 'Восток'},
     uk: {north: 'Північна', south: 'Південна', west: 'Західна', east: 'Східна'}
   };
+  customPrice: number;
   constructor(private priceSchemaService: PriceSchemaService,
               private cartService: CartService,
               private route: ActivatedRoute,
@@ -217,10 +219,12 @@ export class SectorComponent implements OnInit {
     if (!this.optimisticSeats.length) {
       return;
     }
-    this.cartService.pay(this.currentPriceType.freeMessageStatus)
+    this.cartService.pay(this.currentPriceType.freeMessageStatus, this.customPrice)
       .subscribe(
         order => {
-          const data = order.tickets.map(ticket => ({...ticket, ...ticket.seat}));
+          const data = order.tickets.map(ticket => {
+            return ({...ticket, ...ticket.seat, customPrice: this.customPrice});
+          });
           this.printTicketService.print(data, this.currentPriceType.freeMessageStatus);
           this.getReservedSeats();
           this.getSelectedSeats();
