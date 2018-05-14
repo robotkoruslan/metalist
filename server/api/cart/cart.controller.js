@@ -68,8 +68,17 @@ export function addSeatToCart(req, res) {
         return res.status(409).end();
       }
       return seatService.reserveSeatAsReserve(seat, reserveDate, cart.publicId)
-        .then(seat => {
-          cart.seats.push(seat.id);
+        // find cart with updated seats result due to changes in seat reservation
+        // in previous promise
+        .then((seat) => orderService.findCartByPublicId(publicId)
+          .then((cart) => ([seat, cart])))
+        .then(([seat, cart]) => {
+          // check if seat id already exists in cart seats list in order to
+          // eliminate duplications
+          const match = cart.seats.find(id => id.equals(seat.id));
+          if(!match) {
+            cart.seats.push(seat.id);
+          }
           return cart.save();
         })
         .then(cart => {
