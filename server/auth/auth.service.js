@@ -7,16 +7,7 @@ import compose from 'composable-middleware';
 import User from '../api/user/user.model';
 
 let validateJwt = expressJwt({
-  secret: config.secrets.session,
-    getToken: function fromHeaderOrQuerystring (req) {
-      if(req.cookies && req.cookies.token) {
-        return req.cookies.token;
-      }
-      if (req.query && req.query.hasOwnProperty('access_token')) {
-        return req.query.access_token;
-      }
-      return null;
-    }
+  secret: config.secrets.session
 });
 
 /**
@@ -26,7 +17,16 @@ let validateJwt = expressJwt({
 export function isAuthenticated() {
   return compose()
   // Validate jwt
-    .use(validateJwt)
+    .use(function (req, res, next) {
+      // allow access_token to be passed through query parameter as well
+      if(req.cookies && req.cookies.token) {
+        req.headers.authorization = 'Bearer ' + req.cookies.token;
+      }
+      if (req.query && req.query.hasOwnProperty('access_token')) {
+        req.headers.authorization = 'Bearer ' + req.query.access_token;
+      }
+      validateJwt(req, res, next);
+    })
     // Attach user to request
     .use(function (req, res, next) {
       User.findById(req.user._id).exec()
