@@ -6,7 +6,7 @@ import * as priceSchemaService from '../priceSchema/priceSchema.service';
 import * as matchService from '../match/match.service';
 import * as crypto from 'crypto';
 
-export function createTicket(seat, freeMessageStatus, customPrice) {
+export function createTicket(seat, freeMessageStatus = null, customPrice = null) {
   return Promise.all([
     priceSchemaService.getSeatPrice(seat),
     matchService.findById(seat.match)

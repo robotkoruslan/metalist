@@ -1,6 +1,7 @@
 'use strict';
 
 import Ticket from './ticket.model';
+import Seat from '../seat/seat.model';
 import User from '../user/user.model';
 import moment from 'moment-timezone';
 import * as barcode from 'bwip-js';
@@ -9,6 +10,7 @@ import * as orderService from '../order/order.service';
 import * as matchService from '../match/match.service';
 import * as pdfGenerator from '../../pdfGenerator';
 import * as log4js from 'log4js';
+import {clearReservation} from '../seat/seat.service';
 
 const logger = log4js.getLogger('Ticket');
 const sectorsInVip = ['VIP_B', 'VIP_BR', 'VIP_BL', 'VIP_AR', 'VIP_AL', 'SB_1', 'SB_7'];
@@ -192,7 +194,6 @@ function dayStatistics(req, res) {
 }
 
 function eventStatistics(req, res) {
-
   // return orderService.getStatistics(req.user.id, req.query.date )
   return orderService.getStatistics(req.user.id, req.query.date )
     .then((order) => {
@@ -219,14 +220,20 @@ function eventStatistics(req, res) {
     .catch(handleError(res));
 }
 
-export function deleteTicketById(req, res) {
-  return Ticket.findByIdAndRemove(req.params.id).exec()
-    .then(function () {
-      res.status(204).end();
+export function deleteTicketAndClearSeatReservationById(req, res) {
+  return Ticket.findOne({_id: req.params.id})
+    .then(function (ticket) {
+      return Seat.findOne({_id : ticket.seat.id})
     })
+    .then((seat)  => Promise.all([
+        Ticket.findByIdAndRemove(req.params.id).exec(),
+        // set seat reservedUntil property less than date now in order to
+        // exclude seat from reserved on match seats
+        clearReservation(seat)
+      ]))
+    .then(() => res.status(204).end())
     .catch(handleError(res));
 }
-
 //private functions
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;

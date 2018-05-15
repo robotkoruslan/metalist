@@ -87,7 +87,7 @@ export function payCashier(req, res) {
       ])
     })
     .then(([seats, cart]) => {
-      return orderService.createOrderFromCartByCashier(cart, req.user, freeMessageStatus, customPrice); // new order pending
+      return orderService.createOrderFromCartByCashier(cart, req.user, freeMessageStatus); // new order pending
     })
     .then(order => {
       return Promise.all([

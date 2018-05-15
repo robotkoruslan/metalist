@@ -162,8 +162,7 @@ export function createOrderFromCartByCashier(cart, user, freeMessageStatus, cust
         privateId: ticketService.randomNumericString(8),
         created: new Date(),
         price: freeMessageStatus ? 0 : price,
-        freeMessageStatus,
-        customPrice
+        freeMessageStatus
       });
 
       return order.save();
@@ -202,7 +201,7 @@ function createDescription(order) {
   return `${order.privateId} | ${matchesDescription}`;
 }
 
-export function createTicketsByOrder(order, freeMessageStatus, customPrice) {
+export function createTicketsByOrder(order, freeMessageStatus = null, customPrice = null) {
   return Promise.all(order.seats.map(seat => {
     return ticketService.createTicket(seat, freeMessageStatus, customPrice);
   }));
