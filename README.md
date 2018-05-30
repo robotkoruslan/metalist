@@ -29,15 +29,11 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 1. Run `npm install` to install server dependencies.
 
-2. Run `mongod` in a separate shell to keep an instance of the MongoDB Daemon running
+2. Rename .env.sample to .env.
 
-3. Run commands `mkdir mongo_data` && `chown -R mongodb:mongodb mongo_data` for mongodb volumes.
+3. Run `npm run docker:serve` to start the docker container with app in development mode.
 
-4. Rename .env.sample to .env.
-
-5. Run `npm run docker:serve` to start the docker container with app in development mode.
-
-6. Run `npm run watch`. It must automatically restart node server when the files are changed.
+4. Run `npm run watch`. It must automatically restart node server when the files are changed.
 
 ## Testing
 

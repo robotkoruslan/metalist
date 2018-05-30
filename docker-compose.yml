@@ -15,5 +15,3 @@ services:
         command: bash -c "node server"
     mongo:
         image: mongo
-        volumes:
-            - ./mongo_data:/data/db
