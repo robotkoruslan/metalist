@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { TicketService } from '../services/ticket.service';
 import {IntervalObservable} from 'rxjs/observable/IntervalObservable';
 import 'rxjs/add/operator/takeWhile';

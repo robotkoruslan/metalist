@@ -8,20 +8,20 @@ let logger = log4js.getLogger('Match');
 
 export function getNextMatches(req, res) {
   return matchService.getNextMatches()
-    .then(respondWithResult(res))
+    .then(responseWithResult(res))
     .catch(handleError(res));
 }
 
 export function getPrevMatches(req, res) {
   return matchService.getPrevMatches()
-    .then(respondWithResult(res))
+    .then(responseWithResult(res))
     .catch(handleError(res));
 }
 
 export function getMatchById(req, res) {
   return matchService.findById(req.params.id)
     .then(handleEntityNotFound(res))
-    .then(respondWithResult(res))
+    .then(responseWithResult(res))
     .catch(handleError(res));
 }
 
@@ -40,7 +40,7 @@ export function createMatch(req, res) {
         });
       return match;
     })
-    .then(respondWithResult(res))
+    .then(responseWithResult(res))
     .catch(handleError(res))
 }
 
@@ -66,14 +66,14 @@ export function updateMatch(req, res) {
         return matchService.updateMatch(match, modifiedMatch);
       }
     })
-    .then(respondWithResult(res))
+    .then(responseWithResult(res))
     .catch(handleError(res))
     ;
 }
 
 //private functions
 
-function respondWithResult(res, statusCode) {
+function responseWithResult(res, statusCode) {
   statusCode = statusCode || 200;
   return function (entity) {
     if (entity) {

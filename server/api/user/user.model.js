@@ -45,6 +45,7 @@ let UserSchema = new Schema({
   google: {},
   github: {}
 }, {
+  usePushEach: true,
   toObject: {virtuals: true},
   toJSON: {virtuals: true},
 });

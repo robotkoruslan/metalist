@@ -148,3 +148,8 @@ button.classic[disabled] {
     margin: 20px 0;
   }
 }
+
+
+.mat-dialog-container {
+  max-height: 100vh;
+}

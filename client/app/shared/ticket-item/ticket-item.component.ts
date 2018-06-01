@@ -1,6 +1,6 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
-import {Ticket} from '../../model/ticket.interface';
-import {Seat} from '../../model/seat.interface';
+import {MatDialog} from '@angular/material';
+import {TicketDialogComponent} from '../ticket-dialog/ticket-dialog.component';
 
 @Component({
   selector: 'ticket-item',
@@ -8,7 +8,7 @@ import {Seat} from '../../model/seat.interface';
     <tr class="ticket-item-wrapper">
       <td width="5%" *ngIf="type" class="number">{{index}}</td>
       <td width="5%" *ngIf="type">
-          <span class="indicator" [style.background]="type ==='tickets' ? '#00426b' : '#fc2c34'">&nbsp;</span>
+        <span class="indicator" [style.background]="type ==='tickets' ? '#00426b' : '#fc2c34'">&nbsp;</span>
       </td>
       <td class="text-container">
         <span [translate]="'stadium.'+ ticket.tribune" *ngIf="type"></span>
@@ -23,10 +23,12 @@ import {Seat} from '../../model/seat.interface';
         <span *ngIf="!type">- {{ticket.price}}грн;</span>
       </td>
       <td width="1%" class="symbol" style="cursor: pointer;">
-        <i *ngIf="type ==='tickets'; else elseBlock" class="fa fa-print" aria-hidden="true" (click)="handlePrint()"></i>
-        <ng-template #elseBlock>
-          <i class="fa fa-times" aria-hidden="true" (click)="handleDelete()"></i>
-        </ng-template>
+        <div class="icon-container">
+          <i *ngIf="type ==='tickets'; else elseBlock" class="fa fa-ticket" aria-hidden="true" (click)="openTicket()"></i>
+          <ng-template #elseBlock>
+            <i class="fa fa-times" aria-hidden="true" (click)="handleDelete()"></i>
+          </ng-template>
+        </div>
       </td>
     </tr>
   `,
@@ -39,7 +41,10 @@ export class TicketItemComponent {
   @Input() index: number;
   @Output() onClick = new EventEmitter();
 
-  handleDelete() {
+  constructor(private dialog: MatDialog) {
+  }
+
+  public handleDelete(): void {
     this.onClick.emit({
       slug: this.ticket.slug,
       sector: this.ticket.sector,
@@ -48,7 +53,15 @@ export class TicketItemComponent {
       matchId: this.ticket.match._id
     });
   }
+
   handlePrint() {
     this.onClick.emit({ticket: this.ticket});
+  }
+
+  public openTicket(): void {
+    this.dialog.open(TicketDialogComponent, {
+      data: this.ticket,
+      maxWidth: '100vw'
+    });
   }
 }
