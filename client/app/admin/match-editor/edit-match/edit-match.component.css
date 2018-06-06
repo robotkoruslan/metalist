@@ -1,3 +1,8 @@
+:host {
+  margin-bottom: 20px;
+  display: block;
+}
+
 img {
     width: 100%;
     height: auto;
@@ -32,4 +37,8 @@ img {
 .date-time .mat-form-field:nth-child(1) input {
   height: 21px;
   margin-right: 5px;
+}
+
+.checkbox-block {
+  margin-bottom: 10px;
 }

@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import {Seat} from '../model/seat.interface';
 
 @Injectable()
 export class SeasonTicketService {
@@ -20,6 +19,10 @@ export class SeasonTicketService {
 
   createSeasonTicket(seasonTicket, slug) {
     return this.http.post('/api/seasonTicket/' + slug, { ticket: seasonTicket}, this.options);
+  }
+
+  registrationSeasonTicket(seasonTicket, slug) {
+    return this.http.post('/api/seasonTicket/registration/' + slug, { ticket: seasonTicket}, this.options);
   }
 
   deleteSeasonTicket(slug) {

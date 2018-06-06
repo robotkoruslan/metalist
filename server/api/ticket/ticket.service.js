@@ -38,7 +38,7 @@ export function createTicket(seat, freeMessageStatus = null, customPrice = null)
 }
 
 export function getUserTickets(tickets) {
-  return getTicketsById(tickets, {'match.date': { $gte: new Date()}}, {'match.date': -1});
+  return getTicketsById(tickets, {'match.date': { $gte: new Date()}, status: 'paid'}, {'match.date': -1});
 }
 
 export function getByTicketNumber(ticketNumber) {

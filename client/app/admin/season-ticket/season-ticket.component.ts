@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SeasonTicketService} from '../../services/season-ticket.service';
 import {TicketService} from '../../services/ticket.service';
-import {Seat} from "../../model/seat.interface";
+import {Seat} from '../../model/seat.interface';
+import {Subject} from 'rxjs/Subject';
 
 @Component({
   selector: 'app-season-ticket',
@@ -9,14 +10,15 @@ import {Seat} from "../../model/seat.interface";
   styleUrls: ['./season-ticket.component.css'],
   providers: [TicketService, SeasonTicketService]
 })
-export class SeasonTicketComponent implements OnInit {
+export class SeasonTicketComponent implements OnInit, OnDestroy {
 
-  errorMessageSeat: string;
-  errorMessageBlockRow: string;
-  lastTickets: any = [];
-  ticket: any = [];
-  seasonTickets: Seat[];
-  blockRowSeats: Seat[];
+  public errorMessageSeat: string;
+  public errorMessageBlockRow: string;
+  public ticket: any = [];
+  public seasonTickets: Seat[];
+  public blockRowSeats: Seat[];
+
+  private destroy$: Subject<boolean> = new Subject();
 
   constructor(private ticketsService: TicketService, private seasonTicketService: SeasonTicketService) {
   }
@@ -26,22 +28,30 @@ export class SeasonTicketComponent implements OnInit {
     this.loadBlockRowSeats();
   }
 
-  loadSeasonTickets() {
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
+  public loadSeasonTickets(): void {
     this.seasonTicketService.loadSeasonTickets()
+      .takeUntil(this.destroy$)
       .subscribe(response => this.seasonTickets = response.reverse());
     this.errorMessageSeat = '';
   }
 
-  loadBlockRowSeats() {
+  public loadBlockRowSeats(): void {
     this.seasonTicketService.loadBlockRowSeats()
+      .takeUntil(this.destroy$)
       .subscribe(response => this.blockRowSeats = response.reverse());
     this.errorMessageBlockRow = '';
   }
 
-  addSeasonTicket(ticket) {
-    const slug = 's' + ticket.sector + 'r' + ticket.row + 'st' + ticket.seat;
+  public addSeasonTicket(ticket): void {
+    const slug = 's' + ticket.seat.sector + 'r' + ticket.seat.row + 'st' + ticket.seat.seat;
 
     this.seasonTicketService.createSeasonTicket(ticket, slug)
+      .takeUntil(this.destroy$)
       .subscribe(
         () => this.loadSeasonTickets(),
         (err) => {
@@ -52,16 +62,18 @@ export class SeasonTicketComponent implements OnInit {
         });
   }
 
-  deleteSeasonTicket(slug) {
+  public deleteSeasonTicket(slug): void {
     this.seasonTicketService.deleteSeasonTicket(slug)
+      .takeUntil(this.destroy$)
       .subscribe(
         () => this.loadSeasonTickets(),
         () => this.errorMessageSeat = 'deleteReservationFail'
-      )
+      );
   }
 
-  deleteBlockRow(blockRow) {
+  public deleteBlockRow(blockRow): void {
     this.seasonTicketService.deleteBlockRow(blockRow)
+      .takeUntil(this.destroy$)
       .subscribe(
         () => this.loadBlockRowSeats(),
         () => this.errorMessageBlockRow = 'deleteReservationFail'
@@ -69,7 +81,7 @@ export class SeasonTicketComponent implements OnInit {
   }
 
 
-  addBlockRow = (blockRow) => {
+  public addBlockRow(blockRow): void {
     this.seasonTicketService.addBlockRow(blockRow)
       .subscribe(
         () => this.loadBlockRowSeats(),

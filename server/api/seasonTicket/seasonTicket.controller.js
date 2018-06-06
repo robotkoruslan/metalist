@@ -2,6 +2,9 @@
 
 import * as seasonTicketService from '../seasonTicket/seasonTicket.service';
 import * as log4js from 'log4js';
+import User from "../user/user.model";
+import {PAID} from "../seat/seat.constants";
+import {ObjectId} from "mongoose/lib/types/objectid";
 
 let logger = log4js.getLogger('SeasonTicket');
 
@@ -20,18 +23,40 @@ export function getBlocks(req, res) {
 }
 
 export function createSeasonTicket(req, res) {
-  let ticket = req.body.ticket,
-    slug = req.params.slug;
+  const ticket = req.body.ticket;
+  ticket.seat.push(req.params.slug);
 
-  return seasonTicketService.findBySlug(slug)
+  return seasonTicketService.findBySlug(ticket.seat.slug)
     .then(seasonTicket => {
       if (seasonTicket && seasonTicket.reservedUntil > new Date()) {
         return res.status(409).end();
       }
-      return seasonTicketService.createSeasonTicket(ticket, slug)
+      return seasonTicketService.createSeasonTicket(ticket.seat, ticket.reservedUntil)
         .then(respondWithResult(res));
     })
     .catch(handleError(res));
+}
+
+export function confirmSeasonTicket(req, res) {
+  let ticketId = req.body.ticket,
+    slug = req.params.slug;
+  return Promise.all([
+      seasonTicketService.findBySlug(slug),
+      User.findOne({tickets: new ObjectId(ticketId)})
+    ])
+    .then(([seasonTicket, user]) => {
+      if (!seasonTicket || !user) {
+        return res.status(409).end();
+      }
+      seasonTicket.status = PAID;
+      user.seasonTickets.push(seasonTicket);
+      return Promise.all([
+        user.save(),
+        seasonTicket.save()
+      ]);
+    })
+    .then(respondWithResult(res))
+    .catch((error) => logger.error('registrationSeasonTicket error: ', error));
 }
 
 export function deleteSeasonTicket(req, res) {
@@ -62,7 +87,7 @@ export function blockRow(req, res) {
       }
       return seasonTicketService.createBlockRow(seats, blockRow);
     })
-    .then( () => res.status(200).end() )
+    .then(() => res.status(200).end())
     .catch(handleError(res));
 
 }

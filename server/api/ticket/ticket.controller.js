@@ -11,6 +11,7 @@ import * as matchService from '../match/match.service';
 import * as pdfGenerator from '../../pdfGenerator';
 import * as log4js from 'log4js';
 import {clearReservation} from '../seat/seat.service';
+import * as seasonTicketService from '../seasonTicket/seasonTicket.service';
 
 const logger = log4js.getLogger('Ticket');
 const sectorsInVip = ['VIP_B', 'VIP_BR', 'VIP_BL', 'VIP_AR', 'VIP_AL', 'SB_1', 'SB_7'];
@@ -19,7 +20,7 @@ export function getTicketPdfById(req, res) {
   return ticketService.getByTicketNumber(req.params.ticketNumber)
     .then(handleEntityNotFound(res))
     .then(ticket => {
-      if(ticket) {
+      if (ticket) {
         return generatePdfTicket(ticket, res);
       }
     })
@@ -36,19 +37,25 @@ export function getTicketByAccessCode(req, res) {
 export function getMyTickets(req, res) {
   return User.findById(req.user.id)
     .then(user => {
-      return ticketService.getUserTickets(user.tickets);
+      return Promise.all([
+        ticketService.getUserTickets(user.tickets),
+        seasonTicketService.getSeasonTicketsByIds(user.seasonTickets)
+      ]);
     })
-    .then(tickets => {
-      return tickets.filter(ticket => ticket);
+    .then(([tickets, seasonTickets]) => {
+      return {
+        'tickets': tickets.filter(ticket => ticket),
+        'seasonTickets': seasonTickets.filter(seasonTicket => seasonTicket)
+      };
     })
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
 function adminStatistics(req, res) {
-    return orderService.getEventsStatistics()
-        .then(respondWithResult(res))
-        .catch(handleError(res))
+  return orderService.getEventsStatistics()
+    .then(respondWithResult(res))
+    .catch(handleError(res))
 }
 
 export function use(req, res, next) {
@@ -60,7 +67,7 @@ export function use(req, res, next) {
     getCountTicketsByTribune(tribune)
   ])
     .then(([ticket, count]) => {
-    console.log('ticket', ticket, count);
+      console.log('ticket', ticket, count);
       if (!ticket) {
         return res.status(200).json({count: count, message: 'Билет не действительный.'});
       }
@@ -91,13 +98,13 @@ export function use(req, res, next) {
 
 export function useAbonementTicket(req, res) {
   return Ticket.findById(req.params.ticketId).exec()
-          .then(handleEntityNotFound(res))
-          .then((ticket) => {
-            ticket.status = 'used';
-            return ticket.save()
-            .then(() => res.status(200).json(ticket));
-})
-.catch(handleError(res));
+    .then(handleEntityNotFound(res))
+    .then((ticket) => {
+      ticket.status = 'used';
+      return ticket.save()
+        .then(() => res.status(200).json(ticket));
+    })
+    .catch(handleError(res));
 }
 
 export function getTicketsForCheckMobile(req, res) {
@@ -156,15 +163,21 @@ export function print(req, res, next) {
 }
 
 export function getStatistics(req, res) {
-  if (req.query.metod == 'day') {dayStatistics(req, res) }
-  if (req.query.metod == 'event') {eventStatistics(req, res) }
-  if (req.query.metod == 'admin') {adminStatistics(req, res) }
+  if (req.query.metod === 'day') {
+    dayStatistics(req, res)
+  }
+  if (req.query.metod === 'event') {
+    eventStatistics(req, res)
+  }
+  if (req.query.metod === 'admin') {
+    adminStatistics(req, res)
+  }
 }
 
 function dayStatistics(req, res) {
-  return orderService.getStatistics(req.user.id, req.query.date )
+  return orderService.getStatistics(req.user.id, req.query.date)
     .then((order) => {
-    let tickets = [];
+      let tickets = [];
       return order.reduce((sum, current) => {
         return current.tickets.map(ticket => {
           return tickets.push({
@@ -174,7 +187,7 @@ function dayStatistics(req, res) {
           })
         })
       }, 0), tickets;
-  })
+    })
     .then((tickets) => {
       let amounts = tickets.map(ticket => {
         return ticket.amount
@@ -195,7 +208,7 @@ function dayStatistics(req, res) {
 
 function eventStatistics(req, res) {
   // return orderService.getStatistics(req.user.id, req.query.date )
-  return orderService.getStatistics(req.user.id, req.query.date )
+  return orderService.getStatistics(req.user.id, req.query.date)
     .then((order) => {
       let tickets = [];
       return order.reduce((sum, current) => {
@@ -223,17 +236,18 @@ function eventStatistics(req, res) {
 export function deleteTicketAndClearSeatReservationById(req, res) {
   return Ticket.findOne({_id: req.params.id})
     .then(function (ticket) {
-      return Seat.findOne({_id : ticket.seat.id})
+      return Seat.findOne({_id: ticket.seat.id})
     })
-    .then((seat)  => Promise.all([
-        Ticket.findByIdAndRemove(req.params.id).exec(),
-        // set seat reservedUntil property less than date now in order to
-        // exclude seat from reserved on match seats
-        clearReservation(seat)
-      ]))
+    .then((seat) => Promise.all([
+      Ticket.findByIdAndRemove(req.params.id).exec(),
+      // set seat reservedUntil property less than date now in order to
+      // exclude seat from reserved on match seats
+      clearReservation(seat)
+    ]))
     .then(() => res.status(204).end())
     .catch(handleError(res));
 }
+
 //private functions
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -317,6 +331,6 @@ function getCountTicketsByTribune(tribune) {
       if (tribune === 'vip') {
         return tickets.filter(ticket => sectorsInVip.includes(ticket.seat.sector)).length;
       }
-      return tickets.filter(ticket => ( ticket.seat.tribune === tribune && !sectorsInVip.includes(ticket.seat.sector) )).length;
+      return tickets.filter(ticket => (ticket.seat.tribune === tribune && !sectorsInVip.includes(ticket.seat.sector))).length;
     });
 }

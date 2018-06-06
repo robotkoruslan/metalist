@@ -1,12 +1,11 @@
 'use strict';
 
 import User from './user.model';
-import passport from 'passport';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
 import * as log4js from 'log4js';
 import * as Mailer from '../../mailer/mailer.js';
-import * as passwordGenerator from "../../passwordGenerator"
+import * as passwordGenerator from "../../passwordGenerator";
 
 let logger = log4js.getLogger('User');
 

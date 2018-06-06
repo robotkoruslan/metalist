@@ -32,7 +32,7 @@
     </div>
     <button *ngIf="preSellTicket.status == 'paid'" class="btn btn-default"
             (click)="createSeasonTicket()">
-      {{'cashbox.regster' | translate}}
+      {{'cashbox.register' | translate}}
     </button>
     <p [hidden]="!seatMessage">{{('message.seat.' + seatMessage) | translate}}</p>
   </form>

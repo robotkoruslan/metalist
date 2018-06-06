@@ -13,11 +13,7 @@ let UserSchema = new Schema({
     type: String,
     lowercase: true,
     required: function () {
-      if (authTypes.indexOf(this.provider) === -1) {
-        return true;
-      } else {
-        return false;
-      }
+      return authTypes.indexOf(this.provider) === -1;
     }
   },
   role: {
@@ -27,19 +23,16 @@ let UserSchema = new Schema({
   password: {
     type: String,
     required: function () {
-      if (authTypes.indexOf(this.provider) === -1) {
-        return true;
-      } else {
-        return false;
-      }
+      return authTypes.indexOf(this.provider) === -1;
     }
   },
   provider: String,
   tickets: [{type: Schema.Types.ObjectId, ref: 'Ticket'}],
+  seasonTickets: [{type: Schema.Types.ObjectId, ref: 'SeasonTickets'}],
   salt: String,
   isOfferNotification: {
-      type: Boolean,
-      default: true
+    type: Boolean,
+    default: true
   },
   facebook: {},
   google: {},
@@ -102,7 +95,7 @@ UserSchema
 UserSchema
   .path('email')
   .validate(function (value, respond) {
-    var self = this;
+    const self = this;
     if (authTypes.indexOf(this.provider) !== -1) {
       return respond(true);
     }
@@ -121,7 +114,7 @@ UserSchema
       });
   }, 'The specified email address is already in use.');
 
-var validatePresenceOf = function (value) {
+const validatePresenceOf = function (value) {
   return value && value.length;
 };
 
@@ -198,7 +191,7 @@ UserSchema.methods = {
    * @api public
    */
   makeSalt(byteSize, callback) {
-    var defaultByteSize = 16;
+    const defaultByteSize = 16;
 
     if (typeof arguments[0] === 'function') {
       callback = arguments[0];
@@ -241,9 +234,9 @@ UserSchema.methods = {
       }
     }
 
-    var defaultIterations = 10000;
-    var defaultKeyLength = 64;
-    var salt = new Buffer(this.salt, 'base64');
+    const defaultIterations = 10000;
+    const defaultKeyLength = 64;
+    const salt = new Buffer(this.salt, 'base64');
 
     if (!callback) {
       return crypto.pbkdf2Sync(password, salt, defaultIterations, defaultKeyLength)

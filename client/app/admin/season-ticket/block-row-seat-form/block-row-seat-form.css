@@ -17,3 +17,7 @@ form.seat-exists mat-form-field {
   display: flex;
   justify-content: center;
 }
+
+.seat-block {
+  display: contents;
+}

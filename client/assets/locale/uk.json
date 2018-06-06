@@ -66,6 +66,11 @@
     "print": "Друк",
     "places": "місця"
   },
+  "seasonTickets": {
+    "boughtSeasonTickets": "Придбані абонементи",
+    "seasonTickets": "Абонементи",
+    "seasonTicket": "Абонемент"
+  },
   "cashbox": {
     "message1": "Статистика за день",
     "message2": "Останні квитки",

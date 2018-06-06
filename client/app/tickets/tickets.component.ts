@@ -1,9 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { TicketService } from '../services/ticket.service';
+import {TicketService} from '../services/ticket.service';
 import {IntervalObservable} from 'rxjs/observable/IntervalObservable';
 import 'rxjs/add/operator/takeWhile';
 import {uniq, compact} from 'lodash';
-import {PrintTicketService} from '../services/print-ticket.service';
+import {Subject} from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
+import {TypeTicket} from '../model/type-ticket';
 
 @Component({
   selector: 'app-tickets',
@@ -12,11 +14,16 @@ import {PrintTicketService} from '../services/print-ticket.service';
 })
 export class TicketsComponent implements OnInit, OnDestroy {
 
-  data: any = [];
-  intervalExists = true;
+  public tickets: any = [];
+  public seasonTickets: any = [];
+  public intervalExists = true;
+  public types = TypeTicket;
 
-  constructor(private ticketsService: TicketService, private printService: PrintTicketService) {
+  private destroy$: Subject<boolean> = new Subject();
+
+  constructor(private ticketsService: TicketService) {
   }
+
   ngOnInit() {
     this.getTickets();
     this.getPendingStatus();
@@ -24,12 +31,18 @@ export class TicketsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.intervalExists = false;
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
   getTickets() {
     this.ticketsService.getMyTickets()
+      .takeUntil(this.destroy$)
       .subscribe(
-        response => this.data = this.prepareTickets(response),
+        ({tickets, seasonTickets}) => {
+          this.tickets = this.prepareTickets(tickets);
+          this.seasonTickets = seasonTickets;
+        },
         err => console.log(err)
       );
   }
@@ -38,8 +51,9 @@ export class TicketsComponent implements OnInit, OnDestroy {
     IntervalObservable.create(5000)
       .takeWhile(value => this.intervalExists && value < 5)
       .subscribe(
-        (data) => {
+        () => {
           return this.ticketsService.getPendingStatus()
+            .takeUntil(this.destroy$)
             .subscribe(
               ({status}) => {
                 if (!status) {
@@ -53,23 +67,25 @@ export class TicketsComponent implements OnInit, OnDestroy {
   }
 
   prepareTickets(data) {
-    const matchIds = compact(uniq(data.map(({match}) => {
-      if (match && match.id) {
-        return match.id.id;
-      }
-      return null;
-    })));
+    const matchIds = compact(
+      uniq(
+        data.map(({match}) => (match && match.id) ? match.id.id : null)
+      )
+    );
     const tickets = matchIds.map(id => ({match: {_id: id}, tickets: []}));
-    data.forEach(({match, seat, ticketNumber, accessCode, amount}) => {
-      const ticket = tickets.find(({match: {_id}}) =>
-        match && match.id ? _id === match.id._id : false);
-      if (!ticket) {
-        return;
-      }
-      ticket.match = match.id;
-      ticket.tickets.push({...seat, ticketNumber, accessCode, match, amount});
-    });
-    return tickets.filter((ticket) => ticket.match._id && ticket.tickets.length );
+
+    data.forEach(
+      ({match, seat, ticketNumber, accessCode, amount}) => {
+        const ticket = tickets.find(({match: {_id}}) =>
+          match && match.id ? _id === match.id._id : false);
+        if (!ticket) {
+          return;
+        }
+        ticket.match = match.id;
+        ticket.tickets.push({...seat, ticketNumber, accessCode, match, amount});
+      });
+
+    return tickets.filter((ticket) => ticket.match._id && ticket.tickets.length);
   }
 
   print({ticketNumber}) {

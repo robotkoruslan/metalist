@@ -65,6 +65,11 @@
     "print": "Печать",
     "places": "места"
   },
+  "seasonTickets": {
+    "boughtSeasonTickets": "Приобретенные абонементы",
+    "seasonTickets": "Абонементы",
+    "seasonTicket": "Абонемент"
+  },
   "cashbox": {
     "message1": "Статистика за день",
     "message2": "Последние билеты",

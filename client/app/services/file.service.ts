@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class FileService {
 
-  constructor(private http:HttpClient) {
+  constructor(private http: HttpClient) {
   }
 
   loadTeamLogos() {
