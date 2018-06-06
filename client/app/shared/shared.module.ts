@@ -34,7 +34,8 @@ import {
   MatToolbarModule,
   MatTooltipModule,
   MatStepperModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatDividerModule
 } from '@angular/material';
 import { StadiumComponent } from './stadium/stadium.component';
 import { InputRequiredErrorComponent } from './form-fields/input-required-error.component';
@@ -49,6 +50,7 @@ import {HomeButtonComponent} from './home-button/home-button.component';
 import {PriceCategoryComponent} from './price-category/price-category.component';
 import {BackButtonComponent} from './back-button/back-button.component';
 import {LegendComponent} from './legend/legend.component';
+import {TicketDialogComponent} from './ticket-dialog/ticket-dialog.component';
 
 @NgModule({
   imports: [
@@ -84,6 +86,7 @@ import {LegendComponent} from './legend/legend.component';
     MatTooltipModule,
     MatStepperModule,
     MatFormFieldModule,
+    MatDividerModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -102,7 +105,8 @@ import {LegendComponent} from './legend/legend.component';
     BackButtonComponent,
     PriceCategoryComponent,
     LegendComponent,
-    LocaleDatePipe
+    LocaleDatePipe,
+    TicketDialogComponent
   ],
   exports: [
     StadiumComponent,
@@ -118,5 +122,6 @@ import {LegendComponent} from './legend/legend.component';
     LegendComponent,
     LocaleDatePipe,
   ],
+  entryComponents: [TicketDialogComponent]
 })
 export class SharedModule { }

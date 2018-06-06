@@ -9,9 +9,10 @@ import {Cart} from '../model/cart.interface';
 import {Subscription} from 'rxjs/Subscription';
 
 interface Duration {
-  minutes: number,
-  seconds: number
+  minutes: number;
+  seconds: number;
 }
+
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -29,7 +30,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   data: any[];
 
-  constructor(private cartService: CartService, private authenticationService: AuthService) {
+  constructor(private cartService: CartService,
+              private authenticationService: AuthService) {
   }
 
   ngOnInit() {
@@ -40,7 +42,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       });
   }
 
-  checkTime = () => {
+  public checkTime(): void {
     if (this.refetchTime || !this.expirationDate) {
       return;
     }
@@ -53,9 +55,9 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       this.duration = {
         minutes: Math.floor(timeDifference / 60),
         seconds: timeDifference % 60
-      }
+      };
     }, 1000);
-  };
+  }
 
   clearInterval = () => window.clearInterval(this.refetchTime);
 
@@ -64,7 +66,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  getCart = () => {
+  public getCart(): void {
     this.cartService.getCart()
       .subscribe(
         response => {
@@ -77,7 +79,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       );
   }
 
-  removeOptimisticSeat = (slug, matchId) => {
+  public removeOptimisticSeat(slug, matchId): void {
     const data = cloneDeep(this.data);
     const targetMatch = data.find(({match}) => match.id === matchId);
     if (!targetMatch) {
@@ -85,14 +87,15 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     }
     const seats = targetMatch.seats.filter(({sector, row, seat}) => {
       return slug !== `s${sector}r${row}st${seat}`;
-    })
+    });
     targetMatch.seats = seats;
     if (!seats.length) {
       data.filter(({match}) => match.id !== matchId);
     }
     this.data = data;
   }
-  removeSeat = ({slug, matchId}) => {
+
+  public removeSeat({slug, matchId}): void {
     this.removeOptimisticSeat(slug, matchId);
     this.cartService.removeSeatFromCart(slug, matchId)
       .subscribe(
@@ -100,18 +103,20 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       );
   }
 
-  getExpirationDate() {
+  public getExpirationDate(): void {
     sortBy(this.cart.seats, ['reservedUntil']);
     if (this.cart.seats.length) {
       this.expirationDate = this.cart.seats.slice(-1)[0].reservedUntil;
     }
   }
 
-  checkout = () => {
+  public checkout(): void {
     this.cartService.checkout()
       .subscribe(
         result => {
-          window.location.href = result.paymentLink;
+          if (result.paymentLink.length > 0) {
+            window.location.href = result.paymentLink;
+          }
         },
         err => {
           this.checkoutMessage = 'fail';
@@ -126,7 +131,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       );
   }
 
-  prepareData = (data) => {
+  public prepareData(data): any {
     const matchIds = uniq(data.map(({match: {id}}) => id));
     const finalData = matchIds.map(id => ({match: {_id: id}, seats: []}));
     data.forEach(({match, tribune, sector, row, seat, price, slug}) => {
