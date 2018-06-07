@@ -42,7 +42,8 @@ export function createMatch(newMatch) {
     info: newMatch.info,
     poster: newMatch.poster,
     priceSchema: newMatch.priceSchema.id,
-    stadiumName: newMatch.priceSchema.priceSchema.stadiumName
+    stadiumName: newMatch.priceSchema.priceSchema.stadiumName,
+    abonement: newMatch.abonement
   });
   return match.save();
 }

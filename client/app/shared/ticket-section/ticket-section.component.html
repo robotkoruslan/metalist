@@ -1,0 +1,13 @@
+<div class="ticket-section-wrapper">
+  <div *ngIf="match">
+    <circle-tab *ngIf="type === types.ticket" [rival]="match.rival" [image]="match.poster"></circle-tab>
+  </div>
+  <ng-content></ng-content>
+  <table>
+    <ticket-item *ngFor="let ticket of tickets; let i = index"
+                 [ticket]="ticket"
+                 [type]="type"
+                 [index]="i + 1" (onClick)="processClick($event)">
+    </ticket-item>
+  </table>
+</div>

@@ -1,21 +1,23 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MatchEditorService} from '../../services/match-editor.service';
 import {FileService} from '../../services/file.service';
 import moment from 'moment-timezone';
-
 import {Match} from '../../model/match.interface';
+import {Subject} from 'rxjs/Subject';
 
 @Component({
   selector: 'app-match-editor',
   templateUrl: './match-editor.component.html',
   styleUrls: ['./match-editor.component.css']
 })
-export class MatchEditorComponent implements OnInit {
+export class MatchEditorComponent implements OnInit, OnDestroy {
 
-  nextMatches: Match[] = [];
-  prevMatches: Match[] = [];
-  matchToEdit: Match | Partial<Match> | null;
-  message = '';
+  public nextMatches: Match[] = [];
+  public prevMatches: Match[] = [];
+  public matchToEdit: Match | Partial<Match> | null;
+  public message = '';
+
+  private destroy$: Subject<boolean> = new Subject();
 
   constructor(private matchEditorService: MatchEditorService, private fileService: FileService) {
   }
@@ -26,26 +28,38 @@ export class MatchEditorComponent implements OnInit {
     this.getTeamLogos();
   }
 
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
   setMatchToEdit(match = {date: moment(new Date()).toISOString()}) {
     this.message = '';
     this.matchToEdit = match;
   }
 
-  loadNextMatches = () => this.matchEditorService.loadNextMatches()
-    .subscribe(
-      (res) => this.nextMatches = res,
-      err => console.log(err)
-    )
+  private loadNextMatches(): void {
+    this.matchEditorService.loadNextMatches()
+      .takeUntil(this.destroy$)
+      .subscribe(
+        (res: Match[]) => this.nextMatches = res,
+        (err) => console.log(err)
+      );
+  }
 
-  loadPrevMatches = () => this.matchEditorService.loadPrevMatches()
-    .subscribe(
-      res => this.prevMatches = res,
-      err => console.log(err)
-    )
+  private loadPrevMatches(): void {
+    this.matchEditorService.loadPrevMatches()
+      .takeUntil(this.destroy$)
+      .subscribe(
+        (res: Match[]) => this.prevMatches = res,
+        err => console.log(err)
+      );
+  }
 
-  deleteMatch = (id: string) => {
+  public deleteMatch(id: string): void {
     this.message = '';
     this.matchEditorService.deleteMatch(id)
+      .takeUntil(this.destroy$)
       .subscribe(
         () => {
           this.prevMatches = this.prevMatches.filter(match => match.id !== id);
@@ -68,7 +82,7 @@ export class MatchEditorComponent implements OnInit {
             this.message = 'editSuccess';
           },
           err => console.log(err)
-        )
+        );
     } else {
       this.matchEditorService.createMatch(match)
         .subscribe(

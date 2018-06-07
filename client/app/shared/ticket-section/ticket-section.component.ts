@@ -1,31 +1,22 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Ticket} from '../../model/ticket.interface';
 import {Match} from '../../model/match.interface';
+import {SeasonTicket} from '../../model/season-ticket.interface';
+import {TypeTicket} from '../../model/type-ticket';
 
 @Component({
   selector: 'ticket-section',
-  template: `
-    <div class="ticket-section-wrapper">
-      <div style="">
-        <circle-tab [rival]="match.rival" [image]="match.poster"></circle-tab>
-      </div>
-      <ng-content></ng-content>
-      <table>
-        <ticket-item *ngFor="let ticket of tickets; let i = index"
-                     [ticket]="ticket"
-                     [type]="type"
-                     [index]="i + 1" (onClick)="processClick($event)">
-        </ticket-item>
-      </table>
-    </div>
-  `,
+  templateUrl: 'ticket-section.component.html',
   styleUrls: ['./ticket-section.component.less']
 })
 
 export class TicketSectionComponent {
-  @Input() tickets: Ticket[];
-  @Input() match: Match;
-  @Input() type: string;
+
+  public types = TypeTicket;
+
+  @Input() tickets: Ticket[] | SeasonTicket[];
+  @Input() match: Match | undefined;
+  @Input() type: TypeTicket;
   @Output() handleClick = new EventEmitter();
 
   processClick({slug, ticket}) {

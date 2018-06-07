@@ -6,6 +6,7 @@ import User from '../user/user.model';
 import moment from 'moment';
 import * as crypto from 'crypto';
 import * as priceSchemeService from '../priceSchema/priceSchema.service';
+import * as seasonTicketService from '../seasonTicket/seasonTicket.service';
 import * as seatService from '../seat/seat.service';
 import * as ticketService from '../ticket/ticket.service';
 import * as LiqPay from '../../liqpay';
@@ -17,10 +18,12 @@ const logger = log4js.getLogger('Order Service');
 
 export function getStatistics(userId, date) {
   let day = moment(new Date(date)).tz('Europe/Kiev');
-  return Order.find({"user.id": userId, created : {
-    $gte: day.startOf('day').format('YYYY-MM-DD HH:mm:ss'),
-    $lt: day.endOf('day').format('YYYY-MM-DD HH:mm:ss')
-  }}).sort({created: -1}).populate('tickets');
+  return Order.find({
+    "user.id": userId, created: {
+      $gte: day.startOf('day').format('YYYY-MM-DD HH:mm:ss'),
+      $lt: day.endOf('day').format('YYYY-MM-DD HH:mm:ss')
+    }
+  }).sort({created: -1}).populate('tickets');
 }
 
 export function getEventsStatistics() {
@@ -48,8 +51,8 @@ export function findCartByPublicId(publicId) {
   return Order.findOne({publicId: publicId})
     .populate({
       path: 'seats',
-      match: { reservationType: { $nin: [ PAID ]}, reservedUntil: {$gte: new Date()} },
-      populate: { path: 'match' }
+      match: {reservationType: {$nin: [PAID]}, reservedUntil: {$gte: new Date()}},
+      populate: {path: 'match'}
     });
 }
 
@@ -57,7 +60,7 @@ export function getByPrivateId(privateId) {
   return Order.findOne({privateId: privateId})
     .populate({
       path: 'seats',
-      populate: { path: 'match' }
+      populate: {path: 'match'}
     });
 }
 
@@ -94,7 +97,7 @@ export function createPaymentLink(order) {
     'action': 'pay',
     'amount': order.price,
     'currency': 'UAH',
-    'description': orderDescription.slice(0,150),
+    'description': orderDescription.slice(0, 150),
     'order_id': order.publicId,
     'sandbox': config.liqpay.sandboxMode,
     'server_url': config.liqpay.callbackUrl,
@@ -196,15 +199,19 @@ function handleSuccessPayment(order) {
 
 function createDescription(order) {
   let uniqueRival = getUniqueMatchRival(order.seats),
-    matchesDescription =  createMatchesDescription(uniqueRival, order.seats);
+    matchesDescription = createMatchesDescription(uniqueRival, order.seats);
 
   return `${order.privateId} | ${matchesDescription}`;
 }
 
 export function createTicketsByOrder(order, freeMessageStatus = null, customPrice = null) {
   return Promise.all(order.seats.map(seat => {
-    return ticketService.createTicket(seat, freeMessageStatus, customPrice);
-  }));
+      if (seat.match.abonement) {
+        seasonTicketService.createSeasonTicket(seat);
+      }
+      return ticketService.createTicket(seat, freeMessageStatus, customPrice);
+    })
+  );
 }
 
 function countPriceBySeats(seats) {

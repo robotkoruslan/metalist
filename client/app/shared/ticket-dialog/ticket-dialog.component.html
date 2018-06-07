@@ -1,6 +1,11 @@
 <div mat-dialog-title>
   <p class="title-match">
-    {{ ticket.match.headline }}
+    <ng-container *ngIf="type === types.ticket">
+      {{ ticket.match.headline }}
+    </ng-container>
+    <ng-container *ngIf="type === types.seasonTicket">
+      {{'seasonTickets.seasonTicket' | translate}}
+    </ng-container>
   </p>
   <i class="fa fa-times close" aria-hidden="true" (click)="close()"></i>
 </div>
@@ -25,14 +30,16 @@
     <mat-list-item>
       <span>{{ 'common.place' | translate | titlecase }} - {{ticket.seat}}</span>
     </mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>
-      <span>{{ 'common.price' | translate | titlecase}} - {{ ticket.price || ticket.amount }}</span>
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>
-      <span>{{ ticket.match.date | localeDate:'DD MMMM YYYY HH:mm' }}</span>
-    </mat-list-item>
+    <ng-container *ngIf="type === types.ticket">
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <span>{{ 'common.price' | translate | titlecase}} - {{ ticket.price || ticket.amount }}</span>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <span>{{ ticket.match.date | localeDate:'DD MMMM YYYY HH:mm' }}</span>
+      </mat-list-item>
+    </ng-container>
   </mat-list>
   <div>
     <p class="place">

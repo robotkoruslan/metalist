@@ -1,32 +1,41 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CashboxService} from '../cashbox.service';
 import {SeasonTicketService} from '../../services/season-ticket.service';
 import {Ticket} from '../../model/ticket.interface';
+import {Subject} from 'rxjs/Subject';
 
 @Component({
   selector: 'app-abonement-ticket',
   templateUrl: './abonement-ticket.component.html',
   styleUrls: ['./abonement-ticket.component.css']
 })
-export class AbonementTicketComponent implements OnInit {
+export class AbonementTicketComponent implements OnInit, OnDestroy {
 
-  accessCode: string;
-  seatMessage: string;
-  abonementMessage: string;
-  seasonTickets: Ticket[];
-  preSellTicket;
-  lastTickets: Ticket[];
-  ticket: Ticket[];
+  public accessCode: string;
+  public seatMessage: string;
+  public abonementMessage: string;
+  public seasonTickets: Ticket[];
+  public preSellTicket;
+  public ticket: Ticket[];
 
-  constructor(private cashboxService: CashboxService, private seasonTicketService: SeasonTicketService) {
+  private destroy$: Subject<boolean> = new Subject();
+
+  constructor(private cashboxService: CashboxService,
+              private seasonTicketService: SeasonTicketService) {
   }
 
   ngOnInit() {
     this.loadSeasonTickets();
   }
 
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
   loadSeasonTickets() {
     this.seasonTicketService.loadSeasonTickets()
+      .takeUntil(this.destroy$)
       .subscribe(
         response => this.seasonTickets = response,
         err => console.log(err)
@@ -36,6 +45,7 @@ export class AbonementTicketComponent implements OnInit {
 
   handleDeleteTicket(ticket) {
     this.seasonTicketService.deleteSeasonTicket(ticket.slug)
+      .takeUntil(this.destroy$)
       .subscribe(
         result => this.loadSeasonTickets(),
         err => {
@@ -48,24 +58,24 @@ export class AbonementTicketComponent implements OnInit {
   regTicket(accessCode) {
     this.seatMessage = '';
     this.cashboxService.getTicketByAccessCode(accessCode)
+      .takeUntil(this.destroy$)
       .subscribe(
         (response) => this.preSellTicket = response,
         (err) => console.log(err)
-      )
-
+      );
   }
 
   createSeasonTicket() {
     this.seatMessage = '';
     const {seat} = this.preSellTicket;
     const slug = `s${seat.sector}r${seat.row}st${seat.seat}`;
-    const ticket = this.preSellTicket.seat;
-    ticket.accessCode = this.preSellTicket.accessCode;
-    this.seasonTicketService.createSeasonTicket(ticket, slug)
+    this.seasonTicketService.registrationSeasonTicket(this.preSellTicket._id, slug)
+      .takeUntil(this.destroy$)
       .subscribe(
         () => {
           this.seatMessage = 'success';
           this.cashboxService.setTicketUsed(this.preSellTicket._id)
+            .takeUntil(this.destroy$)
             .subscribe();
           this.preSellTicket = null;
         },

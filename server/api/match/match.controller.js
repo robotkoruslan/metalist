@@ -28,14 +28,13 @@ export function getMatchById(req, res) {
 export function createMatch(req, res) {
   console.log('createMatch req.body', req.body);
   let newMatch = req.body,
-    matchDate = newMatch.date;
+      matchDate = newMatch.date;
 
   return matchService.createMatch(newMatch)
     .then(match => {
       seatService.createSeatsForMatch(match)
         .then(() => {
           match.date = matchDate;
-
           return match.save();
         });
       return match;

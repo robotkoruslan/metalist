@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {Ticket} from '../model/ticket.interface';
+import {SeasonTicket} from '../model/season-ticket.interface';
 
 @Injectable()
 export class TicketService {
@@ -14,8 +15,8 @@ export class TicketService {
       .map((response: Response) => response);
   }
 
-  getMyTickets(): Observable<Ticket[]> {
-    return this.http.get<Ticket[]>('api/tickets/my');
+  getMyTickets(): Observable<{tickets: Ticket[], seasonTickets: SeasonTicket[]}> {
+    return this.http.get<{tickets: Ticket[], seasonTickets: SeasonTicket[]}>('api/tickets/my');
   }
 
   getPendingStatus(): Observable<{status: boolean}> {
@@ -23,7 +24,7 @@ export class TicketService {
   }
 
   getStatistics(data): Observable<any> {
-    return this.http.get('/api/tickets/statistics', {params: {date: data.date, metod: data.metod}})
+    return this.http.get('/api/tickets/statistics', {params: {date: data.date, metod: data.metod}});
   }
   // getStatistics(data): Observable<any> {
   //   return this.http.get('/api/posts')
