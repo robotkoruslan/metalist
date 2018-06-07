@@ -17,9 +17,12 @@
       <span *ngIf="!type">- {{ticket.price}}грн;</span>
     </ng-container>
   </td>
-  <td width="1%" class="symbol" style="cursor: pointer;" *ngIf="ticket._id || ticket.id">
-    <div class="icon-container">
+  <td width="1%" class="symbol" style="cursor: pointer;">
+    <div class="icon-container" *ngIf="type && (ticket._id || ticket.id); else elseBlock">
       <i class="fa fa-ticket" aria-hidden="true" (click)="openTicket()"></i>
     </div>
+    <ng-template #elseBlock>
+      <i class="fa fa-times" aria-hidden="true" (click)="handleDelete()"></i>
+    </ng-template>
   </td>
 </tr>

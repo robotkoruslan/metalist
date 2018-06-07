@@ -21,6 +21,16 @@ export class TicketItemComponent {
   constructor(private dialog: MatDialog) {
   }
 
+  public handleDelete(): void {
+    this.onClick.emit({
+      slug: this.ticket.slug,
+      sector: this.ticket.sector,
+      row: this.ticket.row,
+      seat: this.ticket.seat,
+      matchId: this.ticket.match._id
+    });
+  }
+
   handlePrint() {
     this.onClick.emit({ticket: this.ticket});
   }
