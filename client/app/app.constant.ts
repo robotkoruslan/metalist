@@ -1,5 +1,5 @@
 export class AppConstant {
-  public static DefaultPriceColor: object = {color : '#808080' };
+  public static DefaultPriceColor: object = {color: '#808080'};
   public static StadiumDinamo: object = {
     tribune_west: {
       name: 'west',
@@ -164,7 +164,8 @@ export class AppConstant {
             name: '19',
             seats: '30'
           }
-        ]},
+        ]
+      },
       sector_3: {
         name: '3',
         rows: [
@@ -244,7 +245,8 @@ export class AppConstant {
             name: '19',
             seats: '31'
           }
-        ]},
+        ]
+      },
       sector_4: {
         name: '4',
         rows: [
@@ -324,7 +326,8 @@ export class AppConstant {
             name: '19',
             seats: '26'
           }
-        ]},
+        ]
+      },
       sector_5: {
         name: '5',
         rows: [
@@ -404,7 +407,8 @@ export class AppConstant {
             name: '19',
             seats: '26'
           }
-        ]},
+        ]
+      },
       sector_6: {
         name: '6',
         rows: [
@@ -484,7 +488,8 @@ export class AppConstant {
             name: '19',
             seats: '32'
           }
-        ]},
+        ]
+      },
       sector_7: {
         name: '7',
         rows: [
@@ -564,7 +569,8 @@ export class AppConstant {
             name: '19',
             seats: '29'
           }
-        ]},
+        ]
+      },
       sector_8: {
         name: '8',
         rows: [
@@ -644,7 +650,8 @@ export class AppConstant {
             name: '19',
             seats: '27'
           }
-        ]}
+        ]
+      }
 
     }
   };
@@ -812,7 +819,8 @@ export class AppConstant {
             name: '19',
             seats: '30'
           }
-        ]},
+        ]
+      },
       sector_3: {
         name: '3',
         rows: [
@@ -892,7 +900,8 @@ export class AppConstant {
             name: '19',
             seats: '31'
           }
-        ]},
+        ]
+      },
       sector_4: {
         name: '4',
         rows: [
@@ -972,7 +981,8 @@ export class AppConstant {
             name: '19',
             seats: '26'
           }
-        ]},
+        ]
+      },
       sector_5: {
         name: '5',
         rows: [
@@ -1052,7 +1062,8 @@ export class AppConstant {
             name: '19',
             seats: '26'
           }
-        ]},
+        ]
+      },
       sector_6: {
         name: '6',
         rows: [
@@ -1132,7 +1143,8 @@ export class AppConstant {
             name: '19',
             seats: '32'
           }
-        ]},
+        ]
+      },
       sector_7: {
         name: '7',
         rows: [
@@ -1212,7 +1224,8 @@ export class AppConstant {
             name: '19',
             seats: '29'
           }
-        ]},
+        ]
+      },
       sector_8: {
         name: '8',
         rows: [
@@ -1292,7 +1305,8 @@ export class AppConstant {
             name: '19',
             seats: '27'
           }
-        ]}
+        ]
+      }
 
     }
   };
@@ -1304,28 +1318,28 @@ export class AppConstant {
         rows: [
           {
             name: '1',
-            seats: '17'
+            seats: '18'
           },
           {
             name: '2',
-            seats: '17'
+            seats: '18'
           },
           {
             name: '3',
-            seats: '17'
+            seats: '18'
           },
           {
             name: '4',
-            seats: '17',
+            seats: '18',
 
           },
           {
             name: '5',
-            seats: '17'
+            seats: '18'
           },
           {
             name: '6',
-            seats: '17'
+            seats: '18'
           },
           {
             name: '7',
@@ -1401,67 +1415,67 @@ export class AppConstant {
           },
           {
             name: '25',
-            seats: '19'
+            seats: '20'
           },
           {
             name: '26',
-            seats: '19'
+            seats: '20'
           },
           {
             name: '27',
-            seats: '19'
+            seats: '20'
           },
           {
             name: '28',
-            seats: '19'
+            seats: '20'
           },
           {
             name: '29',
-            seats: '19'
+            seats: '20'
           },
           {
             name: '30',
-            seats: '19'
+            seats: '20'
           },
           {
             name: '31',
-            seats: '19'
+            seats: '20'
           },
           {
             name: '32',
-            seats: '19'
+            seats: '20'
           },
           {
             name: '33',
-            seats: '19'
+            seats: '20'
           },
           {
             name: '34',
-            seats: '19'
+            seats: '20'
           },
           {
             name: '35',
-            seats: '19'
+            seats: '20'
           },
           {
             name: '36',
-            seats: '19'
+            seats: '20'
           },
           {
             name: '37',
-            seats: '19'
+            seats: '20'
           },
           {
             name: '38',
-            seats: '19'
+            seats: '20'
           },
           {
             name: '39',
-            seats: '19'
+            seats: '20'
           },
           {
             name: '40',
-            seats: '16'
+            seats: '1-10,12-16'
           },
           {
             name: '41',
@@ -1474,163 +1488,163 @@ export class AppConstant {
         rows: [
           {
             name: '1',
-            seats: '27'
+            seats: '28'
           },
           {
             name: '2',
-            seats: '27'
+            seats: '28'
           },
           {
             name: '3',
-            seats: '27'
+            seats: '28'
           },
           {
             name: '4',
-            seats: '27'
+            seats: '28'
           },
           {
             name: '5',
-            seats: '27'
+            seats: '28'
           },
           {
             name: '6',
-            seats: '27'
+            seats: '28'
           },
           {
             name: '7',
-            seats: '27'
+            seats: '28'
           },
           {
             name: '8',
-            seats: '27'
+            seats: '28'
           },
           {
             name: '9',
-            seats: '35'
+            seats: '36'
           },
           {
             name: '10',
-            seats: '35'
+            seats: '36'
           },
           {
             name: '11',
-            seats: '35'
+            seats: '36'
           },
           {
             name: '12',
-            seats: '35'
+            seats: '36'
           },
           {
             name: '13',
-            seats: '35'
+            seats: '36'
           },
           {
             name: '14',
-            seats: '35'
+            seats: '36'
           },
           {
             name: '15',
-            seats: '35'
+            seats: '36'
           },
           {
             name: '16',
-            seats: '35'
+            seats: '36'
           },
           {
             name: '17',
-            seats: '35'
+            seats: '6-36'
           },
           {
             name: '18',
-            seats: '35'
+            seats: '6-36'
           },
           {
             name: '20',
-            seats: '35'
+            seats: '37'
           },
           {
             name: '21',
-            seats: '35'
+            seats: '37'
           },
           {
             name: '22',
-            seats: '35'
+            seats: '37'
           },
           {
             name: '23',
-            seats: '35'
+            seats: '37'
           },
           {
             name: '24',
-            seats: '35'
+            seats: '37'
           },
           {
             name: '25',
-            seats: '35'
+            seats: '37'
           },
           {
             name: '26',
-            seats: '35'
+            seats: '37'
           },
           {
             name: '27',
-            seats: '35'
+            seats: '37'
           },
           {
             name: '28',
-            seats: '35'
+            seats: '37'
           },
           {
             name: '29',
-            seats: '35'
+            seats: '37'
           },
           {
             name: '30',
-            seats: '35'
+            seats: '37'
           },
           {
             name: '31',
-            seats: '35'
+            seats: '37'
           },
           {
             name: '32',
-            seats: '39'
+            seats: '42'
           },
           {
             name: '33',
-            seats: '39'
+            seats: '42'
           },
           {
             name: '34',
-            seats: '39'
+            seats: '42'
           },
           {
             name: '35',
-            seats: '39'
+            seats: '41'
           },
           {
             name: '36',
-            seats: '35'
+            seats: '37'
           },
           {
             name: '37',
-            seats: '35'
+            seats: '37'
           },
           {
             name: '38',
-            seats: '35'
+            seats: '37'
           },
           {
             name: '39',
-            seats: '35'
+            seats: '32'
           },
           {
             name: '40',
-            seats: '35'
+            seats: '30'
           },
           {
             name: '41',
-            seats: '43'
+            seats: '26'
           }
         ]
       },
@@ -1639,75 +1653,75 @@ export class AppConstant {
         rows: [
           {
             name: '1',
-            seats: '26'
+            seats: '27'
           },
           {
             name: '2',
-            seats: '26'
+            seats: '27'
           },
           {
             name: '3',
-            seats: '26'
+            seats: '27'
           },
           {
             name: '4',
-            seats: '26'
+            seats: '27'
           },
           {
             name: '5',
-            seats: '26'
+            seats: '27'
           },
           {
             name: '6',
-            seats: '26'
+            seats: '27'
           },
           {
             name: '7',
-            seats: '22'
+            seats: '23'
           },
           {
             name: '8',
-            seats: '22'
+            seats: '23'
           },
           {
             name: '9',
-            seats: '27'
+            seats: '29'
           },
           {
             name: '10',
-            seats: '27'
+            seats: '29'
           },
           {
             name: '11',
-            seats: '27'
+            seats: '29'
           },
           {
             name: '12',
-            seats: '27'
+            seats: '29'
           },
           {
             name: '13',
-            seats: '27'
+            seats: '29'
           },
           {
             name: '14',
-            seats: '27'
+            seats: '29'
           },
           {
             name: '15',
-            seats: '27'
+            seats: '29'
           },
           {
             name: '16',
-            seats: '27'
+            seats: '29'
           },
           {
             name: '17',
-            seats: '27'
+            seats: '29'
           },
           {
             name: '18',
-            seats: '27'
+            seats: '29'
           }
         ]
       },
@@ -1716,11 +1730,11 @@ export class AppConstant {
         rows: [
           {
             name: '1',
-            seats: '18'
+            seats: '5'
           },
           {
             name: '2',
-            seats: '18'
+            seats: '13'
           },
           {
             name: '3',
@@ -1741,6 +1755,10 @@ export class AppConstant {
           {
             name: '7',
             seats: '13'
+          },
+          {
+            name: '8',
+            seats: '13'
           }
         ]
       },
@@ -1753,19 +1771,23 @@ export class AppConstant {
           },
           {
             name: '2',
-            seats: '34'
+            seats: '1-4,31-34'
           },
           {
             name: '3',
-            seats: '34'
+            seats: '1-4,31-34'
           },
           {
             name: '4',
-            seats: '34'
+            seats: '1-4,31-34'
           },
           {
             name: '5',
-            seats: '34'
+            seats: '1-4,31-34'
+          },
+          {
+            name: '6',
+            seats: '1-4,31-34'
           }
         ]
       },
@@ -1774,11 +1796,11 @@ export class AppConstant {
         rows: [
           {
             name: '1',
-            seats: '18'
+            seats: '14-18'
           },
           {
             name: '2',
-            seats: '18'
+            seats: '6-18'
           },
           {
             name: '3',
@@ -1799,6 +1821,10 @@ export class AppConstant {
           {
             name: '7',
             seats: '12'
+          },
+          {
+            name: '8',
+            seats: '12'
           }
         ]
       },
@@ -1807,75 +1833,75 @@ export class AppConstant {
         rows: [
           {
             name: '1',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '2',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '3',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '4',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '5',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '6',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '7',
-            seats: '21'
+            seats: '22'
           },
           {
             name: '8',
-            seats: '21'
+            seats: '22'
           },
           {
             name: '9',
-            seats: '27'
+            seats: '28'
           },
           {
             name: '10',
-            seats: '27'
+            seats: '28'
           },
           {
             name: '11',
-            seats: '27'
+            seats: '28'
           },
           {
             name: '12',
-            seats: '27'
+            seats: '28'
           },
           {
             name: '13',
-            seats: '27'
+            seats: '28'
           },
           {
             name: '14',
-            seats: '27'
+            seats: '28'
           },
           {
             name: '15',
-            seats: '27'
+            seats: '28'
           },
           {
             name: '16',
-            seats: '27'
+            seats: '28'
           },
           {
             name: '17',
-            seats: '27'
+            seats: '28'
           },
           {
             name: '18',
-            seats: '27'
+            seats: '28'
           }
         ]
       },
@@ -1884,148 +1910,148 @@ export class AppConstant {
         rows: [
           {
             name: '1',
-            seats: '28'
+            seats: '30'
           },
           {
             name: '2',
-            seats: '28'
+            seats: '30'
           },
           {
             name: '3',
-            seats: '28'
+            seats: '30'
           },
           {
             name: '4',
-            seats: '28',
+            seats: '30',
 
           },
           {
             name: '5',
-            seats: '28'
+            seats: '30'
           },
           {
             name: '6',
-            seats: '28'
+            seats: '30'
           },
           {
             name: '7',
-            seats: '28'
+            seats: '30'
           },
           {
             name: '8',
-            seats: '28'
+            seats: '30'
           },
           {
             name: '9',
-            seats: '36'
+            seats: '38'
           },
           {
             name: '10',
-            seats: '36'
+            seats: '38'
           },
           {
             name: '11',
-            seats: '36'
+            seats: '38'
           },
           {
             name: '12',
-            seats: '36'
+            seats: '38'
           },
           {
             name: '13',
-            seats: '36'
+            seats: '38'
           },
           {
             name: '14',
-            seats: '36'
+            seats: '38'
           },
           {
             name: '15',
-            seats: '36'
+            seats: '38'
           },
           {
             name: '16',
-            seats: '36'
+            seats: '38'
           },
           {
             name: '17',
-            seats: '31'
+            seats: '33'
           },
           {
             name: '18',
-            seats: '31'
+            seats: '33'
           },
           {
             name: '20',
-            seats: '36'
+            seats: '38'
           },
           {
             name: '21',
-            seats: '36'
+            seats: '38'
           },
           {
             name: '22',
-            seats: '36'
+            seats: '38'
           },
           {
             name: '23',
-            seats: '36'
+            seats: '38'
           },
           {
             name: '24',
-            seats: '36'
+            seats: '38'
           },
           {
             name: '25',
-            seats: '36'
+            seats: '38'
           },
           {
             name: '26',
-            seats: '36'
+            seats: '38'
           },
           {
             name: '27',
-            seats: '36'
+            seats: '38'
           },
           {
             name: '28',
-            seats: '36'
+            seats: '38'
           },
           {
             name: '29',
-            seats: '36'
+            seats: '38'
           },
           {
             name: '30',
-            seats: '36'
+            seats: '38'
           },
           {
             name: '31',
-            seats: '36'
+            seats: '38'
           },
           {
             name: '32',
-            seats: '41'
+            seats: '43'
           },
           {
             name: '33',
-            seats: '41'
+            seats: '43'
           },
           {
             name: '34',
-            seats: '41'
+            seats: '43'
           },
           {
             name: '35',
-            seats: '41'
+            seats: '43'
           },
           {
             name: '36',
-            seats: '36'
+            seats: '38'
           },
           {
             name: '37',
-            seats: '36'
+            seats: '38'
           },
           {
             name: '38',
@@ -2033,15 +2059,15 @@ export class AppConstant {
           },
           {
             name: '39',
-            seats: '36'
+            seats: '5-36'
           },
           {
             name: '40',
-            seats: '36'
+            seats: '7-38'
           },
           {
             name: '41',
-            seats: '45'
+            seats: '16-45'
           }
         ]
       },
@@ -2110,16 +2136,12 @@ export class AppConstant {
             seats: '13'
           },
           {
-            name: '16',
-            seats: '13'
-          },
-          {
             name: '17',
-            seats: '13'
+            seats: '16'
           },
           {
             name: '18',
-            seats: '13'
+            seats: '16'
           },
           {
             name: '19',
@@ -2147,71 +2169,71 @@ export class AppConstant {
           },
           {
             name: '25',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '26',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '27',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '28',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '29',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '30',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '31',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '32',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '33',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '34',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '35',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '36',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '37',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '38',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '39',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '40',
-            seats: '21'
+            seats: '1-2,4-22'
           },
           {
             name: '41',
-            seats: '15'
+            seats: '16'
           }
         ]
       },
@@ -2426,11 +2448,11 @@ export class AppConstant {
         rows: [
           {
             name: '1',
-            seats: '7'
+            seats: '10'
           },
           {
             name: '2',
-            seats: '7'
+            seats: '10'
           }
         ]
       },
@@ -2439,11 +2461,11 @@ export class AppConstant {
         rows: [
           {
             name: '1',
-            seats: '7'
+            seats: '10'
           },
           {
             name: '2',
-            seats: '7'
+            seats: '10'
           }
         ]
       },
@@ -2452,11 +2474,11 @@ export class AppConstant {
         rows: [
           {
             name: '1',
-            seats: '7'
+            seats: '10'
           },
           {
             name: '2',
-            seats: '7'
+            seats: '10'
           }
         ]
       },
@@ -2478,11 +2500,7 @@ export class AppConstant {
         rows: [
           {
             name: '1',
-            seats: '7'
-          },
-          {
-            name: '2',
-            seats: '7'
+            seats: '10'
           }
         ]
       },
@@ -2491,11 +2509,7 @@ export class AppConstant {
         rows: [
           {
             name: '1',
-            seats: '7'
-          },
-          {
-            name: '2',
-            seats: '7'
+            seats: '10'
           }
         ]
       },
@@ -2504,11 +2518,7 @@ export class AppConstant {
         rows: [
           {
             name: '1',
-            seats: '7'
-          },
-          {
-            name: '2',
-            seats: '7'
+            seats: '10'
           }
         ]
       },
@@ -2517,11 +2527,7 @@ export class AppConstant {
         rows: [
           {
             name: '1',
-            seats: '7'
-          },
-          {
-            name: '2',
-            seats: '7'
+            seats: '12'
           }
         ]
       }
@@ -2754,11 +2760,7 @@ export class AppConstant {
           },
           {
             name: '32',
-            seats: '20'
-          },
-          {
-            name: '33',
-            seats: '25'
+            seats: '3-20'
           }
         ]
       },
@@ -2780,7 +2782,6 @@ export class AppConstant {
           {
             name: '4',
             seats: '29',
-
           },
           {
             name: '5',
@@ -2888,7 +2889,7 @@ export class AppConstant {
           },
           {
             name: '31',
-            seats: '35'
+            seats: '34'
           },
           {
             name: '32',
@@ -3034,7 +3035,7 @@ export class AppConstant {
           },
           {
             name: '33',
-            seats: '46'
+            seats: '45'
           }
         ]
       },
@@ -3055,8 +3056,7 @@ export class AppConstant {
           },
           {
             name: '4',
-            seats: '22',
-
+            seats: '22'
           },
           {
             name: '5',
@@ -3169,10 +3169,6 @@ export class AppConstant {
           {
             name: '32',
             seats: '22'
-          },
-          {
-            name: '33',
-            seats: '25'
           }
         ]
       },
@@ -3193,8 +3189,7 @@ export class AppConstant {
           },
           {
             name: '4',
-            seats: '22',
-
+            seats: '22'
           },
           {
             name: '5',
@@ -3307,10 +3302,6 @@ export class AppConstant {
           {
             name: '32',
             seats: '29'
-          },
-          {
-            name: '33',
-            seats: '32'
           }
         ]
       },
@@ -3331,8 +3322,7 @@ export class AppConstant {
           },
           {
             name: '4',
-            seats: '25',
-
+            seats: '25'
           },
           {
             name: '5',
@@ -3445,10 +3435,6 @@ export class AppConstant {
           {
             name: '32',
             seats: '29'
-          },
-          {
-            name: '33',
-            seats: '34'
           }
         ]
       },
@@ -3559,10 +3545,6 @@ export class AppConstant {
             name: '31',
             seats: '30'
           },
-          {
-            name: '32',
-            seats: '37'
-          }
         ]
       },
       sector_38: {
@@ -3582,8 +3564,7 @@ export class AppConstant {
           },
           {
             name: '4',
-            seats: '25',
-
+            seats: '25'
           },
           {
             name: '5',
@@ -3697,10 +3678,6 @@ export class AppConstant {
             name: '32',
             seats: '30'
           },
-          {
-            name: '33',
-            seats: '41'
-          }
         ]
       },
       sector_39: {
@@ -3720,8 +3697,7 @@ export class AppConstant {
           },
           {
             name: '4',
-            seats: '23',
-
+            seats: '23'
           },
           {
             name: '5',
@@ -3833,12 +3809,8 @@ export class AppConstant {
           },
           {
             name: '32',
-            seats: '27'
+            seats: '29'
           },
-          {
-            name: '33',
-            seats: '19'
-          }
         ]
       },
       sector_40: {
@@ -3858,8 +3830,7 @@ export class AppConstant {
           },
           {
             name: '4',
-            seats: '23',
-
+            seats: '23'
           },
           {
             name: '5',
@@ -3973,10 +3944,6 @@ export class AppConstant {
             name: '32',
             seats: '33'
           },
-          {
-            name: '33',
-            seats: '39'
-          }
         ]
       },
       sector_41: {
@@ -3996,8 +3963,7 @@ export class AppConstant {
           },
           {
             name: '4',
-            seats: '31',
-
+            seats: '31'
           },
           {
             name: '5',
@@ -4134,8 +4100,7 @@ export class AppConstant {
           },
           {
             name: '4',
-            seats: '29',
-
+            seats: '29'
           },
           {
             name: '5',
@@ -4308,11 +4273,11 @@ export class AppConstant {
           },
           {
             name: '18',
-            seats: '20'
+            seats: '26'
           },
           {
             name: '19',
-            seats: '20'
+            seats: '26'
           },
           {
             name: '20',
@@ -4537,7 +4502,7 @@ export class AppConstant {
           },
           {
             name: '27',
-            seats: '19'
+            seats: '12'
           },
           {
             name: '28',
@@ -4559,10 +4524,6 @@ export class AppConstant {
             name: '32',
             seats: '13'
           },
-          {
-            name: '33',
-            seats: '16'
-          }
         ]
       },
       sector_22: {
@@ -4582,8 +4543,7 @@ export class AppConstant {
           },
           {
             name: '4',
-            seats: '21',
-
+            seats: '21'
           },
           {
             name: '5',
@@ -4599,11 +4559,11 @@ export class AppConstant {
           },
           {
             name: '8',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '9',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '10',
@@ -4695,7 +4655,7 @@ export class AppConstant {
           },
           {
             name: '32',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '33',
@@ -4720,8 +4680,7 @@ export class AppConstant {
           },
           {
             name: '4',
-            seats: '33',
-
+            seats: '33'
           },
           {
             name: '5',
@@ -4737,43 +4696,43 @@ export class AppConstant {
           },
           {
             name: '8',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '9',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '10',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '11',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '12',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '13',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '14',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '15',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '16',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '17',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '18',
@@ -4785,7 +4744,7 @@ export class AppConstant {
           },
           {
             name: '20',
-            seats: '6'
+            seats: '25'
           },
           {
             name: '21',
@@ -4805,7 +4764,7 @@ export class AppConstant {
           },
           {
             name: '25',
-            seats: '19'
+            seats: '25'
           },
           {
             name: '26',
@@ -4833,7 +4792,7 @@ export class AppConstant {
           },
           {
             name: '32',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '33',
@@ -4846,132 +4805,131 @@ export class AppConstant {
         rows: [
           {
             name: '1',
-            seats: '33'
+            seats: '35'
           },
           {
             name: '2',
-            seats: '33'
+            seats: '35'
           },
           {
             name: '3',
-            seats: '33'
+            seats: '35'
           },
           {
             name: '4',
-            seats: '33',
-
+            seats: '35'
           },
           {
             name: '5',
-            seats: '33'
+            seats: '35'
           },
           {
             name: '6',
-            seats: '33'
+            seats: '35'
           },
           {
             name: '7',
-            seats: '33'
+            seats: '35'
           },
           {
             name: '8',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '9',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '10',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '11',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '12',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '13',
-            seats: '38'
+            seats: '40'
           },
           {
             name: '14',
-            seats: '38'
+            seats: '40'
           },
           {
             name: '15',
-            seats: '38'
+            seats: '40'
           },
           {
             name: '16',
-            seats: '38'
+            seats: '40'
           },
           {
             name: '17',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '18',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '19',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '20',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '21',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '22',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '23',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '24',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '25',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '26',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '27',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '28',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '29',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '30',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '31',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '32',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '33',
@@ -4996,8 +4954,7 @@ export class AppConstant {
           },
           {
             name: '4',
-            seats: '21',
-
+            seats: '21'
           },
           {
             name: '5',
@@ -5013,103 +4970,103 @@ export class AppConstant {
           },
           {
             name: '8',
-            seats: '18'
+            seats: '19'
           },
           {
             name: '9',
-            seats: '18'
+            seats: '19'
           },
           {
             name: '10',
-            seats: '18'
+            seats: '19'
           },
           {
             name: '11',
-            seats: '18'
+            seats: '19'
           },
           {
             name: '12',
-            seats: '18'
+            seats: '19'
           },
           {
             name: '13',
-            seats: '18'
+            seats: '19'
           },
           {
             name: '14',
-            seats: '18'
+            seats: '19'
           },
           {
             name: '15',
-            seats: '18'
+            seats: '19'
           },
           {
             name: '16',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '17',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '18',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '19',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '20',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '21',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '22',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '23',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '24',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '25',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '26',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '27',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '28',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '29',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '30',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '31',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '32',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '33',
@@ -5134,16 +5091,15 @@ export class AppConstant {
           },
           {
             name: '4',
-            seats: '21',
-
+            seats: '21'
           },
           {
             name: '5',
-            seats: '18'
+            seats: '7-24'
           },
           {
             name: '6',
-            seats: '18'
+            seats: '7-24'
           },
           {
             name: '7',
@@ -5151,103 +5107,103 @@ export class AppConstant {
           },
           {
             name: '8',
-            seats: '18'
+            seats: '19'
           },
           {
             name: '9',
-            seats: '18'
+            seats: '19'
           },
           {
             name: '10',
-            seats: '18'
+            seats: '19'
           },
           {
             name: '11',
-            seats: '18'
+            seats: '19'
           },
           {
             name: '12',
-            seats: '18'
+            seats: '19'
           },
           {
             name: '13',
-            seats: '18'
+            seats: '19'
           },
           {
             name: '14',
-            seats: '18'
+            seats: '19'
           },
           {
             name: '15',
-            seats: '18'
+            seats: '19'
           },
           {
             name: '16',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '17',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '18',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '19',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '20',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '21',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '22',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '23',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '24',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '25',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '26',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '27',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '28',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '29',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '30',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '31',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '32',
-            seats: '23'
+            seats: '24'
           },
           {
             name: '33',
@@ -5260,132 +5216,131 @@ export class AppConstant {
         rows: [
           {
             name: '1',
-            seats: '33'
+            seats: '35'
           },
           {
             name: '2',
-            seats: '33'
+            seats: '35'
           },
           {
             name: '3',
-            seats: '33'
+            seats: '35'
           },
           {
             name: '4',
-            seats: '33',
-
+            seats: '35'
           },
           {
             name: '5',
-            seats: '33'
+            seats: '35'
           },
           {
             name: '6',
-            seats: '33'
+            seats: '35'
           },
           {
             name: '7',
-            seats: '33'
+            seats: '35'
           },
           {
             name: '8',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '9',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '10',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '11',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '12',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '13',
-            seats: '38'
+            seats: '40'
           },
           {
             name: '14',
-            seats: '38'
+            seats: '40'
           },
           {
             name: '15',
-            seats: '38'
+            seats: '40'
           },
           {
             name: '16',
-            seats: '38'
+            seats: '40'
           },
           {
             name: '17',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '18',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '19',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '20',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '21',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '22',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '23',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '24',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '25',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '26',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '27',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '28',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '29',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '30',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '31',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '32',
-            seats: '40'
+            seats: '42'
           },
           {
             name: '33',
@@ -5398,132 +5353,131 @@ export class AppConstant {
         rows: [
           {
             name: '1',
-            seats: '33'
+            seats: '35'
           },
           {
             name: '2',
-            seats: '33'
+            seats: '35'
           },
           {
             name: '3',
-            seats: '33'
+            seats: '35'
           },
           {
             name: '4',
-            seats: '33',
-
+            seats: '35'
           },
           {
             name: '5',
-            seats: '33'
+            seats: '35'
           },
           {
             name: '6',
-            seats: '33'
+            seats: '35'
           },
           {
             name: '7',
-            seats: '33'
+            seats: '35'
           },
           {
             name: '8',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '9',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '10',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '11',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '12',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '13',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '14',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '15',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '16',
-            seats: '24'
+            seats: '25'
           },
           {
             name: '17',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '18',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '19',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '20',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '21',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '22',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '23',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '24',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '25',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '26',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '27',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '28',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '29',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '30',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '31',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '32',
-            seats: '25'
+            seats: '26'
           },
           {
             name: '33',
@@ -5548,8 +5502,7 @@ export class AppConstant {
           },
           {
             name: '4',
-            seats: '21',
-
+            seats: '21'
           },
           {
             name: '5',
@@ -5565,107 +5518,107 @@ export class AppConstant {
           },
           {
             name: '8',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '9',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '10',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '11',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '12',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '13',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '14',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '15',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '16',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '17',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '18',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '19',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '20',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '21',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '22',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '23',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '24',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '25',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '26',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '27',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '28',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '29',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '30',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '31',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '32',
-            seats: '20'
+            seats: '21'
           },
           {
             name: '33',
-            seats: '24'
+            seats: '23'
           }
         ]
       }
@@ -5689,8 +5642,7 @@ export class AppConstant {
           },
           {
             name: '4',
-            seats: '18',
-
+            seats: '18'
           },
           {
             name: '5',
@@ -5859,8 +5811,7 @@ export class AppConstant {
           },
           {
             name: '4',
-            seats: '20',
-
+            seats: '20'
           },
           {
             name: '5',
@@ -6017,7 +5968,7 @@ export class AppConstant {
         rows: [
           {
             name: '1',
-            seats: '29'
+            seats: '30'
           },
           {
             name: '2',
@@ -6029,12 +5980,11 @@ export class AppConstant {
           },
           {
             name: '4',
-            seats: '31',
-
+            seats: '31'
           },
           {
             name: '5',
-            seats: '31'
+            seats: '32'
           },
           {
             name: '6',
@@ -6199,8 +6149,7 @@ export class AppConstant {
           },
           {
             name: '4',
-            seats: '33',
-
+            seats: '33'
           },
           {
             name: '5',
@@ -6369,8 +6318,7 @@ export class AppConstant {
           },
           {
             name: '4',
-            seats: '38',
-
+            seats: '38'
           },
           {
             name: '5',
@@ -6623,15 +6571,15 @@ export class AppConstant {
           },
           {
             name: '39',
-            seats: '26'
+            seats: '1-8,19-36'
           },
           {
             name: '40',
-            seats: '22'
+            seats: '1-8,18-31'
           },
           {
             name: '41',
-            seats: '30'
+            seats: '39'
           }
         ]
       },
@@ -6652,8 +6600,7 @@ export class AppConstant {
           },
           {
             name: '4',
-            seats: '37',
-
+            seats: '37'
           },
           {
             name: '5',
@@ -6822,8 +6769,7 @@ export class AppConstant {
           },
           {
             name: '4',
-            seats: '33',
-
+            seats: '33'
           },
           {
             name: '5',
@@ -6992,8 +6938,7 @@ export class AppConstant {
           },
           {
             name: '4',
-            seats: '30',
-
+            seats: '30'
           },
           {
             name: '5',
@@ -7162,8 +7107,7 @@ export class AppConstant {
           },
           {
             name: '4',
-            seats: '19',
-
+            seats: '19'
           },
           {
             name: '5',
@@ -7332,8 +7276,7 @@ export class AppConstant {
           },
           {
             name: '4',
-            seats: '19',
-
+            seats: '19'
           },
           {
             name: '5',

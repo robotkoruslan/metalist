@@ -119,7 +119,7 @@ function createStadiumSeatsForMatch(match) {
   console.log("createStadiumSeatsForMatch(match)  ", match);
   let parameters = [];
 
-  if (match.stadiumName == 'metalist') {
+  if (match.stadiumName === 'metalist') {
     let Stadium = StadiumMetalist;
     for (let tribune in Stadium) {
       for (let sector in Stadium[tribune]) {
@@ -190,7 +190,18 @@ function createStadiumSeatsForMatch(match) {
 
 function getRowSeats(seats) {
   return new Promise((resolve) => {
-    resolve([...Array(parseInt(seats) + 1).keys()].filter(Boolean));
+    const resultArray = [];
+    if (seats.includes(',') || seats.includes('-')) {
+      seats.split(',').map((interval) => {
+        const intervalBoundaries = interval.split('-');
+        const start = intervalBoundaries[0];
+        const end = intervalBoundaries[1];
+        resultArray.push(...Array(end - start + 1).fill(0).map((_, id) => parseInt(start) + parseInt(id)));
+      });
+    } else {
+      resultArray.push(...Array(parseInt(seats) + 1).keys());
+    }
+    resolve(resultArray);
   });
 }
 
