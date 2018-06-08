@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import { uniqBy, remove } from 'lodash';
+import {uniqBy, remove} from 'lodash';
 import {TranslateService} from '@ngx-translate/core';
 
 import {PriceSchemaService} from '../../services/price-schema.service';
@@ -14,7 +14,7 @@ import {PriceSchema} from '../../model/price-schema.interface';
 import {Match} from '../../model/match.interface';
 import {AuthService} from '../../services/auth.service';
 import {PrintTicketService} from '../../services/print-ticket.service';
-import { fromEvent } from 'rxjs/observable/fromEvent';
+import {fromEvent} from 'rxjs/observable/fromEvent';
 
 @Component({
   selector: 'app-sector',
@@ -37,7 +37,7 @@ export class SectorComponent implements OnInit {
   processedSeat: string;
   isMobile: boolean;
   tribune: string;
-  sectorRows: any[];
+  sectorRows: Array<{ name: string; seats: string; seatMap: number[] }>;
   priceTypes = [
     {value: 'default', label: 'match.priceTypeOriginal', freeMessageStatus: null},
     {value: 'invitation', label: 'match.priceTypeInvitation', freeMessageStatus: 'invitation'},
@@ -50,6 +50,7 @@ export class SectorComponent implements OnInit {
     uk: {north: 'Північна', south: 'Південна', west: 'Західна', east: 'Східна'}
   };
   customPrice: number;
+
   constructor(private priceSchemaService: PriceSchemaService,
               private cartService: CartService,
               private route: ActivatedRoute,
@@ -90,6 +91,9 @@ export class SectorComponent implements OnInit {
             this.sector = AppConstant.StadiumMetalist['tribune_' + this.tribuneName]['sector_' + this.sectorId];
           }
         }
+        this.sector.rows.map((row) => {
+          return row.seatMap = this.makeArrayFromNumber(row.seats);
+        });
         this.sectorRows = this.sector.rows.sort((a, b) => {
           return (+b.name) - (+a.name);
         });
@@ -113,15 +117,15 @@ export class SectorComponent implements OnInit {
       .subscribe(
         cart => this.optimisticSeats = cart.seats,
         err => console.log(err)
-      )
+      );
 
   isSeatOptimistic = (slug, matchId) => {
     // check if seat is optimistic by slug and match id
     return this.optimisticSeats
       .find(({slug: seatSlug, match}) =>
-         matchId && match && seatSlug === slug && match.id === matchId
+        matchId && match && seatSlug === slug && match.id === matchId
       );
-  }
+  };
 
   isSeatReserved = (slug) => this.reservedSeats.includes(slug);
 
@@ -169,7 +173,7 @@ export class SectorComponent implements OnInit {
           this.toggleOptimisticSeats(slug, seat, row, sector, matchId, true);
         }
       );
-  }
+  };
 
   addSeat = (slug, seat, row, sector, matchId) => {
     this.toggleOptimisticSeats(slug, seat, row, sector, matchId, true);
@@ -192,7 +196,7 @@ export class SectorComponent implements OnInit {
           this.toggleOptimisticSeats(slug, seat, row, sector, matchId, false);
         }
       );
-  }
+  };
 
   toggleOptimisticSeats(slug, seat, row, sector, matchId, show) {
     this.processedSeat = slug;
@@ -204,10 +208,23 @@ export class SectorComponent implements OnInit {
     }
   }
 
-  makeArrayFromNumber = (number)  => Array.from(Array(+number).keys()).map(x => x + 1);
+  public makeArrayFromNumber(seats): any[] {
+    const resultArray = [];
+    if (seats.includes(',') || seats.includes('-')) {
+      seats.split(',').map((interval) => {
+        const intervalBoundaries = interval.split('-');
+        const start = intervalBoundaries[0];
+        const end = intervalBoundaries[1];
+        resultArray.push(...Array(end - start + 1).fill(0).map((_, id) => +start + +id));
+      });
+    } else {
+      resultArray.push(...Array.from(Array(+seats).keys()).map(x => x + 1));
+    }
+    return resultArray;
+  }
 
   isSkybox() {
-    const skyBoxes: any = ['SB_1', 'SB_2', 'SB_3_5', 'SB_6', 'SB_7', 'SB_8', 'SB_9', 'SB_10', 'SB_11' ];
+    const skyBoxes: any = ['SB_1', 'SB_2', 'SB_3_5', 'SB_6', 'SB_7', 'SB_8', 'SB_9', 'SB_10', 'SB_11'];
     return this.sector ? skyBoxes.includes(this.sector.name) : false;
   }
 

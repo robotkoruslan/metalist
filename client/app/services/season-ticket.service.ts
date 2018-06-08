@@ -1,13 +1,16 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import {SeasonTicket} from '../model/season-ticket.interface';
 
 @Injectable()
 export class SeasonTicketService {
   options: any = {headers: {'Accept': 'application/json'}};
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient) {
+  }
 
   loadSeasonTickets(): Observable<any> {
     return this.http.get('/api/seasonTicket/season-tickets');
@@ -18,11 +21,11 @@ export class SeasonTicketService {
   }
 
   createSeasonTicket(seasonTicket, slug) {
-    return this.http.post('/api/seasonTicket/' + slug, { ticket: seasonTicket}, this.options);
+    return this.http.post('/api/seasonTicket/' + slug, {ticket: seasonTicket}, this.options);
   }
 
   registrationSeasonTicket(seasonTicket, slug) {
-    return this.http.post('/api/seasonTicket/registration/' + slug, { ticket: seasonTicket}, this.options);
+    return this.http.post('/api/seasonTicket/registration/' + slug, {ticket: seasonTicket}, this.options);
   }
 
   deleteSeasonTicket(slug) {
@@ -31,7 +34,7 @@ export class SeasonTicketService {
 
   addBlockRow(blockRow) {
     return this.http.post('/api/seasonTicket/addBlock/sector/' + blockRow.sector + '/row/' + blockRow.row,
-     {blockRow}, this.options);
+      {blockRow}, this.options);
   }
 
   deleteBlockRow(blockRow) {
@@ -41,4 +44,7 @@ export class SeasonTicketService {
     );
   }
 
+  public extendSeasonTicket(id: string): Observable<any> {
+    return this.http.post<any>('/api/seasonTicket/extend', {id: id});
+  }
 }
