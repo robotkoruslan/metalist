@@ -29,13 +29,14 @@
     <div>
       <div *ngIf="isCashier; else notCashierBlock">
         <mat-form-field>
-          <mat-select [(value)]="currentPriceType" >
+          <mat-select [(value)]="currentPriceType">
             <mat-option *ngFor="let type of priceTypes" [value]="type">{{type.label | translate}}</mat-option>
           </mat-select>
         </mat-form-field>
         <br>
         <mat-form-field *ngIf="currentPriceType.value === 'custom'">
-          <input matInput type="number" [placeholder]="('match.enterCustomPrice' | translate)" name="customPrice" [(ngModel)]="customPrice">
+          <input matInput type="number" [placeholder]="('match.enterCustomPrice' | translate)" name="customPrice"
+                 [(ngModel)]="customPrice">
         </mat-form-field>
         <button class="classic" (click)="pay()">{{'match.print' | translate}}</button>
       </div>
@@ -69,16 +70,24 @@
       <sector-legend></sector-legend>
       <ul class="seats">
         <li *ngFor="let row of sectorRows; index as ind" [ngClass]="{'rowdivider': firstUpperRow == row.name}">
-        <span class="number">{{row.name}}</span>
-        <span *ngFor="let seat of makeArrayFromNumber(row.seats); let i = index;"
-              id="s{{sector.name}}r{{row.name}}s{{1+i}}"
-              [class]="getSeatStatus('s'+sector.name+'r'+row.name+'st'+seat)"
-              [class.pointerEventsN]="processedSeat === 's'+sector.name+'r'+row.name+'st'+seat"
-              (click)="toggleSeat({sector: sector.name, row: row.name, seat: seat})"
-              tooltip="<div><div><b>{{tribune}}</b></div><div>Ceктор: <b>{{sector.name}}</b></div>
-                      <div>Ряд: <b>{{row.name}}</b></div><div>{{'common.place' | translate}}: <b>{{seat}}</b>
-                      <div>{{'common.price' | translate}}: <b>{{sectorPrice}}грн</b></div></div>">
-        </span>
+          <span class="number">{{row.name}}</span>
+          <ng-container *ngIf="row.seatMap">
+            <span *ngFor="let seat of row.seatMap; let i = index;"
+                  id="s{{sector.name}}r{{row.name}}s{{1+i}}"
+                  [class]="getSeatStatus('s'+sector.name+'r'+row.name+'st'+seat)"
+                  [class.pointerEventsN]="processedSeat === 's'+sector.name+'r'+row.name+'st'+seat"
+                  (click)="toggleSeat({sector: sector.name, row: row.name, seat: seat})"
+                  [style.margin-left.px]="(seat > 1 && !row.seatMap[i - 1]) || (seat - row.seatMap[i - 1]) > 1 ? 15 : 0"
+                  tooltip="<div>
+                            <div><b>{{tribune}}</b></div>
+                            <div>Ceктор: <b>{{sector.name}}</b></div>
+                            <div>Ряд: <b>{{row.name}}</b></div>
+                            <div>{{'common.place' | translate}}: <b>{{seat}}</b>
+                            <div>{{'common.price' | translate}}: <b>{{sectorPrice}}грн</b></div>
+                            </div>">
+            </span>
+          </ng-container>
+
         </li>
       </ul>
     </div>
