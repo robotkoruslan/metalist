@@ -1,0 +1,20 @@
+thead {
+  th {
+    width: 25%;
+    &.action {
+      text-align: center;
+    }
+  }
+  &.seat-exists {
+    th {
+      width: 20%;
+    }
+  }
+}
+
+td {
+  &.action {
+    text-align: center;
+    cursor: pointer;
+  }
+}

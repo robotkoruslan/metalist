@@ -5,6 +5,7 @@ import * as log4js from 'log4js';
 import User from "../user/user.model";
 import {PAID} from "../seat/seat.constants";
 import {ObjectId} from "mongoose/lib/types/objectid";
+import moment from "moment/moment";
 
 let logger = log4js.getLogger('SeasonTicket');
 
@@ -33,6 +34,20 @@ export function createSeasonTicket(req, res) {
       }
       return seasonTicketService.createSeasonTicket(ticket.seat, ticket.reservedUntil)
         .then(respondWithResult(res));
+    })
+    .catch(handleError(res));
+}
+
+export function extendSeasonTicket(req, res) {
+  const ticketId =  new ObjectId(req.body.id);
+
+  return seasonTicketService.getSeasonTicketById(ticketId)
+    .then(seasonTicket => {
+      if (!seasonTicket) {
+        return res.status(409).end();
+      }
+      seasonTicket.reservedUntil = moment(seasonTicket.reservedUntil).add(1, 'y');
+      return seasonTicket.save().then(respondWithResult(res));
     })
     .catch(handleError(res));
 }

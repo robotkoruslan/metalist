@@ -9,7 +9,9 @@ const router = express.Router();
 router.get('/season-tickets', auth.hasRole('cashier'), controller.getSeasonTickets);
 router.get('/block-row', auth.hasRole('admin'), controller.getBlocks);
 
+router.post('/extend', auth.hasRole('cashier'), controller.extendSeasonTicket);
 router.post('/:slug', auth.hasRole('admin'), controller.createSeasonTicket);
+
 router.delete('/:slug', auth.hasRole('admin'), controller.deleteSeasonTicket);
 router.post('/registration/:slug', auth.hasRole('cashier'), controller.confirmSeasonTicket);
 

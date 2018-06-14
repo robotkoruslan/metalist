@@ -15,6 +15,10 @@ export function getSeasonTicketsByIds(seasonTicketsIds) {
   return SeasonTicket.find({'_id': {$in: seasonTicketsIds}});
 }
 
+export function getSeasonTicketById(seasonTicketId) {
+  return SeasonTicket.findOne({'_id': seasonTicketId});
+}
+
 export function getActiveBlockTickets() {
   return SeasonTicket.find({reservedUntil: {$gte: new Date()}, reservationType: BLOCK});
 }
@@ -24,7 +28,6 @@ export function getActiveBlocksBySector(sector) {
 }
 
 export function findBySlug(slug) {
-  console.log('slug', slug);
   return SeasonTicket.findOne({slug: slug});
 }
 
