@@ -83,7 +83,8 @@
     "find": "Знайти",
     "price": "Ціна",
     "register": "Реєструвати",
-    "valid": "Дійсний"
+    "valid": "Дійсний",
+    "extendAbonement": "Продовжити абонемент"
   },
   "admin": {
     "matches": "Матчі",
@@ -113,7 +114,8 @@
     "priceDetails": "Деталі (за цінами)",
     "tribunePrice": "Ціна за трибуну",
     "savePriceSchema": "Зберегти прайс-схему",
-    "applyPrice": "Зберегти ціну"
+    "applyPrice": "Зберегти ціну",
+    "extend": "Продовжити"
   },
   "stadium": {
     "westAdjective": "західна",
@@ -133,6 +135,7 @@
     "dateTime": "Дата і час",
     "orderCode": "Введіть код ордеру",
     "reservedUntil": "Зарезервовано до",
+    "reserveUpTo": "Зарезервувати до",
     "stadium": "Cтадіон",
     "name": "Ім'я",
     "email": "Email",

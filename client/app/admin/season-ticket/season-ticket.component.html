@@ -3,7 +3,7 @@
     <block-row-seat-form (add)="addSeasonTicket($event)" [isSeatExist]="true"
       [message]="errorMessageSeat ? (('message.seasonTickets.seat.' + errorMessageSeat) | translate) : ''">
     </block-row-seat-form>
-    <app-season-ticket-list [tickets]="seasonTickets" (delete)="deleteSeasonTicket($event)">
+    <app-season-ticket-list [tickets]="seasonTickets" (delete)="deleteSeasonTicket($event)" (extend)="onExtendSeasonTicket($event)">
     </app-season-ticket-list>
   </mat-tab>
   <mat-tab [label]="'admin.blockRows' | translate">

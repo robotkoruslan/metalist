@@ -1,6 +1,7 @@
 import {Match} from "./match.interface";
 
 export interface Seat {
+  _id: string;
   seat: number,
   price?: number,
   row: number,

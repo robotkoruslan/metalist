@@ -28,14 +28,8 @@ export class BlockRowSeatFormComponent implements OnInit {
 
   public onAdd(): void {
     this.add.emit(this.form.value);
-    this.form.setValue({
-      seat: {
-        sector: '',
-        row: '',
-        seat: ''
-      },
-      reservedUntil: this.date
-    });
+    this.form.get('seat').reset();
+    this.form.get('reservedUntil').setValue(this.date);
     Object.keys(this.form.controls).forEach(key => {
       this.form.get(key).setErrors(null);
     });

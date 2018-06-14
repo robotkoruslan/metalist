@@ -20,7 +20,8 @@ export class SeasonTicketComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<boolean> = new Subject();
 
-  constructor(private ticketsService: TicketService, private seasonTicketService: SeasonTicketService) {
+  constructor(private ticketsService: TicketService,
+              private seasonTicketService: SeasonTicketService) {
   }
 
   ngOnInit() {
@@ -87,5 +88,14 @@ export class SeasonTicketComponent implements OnInit, OnDestroy {
         () => this.loadBlockRowSeats(),
         () => this.errorMessageBlockRow = 'fail'
       );
+  }
+
+  public onExtendSeasonTicket(ticketId: string): void {
+    this.seasonTicketService.extendSeasonTicket(ticketId)
+      .subscribe((updatedTicket) => {
+        this.seasonTickets = this.seasonTickets.map((ticket) => {
+          return ticket._id === updatedTicket._id ? updatedTicket : ticket;
+        });
+      })
   }
 }

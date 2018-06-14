@@ -4,7 +4,7 @@ import {Seat} from '../../../model/seat.interface';
 @Component({
   selector: 'app-block-row-list',
   template: `
-    <block-row-seat-table [data]="blockRows" [isSeatExist]="false" (delete)="onDelete($event)">
+    <block-row-seat-table [data]="blockRows" [isSeatExist]="false" (delete)="onDelete($event)" type="row">
     </block-row-seat-table>
   `,
   styleUrls: ['./block-row-list.component.css']
