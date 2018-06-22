@@ -75,7 +75,7 @@ let generatePdfPage = (res, ticket, png) => {
 
   doc
     .fontSize(11)
-    .text('ЧЕМПИОНАТ УКРАИНЫ\n СРЕДИ КОМАНД\n ВТОРОЙ ЛИГИ', -350, -510 ,{align: 'center'});
+    .text('ЧЕМПИОНАТ УКРАИНЫ\n СРЕДИ КОМАНД\n ПЕРВОЙ ЛИГИ', -350, -510 ,{align: 'center'});
 
   doc.end();
 }

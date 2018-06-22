@@ -218,7 +218,7 @@ export class SectorComponent implements OnInit {
         resultArray.push(...Array(end - start + 1).fill(0).map((_, id) => +start + +id));
       });
     } else {
-      resultArray.push(...Array.from(Array(+seats + 1).keys()));
+      resultArray.push(...Array.from(Array(+seats).keys()).map(x => x + 1));
     }
     return resultArray;
   }

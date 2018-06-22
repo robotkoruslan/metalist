@@ -29,11 +29,11 @@ export function findSeatOrCreate(slug, matchId, data) {
       if (seat) {
         return seat;
       } else {
-        const { tribune, sector, row} = data;
-        if (!seatExists(tribune, sector, row, data.seat) ) {
+        const {tribune, sector, row} = data;
+        if (!seatExists(tribune, sector, row, data.seat)) {
           return null;
         }
-        return createSeat(tribune, sector, { name: row }, data.seat, { id: matchId })
+        return createSeat(tribune, sector, {name: row}, data.seat, {id: matchId})
           .then(() => findForMatchBySlug(slug, matchId)).then(seat => {
             return seat;
           });
@@ -180,9 +180,9 @@ function createStadiumSeatsForMatch(match) {
   //    }
   //  }
   //}
-  return Promise.map(parameters, function({tribune, sector, row, match}) {
+  return Promise.map(parameters, function ({tribune, sector, row, match}) {
     return createRowSeats(tribune, sector, row, match);
-  }, {concurrency: 1}).then(function() {
+  }, {concurrency: 1}).then(function () {
     console.log("-----------------------/// add seats for match have done: ", match.id);
     return "done";
   });
@@ -190,7 +190,7 @@ function createStadiumSeatsForMatch(match) {
 
 function getRowSeats(seats) {
   return new Promise((resolve) => {
-    const resultArray = [];
+    let resultArray = [];
     if (seats.includes(',') || seats.includes('-')) {
       seats.split(',').map((interval) => {
         const intervalBoundaries = interval.split('-');
@@ -199,7 +199,7 @@ function getRowSeats(seats) {
         resultArray.push(...Array(end - start + 1).fill(0).map((_, id) => parseInt(start) + parseInt(id)));
       });
     } else {
-      resultArray.push(...Array(parseInt(seats) + 1).keys());
+      resultArray = [...Array(parseInt(seats) + 1).keys()].filter(Boolean);
     }
     resolve(resultArray);
   });
@@ -212,9 +212,9 @@ function createRowSeats(tribuneName, sectorName, row, match) {
       seats.forEach(seat => {
         parameters.push({tribune: tribuneName, sector: sectorName, row: row, seat: seat, match: match})
       });
-      return Promise.map(parameters, function({tribune, sector, row, seat, match}) {
+      return Promise.map(parameters, function ({tribune, sector, row, seat, match}) {
         return createSeat(tribune, sector, row, seat, match);
-      }, {concurrency: 1}).then(function() {
+      }, {concurrency: 1}).then(function () {
         console.log("-----------------------/// add row seats have done: sector - " + sectorName + ' ,row - ' + row.name);
         return "done";
       });
