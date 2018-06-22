@@ -53,5 +53,7 @@ services:
             - VIRTUAL_PORT=80
             - LETSENCRYPT_HOST=metalist1925.club
             - LETSENCRYPT_EMAIL=metalist1925club@gmail.com
+            - PORT=80
     mongo:
-        image: mongo
+        image: mongo:3.6.4
+        restart: always
