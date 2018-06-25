@@ -18,7 +18,14 @@ export class PriceSchemaService {
     {color: '#90EE90', colorName: 'light-green'},
     {color: '#ffb6c1', colorName: 'light-pink'},
     {color: '#8b4513', colorName: 'brown'},
-
+    {color: '#003366', colorName: 'dark-blue-season'},
+    {color: '#3366cc', colorName: 'blue-season'},
+    {color: '#ffff33', colorName: 'yellow-season'},
+    {color: '#006633', colorName: 'green-season'},
+    {color: '#99CC33', colorName: 'light-green-season'},
+    {color: '#333333', colorName: 'dark-grey-season'},
+    {color: '#ffcc66', colorName: 'gold-season'},
+    {color: '#cccccc', colorName: 'gold-season'}
   ];
 
   constructor(private http: HttpClient) { }
