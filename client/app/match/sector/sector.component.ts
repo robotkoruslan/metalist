@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {uniqBy, remove} from 'lodash';
+import {uniq} from 'lodash';
 import {TranslateService} from '@ngx-translate/core';
 
 import {PriceSchemaService} from '../../services/price-schema.service';
@@ -15,6 +15,7 @@ import {Match} from '../../model/match.interface';
 import {AuthService} from '../../services/auth.service';
 import {PrintTicketService} from '../../services/print-ticket.service';
 import {fromEvent} from 'rxjs/observable/fromEvent';
+import {Subject} from 'rxjs/Subject';
 
 @Component({
   selector: 'app-sector',
@@ -22,7 +23,7 @@ import {fromEvent} from 'rxjs/observable/fromEvent';
   styleUrls: ['./sector.component.less']
 })
 
-export class SectorComponent implements OnInit {
+export class SectorComponent implements OnInit, OnDestroy {
 
   match: Match;
   sector: Sector;
@@ -50,6 +51,9 @@ export class SectorComponent implements OnInit {
     uk: {north: 'Північна', south: 'Південна', west: 'Західна', east: 'Східна'}
   };
   customPrice: number;
+  public blockedPrint: boolean = false;
+
+  private destroy$: Subject<boolean> = new Subject();
 
   constructor(private priceSchemaService: PriceSchemaService,
               private cartService: CartService,
@@ -59,9 +63,9 @@ export class SectorComponent implements OnInit {
               private authService: AuthService,
               private printTicketService: PrintTicketService,
               private translateService: TranslateService) {
-    this.route.params.subscribe((params: any) => this.matchId = params.matchId);
-    this.route.params.subscribe((params: any) => this.sectorId = params.sectorId);
-    this.route.params.subscribe((params: any) => this.tribuneName = params.tribuneId);
+    this.route.params.takeUntil(this.destroy$).subscribe((params: any) => this.matchId = params.matchId);
+    this.route.params.takeUntil(this.destroy$).subscribe((params: any) => this.sectorId = params.sectorId);
+    this.route.params.takeUntil(this.destroy$).subscribe((params: any) => this.tribuneName = params.tribuneId);
 
   }
 
@@ -73,11 +77,23 @@ export class SectorComponent implements OnInit {
     this.tribune = this.getTribune();
     fromEvent(window, 'resize').map((event: any) => {
       this.isMobile = event.target.innerWidth <= 1240;
-    }).subscribe();
+    }).takeUntil(this.destroy$).subscribe();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
+  private checkOptimisticSeats(): void {
+    uniq(this.optimisticSeats.map(({match}) => match.abonement)).length >= 2
+      ? this.blockedPrint = true
+      : this.blockedPrint = false;
   }
 
   getPrice() {
     this.matchService.fetchMatch(this.matchId)
+      .takeUntil(this.destroy$)
       .subscribe((res) => {
         this.match = res;
         this.priceSchema = this.match.priceSchema.priceSchema;
@@ -106,18 +122,24 @@ export class SectorComponent implements OnInit {
       sectorName = this.sectorId;
 
     return this.ticketsService.fetchReservedSeats(matchId, sectorName)
+      .takeUntil(this.destroy$)
       .subscribe(seats => {
         this.reservedSeats = seats;
         this.processedSeat = null;
       });
   }
 
-  getSelectedSeats = () =>
+  public getSelectedSeats(): void {
     this.cartService.getCart()
+      .takeUntil(this.destroy$)
       .subscribe(
-        cart => this.optimisticSeats = cart.seats,
+        (cart) => {
+          this.optimisticSeats = cart.seats;
+          this.checkOptimisticSeats();
+        },
         err => console.log(err)
       );
+  }
 
   isSeatOptimistic = (slug, matchId) => {
     // check if seat is optimistic by slug and match id
@@ -166,6 +188,7 @@ export class SectorComponent implements OnInit {
   removeSeat = (slug, seat, row, sector, matchId) => {
     this.toggleOptimisticSeats(slug, seat, row, sector, matchId, false);
     return this.cartService.removeSeatFromCart(slug, matchId)
+      .takeUntil(this.destroy$)
       .subscribe(
         () => this.getReservedSeats(),
         error => {
@@ -186,6 +209,7 @@ export class SectorComponent implements OnInit {
         sector,
         tribune: this.tribuneName
       })
+      .takeUntil(this.destroy$)
       .subscribe(
         () => this.getReservedSeats(),
         error => {
@@ -206,6 +230,7 @@ export class SectorComponent implements OnInit {
       this.optimisticSeats = this.optimisticSeats
         .filter(({slug: seatSlug, match: {_id: seatMatchId}}) => !(seatSlug === slug && seatMatchId === matchId));
     }
+    this.checkOptimisticSeats();
   }
 
   public makeArrayFromNumber(seats): any[] {
@@ -237,11 +262,17 @@ export class SectorComponent implements OnInit {
       return;
     }
     this.cartService.pay(this.currentPriceType.freeMessageStatus, this.customPrice)
+      .takeUntil(this.destroy$)
       .subscribe(
         order => {
-          const data = order.tickets.map(ticket => {
-            return ({...ticket, ...ticket.seat, customPrice: this.customPrice});
-          });
+          let data = [];
+          order.seasonTickets.length ?
+            data = order.seasonTickets.map(ticket => {
+              return ({...ticket});
+            }) :
+            data = order.tickets.map(ticket => {
+              return ({...ticket, ...ticket.seat, customPrice: this.customPrice});
+            });
           this.printTicketService.print(data, this.currentPriceType.freeMessageStatus);
           this.getReservedSeats();
           this.getSelectedSeats();

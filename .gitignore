@@ -11,7 +11,8 @@ server/config/environment/development.js
 images/teamLogos/
 !images/teamLogos/.gitkeep
 client/assets/images/teamLogo
-volumes/certs/
+volumes/proxy/certs/
+npm-debug.log
 
 # e2e
 /e2e/*.js
