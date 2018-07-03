@@ -28,17 +28,22 @@
     </div>
     <div>
       <div *ngIf="isCashier; else notCashierBlock">
-        <mat-form-field>
-          <mat-select [(value)]="currentPriceType">
-            <mat-option *ngFor="let type of priceTypes" [value]="type">{{type.label | translate}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <br>
-        <mat-form-field *ngIf="currentPriceType.value === 'custom'">
-          <input matInput type="number" [placeholder]="('match.enterCustomPrice' | translate)" name="customPrice"
-                 [(ngModel)]="customPrice">
-        </mat-form-field>
-        <button class="classic" (click)="pay()">{{'match.print' | translate}}</button>
+        <ng-container *ngIf="match && !match.abonement">
+          <mat-form-field>
+            <mat-select [(value)]="currentPriceType">
+              <mat-option *ngFor="let type of priceTypes" [value]="type">{{type.label | translate}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <mat-form-field *ngIf="currentPriceType.value === 'custom'">
+            <input matInput type="number" [placeholder]="('match.enterCustomPrice' | translate)" name="customPrice"
+                   [(ngModel)]="customPrice">
+          </mat-form-field>
+        </ng-container>
+        <button class="classic" [disabled]="blockedPrint" (click)="pay()">{{'match.print' | translate}}</button>
+        <div *ngIf="blockedPrint" class="alert alert-danger">
+          {{'message.printTickets.fail1' | translate}}
+        </div>
       </div>
 
       <ng-template #notCashierBlock>
