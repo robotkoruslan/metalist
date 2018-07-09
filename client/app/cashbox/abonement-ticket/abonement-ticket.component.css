@@ -1,7 +1,9 @@
 ::-ms-clear {
   display: none;
 }
-
+.form-group {
+  width: 100%;
+}
 .form-control-clear {
   z-index: 10;
   pointer-events: auto;

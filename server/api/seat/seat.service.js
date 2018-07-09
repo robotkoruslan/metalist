@@ -11,7 +11,12 @@ import * as priceSchemaService from '../priceSchema/priceSchema.service';
 import moment from 'moment';
 
 export function getReservedSeats(matchId, sector) {
-  return Seat.find({reservedUntil: {$gte: new Date()}, match: matchId, sector: sector});
+  return matchService.findById(matchId)
+    .then((match) => {
+      return match.abonement ?
+        Seat.find({reservedUntil: {$gte: new Date()}, sector: sector}) :
+        Seat.find({reservedUntil: {$gte: new Date()}, match: matchId, sector: sector});
+    });
 }
 
 export function getByMatchId(matchId) {
