@@ -1,6 +1,6 @@
 <div class="wrapper">
   <h1>{{'tickets.boughtTickets' | translate}}</h1>
-  <div *ngIf="tickets?.length; else elseBlock">
+  <div *ngIf="tickets?.length || seasonTickets?.length; else elseBlock">
     <ng-scrollbar thumbClass="thumb" viewClass="scroll" barClass="thumb">
       <ng-container *ngIf="seasonTickets?.length">
         <ticket-section [tickets]="seasonTickets"

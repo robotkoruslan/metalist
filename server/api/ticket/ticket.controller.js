@@ -28,8 +28,12 @@ export function getTicketPdfById(req, res) {
 }
 
 export function getTicketByAccessCode(req, res) {
-  return ticketService.getByAccessCode(req.params.accessCode)
+  return ticketService.getTicketWithSeasonTicketByAccessCode(req.params.accessCode)
     .then(handleEntityNotFound(res))
+    .then((ticket) => {
+      logger.info('ticket ' + ticket);
+      return ticket;
+    })
     .then(respondWithResult(res))
     .catch(handleError(res));
 }

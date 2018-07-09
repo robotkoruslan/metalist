@@ -25,6 +25,7 @@ const TicketSchema = new mongoose.Schema({
     id: {type: String, requried: true},
     headline: {type: String, requried: true},
     date: {type: Date, requried: true},
+    abonement: {type: Boolean, default: false }
   },
   userId: {
     type: String

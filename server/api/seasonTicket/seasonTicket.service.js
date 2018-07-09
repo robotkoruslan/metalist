@@ -8,7 +8,7 @@ import {randomNumericString} from "../ticket/ticket.service";
 import moment from "moment/moment";
 
 export function getActiveSeasonTickets() {
-  return SeasonTicket.find({reservedUntil: {$gte: new Date()}, reservationType: SEASON_TICKET});
+  return SeasonTicket.find({reservedUntil: {$gte: new Date()}, reservationType: SEASON_TICKET}).sort({reservedUntil: 'desc'});
 }
 
 export function getSeasonTicketsByIds(seasonTicketsIds) {
