@@ -24,8 +24,8 @@ export class SeasonTicketService {
     return this.http.post('/api/seasonTicket/' + slug, {ticket: seasonTicket}, this.options);
   }
 
-  registrationSeasonTicket(seasonTicket, slug) {
-    return this.http.post('/api/seasonTicket/registration/' + slug, {ticket: seasonTicket}, this.options);
+  registrationSeasonTicket(seasonTicket, slug): Observable<any> {
+    return this.http.post<any>('/api/seasonTicket/registration/' + slug, {ticket: seasonTicket}, this.options);
   }
 
   deleteSeasonTicket(slug) {

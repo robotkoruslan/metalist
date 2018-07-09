@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import {SeasonTicket} from '../model/season-ticket.interface';
 
 @Injectable()
 export class CashboxService {
 
   constructor(private http: HttpClient) { }
 
-  getTicketByAccessCode(accessCode) {
-    return this.http.get('api/tickets/abonticket/' + accessCode);
+  getTicketByAccessCode(accessCode): Observable<{seasonTicket: SeasonTicket, ticket: {}}> {
+    return this.http.get<{seasonTicket: SeasonTicket, ticket: {}}>('api/tickets/abonticket/' + accessCode);
   }
 
   setTicketUsed(ticketId) {

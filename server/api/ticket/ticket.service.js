@@ -5,6 +5,7 @@ import Match from '../match/match.model';
 import * as priceSchemaService from '../priceSchema/priceSchema.service';
 import * as matchService from '../match/match.service';
 import * as crypto from 'crypto';
+import * as seasonTicketService from "../seasonTicket/seasonTicket.service";
 
 export function createTicket(seat, freeMessageStatus = null, customPrice = null) {
   return Promise.all([
@@ -17,7 +18,8 @@ export function createTicket(seat, freeMessageStatus = null, customPrice = null)
         match: {
           id: match.id,
           headline: match.headline,
-          date: match.date
+          date: match.date,
+          abonement: match.abonement
         },
         seat: {
           id: seat.id,
@@ -45,9 +47,23 @@ export function getByTicketNumber(ticketNumber) {
   return Ticket.findOne({ticketNumber: ticketNumber});
 }
 
-export function getByAccessCode(accessCode) {
-  console.log('accessCode', accessCode);
-  return Ticket.findOne({accessCode: accessCode});
+export function getTicketWithSeasonTicketByAccessCode(accessCode) {
+  return new Promise((resolve, reject) => {
+    Ticket.findOne({accessCode: accessCode, 'match.abonement': true})
+      .then((ticket) => {
+        if (!ticket) {
+          return reject();
+        }
+        const seat = ticket.seat;
+        seasonTicketService.findBySlug(`s${seat.sector}r${seat.row}st${seat.seat}`)
+          .then((seasonTicket) => {
+            return resolve({
+              ticket,
+              seasonTicket
+            })
+          })
+      })
+  });
 }
 
 export function randomNumericString(length) {

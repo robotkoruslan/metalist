@@ -72,18 +72,18 @@ export class PrintTicketService {
                   }                  
                   .seat-position {
                     display: flex;
-                    margin-left: 20px;
+                    margin-left: 27px;
                     transform-origin: top left;
                     transform: rotate(90deg)
                   }
                   .sector{
-                    margin-left: 50px;
-                  }
-                  .row {
                     margin-left: 60px;
                   }
-                  .seat {
+                  .row {
                     margin-left: 70px;
+                  }
+                  .seat {
+                    margin-left: 65px;
                   }
                 }
                 @page {

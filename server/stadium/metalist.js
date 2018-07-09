@@ -1151,11 +1151,11 @@ export const StadiumMetalist =  {
       rows: [
         {
           name: '1',
-          seats: '10'
+          seats: '30'
         },
         {
           name: '2',
-          seats: '10'
+          seats: '30'
         }
       ]
     },
