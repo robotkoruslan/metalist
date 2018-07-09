@@ -118,10 +118,7 @@ export class SectorComponent implements OnInit, OnDestroy {
   }
 
   getReservedSeats() {
-    const matchId = this.matchId,
-      sectorName = this.sectorId;
-
-    return this.ticketsService.fetchReservedSeats(matchId, sectorName)
+    return this.ticketsService.fetchReservedSeats(this.matchId, this.sectorId)
       .takeUntil(this.destroy$)
       .subscribe(seats => {
         this.reservedSeats = seats;
