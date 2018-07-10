@@ -32,7 +32,8 @@
     "testserv": "NODE_ENV=test mocha dist/server/**/*.{spec,integration}.js --require mocha.conf.js",
     "docker:build:dev": "npm run clean && npm run build:dev && docker-compose -f docker-compose.yml -f docker-compose-dev.yml build",
     "docker:build:prod": "npm run clean && npm run build:prod && docker-compose build",
-    "docker:serve": "npm run docker:build:dev && docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d"
+    "docker:serve": "npm run docker:build:dev && docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d",
+    "migrate:checkStatistic": "node ./dist/server/migrations/checkStatistic.js"
   },
   "private": true,
   "dependencies": {

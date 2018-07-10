@@ -180,7 +180,7 @@ function handleSuccessPayment(order) {
     createTicketsByOrder(order),
     seatService.reserveSeatsAsPaid(order.seats, order.seats[0].reservedByCart)
   ])
-    .then(([user, [tickets, seasonTickets]]) => {
+    .then(([user, [tickets]]) => {
       user.tickets.push(...tickets);
       order.tickets = tickets;
       return Promise.all([
