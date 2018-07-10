@@ -180,7 +180,7 @@ function handleSuccessPayment(order) {
     createTicketsByOrder(order),
     seatService.reserveSeatsAsPaid(order.seats, order.seats[0].reservedByCart)
   ])
-    .then(([user, tickets]) => {
+    .then(([user, [tickets]]) => {
       user.tickets.push(...tickets);
       order.tickets = tickets;
       return Promise.all([
@@ -204,17 +204,19 @@ function createDescription(order) {
   return `${order.privateId} | ${matchesDescription}`;
 }
 
-export function createTicketsByOrder(order, freeMessageStatus = null, customPrice = null, isCashier = false) {
-  return Promise.all(order.seats.map(seat => {
-      if (seat.match.abonement) {
-        const seasonTicket = seasonTicketService.createSeasonTicket(seat);
-        if (isCashier) {
-          return seasonTicket;
-        }
-      }
-      return ticketService.createTicket(seat, freeMessageStatus, customPrice);
-    })
-  );
+export function createTicketsByOrder(order, freeMessageStatus = null, customPrice = null) {
+  let tickets = [];
+  let seasonTickets = [];
+  order.seats.forEach((seat) => {
+    tickets.push(ticketService.createTicket(seat, freeMessageStatus, customPrice));
+    if (seat.match.abonement) {
+      seasonTickets.push(seasonTicketService.createSeasonTicket(seat));
+    }
+  });
+  return Promise.all([
+    Promise.all(tickets),
+    Promise.all(seasonTickets),
+  ]);
 }
 
 function countPriceBySeats(seats) {

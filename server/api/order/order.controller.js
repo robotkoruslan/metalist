@@ -91,16 +91,13 @@ export function payCashier(req, res) {
     })
     .then(order => {
       return Promise.all([
-        orderService.createTicketsByOrder(order, freeMessageStatus, customPrice, true),
+        orderService.createTicketsByOrder(order, freeMessageStatus, customPrice),
         Promise.resolve(order)
       ]);
     })
-    .then(([tickets, order]) => {
-      tickets.map((ticket) => {
-        ticket.reservationType === SEASON_TICKET ?
-          order.seasonTickets.push(ticket) :
-          order.tickets.push(ticket);
-      });
+    .then(([[tickets, seasonTickets], order]) => {
+      order.tickets = tickets;
+      order.seasonTickets = seasonTickets;
       return order.save();
     })
     .then(respondWithResult(res))
