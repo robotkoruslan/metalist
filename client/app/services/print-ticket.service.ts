@@ -74,16 +74,19 @@ export class PrintTicketService {
                     display: flex;
                     margin-left: 27px;
                     transform-origin: top left;
-                    transform: rotate(90deg)
+                    transform: rotate(90deg);
+                    position: relative;
                   }
                   .sector{
                     margin-left: 60px;
                   }
                   .row {
-                    margin-left: 70px;
+                    left: 150px;
+                    position: absolute;
                   }
                   .seat {
-                    margin-left: 65px;
+                    left: 225px;
+                    position: absolute;
                   }
                 }
                 @page {
@@ -117,9 +120,9 @@ export class PrintTicketService {
       return `
           <div class="page-container season-ticket">
             <div class="seat-position">
-            <span class="sector">${ticket.sector}</span>
-            <span class="row">${ticket.row}</span>
-            <span class="seat">${ticket.seat}</span>
+              <span class="sector">${ticket.sector}</span>
+              <span class="row">${ticket.row}</span>
+              <span class="seat">${ticket.seat}</span>
             </div>
             
             <div class="code">              
