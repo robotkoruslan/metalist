@@ -51,7 +51,7 @@ export class PrintTicketService {
                   }
                   .rival .date-time {
                     position: absolute;
-                    bottom: 0;
+                    bottom: 5px;
                     right: 0;
                     left: 0;
                     font-size: 14px;
