@@ -49,7 +49,7 @@ export class SeasonTicketComponent implements OnInit, OnDestroy {
   }
 
   public addSeasonTicket(ticket): void {
-    const slug = 's' + ticket.seat.sector + 'r' + ticket.seat.row + 'st' + ticket.seat.seat;
+    const slug = 's' + ticket.sector + 'r' + ticket.row + 'st' + ticket.seat;
 
     this.seasonTicketService.createSeasonTicket(ticket, slug)
       .takeUntil(this.destroy$)

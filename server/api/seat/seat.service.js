@@ -70,7 +70,7 @@ export function reserveSeatsAsPaid(seats, reservedByCart) {
         if (seat.reservedByCart !== reservedByCart && seat.reservationType !== 'PAID') {
           throw new Error('notReservedSeat');
         }
-        seat.reservedUntil = moment(match.date).add(1, 'days');
+        seat.reservedUntil = moment(match.date).add(4, 'h');
         seat.reservationType = PAID;
         return seat.save();
       });
