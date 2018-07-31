@@ -12,7 +12,7 @@ export class BlockRowSeatFormComponent implements OnInit {
   @Input() isSeatExist: boolean;
   @Input() message: string;
   @Output() add = new EventEmitter();
-  date = moment(new Date(2018, 5, 30)).toISOString();
+  date = moment(new Date(2019, 5, 30)).toISOString();
   form: FormGroup;
 
   ngOnInit() {
