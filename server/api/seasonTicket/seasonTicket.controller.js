@@ -25,7 +25,12 @@ export function getBlocks(req, res) {
 
 export function createSeasonTicket(req, res) {
   const ticket = req.body.ticket;
-  ticket.seat.push(req.params.slug);
+  ticket.seat = {
+    row: ticket.row,
+    seat: ticket.seat,
+    sector: ticket.sector,
+    slug: req.params.slug
+  };
 
   return seasonTicketService.findBySlug(ticket.seat.slug)
     .then(seasonTicket => {

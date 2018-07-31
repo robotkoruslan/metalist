@@ -17,18 +17,16 @@ export class BlockRowSeatFormComponent implements OnInit {
 
   ngOnInit() {
     this.form = new FormGroup({
-      seat: new FormGroup({
-        sector: new FormControl('', [Validators.required]),
-        row: new FormControl('', [Validators.required]),
-        seat: new FormControl('', [Validators.required]),
-      }),
+      sector: new FormControl('', [Validators.required]),
+      row: new FormControl('', [Validators.required]),
+      seat: new FormControl('', [Validators.required]),
       reservedUntil: new FormControl(this.date, [Validators.required])
     });
   }
 
   public onAdd(): void {
     this.add.emit(this.form.value);
-    this.form.get('seat').reset();
+    this.form.reset();
     this.form.get('reservedUntil').setValue(this.date);
     Object.keys(this.form.controls).forEach(key => {
       this.form.get(key).setErrors(null);
