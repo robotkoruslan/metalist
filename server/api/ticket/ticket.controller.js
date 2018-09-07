@@ -8,10 +8,10 @@ import * as barcode from 'bwip-js';
 import * as ticketService from '../ticket/ticket.service';
 import * as orderService from '../order/order.service';
 import * as matchService from '../match/match.service';
-import * as pdfGenerator from '../../pdfGenerator';
 import * as log4js from 'log4js';
 import {clearReservation} from '../seat/seat.service';
 import * as seasonTicketService from '../seasonTicket/seasonTicket.service';
+import * as request from  'request';
 
 const logger = log4js.getLogger('Ticket');
 const sectorsInVip = ['VIP_B', 'VIP_BR', 'VIP_BL', 'VIP_AR', 'VIP_AL', 'SB_1', 'SB_7'];
@@ -21,7 +21,15 @@ export function getTicketPdfById(req, res) {
     .then(handleEntityNotFound(res))
     .then(ticket => {
       if (ticket) {
-        return generatePdfTicket(ticket, res);
+        request.post({
+          url: 'https://a43yea0iwg.execute-api.us-east-1.amazonaws.com/dev/ticket',
+          headers: {
+            'Accept': 'application/pdf',
+            'Content-Type': 'application/json',
+          },
+          json: true,
+          body: ticket
+        }).pipe(res);
       }
     })
     .catch(handleError(res));
@@ -288,17 +296,6 @@ function getNextMatchTickets() {
     .then(([match, tickets]) => {
       return tickets.filter(ticket => ticket.match.id === match.id);
     });
-}
-
-function generatePdfTicket(ticket, res) {
-  return new Promise((resolve, reject) => {
-    pdfGenerator.generateTicket(ticket, res, function (err, res) {
-      if (err) {
-        return reject(err);
-      }
-      return resolve(res);
-    });
-  });
 }
 
 function getFormattedTicket(ticket) {
