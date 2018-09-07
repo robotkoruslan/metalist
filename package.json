@@ -90,6 +90,7 @@
     "passport-google-oauth20": "^1.0.0",
     "passport-local": "^1.0.0",
     "pdfkit": "^0.8.3",
+    "request": "^2.88.0",
     "rimraf": "^2.6.2",
     "rxjs": "^5.5.2",
     "serve-favicon": "^2.4.5",
