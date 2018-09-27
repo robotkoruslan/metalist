@@ -66,18 +66,15 @@ export function use(req, res, next) {
   let code = req.params.code,
     tribune = req.params.tribune;
 
-  return Promise.all([
-    getTicketByCode(code),
-    getCountTicketsByTribune(tribune)
-  ])
-    .then(([ticket, count]) => {
-      console.log('ticket', ticket, count);
+  return getTicketByCode(code)
+    .then((ticket) => {
+      console.log('ticket', ticket);
       if (!ticket) {
-        return res.status(200).json({count: count, message: 'Билет не действительный.'});
+        return res.status(200).json({count: 0, message: 'Билет не действительный.'});
       }
       let result = {
         ticket: getFormattedTicket(ticket),
-        count: count
+        count: 0
       };
       if (tribune === 'vip') {
         if (!sectorsInVip.includes(ticket.seat.sector)) {
