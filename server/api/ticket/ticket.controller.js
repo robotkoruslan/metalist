@@ -138,13 +138,13 @@ export function getTicketsForCheckMobile(req, res) {
 }
 
 export function getCountValidTicketsByTribune(req, res, next) {
-  let tribune = req.params.tribune;
-
-  return getCountTicketsByTribune(tribune)
-    .then(count => {
-      return res.status(200).json(count);
-    })
-    .catch(handleError(res));
+  // let tribune = req.params.tribune;
+// commentin this out for optimisation purposes
+  // return getCountTicketsByTribune(tribune)
+  //   .then(count => {
+      return res.status(200).json(1);
+    // })
+    // .catch(handleError(res));
 }
 
 export function print(req, res, next) {
