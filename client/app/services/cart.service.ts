@@ -75,6 +75,9 @@ export class CartService {
   getOrderByPrivateId(privateId): Observable<Order> {
     return this.http.get<Order>('/api/orders/order/' + privateId);
   }
+  getTicketByaAcessCode(accessCode): Observable<Order> {
+    return this.http.get<Order>('/api/tickets/accessCode/' + accessCode);
+  }
 
   checkout(): Observable<any> {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});

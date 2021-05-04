@@ -18,6 +18,9 @@ export class AbonementTicketListComponent {
   get isCashier(): boolean {
     return this.authService.isCashier();
   }
+  get isApi(): boolean {
+    return this.authService.isApi();
+  }
 
   public handleDelete(ticket): void {
     this.deleteTicket.emit(ticket);

@@ -65,6 +65,10 @@ export class AuthService {
   isCashier() {
     return this.hasRole() === 'cashier';
   }
+  
+  isApi() {
+    return this.hasRole() === 'api';
+  }
 
   generateTemporaryPassword = (email): Observable<any> => {
     return this.http.put('/api/users/temporary-password', {email}, this.options);

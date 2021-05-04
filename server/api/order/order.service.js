@@ -35,7 +35,8 @@ export function getEventsStatistics() {
       return orders.map(order => {
         return order.tickets.map(ticket => {
           return filtredTickets.push({
-            cashier: !order.paymentDetails ? 'cashier' : 'user',
+            // cashier: !order.paymentDetails ? 'cashier' : 'user',
+            cashier: !order.paymentDetails ? order.user.name : 'user',
             headline: ticket.match.headline,
             sector: ticket.seat.sector,
             date: moment(ticket.match.date).tz('Europe/Kiev').format('YYYY-MM-DD HH:mm'),

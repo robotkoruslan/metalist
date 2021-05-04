@@ -91,6 +91,8 @@
     "seasonTickets": "Сезонные билеты",
     "priceSchema": "Ценовая схема",
     "orderDetails": "Детали ордера",
+    "ticketDetails": "Детали билета",
+    "sponsors": "Спонсоры",
     "delete": "Удалить",
     "matchList": "Список матчей",
     "addNewMatch": "Добавить новый матч",
@@ -106,9 +108,16 @@
     "day": "Дневная",
     "blockPlaces": "Блокировка мест",
     "blockRows": "Блокировка рядов",
+    "adminUsers": "Администраторы",
+    "stewardUsers": "Стюарды",
+    "userUsers": "Юзеры",
+    "casherUsers": "Касиры",
+    "apiUsers": "Апи юзеры",
+    "allUsers": "Все",
     "new": "Новая",
     "applyColor": "Cохранить цвет",
     "userType": "Тип пользователя",
+    "userName": "Имя пользователя",
     "sectorDetails": "Детали (по секторам)",
     "priceDetails": "Детали (по ценам)",
     "tribunePrice": "Цена на трибуну",
@@ -133,6 +142,7 @@
     "description": "Описание",
     "dateTime": "Дата и время",
     "orderCode": "Введите код ордера",
+    "ticketCode": "Введите код билета",
     "reservedUntil": "Зарезервировано до",
     "reserveUpTo": "Зарезервировать до",
     "stadium": "Cтадион",
@@ -206,6 +216,9 @@
     },
     "orderDetails": {
       "getOrderFail": "Что-то пошло не так, не удается найти ордер"
+    },
+    "ticketDetails": {
+      "getTicketFail": "Что-то пошло не так, не удается найти билет"
     },
     "priceSchemaEditor": {
       "deleteSuccess": "Прайс-схема была успешно удалена",

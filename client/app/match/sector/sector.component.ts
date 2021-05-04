@@ -253,6 +253,9 @@ export class SectorComponent implements OnInit, OnDestroy {
   get isCashier() {
     return this.authService.isCashier();
   }
+  get isApi() {
+    return this.authService.isApi();
+  }
 
   pay() {
     if (!this.optimisticSeats.length) {

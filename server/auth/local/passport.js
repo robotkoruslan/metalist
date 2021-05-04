@@ -21,7 +21,7 @@ function localAuthenticate(User, email, password, done) {
                     return done(authError);
                 }
                 if (!authenticated) {
-                    return done(null, false, {message: 'auth.wrongPassword'});
+                    return done(null, false, {message: 'Неверный пароль'});
                 } else {
                     return done(null, user);
                 }

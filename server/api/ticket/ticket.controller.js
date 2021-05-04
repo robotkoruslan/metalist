@@ -12,6 +12,7 @@ import * as log4js from 'log4js';
 import {clearReservation} from '../seat/seat.service';
 import * as seasonTicketService from '../seasonTicket/seasonTicket.service';
 import * as request from  'request';
+import { readFile } from 'fs';
 
 const logger = log4js.getLogger('Ticket');
 const sectorsInVip = ['VIP_B', 'VIP_BR', 'VIP_BL', 'VIP_AR', 'VIP_AL', 'SB_1', 'SB_7'];
@@ -46,6 +47,21 @@ export function getTicketByAccessCode(req, res) {
     .catch(handleError(res));
 }
 
+export function getOneTicketPdfByByAccessCode(req, res, next) {
+  let accessCode = req.params.accessCode;
+    
+
+  return getTicketByACode(accessCode)
+    .then((ticket) => {
+      console.log('ticket', ticket);
+      if (!ticket) {
+        return res.status(200).json({message: 'Билет не найден.'});
+      } else {
+        return  res.status(200).json(getFormattedFullInfoTicket(ticket));
+      }     
+    })
+    .catch(handleError(res));
+}
 export function getMyTickets(req, res) {
   return User.findById(req.user.id)
     .then(user => {
@@ -137,12 +153,22 @@ export function getTicketsForCheckMobile(req, res) {
     .catch(handleError(res));
 }
 
+export function getTicketsAmountSold(req, res) {
+  readFile('./tickets.json', 'utf8', (err, data) => {
+    if (!err) {
+      return res.status(200).json(JSON.parse(data));
+    } else {
+      return res.status(400).send('Some problem with report');
+    }
+  })
+}
+
 export function getCountValidTicketsByTribune(req, res, next) {
   // let tribune = req.params.tribune;
 // commentin this out for optimisation purposes
   // return getCountTicketsByTribune(tribune)
   //   .then(count => {
-      return res.status(200).json(1);
+      return res.status(200).json(12);
     // })
     // .catch(handleError(res));
 }
@@ -295,13 +321,39 @@ function getNextMatchTickets() {
     });
 }
 
+export function getAllNextMatchTickets() {
+  return Promise.all([
+    matchService.getNextMatch(),
+    Ticket.find()
+  ])
+    .then(([match, tickets]) => {
+      return  {
+        'reportCreated': Date.now(),
+        'match' : match,
+        'amountSoldTickets' : tickets.filter(ticket => ticket.match.id === match.id).length
+      }
+    });
+}
+
 function getFormattedTicket(ticket) {
   return {
     'tribune': ticket.seat.tribune,
     'sector': ticket.seat.sector,
     'row': ticket.seat.row,
     'seat': ticket.seat.seat,
-    'headLine': ticket.match.headline
+    'headLine': ticket.match.headline,
+  };
+}
+function getFormattedFullInfoTicket(ticket) {
+  return {
+    'tribune': ticket.seat.tribune,
+    'sector': ticket.seat.sector,
+    'row': ticket.seat.row,
+    'seat': ticket.seat.seat,
+    'headLine': ticket.match.headline,
+    'ticketNumber': ticket.accessCode,
+    'status': ticket.status,
+    'price': ticket.amount,
   };
 }
 
@@ -315,6 +367,9 @@ function getTicketByCode(code) {
   //     {'valid.to': {$gt: dateNow}}
   //   ]
   // });
+}
+function getTicketByACode(accessCode) {
+  return Ticket.findOne({accessCode: accessCode});
 }
 
 function getCountTicketsByTribune(tribune) {

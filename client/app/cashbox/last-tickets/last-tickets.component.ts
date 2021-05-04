@@ -42,7 +42,7 @@ export class LastTicketsComponent implements OnInit {
   }
 
   getStatistics(date) {
-    if (this.authenticationService.isCashier()) {
+    if (this.authenticationService.isCashier() || this.authenticationService.isApi()) {
       this.ticketsService.getStatistics(date)
         .subscribe(statistic => {
           this.statistics = statistic;

@@ -55,5 +55,5 @@ services:
             - LETSENCRYPT_EMAIL=metalist1925club@gmail.com
             - PORT=80
     mongo:
-        image: mongo:3.4.15
+        image: mongo:3.6.23
         restart: always

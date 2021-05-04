@@ -15,13 +15,13 @@
     </div>
     <div class="menu-header" [style.display]="isCollapsed ? 'flex' : 'none'">
       <ul *ngIf="isLoggedIn">
-        <li *ngIf="!isCashier()">
+        <li *ngIf="!isApi() && !isCashier()">
           <a routerLinkActive="active" routerLink="tickets">{{'navbar.myTickets' | translate | uppercase}}</a>
         </li>
         <li *ngIf="isAdmin()" >
           <a routerLinkActive="active" routerLink="admin">Admin</a>
         </li>
-        <li *ngIf="isAdmin() || isCashier()">
+        <li *ngIf="isAdmin() || isCashier() || isApi()">
           <a routerLinkActive="active" routerLink="cashbox">{{'navbar.cashBox' | translate | uppercase}}</a>
         </li>
       </ul>

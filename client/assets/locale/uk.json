@@ -42,7 +42,7 @@
     "entrance": "Вхід",
     "passwords": "Паролі",
     "forgotPassword": "Забули свій пароль",
-    "name": "Им'я",
+    "name": "Ім'я",
     "passwordConfirmation": "Підтвердження паролю",
     "notMatch": "не збігаються",
     "register": "Зареєструватися",
@@ -92,6 +92,8 @@
     "seasonTickets": "Сезонні квитки",
     "priceSchema": "Цінова схема",
     "orderDetails": "Деталі ордера",
+    "ticketDetails": "Деталі білету",
+    "sponsors": "Спонсори",
     "delete": "Видалити",
     "matchList": "Список матчів",
     "addNewMatch": "Додати новий матч",
@@ -107,9 +109,16 @@
     "day": "Денна",
     "blockPlaces": "Блокування місць",
     "blockRows": "Блокування рядів",
+    "adminUsers": "Адміністратори",
+    "stewardUsers": "Стюарди",
+    "userUsers": "Юзери",
+    "casherUsers": "Касіри",
+    "apiUsers": "Апи юзери",
+    "allUsers": "Всі",
     "new": "Нова",
     "applyColor": "Зберегти колір",
     "userType": "Тип користувача",
+    "userName": "Ім'я користувача",
     "sectorDetails": "Деталі (за секторами)",
     "priceDetails": "Деталі (за цінами)",
     "tribunePrice": "Ціна за трибуну",
@@ -134,6 +143,7 @@
     "description": "Опис",
     "dateTime": "Дата і час",
     "orderCode": "Введіть код ордеру",
+    "ticketCode": "Введіть код білету",
     "reservedUntil": "Зарезервовано до",
     "reserveUpTo": "Зарезервувати до",
     "stadium": "Cтадіон",
@@ -207,6 +217,9 @@
     },
     "orderDetails": {
       "getOrderFail": "Щось пішло не так, не вдається знайти ордер"
+    },
+    "ticketDetails": {
+      "getTicketFail": "Щось пішло не так, не вдається знайти білет"
     },
     "priceSchemaEditor": {
       "deleteSuccess": "Прайс-схема була успішно видалена",

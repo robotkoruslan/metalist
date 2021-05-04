@@ -49,7 +49,7 @@ export const ROUTES: Routes = [
       {path: 'priceSchema', component: PriceSchemaComponent, canActivate: [AuthGuard, RoleGuard], data: {expectedRole: 'admin'}},
       {path: 'orderDetails', component: OrderDetailsComponent, canActivate: [AuthGuard, RoleGuard], data: {expectedRole: 'admin'}}
     ]},
-  { path: 'cashbox',  component: CashboxComponent, canActivate: [AuthGuard, RoleGuard], data: {expectedRole: ['admin', 'cashier']},
+  { path: 'cashbox',  component: CashboxComponent, canActivate: [AuthGuard, RoleGuard], data: {expectedRole: ['admin', 'cashier', 'api']},
     children: [
     {path: '', redirectTo: 'daysStatistic', pathMatch: 'full'},
     {path: 'daysStatistic', component: DaysStatisticComponent, canActivate: [AuthGuard]},

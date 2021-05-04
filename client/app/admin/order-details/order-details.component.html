@@ -16,3 +16,22 @@
 <p [hidden]="!message">{{('message.orderDetails.' + message) | translate}}</p>
 <p>{{'admin.orderDetails' | translate}}:</p>
 <pre>{{order | json}}</pre>
+<hr>
+<div class="row">
+  <div class="col-md-12">
+    <!--<div>1 - {{ privateId }} - 1</div>-->
+    <form class="form-inline pull-right search">
+      <div class="input-group">
+        <input type="text" class="form-control"
+               [placeholder]="'placeholder.ticketCode' | translate" [(ngModel)]="accessCode" name="accessCode">
+        <div class="input-group-addon" (click)="getTicket()">
+          <i class="glyphicon glyphicon-search"></i>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<hr>
+<p [hidden]="!message">{{('messageTicket.ticketDetails.' + messageTicket) | translate}}</p>
+<p>{{'admin.ticketDetails' | translate}}:</p>
+<pre>{{ticket | json}}</pre>

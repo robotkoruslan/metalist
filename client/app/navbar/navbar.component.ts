@@ -45,8 +45,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
   isAdmin = () => this.authenticationService.isAdmin();
 
   isCashier = () => this.authenticationService.isCashier();
+  
+  isApi = () => this.authenticationService.isApi();
+
   get loggedInWithOauth () {
     return this.currentUser && this.currentUser.provider !== 'local';
   }
+  
+  
 
 }

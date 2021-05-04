@@ -9,6 +9,7 @@ import mongoose from 'mongoose';
 mongoose.Promise = require('bluebird');
 import config from './config/environment';
 import http from 'http';
+import { runCron } from './api/ticket/ticket.cron';
 
 // Connect to MongoDB
 mongoose.connect(config.mongo.uri, config.mongo.options);
@@ -37,5 +38,8 @@ function startServer() {
 
 setImmediate(startServer);
 
+runCron();
+
 // Expose app
 exports = module.exports = app;
+

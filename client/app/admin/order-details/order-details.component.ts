@@ -10,18 +10,30 @@ import {Order} from '../../model/order.interface';
 export class OrderDetailsComponent {
 
   order: Order;
+  ticket: Order;
   privateId: string;
-  message: string;
+  accessCode: string;
+  messageOrder: string;
+  messageTicket: string;
 
   constructor(private cartService: CartService) { }
 
   getOrder() {
     this.order = null;
-    this.message = '';
+    this.messageOrder = '';
     this.cartService.getOrderByPrivateId(this.privateId)
       .subscribe(
         response => this.order = response,
-        err => this.message = 'getOrderFail',
+        err => this.messageOrder = 'getOrderFail',
+      )
+  }
+  getTicket() {
+    this.ticket = null;
+    this.messageTicket = '';
+    this.cartService.getTicketByaAcessCode(this.accessCode)
+      .subscribe(
+        response => this.ticket = response,
+        err => this.messageTicket = 'getTicketFail',
       )
   }
 
