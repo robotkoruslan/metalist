@@ -63,9 +63,11 @@ import {BlockRowSeatTableComponent} from './season-ticket/block-row-seat-table/b
 import {BlockRowSeatFormComponent} from './season-ticket/block-row-seat-form/block-row-seat-form';
 import { ListItemComponent } from './list-item/list-item.component';
 import {TranslateModule} from '@ngx-translate/core';
-
+import { NgxPaginationModule } from 'ngx-pagination';
+import { MyFilterPipe } from './admin-users/admin-users.component';
 @NgModule({
   imports: [
+    NgxPaginationModule,
     BrowserAnimationsModule,
     CdkTableModule,
     ReactiveFormsModule,
@@ -110,7 +112,7 @@ import {TranslateModule} from '@ngx-translate/core';
     PriceSchemaComponent, OrderDetailsComponent, EditMatchComponent, SeasonTicketListComponent, BlockRowListComponent,
     EventsSummaryComponent, DaysSummaryComponent, ColorSchemaEditorComponent, PriceSchemaMenuComponent,
     StadiumWithTribunesComponent, PriceEditorComponent, MatchListComponent, DeleteItemComponent,
-    EditPriceSchemaComponent, BlockRowSeatTableComponent, BlockRowSeatFormComponent, ListItemComponent],
+    EditPriceSchemaComponent, BlockRowSeatTableComponent, BlockRowSeatFormComponent, ListItemComponent, MyFilterPipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AdminModule {

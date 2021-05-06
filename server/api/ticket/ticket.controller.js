@@ -3,6 +3,7 @@
 import Ticket from './ticket.model';
 import Seat from '../seat/seat.model';
 import User from '../user/user.model';
+import TicketReport from './ticket.report.model';
 import moment from 'moment-timezone';
 import * as barcode from 'bwip-js';
 import * as ticketService from '../ticket/ticket.service';
@@ -36,7 +37,7 @@ export function getTicketPdfById(req, res) {
     .catch(handleError(res));
 }
 
-export function getTicketByAccessCode(req, res) {
+export function getAbonticketTicketByAccessCode(req, res) {
   return ticketService.getTicketWithSeasonTicketByAccessCode(req.params.accessCode)
     .then(handleEntityNotFound(res))
     .then((ticket) => {
@@ -47,11 +48,8 @@ export function getTicketByAccessCode(req, res) {
     .catch(handleError(res));
 }
 
-export function getOneTicketPdfByByAccessCode(req, res, next) {
-  let accessCode = req.params.accessCode;
-    
-
-  return getTicketByACode(accessCode)
+export function getTicketByAccessCode(req, res, next) {
+  return Ticket.findOne({accessCode: req.params.accessCode})
     .then((ticket) => {
       console.log('ticket', ticket);
       if (!ticket) {
@@ -62,6 +60,7 @@ export function getOneTicketPdfByByAccessCode(req, res, next) {
     })
     .catch(handleError(res));
 }
+
 export function getMyTickets(req, res) {
   return User.findById(req.user.id)
     .then(user => {
@@ -153,14 +152,20 @@ export function getTicketsForCheckMobile(req, res) {
     .catch(handleError(res));
 }
 
+// export function getTicketsAmountSold(req, res) {
+//   return TicketReport.find()
+// }
 export function getTicketsAmountSold(req, res) {
-  readFile('./tickets.json', 'utf8', (err, data) => {
-    if (!err) {
-      return res.status(200).json(JSON.parse(data));
-    } else {
-      return res.status(400).send('Some problem with report');
-    }
-  })
+  return TicketReport.find()
+    .then((result) => {
+      console.log('result', result);
+      if (!result) {
+        return res.status(200).json({message: "We can't find report"});
+      } else {
+        return  res.status(200).json(result);
+      }     
+    })
+    .catch(handleError(res));
 }
 
 export function getCountValidTicketsByTribune(req, res, next) {
@@ -329,7 +334,7 @@ export function getAllNextMatchTickets() {
     .then(([match, tickets]) => {
       return  {
         'reportCreated': Date.now(),
-        'match' : match,
+        'headline' : match.headline,
         'amountSoldTickets' : tickets.filter(ticket => ticket.match.id === match.id).length
       }
     });
@@ -367,9 +372,6 @@ function getTicketByCode(code) {
   //     {'valid.to': {$gt: dateNow}}
   //   ]
   // });
-}
-function getTicketByACode(accessCode) {
-  return Ticket.findOne({accessCode: accessCode});
 }
 
 function getCountTicketsByTribune(tribune) {

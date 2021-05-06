@@ -9,7 +9,7 @@ export class CashboxService {
 
   constructor(private http: HttpClient) { }
 
-  getTicketByAccessCode(accessCode): Observable<{seasonTicket: SeasonTicket, ticket: {}}> {
+  getAbonticketTicketByAccessCode(accessCode): Observable<{seasonTicket: SeasonTicket, ticket: {}}> {
     return this.http.get<{seasonTicket: SeasonTicket, ticket: {}}>('api/tickets/abonticket/' + accessCode);
   }
 

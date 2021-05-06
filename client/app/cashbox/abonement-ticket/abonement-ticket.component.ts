@@ -61,7 +61,7 @@ export class AbonementTicketComponent implements OnInit, OnDestroy {
 
   regTicket(accessCode) {
     this.seatMessage = '';
-    this.cashboxService.getTicketByAccessCode(accessCode)
+    this.cashboxService.getAbonticketTicketByAccessCode(accessCode)
       .takeUntil(this.destroy$)
       .subscribe(
         ({seasonTicket, ticket}) => {

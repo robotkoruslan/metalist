@@ -117,7 +117,7 @@ import { ScrollbarModule } from 'ngx-scrollbar';
     MatCheckboxModule,
     MatIconModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule, 
     // FormGroupDirective,
     // ErrorStateMatcher,
     // NgForm,
@@ -140,7 +140,8 @@ import { ScrollbarModule } from 'ngx-scrollbar';
     SwiperModule,
     ScrollbarModule
   ],
-  providers: [AuthGuard,
+  providers: [
+    AuthGuard,
     CookieService,
     AuthService,
     UserService,

@@ -46,9 +46,6 @@ export function getUserTickets(tickets) {
 export function getByTicketNumber(ticketNumber) {
   return Ticket.findOne({ticketNumber: ticketNumber});
 }
-export function getOneTicketPdfByByAccessCode(accessCode) {
-  return Ticket.findOne({ticketNumber: accessCode});
-}
 
 export function getTicketWithSeasonTicketByAccessCode(accessCode) {
   return new Promise((resolve, reject) => {
