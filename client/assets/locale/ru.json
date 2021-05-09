@@ -151,7 +151,9 @@
     "confirmPassword": "Подтверждение пароля",
     "subscribeNews": "Я согласен получать информацию об акциях и скидках",
     "currentPassword": "Текущий пароль",
-    "newPassword": "Новый пароль"
+    "newPassword": "Новый пароль",
+    "searchUsername": "Поиск по имени пользователя",
+    "searchEmail": "Поиск по email"
   },
   "common": {
     "is": "является",

@@ -1,7 +1,8 @@
 <div class="columns">
 <ul class="list-group">
-          <input class="form-control" type="text" [value]="filterText" [placeholder]="filterPlaceholder" [formControl]="filterInput" />
-  <li *ngFor="let user of users | filter:{name: filterText} | paginate: { itemsPerPage: 20, currentPage: p }" class="list-group-item">
+          <input class="form-control" type="text" [value]="filterText" [placeholder]="'placeholder.searchUsername' | translate" [formControl]="filterInput" />
+          <input class="form-control" type="text" [value]="filterTextEmail" [placeholder]="'placeholder.searchEmail' | translate" [formControl]="filterInputEmail" />
+  <li *ngFor="let user of users | filter:{name: filterText} | filter:{email: filterTextEmail} | paginate: { itemsPerPage: 20, currentPage: p }" class="list-group-item">
     <strong>{{user.name}}</strong>  {{user.role}}<br/>
     <span class="text-muted">{{user.email}}</span>
     <span class="btn-group-sm pull-right" *ngIf="user.role!=='admin'">

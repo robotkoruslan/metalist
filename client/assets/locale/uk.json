@@ -152,7 +152,9 @@
     "confirmPassword": "Підтвердження паролю",
     "subscribeNews": "Я згоден отримувати інформацію про акції та знижки",
     "currentPassword": "Поточний пароль",
-    "newPassword": "Новий пароль"
+    "newPassword": "Новий пароль",
+    "searchUsername": "Пошук по імені користувача",
+    "searchEmail": "Пошук по email"
   },
   "common": {
     "is": "є",

@@ -28,7 +28,9 @@ export class AdminUsersComponent implements OnInit {
 
   users: User[];
   public filterText: string;
+  public filterTextEmail: string;
   public filterInput = new FormControl();
+  public filterInputEmail = new FormControl();
   public enableFilter: boolean;
   public filterPlaceholder: string;
   constructor( private userService: UserService) { }
@@ -36,14 +38,19 @@ export class AdminUsersComponent implements OnInit {
   ngOnInit() {
     this.getUsers();
     this.filterText = "";
+    this.filterTextEmail = "";
     this.enableFilter = true;
-    this.filterPlaceholder = "Поиск пользователей";
     this.filterInput
     .valueChanges
     .debounceTime(200)
     .subscribe(users => {
       this.filterText = users;
-      console.log(users);
+    });
+    this.filterInputEmail
+    .valueChanges
+    .debounceTime(200)
+    .subscribe(users => {
+      this.filterTextEmail = users;
     });
   }
 
