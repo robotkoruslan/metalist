@@ -27,7 +27,7 @@
       </div>
     </div>
     <div>
-      <div *ngIf="isCashier; else notCashierBlock">
+      <div *ngIf="isCashier || isApi; else notCashierBlock">
         <ng-container *ngIf="match && !match.abonement">
           <mat-form-field>
             <mat-select [(value)]="currentPriceType">
