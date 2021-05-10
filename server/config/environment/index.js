@@ -34,15 +34,6 @@ let all = {
         session: 'metalist-tickets-secret'
     },
 
-    // MongoDB connection options
-    mongo: {
-        options: {
-            db: {
-                safe: true
-            },
-            useMongoClient: true,
-        }
-    },
 
     facebook: {
         clientID: process.env.FACEBOOK_ID || 'id',

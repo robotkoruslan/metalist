@@ -6,11 +6,33 @@ mongoose.Promise = require('bluebird');
 import {Schema} from 'mongoose';
 
 const authTypes = ['github', 'twitter', 'facebook', 'google'];
+mongoose.Schema.Types.Boolean.convertToFalse.add('');
 
 let UserSchema = new Schema({
   name: String,
   email: {
     type: String,
+    validate: {
+      validator: function (value) {
+        const self = this;
+        if (authTypes.indexOf(this.provider) !== -1) {
+          return true;
+        }
+        return this.constructor.findOne({email: value}).exec()
+          .then(function (user) {
+            if (user) {
+              if (self.id === user.id) {
+                return true;
+              }
+              return false;
+            }
+            return true;
+          })
+          .catch(function (err) {
+            throw err;
+          });
+      }, message: props => `${props.value} is already in use!`
+    },
     lowercase: true,
     required: function () {
       return authTypes.indexOf(this.provider) === -1;
@@ -91,28 +113,6 @@ UserSchema
     return password.length;
   }, 'Password cannot be blank');
 
-// Validate email is not taken
-UserSchema
-  .path('email')
-  .validate(function (value, respond) {
-    const self = this;
-    if (authTypes.indexOf(this.provider) !== -1) {
-      return respond(true);
-    }
-    return this.constructor.findOne({email: value}).exec()
-      .then(function (user) {
-        if (user) {
-          if (self.id === user.id) {
-            return respond(true);
-          }
-          return respond(false);
-        }
-        return respond(true);
-      })
-      .catch(function (err) {
-        throw err;
-      });
-  }, 'The specified email address is already in use.');
 
 const validatePresenceOf = function (value) {
   return value && value.length;

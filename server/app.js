@@ -12,7 +12,7 @@ import http from 'http';
 import { runCron } from './api/ticket/ticket.cron';
 
 // Connect to MongoDB
-mongoose.connect(config.mongo.uri, config.mongo.options);
+mongoose.connect(config.mongo.uri, {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.connection.on('error', function (err) {
     console.error('MongoDB connection error: ' + err);
     process.exit(-1);

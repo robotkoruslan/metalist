@@ -40,7 +40,7 @@ export function index(req, res) {
 /**
  * Creates a new user
  */
-export function create(req, res, next) {
+ export function create(req, res, next) {
   let newUser = new User(req.body);
   newUser.provider = 'local';
   newUser.role = 'user';
