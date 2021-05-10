@@ -12,7 +12,7 @@ router.get('/', auth.isAuthenticated(), controller.getMyTickets);
 
 router.get('/abonticket/print/:accessCode', controller.print);
 router.get('/abonticket/:accessCode', auth.hasRole('cashier' || 'api'), controller.getAbonticketTicketByAccessCode);
-router.get('/useabonticket/:ticketId', auth.hasRole('cashier' || 'api'), controller.useAbonementTicket);
+router.get('/useabonticket/:ticketId', auth.hasRole('cashier'), controller.useAbonementTicket);
 router.get('/statistics', auth.hasRole('cashier' || 'api'), controller.getStatistics);
 
 router.get('/tribune/:tribune/code/:code', auth.hasRole('steward'), controller.use);
