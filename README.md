@@ -38,3 +38,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Testing
 
 Running `npm test` will run the unit tests with mocha.
+
+## API documentation
+- [API documentation](./docs/api.md)
