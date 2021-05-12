@@ -31,7 +31,7 @@ let UserSchema = new Schema({
           .catch(function (err) {
             throw err;
           });
-      }, 
+      }, message: props => `${props.value} is already in use!`
     },
     lowercase: true,
     required: function () {
