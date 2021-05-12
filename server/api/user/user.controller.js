@@ -40,23 +40,17 @@ export function index(req, res) {
 /**
  * Creates a new user
  */
-export function create(req, res, next) {
+ export function create(req, res, next) {
   let newUser = new User(req.body);
   newUser.provider = 'local';
   newUser.role = 'user';
-  return User.findOne({email: newUser.email}).exec()
-  .then(user => {
-    if (user) {
-      return res.status(404).json({message: 'Пользователь с таким же Email уже зарегистрирован'});
-    }
-          newUser.save()
-      .then(function (user) {
-        console.log('===create', user);
-        let token = jwt.sign({_id: user._id}, config.secrets.session, {
-          expiresIn: 60 * 60 * 5
-        });
-        res.json({token});
-      })
+  newUser.save()
+    .then(function (user) {
+      console.log('===create', user);
+      let token = jwt.sign({_id: user._id}, config.secrets.session, {
+        expiresIn: 60 * 60 * 5
+      });
+      res.json({token});
     })
     .catch(validationError(res));
 }

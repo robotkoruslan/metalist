@@ -12,6 +12,27 @@ let UserSchema = new Schema({
   name: String,
   email: {
     type: String,
+    validate: {
+      validator: function (value) {
+        const self = this;
+        if (authTypes.indexOf(this.provider) !== -1) {
+          return true;
+        }
+        return this.constructor.findOne({email: value}).exec()
+          .then(function (user) {
+            if (user) {
+              if (self.id === user.id) {
+                return true;
+              }
+              return false;
+            }
+            return true;
+          })
+          .catch(function (err) {
+            throw err;
+          });
+      }, 
+    },
     lowercase: true,
     required: function () {
       return authTypes.indexOf(this.provider) === -1;
