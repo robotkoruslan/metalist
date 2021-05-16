@@ -61,6 +61,37 @@ export function getTicketByAccessCode(req, res, next) {
     .catch(handleError(res));
 }
 
+export function checkTicketsBySteward(req, res, next) {
+  let tribune = req.params.tribune;
+  return Ticket.findOne({accessCode: req.params.accessCode})
+    .then((ticket) => {
+      console.log('ticket', ticket);
+      if (!ticket) {
+        return res.status(200).json({message: 'Билет не найден.'});
+      } 
+      let result = getFormattedFullInfoTicket(ticket);
+      if (tribune === 'vip') {
+        if (!sectorsInVip.includes(ticket.seat.sector)) {
+          result.message = "Другая трибуна";
+          return res.status(200).json(result);
+        }
+        ticket.status = 'used';
+        return ticket.save()
+          .then(() => res.status(200).json(result));
+      } else {
+        if (ticket.seat.tribune !== tribune || (ticket.seat.tribune === tribune && sectorsInVip.includes(ticket.seat.sector))) {
+          result.message = "Другая трибуна";
+          return res.status(200).json(result);
+        }
+        ticket.status = 'used';
+        return ticket.save()
+          .then(() => res.status(200).json(result));
+      }
+    })
+    .catch(handleError(res));
+
+}
+
 export function getMyTickets(req, res) {
   return User.findById(req.user.id)
     .then(user => {
@@ -173,7 +204,7 @@ export function getCountValidTicketsByTribune(req, res, next) {
 // commentin this out for optimisation purposes
   // return getCountTicketsByTribune(tribune)
   //   .then(count => {
-      return res.status(200).json(12);
+      return res.status(200).json(1);
     // })
     // .catch(handleError(res));
 }

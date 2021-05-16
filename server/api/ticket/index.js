@@ -15,7 +15,8 @@ router.get('/abonticket/:accessCode', auth.hasRole('cashier' || 'api'), controll
 router.get('/useabonticket/:ticketId', auth.hasRole('cashier'), controller.useAbonementTicket);
 router.get('/statistics', auth.hasRole('cashier' || 'api'), controller.getStatistics);
 
-router.get('/tribune/:tribune/code/:code', auth.hasRole('steward'), controller.use);
+router.get('/tribune/:tribune/code/:code', auth.hasRole('steward'), controller.use); 
+router.get('/tribune/:tribune/accessCode/:accessCode', auth.hasRole('steward'), controller.checkTicketsBySteward); 
 router.get('/sold-tickets', auth.hasRole('steward'), controller.getTicketsForCheckMobile);
 router.get('/amount-sold-tickets', auth.hasRole('admin'), controller.getTicketsAmountSold);
 router.get('/count/:tribune', auth.hasRole('steward'), controller.getCountValidTicketsByTribune);
