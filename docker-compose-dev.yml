@@ -9,7 +9,7 @@ services:
         volumes:
             - ./dist/client:/app/client
             - ./dist/server:/app/server
-        command: bash -c "npm run nodemon"
+        command: bash -c "npm run start"
         environment:
             - PORT=9000
     mongo:

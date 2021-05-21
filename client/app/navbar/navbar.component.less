@@ -29,8 +29,11 @@
     overflow: auto;
     color: #ffffff;
     text-decoration: none;
-    flex-direction: row;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: stretch;
     align-items: center;
+    justify-content: center;
 
     .logo-header {
       //height: 100%;
@@ -85,11 +88,11 @@
 
             }
             @media (max-width: 1540px) {
-              padding: 0 20px;
+              padding: 0 15px;
 
             }
             @media (max-width: 1060px) {
-              padding: 0 10px;
+              padding: 0 3px;
             }
 
           }

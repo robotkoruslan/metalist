@@ -70,7 +70,7 @@ a, p {
 }
 
 .inner-wrapper {
-  max-width: 1520px;
+  /* max-width: 1520px; */
   margin: 0 auto;
 }
 
