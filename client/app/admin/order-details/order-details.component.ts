@@ -15,7 +15,7 @@ export class OrderDetailsComponent {
   accessCode: string;
   messageOrder: string;
   messageTicket: string;
-  message: string;
+  responseMessage: string;
 
   constructor(private cartService: CartService) { }
 

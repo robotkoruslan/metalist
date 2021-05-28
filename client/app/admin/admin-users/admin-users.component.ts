@@ -27,7 +27,7 @@ export class MyFilterPipe implements PipeTransform {
 export class AdminUsersComponent implements OnInit {
 
   users: User[];
-  p: string;
+  page: number;
   public filterText: string;
   public filterTextEmail: string;
   public filterInput = new FormControl();

@@ -13,7 +13,7 @@
   </div>
 </div>
 <hr>
-<p [hidden]="!message">{{('message.orderDetails.' + message) | translate}}</p>
+<p [hidden]="!responseMessage">{{('message.orderDetails.' + messageOrder) | translate}}</p>
 <p>{{'admin.orderDetails' | translate}}:</p>
 <pre>{{order | json}}</pre>
 <hr>
@@ -32,6 +32,6 @@
   </div>
 </div>
 <hr>
-<p [hidden]="!message">{{('messageTicket.ticketDetails.' + messageTicket) | translate}}</p>
+<p [hidden]="!responseMessage">{{('messageTicket.ticketDetails.' + messageTicket) | translate}}</p>
 <p>{{'admin.ticketDetails' | translate}}:</p>
 <pre>{{ticket | json}}</pre>
